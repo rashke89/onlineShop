@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dbConfig = require('./config/dbConfig');
 const mongoose = require('mongoose');
+const dbConfig = require('./config/dbConfig');
 const Users = require('./models/userModel');
+const serverConfig = require('./config/serverConfig');
 
 const app = express();
 mongoose.connect(dbConfig.MONGODB_URL)
@@ -14,26 +15,66 @@ app.use(bodyParser.json());
 
 app.post('/api/login', (req, res) => {
     const reqBody = req.body;
-    console.log(reqBody);
 
     const foundUser = Users.findOne(reqBody, (err, data) => {
-        // console.log(data);
+        console.log(data);
         if (err) {
             const errorMsg = `Error on getting user from DB: ${err}`;
             console.log(errorMsg);
             res.send(errorMsg);
+            return;
         }
-        else {
-            res.send(data);
-        }
+
+        // way 1
+        // if (data)
+        //     res.send(data);
+        // else
+        //     res.send('User not found.');
+
+        // way 2
+        // res.send(data ? data : 'User not found.');
+
+        // way 3
+        res.send(data || 'User not found.');
+
     });
 });
 
-app.listen(4000, err => {
+app.post('/api/register', async (req, res) => {
+    const reqBody = req.body;
+    // console.log('reg user data:', reqBody);
+
+    Users.findOne(reqBody,  async (err, data) => {
+        console.log(data);
+        if (err) {
+            const errorMsg = `Error on register user: ${err}`;
+            console.log(errorMsg);
+            res.send(errorMsg);
+            return;
+        }
+
+        if (data)
+            res.send(`user already exist: ${data.username}`);
+        else {
+            const newUser = new Users(reqBody);
+            const saveNewUser = await newUser.save();
+            console.log(saveNewUser);
+
+            res.send(saveNewUser || 'User not registered.');
+        }
+    });
+
+});
+
+// get one user: GET method, URL: 'api/user/:username', {username} is URL param
+// get all users: GET method, URL: 'api/users',
+// edit user: PUT method, URL: 'api/user/:username',
+
+app.listen(serverConfig.port, err => {
     if (err) {
         console.log(err);
     }
     else {
-        console.log(`Server is running on port: 4000`);
+        console.log(serverConfig.serverRunningMsg);
     }
 });
