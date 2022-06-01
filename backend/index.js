@@ -66,6 +66,7 @@ app.post('/api/register', async (req, res) => {
 
 });
 
+
 // get one user: GET method, URL: 'api/user/:username', {username} is URL param
 // get all users: GET method, URL: 'api/users',
 // edit user: PUT method, URL: 'api/user/:username',
