@@ -76,5 +76,6 @@ app.listen(serverConfig.port, err => {
     }
     else {
         console.log(serverConfig.serverRunningMsg);
+        console.log(serverConfig.link);
     }
 });
