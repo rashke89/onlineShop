@@ -66,6 +66,49 @@ app.post('/api/register', async (req, res) => {
 
 });
 
+app.get("/",(req, res)=>{
+    res.send("Welcome to server");
+})
+
+
+//delete user by email
+app.delete("/api/user/:email",(req, res)=>{
+    const params = req.params.email
+    Users.deleteOne({email:params},null,(error)=>{
+        if (error) throw error
+        res.send("User deleted")
+    })
+})
+
+//get all users
+app.get("/api/users",(req, res)=>{
+    Users.find((error, result)=>{
+        if(error) throw error;
+        res.send(result)
+    })
+})
+
+//get one user by username
+app.get("/api/user/:username",(req, res)=>{
+    const param = req.params.username
+    Users.find({"username":param},(error, result)=>{
+        if(error) throw error;
+        res.send(result)
+    })
+})
+
+//update user email by username
+app.put("/api/user/:username",(req, res)=>{
+    const param = req.params.username
+    const query = req.query
+
+    Users.updateOne({"username":param},{email:query.email,isAdmin:query.admin},null,(error, result)=>{
+        if(error) throw error
+        res.send(result)
+    })
+})
+
+
 // get one user: GET method, URL: 'api/user/:username', {username} is URL param
 // get all users: GET method, URL: 'api/users',
 // edit user: PUT method, URL: 'api/user/:username',
@@ -76,5 +119,6 @@ app.listen(serverConfig.port, err => {
     }
     else {
         console.log(serverConfig.serverRunningMsg);
+        console.log(serverConfig.serverLink);
     }
 });
