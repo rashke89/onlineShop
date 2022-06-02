@@ -13,6 +13,7 @@ mongoose.connect(dbConfig.MONGODB_URL)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Login
 app.post('/api/login', (req, res) => {
     const reqBody = req.body;
 
@@ -40,6 +41,7 @@ app.post('/api/login', (req, res) => {
     });
 });
 
+// Register
 app.post('/api/register', async (req, res) => {
     const reqBody = req.body;
     // console.log('reg user data:', reqBody);
