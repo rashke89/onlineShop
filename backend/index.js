@@ -13,8 +13,10 @@ mongoose.connect(dbConfig.MONGODB_URL)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Login
+// Login commint
 app.post('/api/login', (req, res) => {
+    console.log(req.body, 'REG BODY');
+    console.log('TU SAM');
     const reqBody = req.body;
 
     const foundUser = Users.findOne(reqBody, (err, data) => {
@@ -46,7 +48,7 @@ app.post('/api/register', async (req, res) => {
     const reqBody = req.body;
     // console.log('reg user data:', reqBody);
 
-    Users.findOne(reqBody,  async (err, data) => {
+    Users.findOne(reqBody, async (err, data) => {
         console.log(data);
         if (err) {
             const errorMsg = `Error on register user: ${err}`;
