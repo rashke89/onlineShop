@@ -14,17 +14,9 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-<<<<<<< HEAD
-// Login commint
-app.post('/api/login', (req, res) => {
-    console.log(req.body, 'REG BODY');
-    console.log('TU SAM');
-    const reqBody = req.body;
-=======
 // Login
 app.post("/api/login", (req, res) => {
   const reqBody = req.body;
->>>>>>> 47b4e81e481c980215720924bb4693264a8af603
 
   const foundUser = Users.findOne(reqBody, (err, data) => {
     console.log(data);
@@ -35,36 +27,12 @@ app.post("/api/login", (req, res) => {
       return;
     }
 
-    // way 1
-    // if (data)
-    //     res.send(data);
-    // else
-    //     res.send('User not found.');
-
-    // way 2
-    // res.send(data ? data : 'User not found.');
-
-    // way 3
     res.send(data || "User not found.");
   });
 });
 
 // Register
-<<<<<<< HEAD
 app.post('/api/register', async (req, res) => {
-    const reqBody = req.body;
-    // console.log('reg user data:', reqBody);
-
-    Users.findOne(reqBody, async (err, data) => {
-        console.log(data);
-        if (err) {
-            const errorMsg = `Error on register user: ${err}`;
-            console.log(errorMsg);
-            res.send(errorMsg);
-            return;
-        }
-=======
-app.post("/api/register", async (req, res) => {
   const reqBody = req.body;
   // console.log('reg user data:', reqBody);
 
@@ -76,7 +44,6 @@ app.post("/api/register", async (req, res) => {
       res.send(errorMsg);
       return;
     }
->>>>>>> 47b4e81e481c980215720924bb4693264a8af603
 
     if (data) res.send(`user already exist: ${data.username}`);
     else {
@@ -89,9 +56,60 @@ app.post("/api/register", async (req, res) => {
   });
 });
 
-// get one user: GET method, URL: 'api/user/:username', {username} is URL param
-// get all users: GET method, URL: 'api/users',
-// edit user: PUT method, URL: 'api/user/:username',
+// get one user: GET method, URL: 'api/user/:username', {username} is URL param // * done
+// get all users: GET method, URL: 'api/users', // * done
+// edit user: PUT method, URL: 'api/user/:username', // ! error
+
+// ! OVO MI NE RADI - START
+// * UPDATE ONE USER
+app.put('/api/user/:username', (req, res) => {
+  const reqBody = req.body;
+  const reqParams = req.params;
+  const reqQuery = req.query;
+  console.log(reqBody, 'JA SAM IZ PUT METODE');
+
+  Users.updateOne({ "username": reqParams.username }, { username: reqQuery.name, email: reqQuery.email, isAdmin: reqQuery.admin }, null, (err, data) => {
+    if (err) res.send('Doslo je do greske prilikom promene usera ' + reqBody.username + ' molimo pokusajte za nekoliko minuta ponovo.');
+    else res.send(data);
+
+    console.log(data);
+  });
+});
+// ! OVO MI NE RADI - END
+
+// * GET ONE USER
+app.get('/api/user/:username', (req, res) => {
+  const reqParam = req.params;
+  console.log(reqParam);
+  const user = Users.findOne({ "username": reqParam.username }, (err, data) => {
+    if (err) res.send('Doslo je do greske prilikom pretrage usera ' + reqParam.username);
+    else res.send(data);
+  });
+  console.log(user);
+});
+
+// * GET ALL USERS
+app.get('/api/users', (req, res) => {
+
+  const allUsers = Users.find((err, data) => {
+    if (err) res.send('Greska prilikom pretrage, pokusajte ponovo.');
+    else res.send(data);
+
+  });
+  console.log(allUsers);
+});
+
+// * DELETE USER
+app.delete('/api/user/:email', (req, res) => {
+  const param = req.params.email;
+  console.log(param);
+
+  Users.deleteOne({ email: param }, (err, data) => {
+    if (err) res.send('Doslo je do greske prilikom brisanja usera ' + req.body.username);
+    else res.send(data);
+  });
+});
+
 
 app.listen(serverConfig.port, (err) => {
   if (err) {

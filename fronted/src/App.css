@@ -40,3 +40,7 @@ input {
     transform: rotate(360deg);
   }
 }
+
+.heading-text {
+  background-color: tomato;
+}

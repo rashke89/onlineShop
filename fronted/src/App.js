@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import AuthPage from "./pages/authPage";
+import Heading from "./pages/heading";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         >
           Learn React
         </a>
+        <Heading/>
         <AuthPage/>
       </header>
     </div>
