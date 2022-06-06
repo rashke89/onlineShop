@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
@@ -11,8 +12,10 @@ mongoose
   .then((data) => console.log("MONGO DB is connected."))
   .catch((err) => console.log(`Error while connecting to MONGO DB: ${err}`));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+// enabled CORS - API calls and resource sharing
+app.use(cors());
 
 app.post("/api/login", (req, res) => {
   const reqBody = req.body;

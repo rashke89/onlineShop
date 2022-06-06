@@ -1,8 +1,10 @@
 import React from "react";
+import AuthService from "../services/AuthService";
 
 function AuthPage() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [isFormValid, setIsFormValid] = React.useState(true);
 
   const onUsernameChange = (event) => {
     console.log(event.target.value);
@@ -13,8 +15,24 @@ function AuthPage() {
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    console.log(username);
-    console.log(password);
+    console.log(username, password);
+    if (!username || !password) {
+      setIsFormValid(false);
+      return;
+    }
+    setIsFormValid(true);
+    // api call
+    let body = { username: username, password: password };
+    AuthService.login(body)
+      .then((response) => {
+        if (response && response.status === 200) {
+          console.log("API resposne -> ", response);
+          //TODO: send user to some page
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -29,12 +47,11 @@ function AuthPage() {
             onUsernameChange(event);
           }}
         />
-        {username}
+
         <br />
         <label htmlFor="password">Password</label>
         <input id="password" type="password" onChange={onPasswordChange} />
-        {password}
-
+        {!isFormValid ? <p>All fields are required.</p> : null}
         <input type="submit" data="send data" />
       </form>
     </div>
