@@ -67,8 +67,31 @@ app.post("/api/register", async (req, res) => {
 });
 
 // get one user: GET method, URL: 'api/user/:username', {username} is URL param
-// get all users: GET method, URL: 'api/users',
-// edit user: PUT method, URL: 'api/user/:username',
+app.get('/api/user/:username', (req, res) => {
+  const param = req.params.username;
+  Users.find({'username': param}, (error, result) => {
+    if(error) throw error;
+    res.send(result);
+  })
+})
+
+// get all users: GET method, URL: 'api/users'
+app.get('/api/user', (req, res) => {
+  Users.find((error, result) => {
+    if(error) throw error;
+    res.send(result);
+  })
+})
+// edit user: PUT method, URL: 'api/user/:username'
+app.put('api/user/:username', (req, res) => {
+  const param = req.params.username;
+  const query = req.query;
+
+  Users.updateOne({"username": param}, {email: query.email, isAdmin: query.admin}, null, (error, result) => {
+    if (error) throw error;
+    res.send(result);
+  })
+})
 
 app.listen(serverConfig.port, (err) => {
   if (err) {
