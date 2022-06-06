@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors')
 const dbConfig = require('./config/dbConfig');
@@ -26,17 +25,6 @@ app.post('/api/login', (req, res) => {
             res.send(errorMsg);
             return;
         }
-
-        // way 1
-        // if (data)
-        //     res.send(data);
-        // else
-        //     res.send('User not found.');
-
-        // way 2
-        // res.send(data ? data : 'User not found.');
-
-        // way 3
         console.log(reqBody)
         res.send(data || 'User not found.');
     });
@@ -109,12 +97,6 @@ app.put("/api/user/:username", (req, res) => {
         res.send(result)
     })
 })
-
-
-// get one user: GET method, URL: 'api/user/:username', {username} is URL param
-// get all users: GET method, URL: 'api/users',
-// edit user: PUT method, URL: 'api/user/:username',
-
 
 app.listen(serverConfig.port, err => {
     if (err) {
