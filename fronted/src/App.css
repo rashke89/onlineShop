@@ -44,3 +44,9 @@ input {
 .heading-text {
   background-color: tomato;
 }
+
+.form-btns button {
+  padding: 10px;
+  margin: 10px;
+  font-size: 20px;
+}

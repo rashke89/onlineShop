@@ -1,33 +1,42 @@
 import React from "react";
 import AuthService from "../services/AuthService";
 
-function AuthPage() {
+
+function Register() {
+
+    
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [email, setEmail] = React.useState('');
     const [isFormValid, setIsFormValid] = React.useState(true);
     const [apiError, setApiError] = React.useState(false);
 
-    const [loginIsValid, setLoginIsValid] = React.useState(true);
 
-    const onUsernameChange = (event) => {
+    function onUsernameChange(event) {
         setUsername(event.target.value);
-    };
+    }
 
-    const onPasswordChange = event => setPassword(event.target.value);
+    function onPasswordChange(event) {
+        setPassword(event.target.value);
+    }
+
+    function onEmailChange(event) {
+        setEmail(event.target.value);
+    }
 
     const onSubmitForm = (event) => {
         event.preventDefault();
         console.log('form submit >', username, password);
 
-        if (!username || !password) {
+        if (!username || !password || !email) {
             setIsFormValid(false);
             return;
         }
         setIsFormValid(true);
-        let body = {username: username, password: password};
+        let body = {email: email, username: username, password: password};
 
         // api call
-        AuthService.login(body)
+        AuthService.register(body)
             .then((response) => {
                 if (response && response.status === 200) {
                     console.log('API response -> ', response);
@@ -37,13 +46,17 @@ function AuthPage() {
             .catch((error) => {
                 console.log(error);
             });
-
     };
- 
+
     return (
-        <div className="auth-wrapper">
-            <h1>Auth login wrapper</h1>
+        <div className="register-wrapper">
+            <h1>Register</h1>
+            {/*<form>*/}
             <form onSubmit={event => onSubmitForm(event)}>
+                <label htmlFor="email">Email</label>
+                <input id="email" type="text" onChange={(event) => {
+                    onEmailChange(event)
+                }}/>
                 <label htmlFor="username">User name</label>
                 <input id="username" type="text" onChange={(event) => {
                     onUsernameChange(event)
@@ -52,13 +65,10 @@ function AuthPage() {
                 <label htmlFor="password">Password</label>
                 <input id="password" type="password" onChange={onPasswordChange}/>
 
-                {!isFormValid ? <p>All fields are required.</p> : null}
-
                 <input type="submit" value="send data"/>
             </form>
         </div>
-    )
+    );
 }
 
-export default AuthPage;
-
+export default Register;

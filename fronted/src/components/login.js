@@ -1,13 +1,11 @@
 import React from "react";
 import AuthService from "../services/AuthService";
 
-function AuthPage() {
+function Login() {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [isFormValid, setIsFormValid] = React.useState(true);
     const [apiError, setApiError] = React.useState(false);
-
-    const [loginIsValid, setLoginIsValid] = React.useState(true);
 
     const onUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -39,10 +37,10 @@ function AuthPage() {
             });
 
     };
- 
+
     return (
-        <div className="auth-wrapper">
-            <h1>Auth login wrapper</h1>
+        <div className="login-wrapper">
+            <h1>Login</h1>
             <form onSubmit={event => onSubmitForm(event)}>
                 <label htmlFor="username">User name</label>
                 <input id="username" type="text" onChange={(event) => {
@@ -60,5 +58,5 @@ function AuthPage() {
     )
 }
 
-export default AuthPage;
+export default Login;
 

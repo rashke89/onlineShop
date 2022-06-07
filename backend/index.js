@@ -35,11 +35,8 @@ app.post("/api/login", (req, res) => {
 });
 
 // Register
-<<<<<<< HEAD
 app.post('/api/register', async (req, res) => {
-=======
 app.post("/api/register/:id", async (req, res) => {
->>>>>>> a53a2d317c6ab8c9201b392e45730a1086edc309
   const reqBody = req.body;
   console.log('reg user data:', req.params);
 
