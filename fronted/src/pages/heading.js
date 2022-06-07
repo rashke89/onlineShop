@@ -2,7 +2,7 @@ import '../App.css';
 import React from 'react';
 
 function Heading() {
-    const currentName = 'Andrija';
+    let currentName = 'Andrija';
     const [stateValue, stateFunction] = React.useState('');
     const changeH1 = (e) => {
         console.log(e.target.value);
@@ -10,9 +10,13 @@ function Heading() {
     }
 
     // * OVO MI NE RADI, NE ZNAM ZASTO
-    // if (stateValue !== '') {
-    //     currentName = false;
-    // }
+    // ! ovov
+    // ? sada a
+    // todo dasdasdsa
+    // \\ New comment
+    if (stateValue !== '') {
+        currentName = false;
+    }
 
     return (
         <div className='heading'>
