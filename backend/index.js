@@ -32,9 +32,8 @@ app.post('/api/login', (req, res) => {
 
 app.post('/api/register', async (req, res) => {
     const reqBody = req.body;
-    // console.log('reg user data:', reqBody);
-
-    Users.findOne(reqBody, async (err, data) => {
+    console.log(req)
+    Users.findOne({username: reqBody.username}, async (err, data) => {
         console.log(data);
         if (err) {
             const errorMsg = `Error on register user: ${err}`;

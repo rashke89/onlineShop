@@ -17,7 +17,7 @@ function AuthPage() {
                 <button onClick={loginForm}>Login</button>
                 <button onClick={registerForm}>Register</button>
             </div>
-            {isLogin ? <Login/> : <Register/>}
+            {isLogin ? <Login show={isLogin}/> : <Register show={isLogin}/>}
         </div>
     );
 }
