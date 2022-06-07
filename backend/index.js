@@ -1,6 +1,6 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const cors = require('cors');
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
@@ -11,8 +11,9 @@ mongoose
   .then((data) => console.log("MONGO DB is connected."))
   .catch((err) => console.log(`Error while connecting to MONGO DB: ${err}`));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cors());
 
 // Login
 app.post("/api/login", (req, res) => {
@@ -44,26 +45,47 @@ app.post("/api/login", (req, res) => {
 // Register
 app.post("/api/register", async (req, res) => {
   const reqBody = req.body;
-  // console.log('reg user data:', reqBody);
+  console.log('reg user data:', reqBody);
+  let currentUserData = {
+    username: reqBody.username,
+    email: reqBody.email
+  }
 
-  Users.findOne(reqBody, async (err, data) => {
-    console.log(data);
-    if (err) {
-      const errorMsg = `Error on register user: ${err}`;
-      console.log(errorMsg);
-      res.send(errorMsg);
+
+  Users.findOne(currentUserData, async (error, result) => {
+    if(error) {
+      const errMsg = 'Registration error';
+      res.send(errMsg);
       return;
     }
 
-    if (data) res.send(`user already exist: ${data.username}`);
-    else {
+    if(result) {
+      res.send('User is already registered');
+    } else {
       const newUser = new Users(reqBody);
       const saveNewUser = await newUser.save();
-      console.log(saveNewUser);
-
-      res.send(saveNewUser || "User not registered.");
+      res.send({newUser: saveNewUser, registerStatus: true} || 'User not registered.');
     }
-  });
+  })
+
+  // Users.findOne(reqBody, async (err, data) => {
+  //   console.log(data);
+  //   if (err) {
+  //     const errorMsg = `Error on register user: ${err}`;
+  //     console.log(errorMsg);
+  //     res.send(errorMsg);
+  //     return;
+  //   }
+  //
+  //   if (data) res.send(`user already exist: ${data.username}`);
+  //   else {
+  //     const newUser = new Users(reqBody);
+  //     const saveNewUser = await newUser.save();
+  //     console.log(saveNewUser);
+  //
+  //     res.send(saveNewUser || "User not registered.");
+  //   }
+  // });
 });
 
 // get one user: GET method, URL: 'api/user/:username', {username} is URL param

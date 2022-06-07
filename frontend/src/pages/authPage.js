@@ -1,34 +1,29 @@
 import React, {useState} from 'react';
-import * as events from "events";
+import AuthService from '../services/AuthService';
+import './authPage.scss';
+import LoginForm from "../components/LoginForm/LoginForm";
+import RegisterForm from "../components/RegisterForm/RegisterForm";
 
 const AuthPage = () => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	const [isLoginForm, setIsLoginForm] = useState(true);
 
-	const onUsernameChange = event => setUsername(event.target.value);
-	const onPasswordChange = event => setPassword(event.target.value);
-	const onSubmitForm = (event) => {
-		event.preventDefault();
-		console.log({username});
-		console.log({password});
+
+	const showLoginForm = () => {
+		setIsLoginForm(true);
+	}
+
+	const showRegisterForm = () => {
+		setIsLoginForm(false);
 	}
 
 	return (
 		<div className='auth-wrapper'>
-			<h1>Auth login wrapper</h1>
-			<form onSubmit={onSubmitForm}>
-				<div className="username">
-					<label htmlFor='username'>Username</label>
-					<input id='username' type='text' onChange={onUsernameChange}/>
-				</div>
-
-				<div className="password">
-					<label htmlFor='password'>Password</label>
-					<input id='password' type='password' onChange={onPasswordChange}/>
-				</div>
-
-				<input type='submit' value='Send data'/>
-			</form>
+			<h1>{isLoginForm ? "Login form" : "Register form"}</h1>
+			<div>
+				<button onClick={showLoginForm}>LOGIN</button>
+				<button onClick={showRegisterForm}>REGISTER</button>
+			</div>
+			{isLoginForm ? <LoginForm /> : <RegisterForm showLoginForm = {showLoginForm}/>}
 		</div>
 	);
 };
