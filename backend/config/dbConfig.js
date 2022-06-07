@@ -1,7 +1,7 @@
 const MONGO_PASS = 'novomak2020';
 const MONGODB_URL = `mongodb+srv://novomak:${MONGO_PASS}@cluster0.ivtbn.mongodb.net/?retryWrites=true&w=majority`;
 const mongooseOptions = {
-    useNewUrlParser: true,
+    useNewUrlParser: true,//Enable to se new Parser
     useUnifiedTopology: true,
     useCreateIndex: true,
 };

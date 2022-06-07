@@ -1,19 +1,22 @@
+// const bodyParser = require('body-parser');
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors=require("cors")
 const dbConfig = require('./config/dbConfig');
 const Users = require('./models/userModel');
 const serverConfig = require('./config/serverConfig');
-
 const app = express();
 
 //CONNECT TO MONGO DB
 mongoose.connect(dbConfig.MONGODB_URL)
     .then(data => console.log('MONGO DB is connected.'))
     .catch(err => console.log(`Error while connecting to MONGO DB: ${err}`));
-//CONNECT TO MONGO DB NED
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//CONNECT TO MONGO DB END
+
+app.use(express.urlencoded({ extended: false }));//If extended is false, you can not post "nested object"
+app.use(express.json());//Frontend request convert in JSON
+//Enable CORS-API calls and resource sharing
+app.use(cors());
 
 //LOGIN
 app.post('/api/login', (req, res) => {
@@ -115,9 +118,7 @@ app.put("/api/user/:username",(req, res)=>{
     })
 })
 
-// get one user: GET method, URL: 'api/user/:username', {username} is URL param
-// get all users: GET method, URL: 'api/users',
-// edit user: PUT method, URL: 'api/user/:username',
+
 
 //SERVER LISTENING
 app.listen(serverConfig.port, err => {
