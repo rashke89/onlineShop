@@ -49,7 +49,6 @@ app.post('/api/register', async (req, res) => {
             res.send(saveNewUser || 'User not registered.');
         }
     });
-
 });
 
 app.get("/", (req, res) => {

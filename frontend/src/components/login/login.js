@@ -1,56 +1,47 @@
-import React, {useContext, useEffect, useState} from 'react';
-
-import "./style.scss"
+import React, {useState} from 'react';
 import AuthService from "../../services/authService";
-import {IsLoggedContext} from "../../App";
+import "./style.scss"
 
-function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [isValidForm, setIsValidForm] = useState(true);
-    const [fadeForm, setFadeForm] = useState({
-        transform: "scale(0)",
-        transition: "1s ease"
+function Login({showLoginForm}) {
+    const [userData, setUserData] = useState({
+        username: "",
+        password: "",
     });
+    const [isValidForm, setIsValidForm] = useState(true);
 
-    const isLogged = useContext(IsLoggedContext);
-
-    useEffect(() => {
-        setFadeForm({
-            transform: "scale(1)",
-            transition: "1s ease"
-        })
-    }, []);
-
-
-    const onUsernameInput = (e) => setUsername(e.target.value)
-    const onPasswordChange = (e) => setPassword(e.target.value)
-
+    const onHandleInput = (e) => {
+        let newInput = userData
+        newInput[e.target.name] = e.target.value
+        setUserData(newInput)
+    }
+    const loginForm = () => showLoginForm(false)
 
     const onSubmitForm = (e) => {
         e.preventDefault()
-        if (!username || !password) {
+        if (!userData.username || !userData.password) {
             setIsValidForm(false)
             return
         }
         setIsValidForm(true);
 
-        AuthService.login({username, password}).then(res => {
+        AuthService.login(userData).then(res => {
             if (res && res.status === 200) {
                 console.log(res.data)
-                res.data && isLogged(true)
             }
         }).catch(err => {
             console.log(err);
         })
     }
     return (
-        <form style={fadeForm} className="login-form" onSubmit={onSubmitForm} method="post">
+        <form onSubmit={onSubmitForm} method="post">
+            <h1>Login</h1>
             <label htmlFor="username">User name</label>
-            <input type="text" id="username" onInput={onUsernameInput}/>
+            <input className="form-control" name="username" type="text" id="username" onInput={onHandleInput}/>
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" onInput={onPasswordChange}/>
-            <button>OK</button>
+            <input className="form-control mb-3" name="password" type="password" id="password" onInput={onHandleInput}/>
+
+            <button type="button" className="btn btn-primary px-5" onClick={loginForm}>Go to register</button>
+            <button className="btn btn-success px-5 ms-auto">OK</button>
             {!isValidForm && <p>Username and password is required!</p>}
         </form>
     );
