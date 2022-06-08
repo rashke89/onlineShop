@@ -1,5 +1,6 @@
 import React from "react";
 import AuthService from "../services/AuthService";
+import RegisterForm from "../components/RegisterForm";
 
 function AuthPage() {
     const [username, setUsername] = React.useState('');
@@ -30,6 +31,7 @@ function AuthPage() {
                 if (response && response.status === 200) {
                     console.log('API response -> ',response);
                     //TODO: send user to some page
+                    localStorage.setItem('user', JSON.stringify(response.data))
                 }
             })
             .catch((error) => {
@@ -52,6 +54,8 @@ function AuthPage() {
 
                 <input type="submit" value="send data"/>
             </form>
+
+            {/*<RegisterForm/>*/}
         </div>
     )
 }

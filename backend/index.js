@@ -45,9 +45,8 @@ app.post("/api/login", (req, res) => {
 });
 
 // Register
-app.post("/api/register/:id", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   const reqBody = req.body;
-  console.log('reg user data:', req.params);
 
   Users.findOne(reqBody, async (err, data) => {
     // console.log(data);
