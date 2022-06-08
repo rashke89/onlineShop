@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import "./style.scss"
 import AuthService from "../../services/authService";
-
-let styleFr = {
-    transform: "scale(0)",
-    transition: "1s ease"
-}
+import {IsLoggedContext} from "../../App";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -16,6 +12,8 @@ function Login() {
         transform: "scale(0)",
         transition: "1s ease"
     });
+
+    const isLogged = useContext(IsLoggedContext);
 
     useEffect(() => {
         setFadeForm({
@@ -39,7 +37,8 @@ function Login() {
 
         AuthService.login({username, password}).then(res => {
             if (res && res.status === 200) {
-                console.log(res)
+                console.log(res.data)
+                res.data && isLogged(true)
             }
         }).catch(err => {
             console.log(err);

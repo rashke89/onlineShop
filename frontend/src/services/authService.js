@@ -8,6 +8,10 @@ class AuthService {
     static register(body) {
         return axios.post("/api/register", body)
     }
+
+    static getAllUsers() {
+        return axios.get("/api/users")
+    }
 }
 
 export default AuthService

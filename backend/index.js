@@ -17,16 +17,13 @@ app.use(cors());
 
 app.post('/api/login', (req, res) => {
     const reqBody = req.body;
-
     const foundUser = Users.findOne(reqBody, (err, data) => {
-        console.log(data);
         if (err) {
             const errorMsg = `Error on getting user from DB: ${err}`;
             res.send(errorMsg);
             return;
         }
-        console.log(reqBody)
-        res.send(data || 'User not found.');
+        res.send(data || false);
     });
 })
 

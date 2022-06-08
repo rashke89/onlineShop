@@ -33,13 +33,13 @@ function Register() {
     const onSubmitForm = (e) => {
         e.preventDefault()
 
-        if (!username || !password || !firstName || !lastName) {
+        if (!username || !password || !firstName || !lastName || !email) {
             setIsValidForm(false)
             return
         }
         setIsValidForm(true);
 
-        AuthService.register({username, password, gender, firstName, lastName}).then(res => {
+        AuthService.register({username, password, gender, firstName, lastName, email}).then(res => {
             if (res && res.status === 200) {
                 console.log(res)
             }
