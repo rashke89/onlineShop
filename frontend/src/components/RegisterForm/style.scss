@@ -1,20 +1,11 @@
 .register-form {
   text-align: start;
-  margin-top: 2rem;
-  input {
-    display: block;
-    width: 100%;
-    margin-top: .5rem;
-  }
-  label {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
+  width: 30%;
+  margin: 0 auto;
+
   button {
     min-width: 130px;
-    height: 40px;
     color: #fff;
-    padding: 5px 10px;
     margin: 0;
     margin-top: 1rem;
     font-weight: bold;
@@ -27,9 +18,11 @@
     border: none;
     background-size: 120% auto;
     background-image: linear-gradient(315deg, #bdc3c7 0%, #2c3e50 75%);
+
     &:hover {
       background-position: right center;
     }
+
     &:active {
       top: 2px;
     }

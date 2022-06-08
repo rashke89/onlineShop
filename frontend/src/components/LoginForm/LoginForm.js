@@ -13,7 +13,7 @@ const LoginForm = () => {
 		event.preventDefault();
 		console.log('form submit >', username, password);
 
-		if(!username || !password) {
+		if (!username || !password) {
 			setIsFormValid(false);
 			return;
 		}
@@ -22,9 +22,10 @@ const LoginForm = () => {
 		// API call
 		AuthService.login({username, password})
 			.then((response) => {
-				if(response && response.status === 200) {
+				if (response && response.status === 200) {
 					console.log('API response ->', response);
 					// TODO: send user to some page
+					localStorage.setItem('user', JSON.stringify(response.data));
 				}
 			})
 			.catch((error) => {
@@ -34,11 +35,22 @@ const LoginForm = () => {
 
 	return (
 		<form className='login-form' onSubmit={onSubmitForm}>
-			<label htmlFor='username'>Username</label>
-			<input id='username' type='text' onChange={onUsernameChange}/>
-			<label htmlFor='password'>Password</label>
-			<input id='password' type='password' onChange={onPasswordChange}/>
-			<button>Login</button>
+			<div className="mb-3">
+				<label htmlFor="username" className="form-label">Username</label>
+				<input type="text" className="form-control" id="username" placeholder="Username" onChange={onUsernameChange}/>
+			</div>
+			<div className="mb-3">
+				<label htmlFor="password" className="form-label">Password</label>
+				<input type="password" className="form-control" id="password" placeholder="Password"
+							 onChange={onPasswordChange}/>
+			</div>
+
+			{/*<label htmlFor='username' className='form-label'>Username</label>*/}
+			{/*<input id='username' className='form-control' type='text' onChange={onUsernameChange}/>*/}
+
+			{/*<label htmlFor='password' className='form-label'>Password</label>*/}
+			{/*<input id='password' className='form-control' type='password' onChange={onPasswordChange}/>*/}
+			<button type='submit'>Login</button>
 			{!isFormValid && <p>Username and password are required!</p>}
 		</form>
 	);
