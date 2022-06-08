@@ -33,6 +33,7 @@ function Login() {
                 }
             })
             .catch((error) => {
+                setApiError(true);
                 console.log(error);
             });
 
@@ -53,6 +54,8 @@ function Login() {
                 {!isFormValid ? <p>All fields are required.</p> : null}
 
                 <input type="submit" value="send data"/>
+
+                {apiError ? <p>Doslo je do greske prilikom prijavljivalja, molimo pokusajte ponovo!</p> : ''}
             </form>
         </div>
     )

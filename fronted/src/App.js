@@ -1,11 +1,13 @@
 import React from "react";
+// * axios nam omogucava da kada pokrenemo api call nas frontend moze da gadja isti server na kome je pokrenut nas backend
+// * axios je PROMIS
 import axios from "axios";
 import './App.css';
 // import AuthPage from "./pages/authPage";
-// import Heading from "./pages/heading";
 import Register from "./components/register";
 import Login from "./components/login";
 
+// * podesavamo da axios kada se pokrene api call gadja server na kome je pokrenut backend (u ovom slucaju 4000)
 axios.defaults.baseURL = 'http://localhost:4000';
 
 
@@ -33,11 +35,7 @@ function App() {
                     <button onClick={showLogin}>Login</button>
                     <button onClick={showRegister}>Register</button>
                 </div>
-                {/*<FormButtons/>*/}
-                {/*<Heading/>*/}
                 {loginIsValid ? <Login/> : <Register/>}
-                {/*<Login/>*/}
-                {/* <Register/>*/}
             </header>
         </div>
 
