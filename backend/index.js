@@ -1,7 +1,10 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+<<<<<<< HEAD
 const cors = require("cors");
+=======
+const cors = require('cors');
+>>>>>>> 1d23f83d7ddf5f8004a825e9f1842226dd3da669
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
@@ -10,14 +13,21 @@ const app = express();
 mongoose
   .connect(dbConfig.MONGODB_URL)
   .then((data) => console.log("MONGO DB is connected."))
-  .catch((err) => console.log(`Error while connecting to MONGO DB: ${err}`));
+  .catch((err) => console.log(`${err}`));
 
+<<<<<<< HEAD
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // enabled CORS - API calls and resource sharing
+=======
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+// enable CORS - API calls and resource sharing
+>>>>>>> 1d23f83d7ddf5f8004a825e9f1842226dd3da669
 app.use(cors());
 
 app.post("/api/login", (req, res) => {
+  console.log('request body ->',req.body);
   const reqBody = req.body;
 
   const foundUser = Users.findOne(reqBody, (err, data) => {
@@ -25,7 +35,7 @@ app.post("/api/login", (req, res) => {
     if (err) {
       const errorMsg = `Error on getting user from DB: ${err}`;
       console.log(errorMsg);
-      res.send(errorMsg);
+      res.status(416).send(errorMsg);
       return;
     }
 
@@ -45,10 +55,9 @@ app.post("/api/login", (req, res) => {
 
 app.post("/api/register", async (req, res) => {
   const reqBody = req.body;
-  // console.log('reg user data:', reqBody);
 
   Users.findOne(reqBody, async (err, data) => {
-    console.log(data);
+    // console.log(data);
     if (err) {
       const errorMsg = `Error on register user: ${err}`;
       console.log(errorMsg);
@@ -60,7 +69,7 @@ app.post("/api/register", async (req, res) => {
     else {
       const newUser = new Users(reqBody);
       const saveNewUser = await newUser.save();
-      console.log(saveNewUser);
+      // console.log(saveNewUser);
 
       res.send(saveNewUser || "User not registered.");
     }

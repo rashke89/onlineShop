@@ -9,7 +9,10 @@
   "author": "We",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "body-parser": "^1.20.0",
+=======
+>>>>>>> 1d23f83d7ddf5f8004a825e9f1842226dd3da669
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "mongoose": "^6.3.4",
