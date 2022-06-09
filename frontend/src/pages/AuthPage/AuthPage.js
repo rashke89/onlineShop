@@ -7,9 +7,6 @@ import "./AuthPage.scss";
 function AuthPage() {
     const [isLogin, setIsLogin] = useState(true);
 
-    const loginForm = () => setIsLogin(true)
-    const registerForm = () => setIsLogin(false)
-
     return (
         <div className="auth-wrapper container-fluid">
             <div className="row">

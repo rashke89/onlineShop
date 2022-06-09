@@ -1,10 +1,13 @@
 import React from 'react';
 import Users from "../Users/Users";
+import Slider from "../../components/Slider/Slider";
 
 function Home(props) {
     return (
-        <div>HOME
-            <Users/>
+        <div className="container">
+            <h1>Home</h1>
+            <Slider/>
+            {/*<Users/>*/}
         </div>
     );
 }

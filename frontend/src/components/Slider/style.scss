@@ -1,0 +1,65 @@
+.slider-wrapper {
+  $transition: .4s ease;
+  position: relative;
+
+  .arrows-holder {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+
+    & > div {
+      height: 80px;
+      width: 80px;
+      cursor: pointer;
+      transition: $transition;
+      padding: 10px;
+
+      &:hover {
+        background: rgba(#000, 0.5);
+      }
+    }
+
+    .left {
+      float: left;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .right {
+      float: right;
+      border-radius: 10px 0 0 10px;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .dots-holder {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+
+    .dot {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background-color: #ddd;
+      transition: $transition;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #6c6c6c;
+
+      }
+    }
+  }
+}
