@@ -20,15 +20,15 @@ function AuthPage(){
         setIsFormValid(true);
         let body={username: username, password:password};
         //api call
-        AuthService.login(body)
-            .then((response)=>{
+        AuthService.login(body)//send data to server
+            .then((response)=>{// response from server
                 if(response && response.status===200){
                     console.log(response);
                     //ToDO send user to some page
 
                 }
             } )
-            .catch((error)=> throw error )
+            .catch((error)=> console.log(error))
     }
 
     return (
