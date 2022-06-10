@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import axios from "axios";
 import Arrow from "./Arrow";
 import Dots from "./Dots";
 import SlideContent from "./SlideContent";
@@ -11,11 +12,16 @@ function Slider() {
     const [numberImages, setNumberImages] = useState(0);
 
     useEffect(() => {
-        setImages(imageList)
-        setNumberImages(imageList.length)
-        // fetch(url).then(res=>res.json()).then((res)=>{
-        //     console.log(res.products)
-        //     setImages(res)})
+        //if we use local source from SourceData.ja
+        // setImages(imageList)
+        // setNumberImages(imageList.length)
+        // console.log(JSON.stringify(imageList))
+
+        axios.get("https://raw.githubusercontent.com/zile028/fake-db/main/slider_images.json")
+            .then(res => res.data).then((res) => {
+            setImages(res)
+            setNumberImages(res.length)
+        })
     }, []);
 
     useEffect(() => {

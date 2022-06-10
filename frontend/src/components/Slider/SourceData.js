@@ -1,27 +1,27 @@
 export const imageList = [
     {
-        title: "First slide",
-        src: "https://staticctf.akamaized.net/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/4pAHjVKcUiJT5Jg9b4iVap/a15ef00019f62f0903cb6e275e0fbe78/ac-brotherhood-buy.jpg",
+        "title": "First slide",
+        "src": "https://www.denofgeek.com/wp-content/uploads/2014/05/assassins-creed.jpg?fit=1280%2C720"
     },
     {
-        title: "Second slide",
-        src: "https://img.redbull.com/images/c_fill,w_1200,h_630,g_auto,f_auto,q_auto/redbullcom/2016/11/11/1331828802784_2/ezio-auditore-is-coming-to-current-gen-consoles",
+        "title": "Second slide",
+        "src": "https://static2.srcdn.com/wordpress/wp-content/uploads/2022/02/Assassins-Creed-Altair-Templar.jpg?q=50&fit=crop&w=943&h=500&dpr=1.5"
     },
     {
-        title: "Third slide",
-        src: "https://imageio.forbes.com/blogs-images/robsalkowitz/files/2017/03/assassins-creed-2.jpg?format=jpg&width=960",
+        "title": "Third slide",
+        "src": "https://imageio.forbes.com/blogs-images/robsalkowitz/files/2017/03/assassins-creed-2.jpg?format=jpg&width=960"
     },
     {
-        title: "Fourth slide",
-        src: "https://compass-ssl.xbox.com/assets/d7/29/d7299dda-c153-4b60-9040-a6266b22ffd6.jpg",
+        "title": "Fourth slide",
+        "src": "https://compass-ssl.xbox.com/assets/d7/29/d7299dda-c153-4b60-9040-a6266b22ffd6.jpg"
     },
     {
-        title: "Fifth slide",
-        src: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/06/assassins-creed-rift.jpg?q=50&fit=contain&w=960&h=480&dpr=1.5"
+        "title": "Fifth slide",
+        "src": "https://i.bo3.no/image/111814/assassins_creed_netflix__1_.jpg?c=0&h=900&w=1600"
     },
     {
-        title: "Sixth slide",
-        src: "https://goalz.online/wp-content/uploads/2022/04/Assassins-Creed-Nexus-VR.jpg"
+        "title": "Sixth slide",
+        "src": "https://goalz.online/wp-content/uploads/2022/04/Assassins-Creed-Nexus-VR.jpg"
     }
 ]
 
