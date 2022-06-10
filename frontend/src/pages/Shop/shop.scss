@@ -1,0 +1,13 @@
+.shop-wrapper {
+  // height: 100vh;
+  margin: 7rem 0;
+
+  & .gutter {
+    --bs-gutter-x: 5rem;
+    --gap: 1rem;
+
+    @media (min-width: 1200px) {
+      gap: var(--gap);
+    }
+  }
+}

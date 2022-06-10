@@ -1,0 +1,61 @@
+.shop-ad-wrapper {
+  --clr-black: #212121;
+  --clr-white: #ffffff;
+
+  position: relative;
+  padding: 2rem;
+  background-color: var(--clr-white);
+  transition: box-shadow 350ms ease-in, transform 350ms ease-in;
+  transform: scale(1);
+  @media (min-width: 1200px) {
+    flex: 0 0 23% !important;
+  }
+  &:not(:last-child) {
+    margin-bottom: 3em;
+  }
+  height: auto;
+
+  .shop-ad-title {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  .shop-ad-price {
+    width: fit-content;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--clr-black);
+      transition: width 350ms ease-in;
+    }
+  }
+  &:hover {
+    @media (min-width: 992px) {
+      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+      transform: scale(1.03);
+      z-index: 2;
+    }
+    .shop-ad-price::after {
+      width: 100%;
+    }
+  }
+
+  & .img-wrapper {
+    & img {
+      aspect-ratio: 2;
+      object-fit: contain;
+
+      @media (min-width: 768px) {
+        aspect-ratio: 1;
+      }
+    }
+  }
+}
