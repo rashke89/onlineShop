@@ -42,7 +42,6 @@ function AuthPage() {
 
     return (
         <div className="auth-wrapper">
-           <h1>Auth login wrapper</h1>
             <form onSubmit={event => onSubmitForm(event)}>
                 <label htmlFor="username">User name</label>
                 <input id="username" type="text" onChange={(event) => {onUsernameChange(event)}}/>
