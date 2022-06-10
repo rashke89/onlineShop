@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import AuthService from "../../services/authService";
 import "./style.scss"
+import {useNavigate} from "react-router-dom";
 
 function Login({showLoginForm}) {
     const [userData, setUserData] = useState({
@@ -8,6 +9,7 @@ function Login({showLoginForm}) {
         password: "",
     });
     const [isValidForm, setIsValidForm] = useState(true);
+    const navigate = useNavigate();
 
     const onHandleInput = (e) => {
         let newInput = userData
@@ -26,7 +28,9 @@ function Login({showLoginForm}) {
 
         AuthService.login(userData).then(res => {
             if (res && res.status === 200) {
-                console.log(res.data)
+                console.log(JSON.stringify(res.data));
+                localStorage.setItem('user', JSON.stringify(res.data));
+                navigate('/');
             }
         }).catch(err => {
             console.log(err);

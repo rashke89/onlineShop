@@ -1,9 +1,9 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import AuthPage from "./pages/AuthPage/AuthPage";
-import './App.css';
+import './assets/scss/base.scss';
 
-import {Routes, Route} from "react-router-dom"
+import {Routes, Route, useNavigate} from "react-router-dom"
 import Shop from "./pages/Shop/Shop";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
@@ -14,6 +14,12 @@ export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
 
 function App() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!localStorage.hasOwnProperty('user')) {
+            navigate('/auth');
+        }
+    }, []);
 
     return (
         <div className="main-wrapper">
