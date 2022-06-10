@@ -30,7 +30,8 @@ app.post('/api/login', (req, res) => {
 app.post('/api/register', async (req, res) => {
     const reqBody = req.body;
     console.log(req)
-    Users.findOne({username: reqBody.username}, async (err, data) => {
+    const condition = {$or: [{username: reqBody.username}, {password: reqBody.password}]}
+    Users.findOne(condition, async (err, data) => {
         console.log(data);
         if (err) {
             const errorMsg = `Error on register user: ${err}`;

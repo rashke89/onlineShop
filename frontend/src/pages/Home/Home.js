@@ -1,5 +1,5 @@
 import React from 'react';
-import Users from "../Users/Users";
+
 import Slider from "../../components/Slider/Slider";
 
 function Home(props) {
@@ -7,7 +7,6 @@ function Home(props) {
         <div className="container">
             <h1>Home</h1>
             <Slider/>
-            {/*<Users/>*/}
         </div>
     );
 }

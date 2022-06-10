@@ -18,6 +18,10 @@ export const imageList = [
     {
         title: "Fifth slide",
         src: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/06/assassins-creed-rift.jpg?q=50&fit=contain&w=960&h=480&dpr=1.5"
+    },
+    {
+        title: "Sixth slide",
+        src: "https://goalz.online/wp-content/uploads/2022/04/Assassins-Creed-Nexus-VR.jpg"
     }
 ]
 

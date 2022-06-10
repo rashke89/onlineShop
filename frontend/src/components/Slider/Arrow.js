@@ -1,13 +1,21 @@
 import React from 'react';
-import {arrows} from "./imgSource";
+import {arrows} from "./SourceData";
 
-function Arrow() {
+function Arrow({changeSlide}) {
+
+    const prevSlide = () => {
+        changeSlide(-1)
+    }
+    const nextSlide = () => {
+        changeSlide(1);
+    }
+
     return (
         <div className="arrows-holder">
-            <div className="left">
+            <div className="left" onClick={prevSlide}>
                 <img src={arrows.left} alt=""/>
             </div>
-            <div className="right">
+            <div className="right" onClick={nextSlide}>
                 <img src={arrows.right} alt=""/>
             </div>
         </div>
