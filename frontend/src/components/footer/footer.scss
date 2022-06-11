@@ -2,4 +2,21 @@ footer {
   margin-top: 7rem;
   padding: 5rem 0 0 0;
   border-top: 1px solid #f2f2f2;
+
+  & .col-xl-3 {
+    text-align: left;
+
+    & a {
+      padding-left: 0;
+      color: #d3d3d3;
+      transition: color 350ms ease-in;
+      &:hover {
+        color: #212121;
+      }
+    }
+  }
+
+  .footer-copyright a {
+    color: #212121;
+  }
 }

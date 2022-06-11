@@ -41,31 +41,33 @@ function Login({ showLoginForm }) {
   return (
     <form onSubmit={onSubmitForm} method="post">
       <h1>Login</h1>
-      <label htmlFor="username">User name</label>
-      <input
-        className="form-control"
-        name="username"
-        type="text"
-        id="username"
-        onInput={onHandleInput}
-      />
-      <label htmlFor="password">Password</label>
-      <input
-        className="form-control mb-3"
-        name="password"
-        type="password"
-        id="password"
-        onInput={onHandleInput}
-      />
+      <div className="input">
+        <label htmlFor="username">User name</label>
+        <input
+          className="form-control"
+          name="username"
+          type="text"
+          id="username"
+          onInput={onHandleInput}
+        />
+      </div>
+      <div className="input">
+        <label htmlFor="password">Password</label>
+        <input
+          className="form-control mb-3"
+          name="password"
+          type="password"
+          id="password"
+          onInput={onHandleInput}
+        />
+      </div>
 
-      <button
-        type="button"
-        className="btn btn-primary px-5"
-        onClick={loginForm}
-      >
-        Go to register
-      </button>
-      <button className="btn btn-success px-5 ms-auto">OK</button>
+      <div className="buttons">
+        <button type="button" className="btn btn-reg " onClick={loginForm}>
+          Go to register
+        </button>
+        <button className="btn  btn-login ms-auto">Login</button>
+      </div>
       {!isValidForm && <p>Username and password is required!</p>}
     </form>
   );
