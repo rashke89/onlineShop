@@ -1,5 +1,6 @@
 import React from "react";
 import AuthService from "../services/AuthService";
+import '../App.css';
 
 
 function Register(props) {
@@ -37,7 +38,11 @@ function Register(props) {
     const onSubmitForm = (e) => {
         e.preventDefault();
 
-        if (!newUserObj.username || !newUserObj.password || !newUserObj.email || !newUserObj.email.includes('@')) {
+        // if (!newUserObj.username || !newUserObj.password || !newUserObj.email || !newUserObj.email.includes('@')) {
+        //     setIsFormValid(false);
+        //     return;
+        // }
+        if (!newUserObj.username || !newUserObj.password || !newUserObj.email) {
             setIsFormValid(false);
             return;
         }
@@ -47,6 +52,10 @@ function Register(props) {
             setIsUsernameCorrect(false);
             setIsFormValid(false);
             setIsNewUser(false);
+            console.log(isUsernameCorrect)
+
+            console.log('OVDE SAM')
+
             return;
         }
 
@@ -75,15 +84,17 @@ function Register(props) {
                 setIsError(true);
                 console.log(error);
             });
+
     };
+
 
     return (
         <div className="register-wrapper">
             <h1>Register</h1>
             <form onSubmit={event => onSubmitForm(event)}>
 
-                <label
-                    htmlFor="firstName">{isUsernameCorrect ? 'First name' : 'First name must be more than 2 characters long'}</label>
+                <label style={isUsernameCorrect ? {color: ''} : {color: 'tomato'}}
+                       htmlFor="firstName">{isUsernameCorrect ? 'First name' : 'First name must be more than 2 characters long'}</label>
                 <input id="firstName" name='firstName' type="text" onChange={onChangeInput}/>
 
                 <label htmlFor="lastName">Last name</label>
@@ -92,7 +103,8 @@ function Register(props) {
                 <label htmlFor="email">Email</label>
                 <input id="email" name='email' type="text" onChange={onChangeInput}/>
 
-                <label htmlFor="username">User name</label>
+                <label style={!newUserObj.username ? {color: ''} : {color: 'tomato'}}
+                       htmlFor="username">Username</label>
                 <input id="username" name='username' type="text" onChange={onChangeInput}/>
 
                 <label htmlFor="password">Password</label>
@@ -108,11 +120,8 @@ function Register(props) {
             </form>
 
             {!isFormValid ? <p>Form is invalid please fill up all inputs</p> : null}
-
             {isNewUser ? <p>Successfully registered. Congrats!</p> : null}
-
             {isError ? <p>Something went wrong, please to register again later...</p> : null}
-
 
         </div>
     );

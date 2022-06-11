@@ -37,27 +37,26 @@ function App() {
 
     return (
         <div className="main-wrapper">
-            <header className="App-header">
-                <BrowserRouter>
-                    <Link to="/shop">Shop</Link>
-                    <Link to="/about-us">About us</Link>
-                    <Link to="/contact">Contact</Link>
-
-                    <div className='form-btns'>
-                        <button onClick={showLogin}>Login</button>
-                        <button onClick={showRegister}>Register</button>
-                    </div>
-
-                    <Routes>
-                        <Route path="/" element={loginIsValid ? <Login/> : <Register getLogin={showLogin}/>}/>
-                        <Route path="/shop" element={<ShopPage/>}/>
-                        <Route path="/about-us" element={<AboutUs/>}/>
-                        <Route path="/contact" element={<ContactPage/>}/>
-                    </Routes>
-                </BrowserRouter>
-
-
-            </header>
+            <BrowserRouter>
+                <header>
+                    <nav>
+                        <ul className="App-andrija">
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/shop">Shop</Link></li>
+                            <li><Link to="/about-us">About us</Link></li>
+                            <li><Link to="/contact">Contact</Link></li>
+                            <li><a className="btn btn-primary" onClick={showLogin}>Login</a></li>
+                            <li><a className="btn btn-primary" onClick={showRegister}>Register</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                <Routes>
+                    <Route path="/" element={loginIsValid ? <Login /> : <Register getLogin={showLogin} />} />
+                    <Route path="/shop" element={<ShopPage />} />
+                    <Route path="/about-us" element={<AboutUs />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                </Routes>
+            </BrowserRouter>
         </div>
 
     );

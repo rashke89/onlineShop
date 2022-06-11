@@ -14,7 +14,7 @@ mongoose
     .then((data) => console.log("MONGO DB is connected."))
     .catch((err) => console.log(`${err}`));
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // enable CORS - API calls and resource sharing
 // * ukljucujemo cors u nasoj app
@@ -74,7 +74,7 @@ app.put('/api/user/:username', (req, res) => {
     const reqQuery = req.query;
     console.log(reqBody, 'JA SAM IZ PUT METODE');
 
-    Users.updateOne({"username": reqParams.username}, {
+    Users.updateOne({ "username": reqParams.username }, {
         username: reqQuery.name,
         email: reqQuery.email,
         isAdmin: reqQuery.admin
@@ -91,7 +91,7 @@ app.put('/api/user/:username', (req, res) => {
 app.get('/api/user/:username', (req, res) => {
     const reqParam = req.params;
     console.log(reqParam);
-    const user = Users.findOne({"username": reqParam.username}, (err, data) => {
+    const user = Users.findOne({ "username": reqParam.username }, (err, data) => {
         if (err) res.send('Doslo je do greske prilikom pretrage usera ' + reqParam.username);
         else res.send(data);
     });
@@ -104,9 +104,8 @@ app.get('/api/users', (req, res) => {
     const allUsers = Users.find((err, data) => {
         if (err) res.send('Greska prilikom pretrage, pokusajte ponovo.');
         else res.send(data);
-
     });
-    console.log(allUsers);
+
 });
 
 // * DELETE USER
@@ -114,7 +113,7 @@ app.delete('/api/user/:email', (req, res) => {
     const param = req.params.email;
     console.log(param);
 
-    Users.deleteOne({email: param}, (err, data) => {
+    Users.deleteOne({ email: param }, (err, data) => {
         if (err) res.send('Doslo je do greske prilikom brisanja usera ' + req.body.username);
         else res.send(data);
     });

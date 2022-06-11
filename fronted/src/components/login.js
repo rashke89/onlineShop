@@ -22,7 +22,7 @@ function Login() {
             return;
         }
         setIsFormValid(true);
-        let body = {username: username, password: password};
+        let body = { username: username, password: password };
 
         // api call
         AuthService.login(body)
@@ -46,14 +46,14 @@ function Login() {
                 <label htmlFor="username">User name</label>
                 <input id="username" type="text" onChange={(event) => {
                     onUsernameChange(event)
-                }}/>
-                <br/>
+                }} />
+                <br />
                 <label htmlFor="password">Password</label>
-                <input id="password" type="password" onChange={onPasswordChange}/>
+                <input id="password" type="password" onChange={onPasswordChange} />
 
                 {!isFormValid ? <p>All fields are required.</p> : null}
 
-                <input type="submit" value="send data"/>
+                <input type="submit" value="send data" />
 
                 {apiError ? <p>Doslo je do greske prilikom prijavljivalja, molimo pokusajte ponovo!</p> : ''}
             </form>

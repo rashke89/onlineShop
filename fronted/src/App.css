@@ -1,52 +1,87 @@
 .App {
-  text-align: center;
+    text-align: center;
+}
+
+.login-wrapper,
+.register-wrapper {
+    color: white;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.main-wrapper {
+    background-color: #282c34;
+}
+
+.App-andrija {
+    display: flex;
+    justify-content: center;
+    color: white;
+    list-style-type: none;
+    align-items: center;
+}
+
+.single-user-parent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.App-andrija li {
+    margin-left: 20px;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 input {
-  display: block;
+    display: block;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .heading-text {
-  background-color: tomato;
+    background-color: tomato;
 }
 
 .form-btns button {
-  padding: 10px;
-  margin: 10px;
-  font-size: 20px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 20px;
+}
+
+.colorUsernamW {
+    color: white;
+}
+
+.colorUsernameT {
+    color: tomato;
 }

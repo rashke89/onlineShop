@@ -59,7 +59,6 @@ function AuthPage() {
                 <input type="submit" value="send data"/>
             </form>
 
-            {/*<RegisterForm/>*/}
         </div>
     )
 }
