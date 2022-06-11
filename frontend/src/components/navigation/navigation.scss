@@ -1,0 +1,33 @@
+.navbar {
+  --clr-black: #212121;
+
+  & .navbar-nav {
+    gap: 2rem;
+  }
+  & a:not(.navbar-brand) {
+    color: var(--clr-black);
+    transition: color 350ms ease-in;
+    position: relative;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--clr-black);
+      transition: width 350ms ease-in;
+    }
+
+    &:hover {
+      color: currentColor;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
