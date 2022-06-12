@@ -3,7 +3,6 @@ import axios from "axios";
 import Arrow from "./Arrow";
 import Dots from "./Dots";
 import SlideContent from "./SlideContent";
-import { imageList } from "./SourceData"; //array with object with property src and title
 import "./style.scss";
 
 function Slider() {
@@ -35,7 +34,7 @@ function Slider() {
     return () => {
       clearInterval(interval);
     };
-  }, [currentImage]);
+  }, []);
 
   function changeSlide(movement) {
     let imgIndex = currentImage + movement;

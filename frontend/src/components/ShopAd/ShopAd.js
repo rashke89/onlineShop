@@ -8,7 +8,8 @@ function ShopAd(props) {
   useEffect(() => {
     // props cannot change
     setAd(props.ad);
-  }, []);
+  }, [props.ad]);
+
   return (
     <div className="shop-ad-wrapper col-md-6 col-lg-4 col-xl-3">
       {ad.hasOwnProperty("image") ? (

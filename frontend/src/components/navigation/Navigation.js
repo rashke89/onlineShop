@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import nav from "./navigation.scss";
+import "./navigation.scss";
 
 function Navigation() {
   return (

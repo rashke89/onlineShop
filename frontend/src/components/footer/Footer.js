@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import footerStyle from "./footer.scss";
+import "./footer.scss";
 
 const Footer = () => (
   <footer className="page-footer font-small">
-    <div className="container text-center text-md-left">
+    <div className="container text-center text-md-left footer-hr">
       <div className="row">
         <div className="col-xl-3 col-lg-4 col-md-6 mb-md-0 mb-3 text-left">
           <h5 className="text-uppercase">About</h5>
@@ -86,9 +86,31 @@ const Footer = () => (
       </div>
     </div>
 
-    <div className="footer-copyright text-center py-3">
-      © 2022 Copyright:
-      <a href="/"> Full-stack team</a>
+    <div className="footer-copyright text-center py-3 container">
+      <div className="row">
+        <div className="col-xl-6">
+          <address>© 2017 All rights reserved. Design by Typostores</address>
+        </div>
+        <div className="col-xl-6">
+          <div className="footer-icon">
+            <h5>Connect with us:</h5>
+            <div className="footer-icon-share">
+              <Link className="nav-link" to="/">
+                1
+              </Link>
+              <Link className="nav-link" to="/">
+                2
+              </Link>
+              <Link className="nav-link" to="/">
+                3
+              </Link>
+              <Link className="nav-link" to="/">
+                4
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
 );

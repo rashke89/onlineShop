@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import AuthService from "../../services/authService";
-import regStyle from "./register.scss";
+import "./register.scss";
 
 function Register({ showLoginForm }) {
   const genderSelect = useRef();

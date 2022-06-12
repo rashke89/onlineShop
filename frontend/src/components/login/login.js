@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthService from "../../services/authService";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,10 @@ function Login({ showLoginForm }) {
     setUserData(newInput);
   };
   const loginForm = () => showLoginForm(false);
+
+  useEffect(() => {
+    console.log("hee");
+  }, [userData.username]);
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -66,7 +70,7 @@ function Login({ showLoginForm }) {
         <button type="button" className="btn btn-reg " onClick={loginForm}>
           Go to register
         </button>
-        <button className="btn  btn-login ms-auto">Login</button>
+        <button className="btn btn-login ms-auto">Login</button>
       </div>
       {!isValidForm && <p>Username and password is required!</p>}
     </form>
