@@ -9,15 +9,20 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Navigation from "./components/navigation/Navigation";
 import Home from "./pages/Home/Home";
+import {useDispatch} from "react-redux";
+import {setUser} from "./redux/userSlice";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
 
 function App() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     useEffect(() => {
         if (!localStorage.hasOwnProperty('user')) {
             navigate('/auth');
+        } else {
+            dispatch(setUser(JSON.parse(localStorage.getItem('user'))))
         }
     }, []);
 

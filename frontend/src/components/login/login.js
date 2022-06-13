@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import AuthService from "../../services/authService";
 import "./style.scss"
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setUser} from "../../redux/userSlice";
 
 function Login({showLoginForm}) {
     const [userData, setUserData] = useState({
@@ -10,15 +12,15 @@ function Login({showLoginForm}) {
     });
     const [isValidForm, setIsValidForm] = useState(true);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-            console.log('password is ee');
+            console.log('password is');
     }, [userData?.username]);
 
     const onHandleInput = (e) => {
         let newInput = userData;
         newInput[e.target.name] = e.target.value;
-        console.log(newInput);
         setUserData(newInput);
     };
     const loginForm = () => showLoginForm(false)
@@ -33,8 +35,9 @@ function Login({showLoginForm}) {
 
         AuthService.login(userData).then(res => {
             if (res && res.status === 200) {
-                console.log(JSON.stringify(res.data));
+                // console.log(JSON.stringify(res.data));
                 localStorage.setItem('user', JSON.stringify(res.data));
+                dispatch(setUser(res.data));
                 navigate('/');
             }
         }).catch(err => {
