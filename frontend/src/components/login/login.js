@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AuthService from "../../services/authService";
 import "./style.scss"
 import {useNavigate} from "react-router-dom";
@@ -11,11 +11,16 @@ function Login({showLoginForm}) {
     const [isValidForm, setIsValidForm] = useState(true);
     const navigate = useNavigate();
 
+    useEffect(() => {
+            console.log('password is ee');
+    }, [userData?.username]);
+
     const onHandleInput = (e) => {
-        let newInput = userData
-        newInput[e.target.name] = e.target.value
-        setUserData(newInput)
-    }
+        let newInput = userData;
+        newInput[e.target.name] = e.target.value;
+        console.log(newInput);
+        setUserData(newInput);
+    };
     const loginForm = () => showLoginForm(false)
 
     const onSubmitForm = (e) => {
