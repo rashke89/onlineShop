@@ -8,8 +8,6 @@ function AuthPage() {
     const [isFormValid, setIsFormValid] = React.useState(true);
     const [apiError, setApiError] = React.useState(false);
 
-    const [loginIsValid, setLoginIsValid] = React.useState(true);
-
     const onUsernameChange = (event) => {
         setUsername(event.target.value);
     };
@@ -31,7 +29,7 @@ function AuthPage() {
         AuthService.login(body)
             .then((response) => {
                 if (response && response.status === 200) {
-                    console.log('API response -> ', response);
+                    console.log('API response -> ',response);
                     //TODO: send user to some page
                     localStorage.setItem('user', JSON.stringify(response.data))
                 }
@@ -41,15 +39,13 @@ function AuthPage() {
             });
 
     };
- 
+
     return (
         <div className="auth-wrapper">
-            <h1>Auth login wrapper</h1>
+           <h1>Auth login wrapper</h1>
             <form onSubmit={event => onSubmitForm(event)}>
                 <label htmlFor="username">User name</label>
-                <input id="username" type="text" onChange={(event) => {
-                    onUsernameChange(event)
-                }}/>
+                <input id="username" type="text" onChange={(event) => {onUsernameChange(event)}}/>
                 <br/>
                 <label htmlFor="password">Password</label>
                 <input id="password" type="password" onChange={onPasswordChange}/>
@@ -59,6 +55,7 @@ function AuthPage() {
                 <input type="submit" value="send data"/>
             </form>
 
+            {/*<RegisterForm/>*/}
         </div>
     )
 }
