@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import AuthService from "../../services/AuthService";
-import './style.scss';
+import './register.scss';
 
-const RegisterForm = ({showLoginForm}) => {
+const Register = ({showLoginForm}) => {
 	const [userObj, setUserObj] = useState({
 		username: '',
 		password: '',
@@ -123,4 +123,4 @@ const RegisterForm = ({showLoginForm}) => {
 	);
 };
 
-export default RegisterForm;
+export default Register;

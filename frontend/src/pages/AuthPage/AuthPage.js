@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import AuthService from '../services/AuthService';
+import AuthService from '../../services/AuthService';
 import './authPage.scss';
-import LoginForm from "../components/LoginForm/LoginForm";
-import RegisterForm from "../components/RegisterForm/RegisterForm";
+import Login from "../../components/Login/Login";
+import Register from "../../components/Register/Register";
 
 const AuthPage = () => {
 	const [isLoginForm, setIsLoginForm] = useState(true);
@@ -22,7 +22,7 @@ const AuthPage = () => {
 				<button onClick={showLoginForm}>Login</button>
 				<button onClick={showRegisterForm}>Register</button>
 			</div>
-			{isLoginForm ? <LoginForm/> : <RegisterForm showLoginForm={showLoginForm}/>}
+			{isLoginForm ? <Login/> : <Register showLoginForm={showLoginForm}/>}
 		</div>
 	);
 };
