@@ -9,7 +9,6 @@ function Shop() {
         ShopService.getAds().then((res) => {
             if (res.status === 200) {
                 setAds(res.data)
-                console.log(res.data)
             }
         }).catch((err) => {
             console.log(err)

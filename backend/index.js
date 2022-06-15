@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors")
+const cors = require("cors");
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
+const nodemailer = require("nodemailer")
+const mailService = require("./services/mailService")
 
 
 const app = express();
@@ -29,23 +31,20 @@ app.post("/api/login", (req, res) => {
 
 app.post("/api/register", async (req, res) => {
     const reqBody = req.body;
-    console.log(req)
+
     const condition = {$or: [{username: reqBody.username}, {password: reqBody.password}]}
     Users.findOne(condition, async (err, data) => {
-        console.log(data);
         if (err) {
             const errorMsg = `Error on register user: ${err}`;
             console.log(errorMsg);
             res.send(errorMsg);
             return;
         }
-
         if (data)
             res.send(`user already exist: ${data.username}`);
         else {
             const newUser = new Users(reqBody);
             const saveNewUser = await newUser.save();
-            console.log(saveNewUser);
 
             res.send(saveNewUser || "User not registered.");
         }

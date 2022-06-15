@@ -3,7 +3,6 @@ import axios from "axios";
 import Arrow from "./Arrow";
 import Dots from "./Dots";
 import SlideContent from "./SlideContent";
-import {imageList} from "./SourceData"; //array with object with property src and title
 import "./style.scss"
 
 function Slider() {
@@ -18,11 +17,6 @@ function Slider() {
     const [numberImages, setNumberImages] = useState(0);
 
     useEffect(() => {
-        //if we use local source from SourceData.ja
-        // setImages(imageList)
-        // setNumberImages(imageList.length)
-        // console.log(JSON.stringify(imageList))
-
         axios.get("https://raw.githubusercontent.com/zile028/fake-db/main/slider_images.json")
             .then(res => res.data).then((res) => {
             setImages(res)
