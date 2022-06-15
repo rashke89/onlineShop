@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import AuthService from "../../services/authService";
+import {useNavigate} from "react-router-dom"
 import "./style.scss"
+import {useDispatch} from "react-redux";
+import {setUser} from "../../redux/userSlice";
 
 function Login({showLoginForm}) {
     const [userData, setUserData] = useState({
@@ -8,6 +11,8 @@ function Login({showLoginForm}) {
         password: "",
     });
     const [isValidForm, setIsValidForm] = useState(true);
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const onHandleInput = (e) => {
         let newInput = userData
@@ -26,7 +31,8 @@ function Login({showLoginForm}) {
 
         AuthService.login(userData).then(res => {
             if (res && res.status === 200) {
-                console.log(res.data)
+                dispatch(setUser(res.data))
+                navigate("/")
             }
         }).catch(err => {
             console.log(err);
