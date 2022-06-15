@@ -23,7 +23,7 @@ Zatim na event onSubmit vrsimo validaciju i saljemo  podatke bazi podataka.
 ---
 CORS-Cross origin resource  sharing
 ---
-Da mi server mogao da kominucira sa drugim serverima, moramo da omogucimo
+Da bi server mogao da kominucira sa drugim serverima, moramo da omogucimo
 CORS.
 
 npm i cors
