@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
+const mainService = require('./services/mailService');
 
 const app = express();
 mongoose
@@ -15,6 +17,8 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 // enable CORS - API calls and resource sharing
 app.use(cors());
+// nodmailer config
+// const mailer = mainService.configureMail();
 
 // Login
 app.post("/api/login", (req, res) => {
@@ -61,9 +65,37 @@ app.post("/api/register", async (req, res) => {
     else {
       const newUser = new Users(reqBody);
       const saveNewUser = await newUser.save();
-      // console.log(saveNewUser);
+        console.log(saveNewUser._id.toString());
 
-            res.send(saveNewUser || 'User not registered.');
+        let testAccount = await nodemailer.createTestAccount();
+
+        let transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: testAccount.user, // generated ethereal user
+                pass: testAccount.pass, // generated ethereal password
+            },
+        });
+
+        let info = await transporter.sendMail({
+            from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
+            to: reqBody.email, // list of receivers
+            subject: "Activate account", // Subject line
+            text: "", // plain text body
+            html: `
+            <h1>Activate account</h1>
+            <p>Dear, ${reqBody.username}</p>
+            <p>Please click on link bellow to activate your account</p>
+            <a href="http://localhost:3000/user-activate/${saveNewUser._id.toString()}" target="_blank">Activate link</a>
+            `, // html body
+        });
+
+
+        console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
+
+        res.send(saveNewUser || 'User not registered.');
         }
     });
 });
@@ -107,6 +139,20 @@ app.put("/api/user/:username", (req, res) => {
     Users.updateOne({"username": param}, {email: query.email, isAdmin: query.admin}, null, (error, result) => {
         if (error) throw error
         res.send(result)
+    })
+})
+
+app.post('/api/complete-registration', (req, res) => {
+    const userId = req.body.userId;
+
+    Users.updateOne({_id: userId}, {isActive: true}, (error, result) => {
+        if (error) {
+            console.log(error);
+            res.send(error);
+        } else {
+            console.log('activate user...', result);
+            res.send(result)
+        }
     })
 })
 
