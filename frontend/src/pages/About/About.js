@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-function About(props) {
+function About() {
     return (
-        <div>About</div>
+        <div>
+            <h1>About</h1>
+            
+        </div>
     );
 }
 

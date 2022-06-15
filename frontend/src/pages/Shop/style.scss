@@ -1,0 +1,11 @@
+.shop {
+  &-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1%;
+
+    & > div {
+      width: 24%;
+    }
+  }
+}

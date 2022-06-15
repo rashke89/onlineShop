@@ -7,6 +7,12 @@ import {imageList} from "./SourceData"; //array with object with property src an
 import "./style.scss"
 
 function Slider() {
+    const [config, setConfig] = useState({
+        dots: true,
+        nav: true,
+        autoPlay: true,
+        timout: 5000
+    });
     const [images, setImages] = useState([]);
     const [currentImage, setCurrentImage] = useState(0);
     const [numberImages, setNumberImages] = useState(0);
@@ -27,7 +33,7 @@ function Slider() {
     useEffect(() => {
         const interval = setInterval(() => {
             changeSlide(1)
-        }, 5000)
+        }, config.timout)
         return () => {
             clearInterval(interval)
         };
@@ -46,8 +52,9 @@ function Slider() {
     return (
         <section className="slider-wrapper">
             {images.length > 0 ? <SlideContent currentIndex={currentImage} images={images}/> : null}
-            <Arrow changeSlide={changeSlide}/>
-            <Dots numberDots={numberImages} currentDot={currentImage} setCurrentSlide={setCurrentImage}/>
+            {config.nav && <Arrow changeSlide={changeSlide}/>}
+            {config.dots &&
+                <Dots numberDots={numberImages} currentDot={currentImage} setCurrentSlide={setCurrentImage}/>}
         </section>
     );
 }

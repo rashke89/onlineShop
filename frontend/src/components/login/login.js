@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from "react";
 import AuthService from "../../services/authService";
 import {useNavigate} from "react-router-dom"
 import "./style.scss"
@@ -15,7 +15,7 @@ function Login({showLoginForm}) {
     const dispatch = useDispatch()
 
     const onHandleInput = (e) => {
-        let newInput = userData
+        let newInput = {...userData}
         newInput[e.target.name] = e.target.value
         setUserData(newInput)
     }
@@ -45,7 +45,6 @@ function Login({showLoginForm}) {
             <input className="form-control" name="username" type="text" id="username" onInput={onHandleInput}/>
             <label htmlFor="password">Password</label>
             <input className="form-control mb-3" name="password" type="password" id="password" onInput={onHandleInput}/>
-
             <button type="button" className="btn btn-primary px-5" onClick={loginForm}>Go to register</button>
             <button className="btn btn-success px-5 ms-auto">OK</button>
             {!isValidForm && <p>Username and password is required!</p>}

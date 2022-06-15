@@ -7,7 +7,7 @@ function SlideContent({currentIndex, images}) {
                 return (index === currentIndex &&
                     <article className="content-holder" key={index}>
                         <img src={image.src} alt=""/>
-                        <SlideTitle title={image.title}/>
+                        {image.title && <SlideTitle title={image.title}/>}
                     </article>
                 )
             })}

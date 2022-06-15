@@ -1,21 +1,21 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors')
-const dbConfig = require('./config/dbConfig');
-const Users = require('./models/userModel');
-const serverConfig = require('./config/serverConfig');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors")
+const dbConfig = require("./config/dbConfig");
+const Users = require("./models/userModel");
+const serverConfig = require("./config/serverConfig");
 
 
 const app = express();
 mongoose.connect(dbConfig.MONGODB_URL)
-    .then(data => console.log('MONGO DB is connected.'))
+    .then(data => console.log("MONGO DB is connected."))
     .catch(err => console.log(`Error while connecting to MONGO DB: ${err}`));
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cors());
 
-app.post('/api/login', (req, res) => {
+app.post("/api/login", (req, res) => {
     const reqBody = req.body;
     const foundUser = Users.findOne(reqBody, (err, data) => {
         if (err) {
@@ -27,7 +27,7 @@ app.post('/api/login', (req, res) => {
     });
 })
 
-app.post('/api/register', async (req, res) => {
+app.post("/api/register", async (req, res) => {
     const reqBody = req.body;
     console.log(req)
     const condition = {$or: [{username: reqBody.username}, {password: reqBody.password}]}
@@ -47,7 +47,7 @@ app.post('/api/register', async (req, res) => {
             const saveNewUser = await newUser.save();
             console.log(saveNewUser);
 
-            res.send(saveNewUser || 'User not registered.');
+            res.send(saveNewUser || "User not registered.");
         }
     });
 });
