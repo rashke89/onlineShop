@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+.button-box{
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow:  0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+.toggle-btn{
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+}
+
+.form-box-L{
+    height: 400px;/*???????*/
+    width: 380px;
+    position: relative;
+    margin: 150px auto;
+    background: white;
+    padding: 5px ;
+    border-radius: 10px;
+}
+.login-form{
+    width: 280px;
+    margin: 10px auto;
+}
+
+.input-group-custom{
+    top: 100px;
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+}
+
+.input-field{
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.submit-btn{
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    background: linear-gradient(to right, #ff105f,#ffad06);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+
+}
+
+#btn-L{
+    top: 0;
+    left: 0; /*????*/
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: linear-gradient(to right, #ff105f,#ffad06);
+    border-radius: 30px;
+    transition: .5s;
+}
+
+.isFormValidError, .apiError{
+    color: tomato;
+    text-align: center;
+}
+
+.social-icons{
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+}
+.social-icons img{
+    width: 30px;
+    margin: 0 12px;
+    box-shadow: 0 0 20px 0 #7f7f7f3d;
+    cursor: pointer;
+    border-radius: 50%;
+    background: linear-gradient(to right, #ff105f,#ffad06);
+
+}
+.social-icons a{
+    text-decoration: none;
+
+
+}

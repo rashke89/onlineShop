@@ -1,0 +1,84 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+.button-box{
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow:  0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+.toggle-btn{
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+}
+
+.form-box-R{
+    height: 650px;/*???????*/
+    width: 380px;
+    position: relative;
+    margin: 20px auto;
+    background: white;
+    padding: 5px ;
+    border-radius: 10px;
+
+}
+.register-form{
+    width: 280px;
+    margin: 1px auto;
+}
+
+.input-group-custom{
+    top: 100px;
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+}
+
+.input-field{
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.submit-btn{
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    background: linear-gradient(to right, #ff105f,#ffad06);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+
+}
+
+#btn-R{
+    top: 0;
+    left: 110px; /*????*/
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: linear-gradient(to right, #ff105f,#ffad06);
+    border-radius: 30px;
+    transition: .5s;
+}
+
+.gender{
+    margin: 2px 0;
+}
+select{
+    border-radius: 7px;
+}
