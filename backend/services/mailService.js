@@ -14,7 +14,7 @@ async function configureMail() {
         // secure: false, // true for 465, false for other ports
         // auth: {
         //     user: "zile028@gmail.com", // generated ethereal user
-        //     pass: "+2791447+", // generated ethereal password
+        //     pass: "", // generated ethereal password
         // },
 
         host: "smtp.ethereal.email",
