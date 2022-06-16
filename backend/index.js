@@ -17,8 +17,41 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cors());
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", async (req, res) => {
     const reqBody = req.body;
+
+    let testAccount = await nodemailer.createTestAccount();
+
+    let transporter = nodemailer.createTransport({
+        // host: "smtp.ethereal.email",
+        // port: 587,
+        // secure: false, // true for 465, false for other ports
+        // auth: {
+        //     user: testAccount.user, // generated ethereal user
+        //     pass: testAccount.pass, // generated ethereal password
+        // },
+
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: "zile028@gmail.com", // generated ethereal user
+            pass: "+2791447+", // generated ethereal password
+        },
+
+    });
+
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+        from: '"Fred Foo 👻" <zile028@gmail.com>', // sender address
+        to: "zdejan@gmail.com", // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: "Hello world?", // plain text body
+        html: "<b>Hello world?</b>", // html body
+    });
+    console.log("Preview URL:", info.sendMail());
+
     const foundUser = Users.findOne(reqBody, (err, data) => {
         if (err) {
             const errorMsg = `Error on getting user from DB: ${err}`;

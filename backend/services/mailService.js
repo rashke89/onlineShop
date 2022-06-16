@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-let transporter = null;
+
 
 async function configureMail() {
     // Generate test SMTP service account from ethereal.email
@@ -9,14 +9,23 @@ async function configureMail() {
 
     // create reusable transporter object using the default SMTP transport
     return nodemailer.createTransport({
-        host: "smtp.gmail.com",
+        // host: "smtp.gmail.com",
+        // port: 587,
+        // secure: false, // true for 465, false for other ports
+        // auth: {
+        //     user: "zile028@gmail.com", // generated ethereal user
+        //     pass: "+2791447+", // generated ethereal password
+        // },
+
+        host: "smtp.ethereal.email",
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-            user: "zile028@gmail.com", // generated ethereal user
-            pass: "+2791447+", // generated ethereal password
+            user: testAccount.user, // generated ethereal user
+            pass: testAccount.pass, // generated ethereal password
         },
     });
 }
+
 
 module.exports = configureMail;
