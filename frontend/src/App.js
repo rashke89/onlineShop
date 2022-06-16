@@ -6,7 +6,7 @@ import './assets/scss/base.scss';
 import {Routes, Route, useNavigate} from "react-router-dom"
 import Shop from "./pages/Shop/Shop";
 import About from "./pages/About/About";
-import Contact from "./pages/Contact/Contact";
+import ContactPage from "./pages/ContactPage/ContactPage";
 import Navigation from "./components/navigation/Navigation";
 import Home from "./pages/Home/Home";
 import {useDispatch} from "react-redux";
@@ -34,7 +34,7 @@ function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/shop" element={<Shop/>}/>
                 <Route path="/about" element={<About/>}/>
-                <Route path="/contact" element={<Contact/>}/>
+                 <Route path="/contact" element={<ContactPage/>}/>
                 <Route path="/auth" element={<AuthPage/>}/>
                 <Route path="/user-activate/:id" element={<ActivateUserPage/>}/>
             </Routes>

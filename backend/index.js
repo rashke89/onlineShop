@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
-const mainService = require('./services/mailService');
+// const mainService = require('./services/mailService');
 
 const app = express();
 mongoose
@@ -33,17 +33,6 @@ app.post("/api/login", (req, res) => {
       res.status(416).send(errorMsg);
       return;
     }
-
-    // way 1
-    // if (data)
-    //     res.send(data);
-    // else
-    //     res.send('User not found.');
-
-    // way 2
-    // res.send(data ? data : 'User not found.');
-
-    // way 3
     res.send(data || "User not found.");
   });
 });
@@ -154,6 +143,33 @@ app.post('/api/complete-registration', (req, res) => {
             res.send(result)
         }
     })
+})
+
+// Contact
+app.post("/api/contact", async (req,res) =>{
+    const reqBody = req.body;
+    console.log(reqBody);
+  let testAccount = await nodemailer.createTestAccount();
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: reqBody.email, // sender address
+    to: "shuriken233@gmail.com", // list of receivers
+    subject: reqBody.subject, // Subject line
+    text: reqBody.message, // plain text body
+    // html: "<b>Hello world?</b>", // html body
+  });
+
+  console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
 })
 
 app.listen(serverConfig.port, err => {
