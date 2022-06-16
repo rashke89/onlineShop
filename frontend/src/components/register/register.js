@@ -43,7 +43,7 @@ function Register({showLoginForm}) {
             if (res && res.status === 200) {
                 console.log(res)
                 setIsApiErr(false)
-                setIsApiFinish(true)
+                setIsApiFinish(true);
             }
         }).catch(err => {
             console.log(err);

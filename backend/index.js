@@ -170,6 +170,7 @@ app.post("/api/contact", async (req,res) =>{
   });
 
   console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
+  res.send(reqBody || "Unable to send message.");
 })
 
 app.listen(serverConfig.port, err => {

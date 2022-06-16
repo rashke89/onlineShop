@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import "./contact.scss";
 import ContactService from "../../services/contactService";
+// import {useNavigate, useParams} from "react-router-dom";
+
 
 function Contact() {
+    // const navigate = useNavigate();
     const [contact, setContact] = useState({
         name: '',
         email: '',
@@ -11,6 +14,7 @@ function Contact() {
 
     });
     const [isValidForm, setIsValidForm] = useState(true);
+    const [isApiFinish, setIsApiFinish] = useState(false);
 
     const onHandleInput = e => {
         let newInput = contact;
@@ -18,19 +22,23 @@ function Contact() {
         setContact(newInput);
     }
 
-    const onSubmitForm = e => {
+    const onSubmitForm = (e) => {
         e.preventDefault();
         if (!contact.name || !contact.email || !contact.message || !contact.subject) {
             setIsValidForm(false);
             return
         }
          setIsValidForm(true);
-        ContactService.sendContactForm(contact)
-            .then(res => {
-                if (res.status === 200)
-                     console.log(res)
-            })
-            .catch(err=> console.log(err))
+         ContactService.sendContactForm(contact).then(res => {
+             console.log(contact)
+            if (res && res.status === 200) {
+                console.log(res)
+                setIsApiFinish(true);
+                // navigate('/');
+            }
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     return (
@@ -41,7 +49,7 @@ function Contact() {
                     <h3 className="py-5 text-center">Kontakt</h3>
                     <ul>
                         <li><i className="fas fa-phone icons"><span>012-333-444</span></i></li>
-                        <li><i className="fas fa-envelope icons"><span>foodflorist@gmail.com</span></i></li>
+                        <li><i className="fas fa-envelope icons"><span>onlineshop@gmail.com</span></i></li>
                         <li><i className="fas fa-map-marker-alt icons"><span>Some address 21, Belgrade</span></i>
                         </li>
                     </ul>
@@ -69,6 +77,7 @@ function Contact() {
                         </div>
                         <button className="btn btn-primary  text-center">Contact us</button>
                         {!isValidForm ? <p>All fields is required!</p> : null}
+                        {isApiFinish ? <p>Message sent!</p> : null}
                     </form>
                 </div>
             </article>
