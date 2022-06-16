@@ -57,7 +57,7 @@
     padding: 10px 30px;
     cursor: pointer;
     display: block;
-    margin: 20px auto;
+    margin: 10px auto;
     background: linear-gradient(to right, #ff105f,#ffad06);
     border: 0;
     outline: none;
@@ -79,6 +79,11 @@
 .gender{
     margin: 2px 0;
 }
-select{
+#genderSelect{
     border-radius: 7px;
+}
+
+.isFormValid, .apiFinish, .apiError{
+    color: tomato;
+    text-align: center;
 }

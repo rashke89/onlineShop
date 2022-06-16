@@ -40,7 +40,9 @@ const Login = ({isLogin}) => {
         AuthService.login(userInfo)
             .then((response)=>{
                 if(response && response.status===200){
-                    //todo navigate
+                    //todo navigation
+                    setApiError(false);
+                    localStorage.setItem("user", JSON.stringify(response.data))
                 }
             })
             .catch((error)=>{
