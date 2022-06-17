@@ -10,7 +10,7 @@ function Shop() {
             .then((res) => {
                 if (res.status === 200)
                     setAds(res.data);
-                console.log(res);
+                console.log('response...', res);
             })
             .catch(err => console.log(err));
     }, []);
