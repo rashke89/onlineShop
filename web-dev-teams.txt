@@ -1,0 +1,27 @@
+team 1: 
+- Dejan Zivkovic
+- Sasa
+- Ivan (hansq3)
+- Nikola Damnjanovic
+
+team 2:
+- Bratislav 
+- Andrijana
+- Kazimir
+- Ognjen
+
+team 3:
+- Andrija
+- Bogdan
+- Mihajlo
+- Selma 
+
+team 4:
+- Milan
+- Damir
+- Mila
+
+team 5:
+- Nemanja Novakovic
+- Dejan Lukic
+- Milos
