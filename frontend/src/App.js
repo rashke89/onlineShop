@@ -5,13 +5,14 @@ import './App.css';
 
 import {Routes, Route, useNavigate} from "react-router-dom"
 import {useDispatch} from "react-redux";
-import {setUser} from "./redux/userSlice";
+import {setUser, getUser} from "./redux/userSlice";
 import Shop from "./pages/Shop/Shop";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Navigation from "./components/navigation/Navigation";
 import Home from "./pages/Home/Home";
 import ActivateUser from "./pages/ActivateUser/ActivateUser";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -20,6 +21,7 @@ function App() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
+        
         if (localStorage.hasOwnProperty("user")) {
             dispatch(setUser(JSON.parse(localStorage.getItem("user"))))
         } else {
@@ -37,6 +39,7 @@ function App() {
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/auth" element={<AuthPage/>}/>
                 <Route path="/user-activate/:id" element={<ActivateUser/>}/>
+                <Route path="/dashboard" element={<Dashboard/>}/>
             </Routes>
         </div>
     );

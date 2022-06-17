@@ -88,7 +88,7 @@ app.get("/api/users", (req, res) => {
 //get one user by username
 app.get("/api/user/:username", (req, res) => {
     const param = req.params.username
-    Users.find({"username": param}, (error, result) => {
+    Users.findOne({"username": param}, (error, result) => {
         if (error) throw error;
         res.send(result)
     })

@@ -1,9 +1,10 @@
 const nodemailer = require("nodemailer");
+const mailConfig = require("../config/mailerConfig")
 
 class Mailer {
     constructor({recipient, subject, text, htmlMsg}) {
         this.mailOptions = {
-            from: '"Dejan Zivkovic" <office@zile028.com>', // sender address
+            from: `"${mailConfig.ownerName}" <${mailConfig.ownerEmail}>`, // sender address
             to: recipient, // list of receivers
             subject: subject, // Subject line
             text: text && "", // plain text body
@@ -13,13 +14,10 @@ class Mailer {
 
     transporter() {
         return nodemailer.createTransport({
-            host: "mail.zile028.com",
-            port: 465,
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: "office@zile028.com", // generated ethereal user
-                pass: "office134679+", // generated ethereal password
-            },
+            host: mailConfig.host,
+            port: mailConfig.port,
+            secure: mailConfig.secure, // true for 465, false for other ports
+            auth: mailConfig.auth,
         });
     }
 

@@ -13,9 +13,12 @@ const userSlice = createSlice({
         removeUser: (state, action) => {
             state.user = {}
             localStorage.removeItem("user")
+        },
+        getUser: (state, action) => {
+            return state.user
         }
     }
 })
 
-export const {setUser} = userSlice.actions;
+export const {setUser, removeUser, getUser} = userSlice.actions;
 export default userSlice.reducer;
