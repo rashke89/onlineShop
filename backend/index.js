@@ -4,9 +4,7 @@ const cors = require("cors");
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
-const nodemailer = require("nodemailer")
-const mailService = require("./services/mailService")
-
+const Mailer = require("./services/mailService")
 
 const app = express();
 mongoose.connect(dbConfig.MONGODB_URL)
@@ -17,40 +15,8 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cors());
 
-app.post("/api/login", async (req, res) => {
+app.post("/api/login", (req, res) => {
     const reqBody = req.body;
-
-    let testAccount = await nodemailer.createTestAccount();
-
-    let transporter = nodemailer.createTransport({
-        // host: "smtp.ethereal.email",
-        // port: 587,
-        // secure: false, // true for 465, false for other ports
-        // auth: {
-        //     user: testAccount.user, // generated ethereal user
-        //     pass: testAccount.pass, // generated ethereal password
-        // },
-
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: "zile028@gmail.com", // generated ethereal user
-            pass: "", // generated ethereal password
-        },
-
-    });
-
-
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <zile028@gmail.com>', // sender address
-        to: "zdejan@gmail.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
-    });
-    console.log("Preview URL:", info.sendMail());
 
     const foundUser = Users.findOne(reqBody, (err, data) => {
         if (err) {
@@ -64,20 +30,33 @@ app.post("/api/login", async (req, res) => {
 
 app.post("/api/register", async (req, res) => {
     const reqBody = req.body;
-
+    console.log("request body", reqBody)
     const condition = {$or: [{username: reqBody.username}, {password: reqBody.password}]}
-    Users.findOne(condition, async (err, data) => {
+    Users.findOne({username: reqBody.username}, async (err, data) => {
         if (err) {
             const errorMsg = `Error on register user: ${err}`;
             console.log(errorMsg);
             res.send(errorMsg);
             return;
         }
-        if (data)
+        if (data) {
+            console.log(data)
             res.send(`user already exist: ${data.username}`);
-        else {
+        } else {
             const newUser = new Users(reqBody);
             const saveNewUser = await newUser.save();
+
+            const sendMail = new Mailer({
+                recipient: reqBody.email,
+                subject: "Activate account",
+                htmlMsg: `
+                        <h1>Activate account</h1>
+                        <p>Dear, ${reqBody.username}</p>
+                        <p>Please click on link bellow to activate your account</p>
+                        <a href="http://localhost:3000/user-activate/${saveNewUser._id.toString()}" target="_blank">Activate link</a>`
+            })
+
+            console.log(sendMail.sendMail())
 
             res.send(saveNewUser || "User not registered.");
         }
@@ -125,6 +104,20 @@ app.put("/api/user/:username", (req, res) => {
         res.send(result)
     })
 })
+
+app.post("/api/complete-registration", (req, res) => {
+    const userId = req.body.userId;
+    Users.updateOne({_id: userId}, {isActive: true}, (error, result) => {
+        if (error) {
+            console.log(error)
+            res.send(error)
+        } else {
+            console.log("Activate user...", result)
+            res.send(result)
+        }
+    })
+})
+
 
 app.listen(serverConfig.port, err => {
     if (err) {

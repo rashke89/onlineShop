@@ -4,13 +4,14 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import './App.css';
 
 import {Routes, Route, useNavigate} from "react-router-dom"
+import {useDispatch} from "react-redux";
+import {setUser} from "./redux/userSlice";
 import Shop from "./pages/Shop/Shop";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Navigation from "./components/navigation/Navigation";
 import Home from "./pages/Home/Home";
-import {useDispatch} from "react-redux";
-import {setUser} from "./redux/userSlice";
+import ActivateUser from "./pages/ActivateUser/ActivateUser";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -22,7 +23,7 @@ function App() {
         if (localStorage.hasOwnProperty("user")) {
             dispatch(setUser(JSON.parse(localStorage.getItem("user"))))
         } else {
-            navigate("/auth")
+            // navigate("/auth")
         }
     }, []);
 
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/about" element={<About/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/auth" element={<AuthPage/>}/>
+                <Route path="/user-activate/:id" element={<ActivateUser/>}/>
             </Routes>
         </div>
     );
