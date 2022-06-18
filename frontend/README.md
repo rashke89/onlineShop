@@ -94,4 +94,24 @@ npm i react-router-dom@6
 
 ----------
 
+useEffect
+----
+useEffect se pokrece u trenutnku kada se renderuje metoda.
+Prvi argument je neka funkcija a drugi argument moze biti prazan array ako zelimo samo
+jednom da se pokrene. U array mozemo da stavimo element na osnovu kojeg ce se pokretati
+useEffect. Svaki put kad se promeni taj element, pokrece se useEffect
 
+
+------
+useNavigate
+------
+Hook za navigaciju kroz aplikaciju
+
+-------
+Product and Shop
+-----
+U ShopPage kreiramo useEffect hook kako bi prikupili podatke o proizvodima
+iz FakeAPI(za sad) i smestamo u products niz uz pomoc useState(setProducts).
+Zatim kreiramo Product componentu u kojoj definisemo jedan product.
+U ShopPage mapujemo products niz i prosledujemo Product komponenti podatke za 
+svaki porduct posebno.

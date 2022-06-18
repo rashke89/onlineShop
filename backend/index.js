@@ -7,6 +7,7 @@ const Users = require('./models/userModel');
 const serverConfig = require('./config/serverConfig');
 const app = express();
 
+
 //CONNECT TO MONGO DB
 mongoose.connect(dbConfig.MONGODB_URL)
     .then(data => console.log('MONGO DB is connected.'))
@@ -31,16 +32,7 @@ app.post('/api/login', (req, res) => {
             return;
         }
 
-        // way 1
-        // if (data)
-        //     res.send(data);
-        // else
-        //     res.send('User not found.');
 
-        // way 2
-        // res.send(data ? data : 'User not found.');
-
-        // way 3
         res.send(data || 'User not found.');
 
     });

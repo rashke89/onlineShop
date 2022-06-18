@@ -5,9 +5,11 @@ import fb from "./img/fb.png"
 import ig from "./img/ig.png"
 import tw from "./img/tw.png"
 import AuthService from "../../services/AuthService";
+import {useNavigate} from "react-router-dom";
 
 
 const Login = ({isLogin}) => {
+    const navigate=useNavigate();
 
     const [userInfo, setUserInfo] = useState({
         username: "",
@@ -40,9 +42,9 @@ const Login = ({isLogin}) => {
         AuthService.login(userInfo)
             .then((response)=>{
                 if(response && response.status===200){
-                    //todo navigation
                     setApiError(false);
                     localStorage.setItem("user", JSON.stringify(response.data))
+                    navigate("/")
                 }
             })
             .catch((error)=>{
