@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Navigation from "../components/navigation/Navigation";
-import ShopService from "../services/shopService";
+import ShopService from "../services/ShopService";
 import Product from "../components/product/product";
 
 const Shop = () => {
@@ -9,7 +9,6 @@ const Shop = () => {
     useEffect(() => {
         ShopService.getAds()
             .then((response) => {
-                console.log(response.data);
                 if (response.status === 200) {
                     setProducts(response.data)
                 }
@@ -23,10 +22,8 @@ const Shop = () => {
     return (
         <>
             <Navigation/>
-            <div className="shopNav d-flex justify-content-between m-auto container mt-3">
-                <div>
-                    <button className="btn btn-secondary m-2">Add product</button>
-                </div>
+            <div className="shopNav d-flex justify-content-end m-auto container mt-3">
+
                 <div><span>Sort by: </span>
                     <select>
                         <option value="lowPrice">Low price</option>

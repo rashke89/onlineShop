@@ -115,3 +115,16 @@ iz FakeAPI(za sad) i smestamo u products niz uz pomoc useState(setProducts).
 Zatim kreiramo Product componentu u kojoj definisemo jedan product.
 U ShopPage mapujemo products niz i prosledujemo Product komponenti podatke za 
 svaki porduct posebno.
+
+----------------
+Redux
+----
+Koristi se na upravljanje store-a. Sve sto je smesteno u store, 
+dostupno je u svakoj componenti
+````
+npm i react-redux
+npm i @reduxjs/toolkit
+````
+
+Kreairamo novi folder u src, redux, u kojem kreiramo novi fajl
+"userSlice.js".

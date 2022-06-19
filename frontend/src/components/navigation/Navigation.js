@@ -1,8 +1,11 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import "./Navigation.css"
+import {useSelector} from "react-redux";
+import Dropdown from "../dropdown/Dropdown";
 
 function Navigation() {
+    const user=useSelector((state)=> state.userStore.user);
     return (
         <nav className="navbar navbar-expand-lg bg-dark">
             <div className="container-fluid">
@@ -12,7 +15,7 @@ function Navigation() {
                 {/*    /!*<span className="navbar-toggler-icon"></span>*!/*/}
                 {/*</button>*/}
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
+                    <ul className="navbar-nav ms-auto ">
                         <li className="nav-item">
                             <Link className="nav-link active text-light" aria-current="page" to="/">Home</Link>
                         </li>
@@ -25,9 +28,13 @@ function Navigation() {
                         <li className="nav-item">
                             <Link className="nav-link text-light" to="/contact">Contact</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link text-light" to="/auth">Login/Register</Link>
-                        </li>
+                        {
+                         user.hasOwnProperty("username") ?
+                             <Dropdown user={user}/>
+                            :  <li className="nav-item">
+                                 <Link className="nav-link text-light" to="/auth">Login/Register</Link>
+                             </li>
+                        }
                     </ul>
                 </div>
             </div>

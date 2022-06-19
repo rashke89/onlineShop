@@ -6,9 +6,13 @@ import ig from "./img/ig.png"
 import tw from "./img/tw.png"
 import AuthService from "../../services/AuthService";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setUser} from "../../redux/userSlice";
 
 
 const Login = ({isLogin}) => {
+
+    const dispatch=useDispatch();
     const navigate=useNavigate();
 
     const [userInfo, setUserInfo] = useState({
@@ -19,8 +23,10 @@ const Login = ({isLogin}) => {
     const [isFormValid, setIsFormValid] = useState(true)
     const [apiError, setApiError]=useState(false)
 
+    //show Register form
     const loginForm=()=>{isLogin(false)}
 
+    //collect data form input fields
     const handleInputChange = (e) => {
         let user = {...userInfo};
         user[e.target.name] = e.target.value
@@ -44,9 +50,11 @@ const Login = ({isLogin}) => {
                 if(response && response.status===200){
                     setApiError(false);
                     localStorage.setItem("user", JSON.stringify(response.data))
+                    dispatch(setUser(response.data))
                     navigate("/")
                 }
             })
+            //error handling
             .catch((error)=>{
                 console.log(error);
                 setApiError(true)
