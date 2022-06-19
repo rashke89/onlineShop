@@ -3,19 +3,16 @@ import {Link} from "react-router-dom";
 import "./Navigation.css"
 import {useSelector} from "react-redux";
 import Dropdown from "../dropdown/Dropdown";
+import logo from '../../assets/shop-icon.png'
 
 function Navigation() {
     const user=useSelector((state)=> state.userStore.user);
     return (
         <nav className="navbar navbar-expand-lg bg-dark">
             <div className="container-fluid">
-                <Link className="navbar-brand mb-0 h1 text-light" to="/">E-Shop</Link>
-                {/*<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"*/}
-                {/*        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">*/}
-                {/*    /!*<span className="navbar-toggler-icon"></span>*!/*/}
-                {/*</button>*/}
+                <Link className="navbar-brand mb-0 h1 text-light" to="/"><img src={logo} alt="Logo"/> OnlineShop</Link>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto ">
+                    <ul className="navbar-nav mx-auto ">
                         <li className="nav-item">
                             <Link className="nav-link active text-light" aria-current="page" to="/">Home</Link>
                         </li>

@@ -8,7 +8,7 @@ const MyProducts=()=>{
         <>
         <Navigation/>
 
-            <div className="container">
+            <div className="container mt-3">
                 <h1>My Products</h1>
                 <div className="d-flex justify-content-between m-auto container mt-3">
                     <Link className="btn btn btn-secondary" to="/addProduct">Add product</Link>
