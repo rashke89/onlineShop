@@ -12,6 +12,7 @@ import {useEffect} from "react";
 import Home from './components/Home/Home';
 import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
+import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
@@ -21,7 +22,7 @@ function App() {
 
 	useEffect(() => {
 		if (!localStorage.hasOwnProperty('user')) {
-			navigate('/auth');
+			// navigate('/auth');
 		} else {
 			dispatch(setUser(JSON.parse(localStorage.getItem('user'))));
 		}
@@ -37,6 +38,7 @@ function App() {
 				<Route path='/about-us' element={<About/>}/>
 				<Route path='/contact' element={<Contact/>}/>
 				<Route path='/auth' element={<AuthPage/>}/>
+				<Route path='/user-activate/:id' element={<ActivateUserPage/>}/>
 			</Routes>
 
 		</div>
