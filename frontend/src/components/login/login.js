@@ -22,6 +22,7 @@ const Login = ({isLogin}) => {
 
     const [isFormValid, setIsFormValid] = useState(true)
     const [apiError, setApiError]=useState(false)
+    const [isUserFound, setIsUserFound]=useState(true)
 
     //show Register form
     const loginForm=()=>{isLogin(false)}
@@ -48,10 +49,16 @@ const Login = ({isLogin}) => {
         AuthService.login(userInfo)
             .then((response)=>{
                 if(response && response.status===200){
+                    console.log(response.data);
                     setApiError(false);
+                    if(response.data==="User not found." || response.data==null){
+                        setIsUserFound(false)
+                    }else{
+                        setIsUserFound(true)
                     localStorage.setItem("user", JSON.stringify(response.data))
                     dispatch(setUser(response.data))
                     navigate("/")
+                    }
                 }
             })
             //error handling
@@ -87,6 +94,8 @@ const Login = ({isLogin}) => {
                         <p className="isFormValidError animate__shakeX animate__animated animate__fast">Username and password are required</p>
                         : null}
                     {apiError ? <p className="apiError animate__shakeX animate__animated animate__fast">API Error. Please try later.</p>
+                    : null}
+                    {!isUserFound ? <p className="apiError animate__shakeX animate__animated animate__fast">User not found. Please register.</p>
                     : null}
                     <div className="social-icons">
                         <div><a href="https://facebook.com"><img src={fb} alt="Facebook"/></a></div>

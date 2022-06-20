@@ -6,11 +6,15 @@ const dbConfig = require('./config/dbConfig');
 const Users = require('./models/userModel');
 const serverConfig = require('./config/serverConfig');
 const app = express();
+const nodemailer = require("nodemailer");
+
+
+
 
 
 //CONNECT TO MONGO DB
 mongoose.connect(dbConfig.MONGODB_URL)
-    .then(data => console.log('MONGO DB is connected.'))
+    .then(() => console.log('MONGO DB is connected.'))
     .catch(err => console.log(`Error while connecting to MONGO DB: ${err}`));
 //CONNECT TO MONGO DB END
 
@@ -19,12 +23,18 @@ app.use(express.json());//Frontend request convert in JSON
 //Enable CORS-API calls and resource sharing
 app.use(cors());
 
+
+//NODMAILER
+
+//NODMAILER END
+
+
 //LOGIN
 app.post('/api/login', (req, res) => {
     const reqBody = req.body;
 
-    const foundUser = Users.findOne(reqBody, (err, data) => {
-        console.log(data);
+    Users.findOne(reqBody, (err, data) => {
+        console.log("User from database",data);
         if (err) {
             const errorMsg = `Error on getting user from DB: ${err}`;
             console.log(errorMsg);
@@ -54,11 +64,45 @@ app.post('/api/register', async (req, res) => {
         }
 
         if (data)
-            res.send(`user already exist: ${data.username}`);
+            res.send(`User already exist: ${data.username}`);
         else {
             const newUser = new Users(reqBody);
             const saveNewUser = await newUser.save();
-            console.log(saveNewUser);
+
+
+            //NODEMAILER
+            let testAccount = await nodemailer.createTestAccount();
+            // create reusable transporter object using the default SMTP transport
+            let transporter = nodemailer.createTransport({
+                host: "smtp.ethereal.email",
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: testAccount.user, // generated ethereal user
+                    pass: testAccount.pass, // generated ethereal password
+                },
+            });
+
+            // send mail with defined transport object
+            let info = await transporter.sendMail({
+                from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
+                to: reqBody.email,// list of receivers
+                subject: "Activate Account OnlineShop", // Subject line
+                text: '', // plain text body
+                html:`<h1>Activate Account</h1>
+                       <h4>Dear, ${reqBody.username}</h4>
+                       <p>Please click on link bellow to activate your account</p>
+                        <a href="http://localhost:3000/user-activate/${saveNewUser._id.toString()}">Activate link</a>"` // html body
+            });
+
+            console.log("Message sent: %s", info.messageId);
+            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+            // Preview only available when sending through an Ethereal account
+            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+            //NODEMAILER END
 
             res.send(saveNewUser || 'User not registered.');
         }
@@ -66,6 +110,22 @@ app.post('/api/register', async (req, res) => {
 
 });
 //REGISTER END
+
+//Activation user
+app.post("/api/complete-registration",(req,res)=>{
+    const userId=req.body.id;
+    console.log("Frontend send ID",req.body);
+    Users.updateOne({_id:userId}, {isActive:true}, (error, result)=>{
+        if(error){
+            console.log(error);
+            res.send("User not activated")
+        } else{
+            res.send(result)
+        }
+    })
+})
+
+
 
 //Server TEST
 app.get("/",(req, res)=>{

@@ -128,3 +128,46 @@ npm i @reduxjs/toolkit
 
 Kreairamo novi folder u src, redux, u kojem kreiramo novi fajl
 "userSlice.js".
+----
+Complete Register form
+---
+Kreiramo component ActivateUser.
+Instaliramo nodemailer.
+
+````
+npm i nodemailer
+````
+Sa nodmailer sajta kopiramo celu konfiguraciju u kojoj imamo transporte kojim
+se konfigurisu podaci za transport i u info varijabli definisemo izgled maila:
+
+
+````
+let info = await transporter.sendMail({
+                from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
+                to: reqBody.email,// list of receivers
+                subject: "Activate Account OnlineShop", // Subject line
+                text: '', // plain text body
+                html:`<h1>Activate Account</h1>
+                       <h4>Dear, ${reqBody.username}</h4>
+                       <p>Please click on link bellow to activate your account</p>
+                        <a href="hhttp://localhost:3000/user-activate/${saveNewUser._id.toString()}">Activate link</a>"` // html body
+            });
+````
+
+U userModel dodajemo isActive property preko kojeg cemo kontrolisati da li je
+user aktivirao account.
+
+Preko linka u emailu, saljemo ga na stranicu /user-activate/id
+Prosledjujemo id tog usera preko URL-a;
+Kreiramo route za taj URL i componentu ActivateUserPage.
+
+Zatim u service kreiramo API sa url "/api/complete-registration".
+Uzimamo id preko paramsa iz prethodnog linka i saljemo post metodom na backend
+taj id.
+
+Na backendu kreiramo novi api, gde updatujemo korisnika na osnovu tog id-a,
+i setujemo {isActive:true}.
+U ActivateUser page proveravamo da li imamo response, ako imamo redirectujemo korisnika
+na /auth stranicu da se loguje.
+
+-----
