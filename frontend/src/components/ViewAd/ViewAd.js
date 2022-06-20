@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ShopService from "../../services/shopService";
 import "./view-ad.scss";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/cartSlice";
 
 const productMockData = {
     category: "men's clothing",
@@ -19,10 +21,12 @@ export default function ViewAd() {
     const [isParamsAvailable, setIsParamsAvailable] = useState(true);
     const [isApiFinished, setIsApiFinished] = useState(false);
     const params = useParams();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (params.adId) {
             getAd();
+            // setAd(productMockData);
         } else {
             setIsParamsAvailable(false);
         }
@@ -30,6 +34,10 @@ export default function ViewAd() {
 
     const noParamsMsgLayout = () => {
         return !isParamsAvailable ? <p>No product with this id.</p> : null;
+    };
+
+    const onAddToCart = () => {
+        dispatch(addToCart(ad))
     };
 
     const adLayout = () => {
@@ -43,7 +51,7 @@ export default function ViewAd() {
                 <p>{ad.description}</p>
                 <p>{ad.price}</p>
 
-                <button className="btn add-to-cart-btn">Add to cart</button>
+                <button className="btn add-to-cart-btn" onClick={onAddToCart}>Add to cart</button>
             </div>
         </div>
     }

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
+import ShopCart from "../ShopCart/ShopCart";
 
 function Navigation() {
     // state - redux store from store.js,
@@ -19,7 +20,7 @@ function Navigation() {
     };
     return (
         <nav className="navbar navbar-expand-lg bg-light">
-            <div className="container-fluid">
+            <div className="container">
                 <Link className="navbar-brand" to="/">E-Shop</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +39,9 @@ function Navigation() {
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact</Link>
+                        </li>
+                        <li className="nav-item ">
+                            <ShopCart />
                         </li>
                         {userBtnLayout()}
                     </ul>
