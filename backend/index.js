@@ -6,6 +6,10 @@ const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
 const mainService = require('./services/mailService');
+const Product=require("./models/productModel")
+
+
+
 
 const app = express();
 mongoose
@@ -19,6 +23,35 @@ app.use(express.json());
 app.use(cors());
 // nodmailer config
 // const mailer = mainService.configureMail();
+
+
+//add Product
+
+app.post("/product/add", (req,res)=>{
+
+    const reqBody=req.body;
+    Product.findOne(reqBody, async (err, data) => {
+        // console.log(data);
+        if (err) {
+            const errorMsg = `Error on register user: ${err}`;
+            console.log(errorMsg);
+            res.send(errorMsg);
+            return;
+        }
+
+        if (data) res.send(`Product alredy exist`);
+        else {
+            const newProduct = new Product(reqBody);
+            const saveNewProduct = await newProduct.save();
+            console.log("Saved product",saveNewProduct);
+            res.send(saveNewProduct || 'User not registered.');
+        }
+    });
+})
+
+
+
+
 
 // Login
 app.post("/api/login", (req, res) => {
