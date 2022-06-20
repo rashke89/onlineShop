@@ -8,6 +8,9 @@ class ShopService {
     static getAdById(adId) {
         return axios.get(`https://fakestoreapi.com/products/${adId}`);
     }
+    static addProduct(body){
+        return axios.post("/product/add/", body )
+    }
 }
 
 export default ShopService;
