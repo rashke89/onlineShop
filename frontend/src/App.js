@@ -13,6 +13,8 @@ import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import AdPage from "./pages/AdPage/AdPage";
+import UserProfile from "./pages/userProfile/UserProfile";
+
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -39,6 +41,7 @@ function App() {
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/auth" element={<AuthPage/>}/>
                 <Route path="/user-activate/:id" element={<ActivateUserPage/>}/>
+                <Route path="/userProfile" element={<UserProfile/>}/>
             </Routes>
         </div>
     );

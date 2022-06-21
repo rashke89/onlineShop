@@ -142,6 +142,32 @@ app.put("/api/user/:username", (req, res) => {
     })
 })
 
+// update user
+app.put("/api/userProfile", (req, res) => {
+    let id = req.body._id;
+    const query = req.query;
+    Users.updateOne({"_id": id}, {
+        $set: {
+            username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password,
+            address: req.body.address,
+            city: req.body.city
+        }
+    }, (err, data) => {
+        if (err) {
+            console.log(err);
+            const errorMsg = `Error on updating user: ${err}`;
+            res.send(errorMsg);
+        } else {
+            console.log('success...', data);
+            res.send(data)
+        }
+    })
+})
+
 app.post('/api/complete-registration', (req, res) => {
     const userId = req.body.userId;
 

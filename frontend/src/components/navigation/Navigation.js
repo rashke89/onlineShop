@@ -12,11 +12,13 @@ function Navigation() {
     }, []);
 
     const userBtnLayout = () => {
-        return user.hasOwnProperty('username') ?
-                user.username :
-                <li className="nav-item">
-                    <Link className="nav-link" to="/auth">Login/Register</Link>
-                </li>
+         return user.hasOwnProperty('username') ?
+
+            <Link className="nav-link" to="/userProfile">{user.username}</Link> :
+
+            <li className="nav-item">
+                <Link className="nav-link" to="/auth">Login/Register</Link>
+            </li>
     };
     return (
         <nav className="navbar navbar-expand-lg bg-light">

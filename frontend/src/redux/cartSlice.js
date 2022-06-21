@@ -7,8 +7,7 @@ const cartSlice = createSlice({
         cart: []
     },
     reducers: {
-        addToCart: (state,
-                    action) => {
+        addToCart: (state, action) => {
             let newItem = action.payload;
             let foundItemIndex;
             // TODO: id -> _id
