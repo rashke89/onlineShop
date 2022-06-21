@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
 import ShopService from "../../services/shopService";
 import {useNavigate} from "react-router-dom";
+import user from "../AllUsers/User";
 
-function AddProduct(props) {
-	const [product, setProduct]=useState({})
+function AddProduct() {
+
+	const [product, setProduct]=useState({
+		imgUrl: "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
+		user: JSON.parse(localStorage.getItem("user"))._id
+	})
+
+
 	const [isFormValid,setIsFormValid]=useState(true)
 	const [isApiErr, setIsApiErr]=useState(false)
 
