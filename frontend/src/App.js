@@ -13,6 +13,7 @@ import Home from './components/Home/Home';
 import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
+import AdPage from "./pages/AdPage/AdPage";
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
@@ -35,6 +36,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<Home/>}/>
 				<Route path='/shop' element={<Shop/>}/>
+				<Route path='/shop/ad/:adId' element={<AdPage/>}/>
 				<Route path='/about-us' element={<About/>}/>
 				<Route path='/contact' element={<Contact/>}/>
 				<Route path='/auth' element={<AuthPage/>}/>
