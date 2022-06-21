@@ -7,7 +7,7 @@ function AddProduct() {
 
 	const [product, setProduct]=useState({
 		imgUrl: "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
-		user: JSON.parse(localStorage.getItem("user"))._id
+		userId: JSON.parse(localStorage.getItem("user"))._id
 	})
 
 

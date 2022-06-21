@@ -11,6 +11,9 @@ class ShopService {
     static addProduct(body){
         return axios.post("/product/add/", body )
     }
+    static getMyAds(userId) {
+        return axios.get(`/product/my-adds/${userId}`)
+    }
 }
 
 export default ShopService;

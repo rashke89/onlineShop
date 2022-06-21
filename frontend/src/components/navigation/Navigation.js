@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, {useEffect} from "react";
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function Navigation() {
 	// state - redux store from store.js,
 	// const user = useSelector((state) => state.userStore.user);
-	const { user } = useSelector((state) => state.userStore);
+	const {user} = useSelector((state) => state.userStore);
 	useEffect(() => {
 		console.log("use eff..", user);
 	}, []);
@@ -23,7 +23,7 @@ function Navigation() {
 				>
 					{user.username}
 				</a>
-				<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+				<ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 					<li>
 						<a className="dropdown-item user-dropdown" href="/">
 							{/*TODO: change icons*/}
@@ -42,10 +42,10 @@ function Navigation() {
 						</Link>
 					</li>
 					<li>
-                        <Link to="/logout" className="dropdown-item">
-                            <i className="bi bi-box-arrow-right me-2"></i>
-                            Logout
-                        </Link>
+						<Link to="/logout" className="dropdown-item">
+							<i className="bi bi-box-arrow-right me-2"></i>
+							Logout
+						</Link>
 					</li>
 				</ul>
 			</li>
@@ -60,7 +60,7 @@ function Navigation() {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
 			<div className="container">
-                <Link className="navbar-brand" to="/">E-Shop</Link>
+				<Link className="navbar-brand" to="/">E-Shop</Link>
 
 				<button
 					className="navbar-toggler"
@@ -76,18 +76,18 @@ function Navigation() {
 				<div className="collapse navbar-collapse" id="navbarText">
 					<ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+							<Link className="nav-link active" aria-current="page" to="/">Home</Link>
 						</li>
 						<li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
+							<Link className="nav-link" to="/about">About</Link>
 						</li>
 						<li className="nav-item">
-                            <Link className="nav-link" to="/shop">Shop</Link>
+							<Link className="nav-link" to="/shop">Shop</Link>
 						</li>
-                        <li className="nav-item">
-		                    <Link className="nav-link" to="/contact">Contact</Link>
-		                </li>
-		                {userBtnLayout()}
+						<li className="nav-item">
+							<Link className="nav-link" to="/contact">Contact</Link>
+						</li>
+						{userBtnLayout()}
 					</ul>
 				</div>
 			</div>
