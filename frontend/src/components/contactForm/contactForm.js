@@ -1,87 +1,93 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import MessageService from "../../services/messageService";
+import './contact-form.scss';
 
-function ContactUs() {
-    const [userObj, setUserObj] = useState({
+function ContactForm() {
+
+    // * STATE FOR MESSAGE TO PUT IT IN
+    const [message, setMessage] = useState({
         firstName: '',
         lastName: '',
         email: '',
         message: ''
     });
 
-    const [isFormValid, setIsFormValid] = useState(false);
+    // * CLEAR ALL INPUTS AFTER SUBMITTED FORM
+    function clearInputs(e) {
+        return (
+            e.target[0].value = '',
+            e.target[1].value = '',
+            e.target[2].value = '',
+            e.target[3].value = ''
+        )
+    }
 
+    // * OUTPUT MESSAGE SENT TO USER AFTER SUBMITTED FORM
+    function showMsg() {
+        return isSent ?
+            <div className="successMessage">Message is successfully sent</div> :
+            <div className="errorMessage">Something went wrong, please try again.</div>
+    }
+
+    // * SELECT MESSAGE
+    const contactFormMessage = useRef();
+
+    // * STATES FOR FORM VALIDATION, MESSAGE FOR USER, AND API CALL
+    const [isSent, setIsSent] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [isApiFinished, setIsApiFinished] = useState(false);
+
+    // * STATES FOR MESSAGE INPUT FIELDS
     const [isFirstName, setIsFirstName] = useState(true);
     const [isLastName, setIsLastName] = useState(true);
     const [isEmail, setIsEmail] = useState(true);
     const [isMessage, setIsMessage] = useState(true);
 
-
+    // * TAKING VALUES FROM INPUTS
     const handleInputField = (e) => {
-        let newUserObj = userObj;
-        // console.log(e);
-        // console.log(e.target);
-        // console.log(e.target.value);
-        newUserObj[e.target.id] = e.target.value;
-        setUserObj(newUserObj);
-
+        let newMessage = message;
+        newMessage[e.target.id] = e.target.value;
+        setMessage(newMessage);
     }
+
+    // * WHEN FORM IS SUBMITTED
     const onSubmitForm = (e) => {
         e.preventDefault();
-        // console.log(e);
-        if (!userObj.firstName) {
-            setIsFirstName(false);
-        } else {
-            setIsFirstName(true);
-        }
 
-        if (!userObj.lastName) {
-            setIsLastName(false);
-        } else {
-            setIsLastName(true);
-        }
+        // * CHECKING ONE BY ONE FIELD AND SENT PROPPER MESSAGE
+        !message.firstName ? setIsFirstName(false) : setIsFirstName(true);
+        !message.lastName ? setIsLastName(false) : setIsLastName(true);
+        !message.email.includes('@') ? setIsEmail(false) : setIsEmail(true);
+        !message.message ? setIsMessage(false) : setIsMessage(true);
 
-        if (!userObj.email.includes('@')) {
-            setIsEmail(false);
-        } else {
-            setIsEmail(true);
-        }
-
-        if (!userObj.message) {
-            setIsMessage(false);
-        } else {
-            setIsMessage(true);
-        }
-
-        if (!userObj.firstName || !userObj.lastName || !userObj.email.includes('@') || !userObj.message) {
+        // * CHECK VALIDATION FOR ALL FIELDS AND SET FORM VALIDATION DEPENTS ON IT
+        if (!message.firstName || !message.lastName || !message.email.includes('@') || !message.message) {
             setIsFormValid(false);
-            console.log('USAO SAM');
             return;
         }
 
+        clearInputs(e);
+
         setIsFormValid(true)
-        // console.log(userObj);
 
-
-        MessageService.sendMessage(userObj)
+        // * send message to official email
+        MessageService.sendMessage(message)
             .then(response => {
                 if (response && response.status === 200) {
-                    console.log(response);
+                    setIsSent(true);
                 }
             })
             .catch(err => {
-                console.log(err);
+                setIsSent(false);
             })
             .finally(() => {
-                console.log(e);
-                e.target[0].value = '';
-                e.target[1].value = '';
-                e.target[2].value = '';
-                e.target[3].value = '';
+                setIsApiFinished(true);
+                setInterval(function () {
+                    contactFormMessage.current.classList.add('hidden');
+                }, 5000)
             })
-
-
     }
+
     return (
         <div className="container-xl">
             <div className="row">
@@ -136,10 +142,15 @@ function ContactUs() {
                                 <br />
                             </div>
 
-                            <div className="mb-3" style={isFormValid ? { color: 'green' } : { color: '' }}>{isFormValid ? 'Message is successfully sent' : null}</div>
+                            <div ref={contactFormMessage}>
+                                {
+                                    isApiFinished ?
+                                        showMsg() :
+                                        null
+                                }
+                            </div>
 
                             <input type="submit" className="btn btn-primary" value="Submit" />
-                            {/* <button type="button" className="btn btn-primary">Submit</button> */}
                         </form>
                     </div>
                 </div>
@@ -147,4 +158,4 @@ function ContactUs() {
         </div>
     );
 }
-export default ContactUs;
+export default ContactForm;

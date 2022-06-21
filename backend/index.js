@@ -4,6 +4,7 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
+const Emails = require("./models/emailModel");
 const serverConfig = require("./config/serverConfig");
 const mainService = require('./services/mailService');
 
@@ -92,7 +93,6 @@ app.post("/api/register", async (req, res) => {
             `, // html body
             });
 
-
             console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
 
             res.send(saveNewUser || 'User not registered.');
@@ -104,6 +104,12 @@ app.post("/api/register", async (req, res) => {
 app.post('/api/send-message', async (req, res) => {
     const reqBody = req.body;
 
+    // * ADD TO DATABASE
+    const newMessage = new Emails(reqBody);
+    const saveNewMessage = await newMessage.save();
+    // console.log(saveNewMessage);
+
+    // * NODEMAILER
     let testAccount = await nodemailer.createTestAccount();
 
     let transporter = nodemailer.createTransport({
@@ -132,9 +138,8 @@ app.post('/api/send-message', async (req, res) => {
 
     // Preview only available when sending through an Ethereal account
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    
-    res.send();
 
+    res.send();
 });
 
 app.get("/", (req, res) => {
