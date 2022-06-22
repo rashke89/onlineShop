@@ -1,37 +1,30 @@
 import React, {useEffect, useState} from "react";
-import "./product.css"
+import {Link} from "react-router-dom";
+import "./shopAd.scss"
 
 const Product=(props)=>{
 
     const [product, setProduct] = useState({});
     useEffect(()=>{
+        //props can't change
         setProduct(props.product)
     },[])
 
     return(
         <>
             { (product.hasOwnProperty("id"))?
-                <div className="col-2 m-2 product  text-center  d-flex flex-column justify-content-between ">
-                    <div className="image">
-                        <img src={product.image} alt={product.title} className="card-img-top"/>
+                <div className="shop-product-wrapper col-md-3">
+                    <div className="shop-product-content-wrapper">
+                        <img src={product.image} className="img img-fluid" alt=""/>
+                        <p className="shop-product-title">{product.title}</p>
+                        <p>Rate: {product.rating.rate}</p>
+                        <p className="shop-product-price">{product.price}$</p>
+                        <Link to={`/shop/product/${product.id}`} className="view-more-btn">
+                            <p className="view-more-btn-text">View Product</p>
+                        </Link>
                     </div>
-
-                        <div className="card-body d-flex flex-column justify-content-between">
-                            <div className="tittle card-title">
-                                <h5>{product.title}</h5>
-                            </div>
-                            {/*<div className="description card-text">*/}
-                            {/*    <p>{product.description}</p>*/}
-                            {/*</div>*/}
-                            <div className="price">
-                                <h3>{product.price}$</h3>
-                            </div>
-                            <div className="rating">
-                                <h6>Rating: {product.rating.rate}</h6>
-                            </div>
-                        </div>
                 </div>
-                :<h1>Product not found</h1>}
+                :null}
         </>
 
 

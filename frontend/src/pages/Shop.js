@@ -7,7 +7,7 @@ const Shop = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        ShopService.getAds()
+        ShopService.getProducts()
             .then((response) => {
                 if (response.status === 200) {
                     setProducts(response.data)

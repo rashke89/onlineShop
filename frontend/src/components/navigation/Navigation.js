@@ -9,10 +9,16 @@ function Navigation() {
     const user=useSelector((state)=> state.userStore.user);
     return (
         <nav className="navbar navbar-expand-lg bg-dark">
-            <div className="container-fluid">
+            <div className="container">
                 <Link className="navbar-brand mb-0 h1 text-light" to="/"><img src={logo} alt="Logo"/> OnlineShop</Link>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav mx-auto ">
+                <button className="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div className="collapse navbar-collapse  d-flex justify-content-end" id="navbarSupportedContent">
+                    <ul className="navbar-nav ">
                         <li className="nav-item">
                             <Link className="nav-link active text-light" aria-current="page" to="/">Home</Link>
                         </li>

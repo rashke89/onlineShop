@@ -171,3 +171,16 @@ U ActivateUser page proveravamo da li imamo response, ako imamo redirectujemo ko
 na /auth stranicu da se loguje.
 
 -----
+
+Product Page
+----
+Kreiramo route na "/shop/product/:productId"
+
+Zatim kreiramo page ProductPage
+Zatim kreiramo component productView
+Preko params uzimamo id iz URL.
+U product View preko useEffect saljemo axios koji smo definisali u Shop services
+da nam vrati taj proizvod preko prosledjenog id-a iz URL.
+Handlujemo response i smestamo te podatke u state product.
+U returnu definisemo izgled i prosledjujemo podatke koje smo dobili.
+Tu komponentu integrisemo u productView page.

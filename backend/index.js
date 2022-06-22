@@ -24,9 +24,7 @@ app.use(express.json());//Frontend request convert in JSON
 app.use(cors());
 
 
-//NODMAILER
 
-//NODMAILER END
 
 
 //LOGIN
