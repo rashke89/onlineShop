@@ -39,12 +39,12 @@ app.post("/product/add", (req,res)=>{
 			return;
 		}
 
-		if (data) res.send(`Product alredy exist`);
+		if (data) res.send(`Product already exist`);
 		else {
 			const newProduct = new Product(reqBody);
 			const saveNewProduct = await newProduct.save();
 			console.log("Saved product",saveNewProduct);
-			res.send(saveNewProduct || 'User not registered.');
+			res.send(saveNewProduct || 'Product not saved');
 		}
 	});
 })
