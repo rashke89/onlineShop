@@ -13,6 +13,7 @@ import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import AdPage from "./pages/AdPage/AdPage";
+import {routeConfig} from "./config/routeConfig";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -32,13 +33,13 @@ function App() {
         <div className="main-wrapper">
             <Navigation/>
             <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/shop" element={<Shop/>}/>
-                <Route path="/shop/ad/:adId" element={<AdPage/>}/>
-                <Route path="/about" element={<About/>}/>
-                <Route path="/contact" element={<Contact/>}/>
-                <Route path="/auth" element={<AuthPage/>}/>
-                <Route path="/user-activate/:id" element={<ActivateUserPage/>}/>
+                <Route path={routeConfig.HOME.url} element={<Home/>}/>
+                <Route path={routeConfig.SHOP.url} element={<Shop/>}/>
+                <Route path={routeConfig.AD_SHOP.url} element={<AdPage/>}/>
+                <Route path={routeConfig.ABOUT.url} element={<About/>}/>
+                <Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
+                <Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
+                <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
             </Routes>
         </div>
     );
