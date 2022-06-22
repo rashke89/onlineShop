@@ -172,6 +172,16 @@ app.get("/api/products/:id", (req, res) => {
   res.send(findedProduct);
 });
 
+app.get("/api/top-products/:top",(req, res)=>{
+  let topNumber = req.params.top
+  let copyProduct=[...products]
+  let sorted = copyProduct.sort((a,b)=>{
+        return b.rating.rate - a.rating.rate
+      }
+  )
+  res.send(sorted.splice(0,topNumber))
+})
+
 app.listen(serverConfig.port, (err) => {
   if (err) {
     console.log(err);
