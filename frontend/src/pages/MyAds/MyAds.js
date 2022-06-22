@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import ShopService from "../../services/shopService";
+import MyAd from "../../components/MyAd/MyAd";
 
 function MyAds(props) {
 	const [products, setProducts] = useState([]);
@@ -23,22 +24,16 @@ function MyAds(props) {
 	return (
 		<div>
 			<h2 className="text-center my-5">My Ads</h2>
-			<div className="btn-wrapper d-flex justify-content-center align-items-center">
+			<div className="btn-wrapper d-flex justify-content-center align-items-center mb-5">
 				<Link to="/add-product" className="btn btn-primary">Add product</Link>
 			</div>
 			<div className="container">
-				<div className="row">
+				<div className="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
 					{products.map((product, index) => {
 						return (
-							<div className="col-md-3"	key={index}>
-								{product?.imgUrl ? <div className="shop-ad-wrapper">
-									<div className="shop-ad-content-wrapper">
-										<img src={product.imgUrl} className="img img-fluid" alt=""/>
-										<p className="shop-ad-title">{product.title}</p>
-										<p>Rate: {product.rating}</p>
-										<p className="shop-ad-price">{product.price}$</p>
-									</div>
-								</div> : null}
+							<div className="col" key={index}>
+								{product?.imgUrl ?
+								<MyAd product={product} /> : null }
 							</div>
 						)
 					})}
