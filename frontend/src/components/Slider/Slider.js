@@ -4,6 +4,7 @@ import Dots from "./Dots";
 import SlideContent from "./SlideContent";
 import ShopService from "../../services/shopService";
 import "./style.scss";
+import {routeConfig} from "../../config/routeConfig";
 
 function Slider() {
     const [images, setImages] = useState([]);
@@ -42,7 +43,7 @@ function Slider() {
                 subtitle: ad.category,
                 src: ad.image,
                 btnText: "Read more",
-                btnLink: "/shop/ad/" + ad.id,
+                btnLink: routeConfig.AD_SHOP.realUrl(ad.id),
             }
         })
     }
