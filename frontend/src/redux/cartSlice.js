@@ -14,10 +14,6 @@ const cartSlice = createSlice({
             // TODO: id -> _id
             let foundItem = state.cart.find((item, index) => {
                 if (item.id === newItem.id) {
-
-                    if (!item.hasOwnProperty('count')) {
-                        item.count = 1;
-                    }
                     foundItemIndex = index;
                     return item;
                 }
@@ -26,11 +22,20 @@ const cartSlice = createSlice({
             if (foundItem) {
                 state.cart[foundItemIndex].count = state.cart[foundItemIndex].count + 1;
             } else {
-                state.cart.push(newItem)
+                newItem.count = 1;
+                state.cart.push(newItem);
             }
+        },
+        removeItem: (state,
+                        action) => {
+            state.cart.splice(action.payload, 1)
+        },
+        handleCount: (state,
+        action) => {
+            state.cart[action.payload.index].count = action.payload.isIncrement ? state.cart[action.payload.index].count + 1 : state.cart[action.payload.index].count -1;
         }
     }
 });
 
-export const {addToCart} = cartSlice.actions;
+export const {addToCart, removeItem, handleCount} = cartSlice.actions;
 export default cartSlice.reducer;
