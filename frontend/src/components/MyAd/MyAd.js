@@ -23,7 +23,7 @@ function MyAd({product}) {
 				</div>
 				<img
 					src={product.imgUrl}
-					className="card-img-top img-fluid w-75 mx-auto"
+					className="card-img-top img-fluid"
 					alt={product.title}
 				/>
 				<div className="card-body pt-2 px-2 pb-0">
