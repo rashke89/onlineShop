@@ -3,9 +3,8 @@ import {Link} from "react-router-dom";
 import ShopService from "../../services/shopService";
 import MyAd from "../../components/MyAd/MyAd";
 
-// Push fix
-
 function MyAds(props) {
+	const [favorite, setFavorite] = useState([]);
 	const [products, setProducts] = useState([]);
 
 	const user = JSON.parse(localStorage.getItem("user"))._id;
@@ -35,7 +34,7 @@ function MyAds(props) {
 						return(
 							<div className="col d-flex align-items-stretch" key={index}>
 								{product?.imgUrl ?
-									<MyAd product={product} /> : null }
+									<MyAd product={product} favorite={favorite} setFavorite={setFavorite} /> : null }
 							</div>
 						)
 					})}

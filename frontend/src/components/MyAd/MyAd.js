@@ -1,8 +1,24 @@
 import React, {useState} from 'react';
 import './MyAd.scss';
 
-function MyAd({product}) {
-	const [favorite, setFavorite] = useState(false);
+function MyAd({product, favorite, setFavorite}) {
+
+	const addFavorite = (product) => {
+		setFavorite([...favorite, product]);
+	};
+
+	const removeFavorite = (product) => {
+		const filtered = favorite.filter((item) => item._id !== product._id);
+		setFavorite(filtered);
+	};
+
+	const isFavorite = (product) => {
+		if (favorite.filter((item) => item._id === product._id).length > 0) {
+			return true;
+		}
+		return false;
+	};
+
 
 	return (
 		<div className="ad-card-wrapper container">
@@ -11,10 +27,10 @@ function MyAd({product}) {
 					{/* Bonus: remove badge after 7 days */}
 					<span className="badge bg-danger">New</span>
 					<div
-						className={favorite ? "favorite set-favorite" : "favorite"}
-						onClick={() => setFavorite(!favorite)}
+						className={isFavorite(product) ? "favorite set-favorite" : "favorite"}
+						onClick={() => isFavorite(product) ? removeFavorite(product) : addFavorite(product)}
 					>
-						{favorite ? (
+						{isFavorite(product) ? (
 							<i className="bi bi-heart-fill"></i>
 						) : (
 							<i className="bi bi-heart"></i>
