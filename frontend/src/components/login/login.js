@@ -19,10 +19,10 @@ function Login({showLoginForm}) {
     }, [userData?.username]);
 
     const onHandleInput = (e) => {
-        let newInput = userData;
-        newInput[e.target.name] = e.target.value;
-        setUserData(newInput);
-    };
+        let newInput = {...userData}
+        newInput[e.target.name] = e.target.value
+        setUserData(newInput)
+    }
     const loginForm = () => showLoginForm(false)
 
     const onSubmitForm = (e) => {
@@ -51,7 +51,6 @@ function Login({showLoginForm}) {
             <input className="form-control" name="username" type="text" id="username" onInput={onHandleInput}/>
             <label htmlFor="password">Password</label>
             <input className="form-control mb-3" name="password" type="password" id="password" onInput={onHandleInput}/>
-
             <button type="button" className="btn btn-primary px-5" onClick={loginForm}>Go to register</button>
             <button className="btn btn-success px-5 ms-auto">OK</button>
             {!isValidForm && <p>Username and password is required!</p>}

@@ -1,4 +1,13 @@
-.auth-wrapper {
-  height: 100%;
+.auth {
+  &-wrapper {
+    flex-grow: 1;
+    padding: 0;
+  }
+
+  &-forms {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+  }
 }
 

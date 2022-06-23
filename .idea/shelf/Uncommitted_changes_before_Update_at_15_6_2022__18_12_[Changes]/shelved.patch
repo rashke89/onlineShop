@@ -1,0 +1,654 @@
+Index: frontend/src/pages/Shop/Shop.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\n\r\nfunction Shop() {\r\n    return (\r\n        <div>Shop</div>\r\n    );\r\n}\r\n\r\nexport default Shop;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/Shop/Shop.js b/frontend/src/pages/Shop/Shop.js
+--- a/frontend/src/pages/Shop/Shop.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/pages/Shop/Shop.js	(date 1655038448365)
+@@ -1,8 +1,29 @@
+-import React from 'react';
++import React, {useEffect, useState} from 'react';
++import ShopService from "../../services/shopService";
++import ShopAd from "../../components/ShopAd/ShopAd";
++import "./style.scss";
+ 
+ function Shop() {
++    const [ads, setAds] = useState([]);
++    useEffect(() => {
++        ShopService.getAds().then((res) => {
++            if (res.status === 200) {
++                setAds(res.data)
++                console.log(res.data)
++            }
++        }).catch((err) => {
++            console.log(err)
++        })
++    }, []);
++
+     return (
+-        <div>Shop</div>
++        <div className="shop-wrapper container">
++
++            {ads.map((el, index) => {
++                return <ShopAd ad={el} key={index}/>
++            })}
++
++        </div>
+     );
+ }
+ 
+Index: frontend/src/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport ReactDOM from 'react-dom/client';\r\nimport './index.css';\r\nimport App from './App';\r\nimport reportWebVitals from './reportWebVitals';\r\nimport \"bootstrap/dist/css/bootstrap.min.css\"\r\nimport {BrowserRouter} from \"react-router-dom\";\r\n\r\n\r\nconst root = ReactDOM.createRoot(document.getElementById('root'));\r\nroot.render(\r\n    <React.StrictMode>\r\n        <BrowserRouter>\r\n            <App/>\r\n        </BrowserRouter>\r\n    </React.StrictMode>\r\n);\r\n\r\n// If you want to start measuring performance in your app, pass a function\r\n// to log results (for example: reportWebVitals(console.log))\r\n// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals\r\nreportWebVitals();\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/index.js b/frontend/src/index.js
+--- a/frontend/src/index.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/index.js	(date 1655042569329)
+@@ -3,8 +3,8 @@
+ import './index.css';
+ import App from './App';
+ import reportWebVitals from './reportWebVitals';
+-import "bootstrap/dist/css/bootstrap.min.css"
+ import {BrowserRouter} from "react-router-dom";
++import "bootstrap/dist/css/bootstrap.min.css"
+ 
+ 
+ const root = ReactDOM.createRoot(document.getElementById('root'));
+Index: frontend/src/App.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.main-wrapper {\r\n    height: 100%;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/App.css b/frontend/src/App.css
+--- a/frontend/src/App.css	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/App.css	(date 1654980615446)
+@@ -1,3 +1,5 @@
+ .main-wrapper {
+-    height: 100%;
++    min-height: 100vh;
++    display: flex;
++    flex-direction: column;
+ }
+\ No newline at end of file
+Index: backend/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const express = require('express');\r\nconst mongoose = require('mongoose');\r\nconst cors = require('cors')\r\nconst dbConfig = require('./config/dbConfig');\r\nconst Users = require('./models/userModel');\r\nconst serverConfig = require('./config/serverConfig');\r\n\r\n\r\nconst app = express();\r\nmongoose.connect(dbConfig.MONGODB_URL)\r\n    .then(data => console.log('MONGO DB is connected.'))\r\n    .catch(err => console.log(`Error while connecting to MONGO DB: ${err}`));\r\n\r\napp.use(express.urlencoded({extended: false}));\r\napp.use(express.json());\r\napp.use(cors());\r\n\r\napp.post('/api/login', (req, res) => {\r\n    const reqBody = req.body;\r\n    const foundUser = Users.findOne(reqBody, (err, data) => {\r\n        if (err) {\r\n            const errorMsg = `Error on getting user from DB: ${err}`;\r\n            res.send(errorMsg);\r\n            return;\r\n        }\r\n        res.send(data || false);\r\n    });\r\n})\r\n\r\napp.post('/api/register', async (req, res) => {\r\n    const reqBody = req.body;\r\n    console.log(req)\r\n    const condition = {$or: [{username: reqBody.username}, {password: reqBody.password}]}\r\n    Users.findOne(condition, async (err, data) => {\r\n        console.log(data);\r\n        if (err) {\r\n            const errorMsg = `Error on register user: ${err}`;\r\n            console.log(errorMsg);\r\n            res.send(errorMsg);\r\n            return;\r\n        }\r\n\r\n        if (data)\r\n            res.send(`user already exist: ${data.username}`);\r\n        else {\r\n            const newUser = new Users(reqBody);\r\n            const saveNewUser = await newUser.save();\r\n            console.log(saveNewUser);\r\n\r\n            res.send(saveNewUser || 'User not registered.');\r\n        }\r\n    });\r\n});\r\n\r\napp.get(\"/\", (req, res) => {\r\n    res.send(\"Welcome to server\");\r\n})\r\n\r\n\r\n//delete user by email\r\napp.delete(\"/api/user/:email\", (req, res) => {\r\n    const params = req.params.email\r\n    Users.deleteOne({email: params}, null, (error) => {\r\n        if (error) throw error\r\n        res.send(\"User deleted\")\r\n    })\r\n})\r\n\r\n//get all users\r\napp.get(\"/api/users\", (req, res) => {\r\n    Users.find((error, result) => {\r\n        if (error) throw error;\r\n        res.send(result)\r\n    })\r\n})\r\n\r\n//get one user by username\r\napp.get(\"/api/user/:username\", (req, res) => {\r\n    const param = req.params.username\r\n    Users.find({\"username\": param}, (error, result) => {\r\n        if (error) throw error;\r\n        res.send(result)\r\n    })\r\n})\r\n\r\n//update user email by username\r\napp.put(\"/api/user/:username\", (req, res) => {\r\n    const param = req.params.username\r\n    const query = req.query\r\n\r\n    Users.updateOne({\"username\": param}, {email: query.email, isAdmin: query.admin}, null, (error, result) => {\r\n        if (error) throw error\r\n        res.send(result)\r\n    })\r\n})\r\n\r\napp.listen(serverConfig.port, err => {\r\n    if (err) {\r\n        console.log(err);\r\n    } else {\r\n        console.log(serverConfig.serverRunningMsg);\r\n        console.log(serverConfig.serverLink);\r\n    }\r\n});
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/index.js b/backend/index.js
+--- a/backend/index.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/backend/index.js	(date 1654879895302)
+@@ -1,21 +1,21 @@
+-const express = require('express');
+-const mongoose = require('mongoose');
+-const cors = require('cors')
+-const dbConfig = require('./config/dbConfig');
+-const Users = require('./models/userModel');
+-const serverConfig = require('./config/serverConfig');
++const express = require("express");
++const mongoose = require("mongoose");
++const cors = require("cors")
++const dbConfig = require("./config/dbConfig");
++const Users = require("./models/userModel");
++const serverConfig = require("./config/serverConfig");
+ 
+ 
+ const app = express();
+ mongoose.connect(dbConfig.MONGODB_URL)
+-    .then(data => console.log('MONGO DB is connected.'))
++    .then(data => console.log("MONGO DB is connected."))
+     .catch(err => console.log(`Error while connecting to MONGO DB: ${err}`));
+ 
+ app.use(express.urlencoded({extended: false}));
+ app.use(express.json());
+ app.use(cors());
+ 
+-app.post('/api/login', (req, res) => {
++app.post("/api/login", (req, res) => {
+     const reqBody = req.body;
+     const foundUser = Users.findOne(reqBody, (err, data) => {
+         if (err) {
+@@ -27,7 +27,7 @@
+     });
+ })
+ 
+-app.post('/api/register', async (req, res) => {
++app.post("/api/register", async (req, res) => {
+     const reqBody = req.body;
+     console.log(req)
+     const condition = {$or: [{username: reqBody.username}, {password: reqBody.password}]}
+@@ -47,7 +47,7 @@
+             const saveNewUser = await newUser.save();
+             console.log(saveNewUser);
+ 
+-            res.send(saveNewUser || 'User not registered.');
++            res.send(saveNewUser || "User not registered.");
+         }
+     });
+ });
+Index: frontend/src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport React from \"react\";\r\nimport AuthPage from \"./pages/AuthPage/AuthPage\";\r\nimport './App.css';\r\n\r\nimport {Routes, Route} from \"react-router-dom\"\r\nimport Shop from \"./pages/Shop/Shop\";\r\nimport About from \"./pages/About/About\";\r\nimport Contact from \"./pages/Contact/Contact\";\r\nimport Navigation from \"./components/navigation/Navigation\";\r\nimport Home from \"./pages/Home/Home\";\r\n\r\nexport const IsLoggedContext = React.createContext();\r\naxios.defaults.baseURL = 'http://localhost:4000';\r\n\r\nfunction App() {\r\n\r\n    return (\r\n        <div className=\"main-wrapper\">\r\n            <Navigation/>\r\n            <Routes>\r\n                <Route path=\"/\" element={<Home/>}/>\r\n                <Route path=\"/shop\" element={<Shop/>}/>\r\n                <Route path=\"/about\" element={<About/>}/>\r\n                <Route path=\"/contact\" element={<Contact/>}/>\r\n                <Route path=\"/auth\" element={<AuthPage/>}/>\r\n            </Routes>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/App.js b/frontend/src/App.js
+--- a/frontend/src/App.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/App.js	(date 1654881845862)
+@@ -1,20 +1,28 @@
+ import axios from "axios";
+-import React from "react";
++import React, {useEffect} from "react";
++import {Routes, Route, useNavigate} from "react-router-dom"
++
+ import AuthPage from "./pages/AuthPage/AuthPage";
+-import './App.css';
+-
+-import {Routes, Route} from "react-router-dom"
+ import Shop from "./pages/Shop/Shop";
+ import About from "./pages/About/About";
+ import Contact from "./pages/Contact/Contact";
+ import Navigation from "./components/navigation/Navigation";
+ import Home from "./pages/Home/Home";
++import './App.css';
+ 
+ export const IsLoggedContext = React.createContext();
+ axios.defaults.baseURL = 'http://localhost:4000';
+ 
+ function App() {
+ 
++    const navigate = useNavigate()
++    useEffect(() => {
++        if (!localStorage.hasOwnProperty("user")) {
++            navigate("/auth")
++        }
++    }, []);
++
++
+     return (
+         <div className="main-wrapper">
+             <Navigation/>
+Index: frontend/src/pages/AuthPage/AuthPage.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useState} from 'react';\r\nimport Login from \"../../components/login/login\";\r\nimport Register from \"../../components/register/register\";\r\n\r\nimport \"./AuthPage.scss\";\r\n\r\nfunction AuthPage() {\r\n    const [isLogin, setIsLogin] = useState(true);\r\n\r\n    return (\r\n        <div className=\"auth-wrapper container-fluid\">\r\n            <div className=\"row\">\r\n                <div className=\"col-md-6\">\r\n                    <img className=\"\"\r\n                         src=\"https://images.pexels.com/photos/2451622/pexels-photo-2451622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\"\r\n                         alt=\"\"/>\r\n                </div>\r\n                <div className=\"col-md-6 p-md-5\">\r\n                    {isLogin ? <Login showLoginForm={setIsLogin}/> : <Register showLoginForm={setIsLogin}/>}\r\n                </div>\r\n            </div>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default AuthPage;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/AuthPage/AuthPage.js b/frontend/src/pages/AuthPage/AuthPage.js
+--- a/frontend/src/pages/AuthPage/AuthPage.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/pages/AuthPage/AuthPage.js	(date 1654980877396)
+@@ -9,7 +9,7 @@
+ 
+     return (
+         <div className="auth-wrapper container-fluid">
+-            <div className="row">
++            <div className="auth-forms row">
+                 <div className="col-md-6">
+                     <img className=""
+                          src="https://images.pexels.com/photos/2451622/pexels-photo-2451622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+Index: frontend/src/index.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>* {\r\n    padding: 0;\r\n    margin: 0;\r\n    box-sizing: border-box;\r\n}\r\n\r\nbody {\r\n    margin: 0;\r\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\r\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\r\n    sans-serif;\r\n    -webkit-font-smoothing: antialiased;\r\n    -moz-osx-font-smoothing: grayscale;\r\n}\r\n\r\ncode {\r\n    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\r\n    monospace;\r\n}\r\n\r\n#root {\r\n    min-height: 100vh;\r\n}\r\n\r\nimg {\r\n    width: 100%;\r\n    height: 100%;\r\n    object-fit: cover;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/index.css b/frontend/src/index.css
+--- a/frontend/src/index.css	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/index.css	(date 1654979585010)
+@@ -4,18 +4,8 @@
+     box-sizing: border-box;
+ }
+ 
+-body {
+-    margin: 0;
+-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+-    sans-serif;
+-    -webkit-font-smoothing: antialiased;
+-    -moz-osx-font-smoothing: grayscale;
+-}
+-
+-code {
+-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+-    monospace;
++html, body {
++    min-height: 100%;
+ }
+ 
+ #root {
+Index: frontend/src/pages/AuthPage/AuthPage.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.auth-wrapper {\r\n  height: 100%;\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/AuthPage/AuthPage.scss b/frontend/src/pages/AuthPage/AuthPage.scss
+--- a/frontend/src/pages/AuthPage/AuthPage.scss	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/pages/AuthPage/AuthPage.scss	(date 1654980958151)
+@@ -1,4 +1,13 @@
+-.auth-wrapper {
+-  height: 100%;
++.auth {
++  &-wrapper {
++    flex-grow: 1;
++    padding: 0;
++  }
++
++  &-forms {
++    height: 100%;
++    width: 100%;
++    position: fixed;
++  }
+ }
+ 
+Index: frontend/src/components/ShopAd/style.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/ShopAd/style.scss b/frontend/src/components/ShopAd/style.scss
+new file mode 100644
+--- /dev/null	(date 1655042419356)
++++ b/frontend/src/components/ShopAd/style.scss	(date 1655042419356)
+@@ -0,0 +1,79 @@
++.shop-ad {
++  &-wrapper {
++    height: 300px;
++    border: 1px solid #dddddd;
++    border-radius: 10px;
++    padding: 10px;
++    text-align: center;
++    display: flex;
++    flex-direction: column;
++
++    img {
++      height: 100%;
++      object-fit: contain;
++    }
++
++    h4 {
++      font-size: 16px;
++      line-height: 1.7;
++    }
++
++    &:hover {
++      .shop-ad-image {
++
++      }
++
++      .shop-ad-price {
++        transform: translateY(-100%);
++      }
++
++      .add-to-cart {
++        transform: translateY(-100%);
++      }
++    }
++
++  }
++
++  &-image {
++    height: 50%;
++  }
++
++  &-text {
++    display: flex;
++    flex-direction: column;
++    flex: 1;
++
++    div {
++      overflow: hidden;
++      position: relative;
++      height: 35px;
++    }
++
++    button {
++      background: none;
++      outline: none;
++      border: none;
++      border-bottom: 1px solid #000000;
++      transition: .4s ease;
++      text-transform: uppercase;
++      font-weight: 700;
++    }
++  }
++
++  &-title {
++    font-weight: 700;
++    text-align: center;
++    flex: 1;
++  }
++
++  &-price {
++    position: relative;
++    text-align: center;
++    font-size: 20px;
++    font-weight: 700;
++    margin: 0;
++    transition: .4s ease;
++  }
++
++
++}
+\ No newline at end of file
+Index: frontend/src/pages/Shop/style.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/Shop/style.scss b/frontend/src/pages/Shop/style.scss
+new file mode 100644
+--- /dev/null	(date 1655038502314)
++++ b/frontend/src/pages/Shop/style.scss	(date 1655038502314)
+@@ -0,0 +1,11 @@
++.shop {
++  &-wrapper {
++    display: flex;
++    flex-wrap: wrap;
++    gap: 1%;
++
++    & > div {
++      width: 24%;
++    }
++  }
++}
+\ No newline at end of file
+Index: frontend/package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/package-lock.json b/frontend/package-lock.json
+--- a/frontend/package-lock.json	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/package-lock.json	(date 1655042527878)
+@@ -13,6 +13,7 @@
+         "@testing-library/user-event": "^13.5.0",
+         "axios": "^0.27.2",
+         "bootstrap": "^5.1.3",
++        "bootstrap-icons": "^1.8.3",
+         "react": "^18.1.0",
+         "react-dom": "^18.1.0",
+         "react-router-dom": "^6.3.0",
+@@ -5086,6 +5087,11 @@
+         "@popperjs/core": "^2.10.2"
+       }
+     },
++    "node_modules/bootstrap-icons": {
++      "version": "1.8.3",
++      "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.8.3.tgz",
++      "integrity": "sha512-s5kmttnbq4BXbx3Bwnj39y+t7Vc3blTtyD77W3aYQ1LlNoS3lNbbGvSYhIbg26Im8KmjScyFpHEevlPOBcIDdA=="
++    },
+     "node_modules/brace-expansion": {
+       "version": "1.1.11",
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+@@ -20045,6 +20051,11 @@
+       "integrity": "sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==",
+       "requires": {}
+     },
++    "bootstrap-icons": {
++      "version": "1.8.3",
++      "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.8.3.tgz",
++      "integrity": "sha512-s5kmttnbq4BXbx3Bwnj39y+t7Vc3blTtyD77W3aYQ1LlNoS3lNbbGvSYhIbg26Im8KmjScyFpHEevlPOBcIDdA=="
++    },
+     "brace-expansion": {
+       "version": "1.1.11",
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+Index: frontend/src/components/ShopAd/ShopAd.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/ShopAd/ShopAd.js b/frontend/src/components/ShopAd/ShopAd.js
+new file mode 100644
+--- /dev/null	(date 1655042714581)
++++ b/frontend/src/components/ShopAd/ShopAd.js	(date 1655042714581)
+@@ -0,0 +1,26 @@
++import React from 'react';
++import "./style.scss"
++
++function ShopAd({ad}) {
++    return (
++        <div className="shop-ad-wrapper">
++            <div className="shop-ad-image">
++                <img src={ad.image} className="img-fluid" alt=""/>
++                <div className="shop-ad-preview">
++                    <button><i className="bi-alarm"></i>
++                    </button>
++                </div>
++            </div>
++            <div className="shop-ad-text">
++                <h4 className="shop-ad-title">{ad.title}</h4>
++                <p className="shop-ad-rate">Rate: {ad.rating.rate}</p>
++                <div>
++                    <p className="shop-ad-price">${ad.price}</p>
++                    <button className="add-to-cart">Add to cart</button>
++                </div>
++            </div>
++        </div>
++    );
++}
++
++export default ShopAd;
+\ No newline at end of file
+Index: .idea/watcherTasks.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/watcherTasks.xml b/.idea/watcherTasks.xml
+new file mode 100644
+--- /dev/null	(date 1654880787938)
++++ b/.idea/watcherTasks.xml	(date 1654880787938)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectTasksOptions" suppressed-tasks="SCSS" />
++</project>
+\ No newline at end of file
+Index: frontend/src/services/shopService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/services/shopService.js b/frontend/src/services/shopService.js
+new file mode 100644
+--- /dev/null	(date 1654882687837)
++++ b/frontend/src/services/shopService.js	(date 1654882687837)
+@@ -0,0 +1,10 @@
++import axios from "axios";
++
++class ShopService {
++
++    static getAds() {
++        return axios.get("https://fakestoreapi.com/products")
++    }
++}
++
++export default ShopService
+\ No newline at end of file
+Index: frontend/src/assets/base.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/assets/base.scss b/frontend/src/assets/base.scss
+new file mode 100644
+--- /dev/null	(date 1654880784211)
++++ b/frontend/src/assets/base.scss	(date 1654880784211)
+@@ -0,0 +1,3 @@
++.main-wrapper {
++  height: 100vh;
++}
+\ No newline at end of file
+Index: frontend/src/components/login/login.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useState} from 'react';\r\nimport AuthService from \"../../services/authService\";\r\nimport \"./style.scss\"\r\n\r\nfunction Login({showLoginForm}) {\r\n    const [userData, setUserData] = useState({\r\n        username: \"\",\r\n        password: \"\",\r\n    });\r\n    const [isValidForm, setIsValidForm] = useState(true);\r\n\r\n    const onHandleInput = (e) => {\r\n        let newInput = userData\r\n        newInput[e.target.name] = e.target.value\r\n        setUserData(newInput)\r\n    }\r\n    const loginForm = () => showLoginForm(false)\r\n\r\n    const onSubmitForm = (e) => {\r\n        e.preventDefault()\r\n        if (!userData.username || !userData.password) {\r\n            setIsValidForm(false)\r\n            return\r\n        }\r\n        setIsValidForm(true);\r\n\r\n        AuthService.login(userData).then(res => {\r\n            if (res && res.status === 200) {\r\n                console.log(res.data)\r\n            }\r\n        }).catch(err => {\r\n            console.log(err);\r\n        })\r\n    }\r\n    return (\r\n        <form onSubmit={onSubmitForm} method=\"post\">\r\n            <h1>Login</h1>\r\n            <label htmlFor=\"username\">User name</label>\r\n            <input className=\"form-control\" name=\"username\" type=\"text\" id=\"username\" onInput={onHandleInput}/>\r\n            <label htmlFor=\"password\">Password</label>\r\n            <input className=\"form-control mb-3\" name=\"password\" type=\"password\" id=\"password\" onInput={onHandleInput}/>\r\n\r\n            <button type=\"button\" className=\"btn btn-primary px-5\" onClick={loginForm}>Go to register</button>\r\n            <button className=\"btn btn-success px-5 ms-auto\">OK</button>\r\n            {!isValidForm && <p>Username and password is required!</p>}\r\n        </form>\r\n    );\r\n}\r\n\r\nexport default Login;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/login/login.js b/frontend/src/components/login/login.js
+--- a/frontend/src/components/login/login.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/components/login/login.js	(date 1654979419385)
+@@ -1,5 +1,6 @@
+-import React, {useState} from 'react';
++import React, {useEffect, useState} from "react";
+ import AuthService from "../../services/authService";
++import {useNavigate} from "react-router-dom";
+ import "./style.scss"
+ 
+ function Login({showLoginForm}) {
+@@ -7,13 +8,14 @@
+         username: "",
+         password: "",
+     });
++
+     const [isValidForm, setIsValidForm] = useState(true);
+-
+     const onHandleInput = (e) => {
+-        let newInput = userData
++        let newInput = {...userData}
+         newInput[e.target.name] = e.target.value
+         setUserData(newInput)
+     }
++    const navigate = useNavigate();
+     const loginForm = () => showLoginForm(false)
+ 
+     const onSubmitForm = (e) => {
+@@ -27,6 +29,8 @@
+         AuthService.login(userData).then(res => {
+             if (res && res.status === 200) {
+                 console.log(res.data)
++                localStorage.setItem("user", JSON.stringify(res.data))
++                navigate("/")
+             }
+         }).catch(err => {
+             console.log(err);
+@@ -39,7 +43,6 @@
+             <input className="form-control" name="username" type="text" id="username" onInput={onHandleInput}/>
+             <label htmlFor="password">Password</label>
+             <input className="form-control mb-3" name="password" type="password" id="password" onInput={onHandleInput}/>
+-
+             <button type="button" className="btn btn-primary px-5" onClick={loginForm}>Go to register</button>
+             <button className="btn btn-success px-5 ms-auto">OK</button>
+             {!isValidForm && <p>Username and password is required!</p>}
+Index: frontend/src/components/Slider/Slider.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useEffect, useState} from 'react';\r\nimport axios from \"axios\";\r\nimport Arrow from \"./Arrow\";\r\nimport Dots from \"./Dots\";\r\nimport SlideContent from \"./SlideContent\";\r\nimport {imageList} from \"./SourceData\"; //array with object with property src and title\r\nimport \"./style.scss\"\r\n\r\nfunction Slider() {\r\n    const [images, setImages] = useState([]);\r\n    const [currentImage, setCurrentImage] = useState(0);\r\n    const [numberImages, setNumberImages] = useState(0);\r\n\r\n    useEffect(() => {\r\n        //if we use local source from SourceData.ja\r\n        // setImages(imageList)\r\n        // setNumberImages(imageList.length)\r\n        // console.log(JSON.stringify(imageList))\r\n\r\n        axios.get(\"https://raw.githubusercontent.com/zile028/fake-db/main/slider_images.json\")\r\n            .then(res => res.data).then((res) => {\r\n            setImages(res)\r\n            setNumberImages(res.length)\r\n        })\r\n    }, []);\r\n\r\n    useEffect(() => {\r\n        const interval = setInterval(() => {\r\n            changeSlide(1)\r\n        }, 5000)\r\n        return () => {\r\n            clearInterval(interval)\r\n        };\r\n    }, [currentImage]);\r\n\r\n    function changeSlide(movement) {\r\n        let imgIndex = currentImage + movement\r\n        if (imgIndex === numberImages) {\r\n            imgIndex = 0\r\n        } else if (imgIndex < 0) {\r\n            imgIndex = numberImages - 1\r\n        }\r\n        setCurrentImage(imgIndex)\r\n    }\r\n\r\n    return (\r\n        <section className=\"slider-wrapper\">\r\n            {images.length > 0 ? <SlideContent currentIndex={currentImage} images={images}/> : null}\r\n            <Arrow changeSlide={changeSlide}/>\r\n            <Dots numberDots={numberImages} currentDot={currentImage} setCurrentSlide={setCurrentImage}/>\r\n        </section>\r\n    );\r\n}\r\n\r\nexport default Slider;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/Slider/Slider.js b/frontend/src/components/Slider/Slider.js
+--- a/frontend/src/components/Slider/Slider.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/components/Slider/Slider.js	(date 1654877980382)
+@@ -7,6 +7,12 @@
+ import "./style.scss"
+ 
+ function Slider() {
++    const [config, setConfig] = useState({
++        dots: true,
++        nav: true,
++        autoPlay: true,
++        timout: 5000
++    });
+     const [images, setImages] = useState([]);
+     const [currentImage, setCurrentImage] = useState(0);
+     const [numberImages, setNumberImages] = useState(0);
+@@ -27,7 +33,7 @@
+     useEffect(() => {
+         const interval = setInterval(() => {
+             changeSlide(1)
+-        }, 5000)
++        }, config.timout)
+         return () => {
+             clearInterval(interval)
+         };
+@@ -46,8 +52,9 @@
+     return (
+         <section className="slider-wrapper">
+             {images.length > 0 ? <SlideContent currentIndex={currentImage} images={images}/> : null}
+-            <Arrow changeSlide={changeSlide}/>
+-            <Dots numberDots={numberImages} currentDot={currentImage} setCurrentSlide={setCurrentImage}/>
++            {config.nav && <Arrow changeSlide={changeSlide}/>}
++            {config.dots &&
++                <Dots numberDots={numberImages} currentDot={currentImage} setCurrentSlide={setCurrentImage}/>}
+         </section>
+     );
+ }
+Index: frontend/package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"frontend\",\r\n  \"version\": \"0.1.0\",\r\n  \"private\": true,\r\n  \"dependencies\": {\r\n    \"@testing-library/jest-dom\": \"^5.16.4\",\r\n    \"@testing-library/react\": \"^13.3.0\",\r\n    \"@testing-library/user-event\": \"^13.5.0\",\r\n    \"axios\": \"^0.27.2\",\r\n    \"bootstrap\": \"^5.1.3\",\r\n    \"react\": \"^18.1.0\",\r\n    \"react-dom\": \"^18.1.0\",\r\n    \"react-router-dom\": \"^6.3.0\",\r\n    \"react-scripts\": \"5.0.1\",\r\n    \"sass\": \"^1.52.2\",\r\n    \"web-vitals\": \"^2.1.4\"\r\n  },\r\n  \"scripts\": {\r\n    \"start\": \"react-scripts start\",\r\n    \"build\": \"react-scripts build\",\r\n    \"test\": \"react-scripts test\",\r\n    \"eject\": \"react-scripts eject\"\r\n  },\r\n  \"eslintConfig\": {\r\n    \"extends\": [\r\n      \"react-app\",\r\n      \"react-app/jest\"\r\n    ]\r\n  },\r\n  \"browserslist\": {\r\n    \"production\": [\r\n      \">0.2%\",\r\n      \"not dead\",\r\n      \"not op_mini all\"\r\n    ],\r\n    \"development\": [\r\n      \"last 1 chrome version\",\r\n      \"last 1 firefox version\",\r\n      \"last 1 safari version\"\r\n    ]\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/package.json b/frontend/package.json
+--- a/frontend/package.json	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/package.json	(date 1655042527907)
+@@ -8,6 +8,7 @@
+     "@testing-library/user-event": "^13.5.0",
+     "axios": "^0.27.2",
+     "bootstrap": "^5.1.3",
++    "bootstrap-icons": "^1.8.3",
+     "react": "^18.1.0",
+     "react-dom": "^18.1.0",
+     "react-router-dom": "^6.3.0",
+Index: frontend/src/components/Slider/SlideContent.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport SlideTitle from \"./SlideTitle\";\r\n\r\nfunction SlideContent({currentIndex, images}) {\r\n    return (<>\r\n            {images.map((image, index) => {\r\n                return (index === currentIndex &&\r\n                    <article className=\"content-holder\" key={index}>\r\n                        <img src={image.src} alt=\"\"/>\r\n                        <SlideTitle title={image.title}/>\r\n                    </article>\r\n                )\r\n            })}\r\n        </>\r\n    )\r\n}\r\n\r\nexport default SlideContent;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/Slider/SlideContent.js b/frontend/src/components/Slider/SlideContent.js
+--- a/frontend/src/components/Slider/SlideContent.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/components/Slider/SlideContent.js	(date 1654878033342)
+@@ -7,7 +7,7 @@
+                 return (index === currentIndex &&
+                     <article className="content-holder" key={index}>
+                         <img src={image.src} alt=""/>
+-                        <SlideTitle title={image.title}/>
++                        {image.title && <SlideTitle title={image.title}/>}
+                     </article>
+                 )
+             })}
+Index: frontend/src/pages/About/About.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\n\r\nfunction About(props) {\r\n    return (\r\n        <div>About</div>\r\n    );\r\n}\r\n\r\nexport default About;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/About/About.js b/frontend/src/pages/About/About.js
+--- a/frontend/src/pages/About/About.js	(revision 46196d3583324a9b2574a8d156c4e1235d11bab0)
++++ b/frontend/src/pages/About/About.js	(date 1654981031422)
+@@ -1,8 +1,11 @@
+-import React from 'react';
++import React, {useState} from 'react';
+ 
+-function About(props) {
++function About() {
+     return (
+-        <div>About</div>
++        <div>
++            <h1>About</h1>
++            
++        </div>
+     );
+ }
+ 

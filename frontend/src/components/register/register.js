@@ -33,13 +33,14 @@ function Register({showLoginForm}) {
     const onSubmitForm = (e) => {
         e.preventDefault()
 
-        if (!userData.username || !userData.password || !userData.firstName || !userData.lastName || !userData.email || !userData.email.includes("@")) {
+        if (!userData.username || !userData.password || !userData.email || !userData.email.includes("@")) {
             setIsValidForm(false)
             return
         }
         setIsValidForm(true);
 
         AuthService.register(userData).then(res => {
+            console.log(userData)
             if (res && res.status === 200) {
                 console.log(res)
                 setIsApiErr(false)

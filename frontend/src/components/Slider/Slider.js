@@ -36,7 +36,7 @@ function Slider({showArrow = true, showDots = true, slideSpeed = 5000, autoPlay 
             }, slideSpeed);
         }
         return () => {
-            clearInterval(interval);
+            clearInterval(interval)
         };
     }, [currentImage]);
 

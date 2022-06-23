@@ -7,6 +7,7 @@ const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
 const mainService = require("./services/mailService");
 const products = require("./fakeDb/products.json");
+const Mailer = require("./services/mailService")
 
 const app = express();
 mongoose
@@ -49,55 +50,39 @@ app.post("/api/login", (req, res) => {
   });
 });
 
-// Register
 app.post("/api/register", async (req, res) => {
-  const reqBody = req.body;
+    const reqBody = req.body;
+    console.log("request body", reqBody)
+    const condition = {$or: [{username: reqBody.username}, {password: reqBody.password}]}
+    Users.findOne({username: reqBody.username}, async (err, data) => {
+        if (err) {
+            const errorMsg = `Error on register user: ${err}`;
+            console.log(errorMsg);
+            res.send(errorMsg);
+            return;
+        }
+        if (data) {
+            console.log(data)
+            res.send(`user already exist: ${data.username}`);
+        } else {
+            const newUser = new Users(reqBody);
+            const saveNewUser = await newUser.save();
 
-  Users.findOne(reqBody, async (err, data) => {
-    // console.log(data);
-    if (err) {
-      const errorMsg = `Error on register user: ${err}`;
-      console.log(errorMsg);
-      res.send(errorMsg);
-      return;
-    }
+            const sendMail = new Mailer({
+                recipient: reqBody.email,
+                subject: "Activate account",
+                htmlMsg: `
+                        <h1>Activate account</h1>
+                        <p>Dear, ${reqBody.username}</p>
+                        <p>Please click on link bellow to activate your account</p>
+                        <a href="http://localhost:3000/user-activate/${saveNewUser._id.toString()}" target="_blank">Activate link</a>`
+            })
 
-    if (data) res.send(`user already exist: ${data.username}`);
-    else {
-      const newUser = new Users(reqBody);
-      const saveNewUser = await newUser.save();
-      console.log(saveNewUser._id.toString());
+            console.log(sendMail.sendMail())
 
-      let testAccount = await nodemailer.createTestAccount();
-
-      let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-          user: testAccount.user, // generated ethereal user
-          pass: testAccount.pass, // generated ethereal password
-        },
-      });
-
-      let info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
-        to: reqBody.email, // list of receivers
-        subject: "Activate account", // Subject line
-        text: "", // plain text body
-        html: `
-            <h1>Activate account</h1>
-            <p>Dear, ${reqBody.username}</p>
-            <p>Please click on link bellow to activate your account</p>
-            <a href="http://localhost:3000/user-activate/${saveNewUser._id.toString()}" target="_blank">Activate link</a>
-            `, // html body
-      });
-
-      console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
-
-      res.send(saveNewUser || "User not registered.");
-    }
-  });
+            res.send(saveNewUser || "User not registered.");
+        }
+    });
 });
 
 app.get("/", (req, res) => {
@@ -182,6 +167,7 @@ app.get("/api/top-products/:top", (req, res) => {
 
   res.send(sorted.splice(0, topNumber))
 })
+
 
 app.listen(serverConfig.port, (err) => {
   if (err) {
