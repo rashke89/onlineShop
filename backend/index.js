@@ -77,7 +77,6 @@ app.post('/api/register', async (req,res) =>{
 //get all users: GET method, URL: 'apo/users',
 // edit user: PUT method, URL: 'api/user/:username'
 
-
 app.listen(serverConfig.port, err =>{
     if(err)
         console.log(err);
