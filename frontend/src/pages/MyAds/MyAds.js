@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import ShopService from "../../services/shopService";
 import MyAd from "../../components/MyAd/MyAd";
 
+// Push fix
+
 function MyAds(props) {
 	const [products, setProducts] = useState([]);
 
