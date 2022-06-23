@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ShopService from "../../services/shopService";
 import {useNavigate} from "react-router-dom";
-import user from "../AllUsers/User";
+
+
 
 function AddProduct() {
-
+	const productCategory=useRef();
 	const [product, setProduct]=useState({
 		imgUrl: "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
-		userId: JSON.parse(localStorage.getItem("user"))._id
+		userId: JSON.parse(localStorage.getItem("user"))._id,
+		rating: Math.floor(Math.random()*(6-1)+1)
 	})
 
 
@@ -20,6 +22,10 @@ function AddProduct() {
 		copyProduct[event.target.name]=event.target.value;
 		setProduct(copyProduct)
 	}
+
+
+
+
 	const onSubmit=(event)=>{
 		event.preventDefault();
 
@@ -57,7 +63,7 @@ function AddProduct() {
 									<label htmlFor="title">Title</label>
 							</div>
 							<div className="form-floating mb-3">
-								<select className="form-select" id="category" name="category" aria-label="Category">
+								<select ref={productCategory} className="form-select" id="category" name="category" aria-label="Category">
 									<option value="1" >One</option>
 									<option value="2">Two</option>
 									<option value="3">Three</option>

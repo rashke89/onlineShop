@@ -12,6 +12,7 @@ function MyAds(props) {
 		ShopService.getMyAds(user)
 			.then(response => {
 				if(response.status === 200) {
+
 					setProducts(response.data);
 
 				}

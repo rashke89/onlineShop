@@ -1,6 +1,6 @@
 import React from 'react';
 import './MyAd.scss';
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import ShopService from "../../services/shopService";
 
 
@@ -8,24 +8,16 @@ import ShopService from "../../services/shopService";
 
 function MyAd({product}) {
 
-	const navigate=useNavigate()
-	const deleteMyAd=(myAddId)=>{
-		ShopService.deleteMyAd(myAddId)
-			.then((response)=>{
 
 
-			})
-			.catch((error)=>{
-				console.log(error);
-			})
-	}
+
 
 	return (
-		<div className="ad-card-wrapper container">
-			<div className="card product-card">
+		<div className="ad-card-wrapper container d-flex align-items-stretch">
+			<div className="card product-card my-2 ">
 				<div className="product-card-header">
 					{/* Bonus: remove badge after 7 days */}
-					<span className="badge bg-danger">New</span>
+					{/*<span className="badge bg-danger">New</span>*/}
 				</div>
 				<img
 					src={product.imgUrl}
@@ -37,9 +29,7 @@ function MyAd({product}) {
 					<p className="text-muted">Category</p>
 					<p className="card-text">{product.description}</p>
 					<p className="product-rating">
-						{/* TODO: conditionaly render stars */}
-						<i className="bi bi-star me-1"></i>
-						<i className="bi bi-star me-1"></i>
+					//todo rating star
 						<i className="bi bi-star me-1"></i>
 					</p>
 					<p className="product-price mb-0">
@@ -53,12 +43,18 @@ function MyAd({product}) {
 							<i className="bi bi-pen"></i>
 						</span>
 					</Link>
-					<button className="delete" type="button" onClick={()=>deleteMyAd(product._id)}>
+					{/*<button className="delete" type="button" onClick={()=>deleteMyAd(product._id)}>*/}
+					{/*	Delete*/}
+					{/*	<span>*/}
+					{/*		<i className="bi bi-trash"></i>*/}
+					{/*	</span>*/}
+					{/*</button>*/}
+					<Link className="delete" type="button" to={`/product/delete/${product._id}`}>
 						Delete
 						<span>
 							<i className="bi bi-trash"></i>
 						</span>
-					</button>
+					</Link>
 				</div>
 			</div>
 		</div>

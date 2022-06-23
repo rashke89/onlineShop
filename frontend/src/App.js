@@ -16,6 +16,7 @@ import AdPage from "./pages/AdPage/AdPage";
 import MyAds from "./pages/MyAds/MyAds";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import EditMyAd from "./pages/EditMyAd/EditMyAd";
+import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/my-ads" element={<MyAds/>}/>
                 <Route path="/add-product" element={<AddProduct/>}/>
                 <Route path="/product/edit/:myAdId" element={<EditMyAd/>}/>
+                <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
             </Routes>
         </div>
     );
