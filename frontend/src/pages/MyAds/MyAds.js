@@ -4,7 +4,6 @@ import ShopService from "../../services/shopService";
 import MyAd from "../../components/MyAd/MyAd";
 
 function MyAds(props) {
-	const [favorite, setFavorite] = useState([]);
 	const [products, setProducts] = useState([]);
 
 	const user = JSON.parse(localStorage.getItem("user"))._id;
@@ -34,7 +33,7 @@ function MyAds(props) {
 						return(
 							<div className="col d-flex align-items-stretch" key={index}>
 								{product?.imgUrl ?
-									<MyAd product={product} favorite={favorite} setFavorite={setFavorite} /> : null }
+									<MyAd product={product} /> : null }
 							</div>
 						)
 					})}

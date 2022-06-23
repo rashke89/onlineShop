@@ -1,41 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './MyAd.scss';
 
-function MyAd({product, favorite, setFavorite}) {
-
-	const addFavorite = (product) => {
-		setFavorite([...favorite, product]);
-	};
-
-	const removeFavorite = (product) => {
-		const filtered = favorite.filter((item) => item._id !== product._id);
-		setFavorite(filtered);
-	};
-
-	const isFavorite = (product) => {
-		if (favorite.filter((item) => item._id === product._id).length > 0) {
-			return true;
-		}
-		return false;
-	};
-
-
+function MyAd({product}) {
 	return (
 		<div className="ad-card-wrapper container">
 			<div className="card product-card">
 				<div className="product-card-header">
 					{/* Bonus: remove badge after 7 days */}
 					<span className="badge bg-danger">New</span>
-					<div
-						className={isFavorite(product) ? "favorite set-favorite" : "favorite"}
-						onClick={() => isFavorite(product) ? removeFavorite(product) : addFavorite(product)}
-					>
-						{isFavorite(product) ? (
-							<i className="bi bi-heart-fill"></i>
-						) : (
-							<i className="bi bi-heart"></i>
-						)}
-					</div>
 				</div>
 				<img
 					src={product.imgUrl}
