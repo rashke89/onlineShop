@@ -13,7 +13,7 @@ function MyAds(props) {
 			.then(response => {
 				if(response.status === 200) {
 					setProducts(response.data);
-					console.log(response.data);
+
 				}
 			})
 			.catch(error => {

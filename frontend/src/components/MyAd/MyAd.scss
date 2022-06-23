@@ -50,6 +50,8 @@
 
 .delete,
 .edit {
+
+  text-align: center;
   min-width: 130px;
   height: 40px;
   color: #fff;
@@ -63,10 +65,12 @@
   overflow: hidden;
   border-radius: 5px;
   border: none;
+  text-decoration: none;
   &:hover {
     border-radius: 5px;
     padding-right: 24px;
     padding-left:8px;
+
     span {
       opacity: 1;
       right: 20px;
@@ -87,6 +91,8 @@
 }
 .edit {
   background-color: #FAC213;
+  display: grid;
+  place-items: center;
 }
 
 .product-price {
