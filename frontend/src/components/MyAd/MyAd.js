@@ -1,7 +1,25 @@
 import React from 'react';
 import './MyAd.scss';
+import {Link, useNavigate} from "react-router-dom";
+import ShopService from "../../services/shopService";
+
+
+
 
 function MyAd({product}) {
+
+	const navigate=useNavigate()
+	const deleteMyAd=(myAddId)=>{
+		ShopService.deleteMyAd(myAddId)
+			.then((response)=>{
+
+
+			})
+			.catch((error)=>{
+				console.log(error);
+			})
+	}
+
 	return (
 		<div className="ad-card-wrapper container">
 			<div className="card product-card">
@@ -29,13 +47,13 @@ function MyAd({product}) {
 					</p>
 				</div>
 				<div className="action-buttons gap-2">
-					<button className="edit" type="button">
+					<Link  to={`/product/edit/${product._id}`} className="edit" type="button">
 						Edit
 						<span>
 							<i className="bi bi-pen"></i>
 						</span>
-					</button>
-					<button className="delete" type="button">
+					</Link>
+					<button className="delete" type="button" onClick={()=>deleteMyAd(product._id)}>
 						Delete
 						<span>
 							<i className="bi bi-trash"></i>

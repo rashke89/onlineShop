@@ -25,6 +25,9 @@ app.use(cors());
 // const mailer = mainService.configureMail();
 
 
+
+
+
 //add Product
 
 app.post("/product/add", (req,res)=>{
@@ -48,7 +51,42 @@ app.post("/product/add", (req,res)=>{
 		}
 	});
 })
+//delete myAd
+app.delete("/product/delete/:myAdId", (req, res) => {
+	const myAdId = req.params.myAdId;
+	Product.deleteOne({_id: myAdId},  async (error) => {
+		if (error) throw error
+		await res.send("Product deleted")
+	})
+})
 
+//getMyAd
+
+app.get("/product/getMyAd/:myAdId", (req, res)=>{
+	const myAdId=req.params.myAdId;
+
+	Product.findOne({_id:myAdId},(error,data)=>{
+		console.log("DATA",data);
+		if(error){
+			console.log(error);
+			res.send(error)
+		}
+		res.send(data)
+
+	})
+})
+
+//update myAd
+
+app.put("/product/save/:myAdId", (req,res)=>{
+	const params=req.params.myAdId;
+
+		Product.updateOne({"_id": params}, req.body, null, (error, result) => {
+			if (error) throw error;
+			res.send(result)
+		})
+
+})
 
 
 
