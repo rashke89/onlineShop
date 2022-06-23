@@ -5,6 +5,7 @@ import SlideContent from "./SlideContent";
 import ShopService from "../../services/shopService";
 import {routeConfig} from "../../config/routeConfig";
 import "./style.scss";
+import {routeConfig} from "../../config/routeConfig";
 
 function Slider({showArrow = true, showDots = true, slideSpeed = 5000, autoPlay = true}) {
     const [images, setImages] = useState([]);
