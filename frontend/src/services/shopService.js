@@ -9,7 +9,7 @@ class ShopService {
         return axios.get(`/api/products/${adId}`);
     }
 
-    static getTopRatedProduct(num){
+    static getTopRatedProduct(num) {
         return axios.get("/api/top-products/" + num)
     }
 }

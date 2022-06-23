@@ -10,11 +10,11 @@ const products = require("./fakeDb/products.json");
 
 const app = express();
 mongoose
-  .connect(dbConfig.MONGODB_URL)
-  .then((data) => console.log("MONGO DB is connected."))
-  .catch((err) => console.log(`${err}`));
+    .connect(dbConfig.MONGODB_URL)
+    .then((data) => console.log("MONGO DB is connected."))
+    .catch((err) => console.log(`${err}`));
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 // enable CORS - API calls and resource sharing
 app.use(cors());
@@ -107,7 +107,7 @@ app.get("/", (req, res) => {
 //delete user by email
 app.delete("/api/user/:email", (req, res) => {
   const params = req.params.email;
-  Users.deleteOne({ email: params }, null, (error) => {
+  Users.deleteOne({email: params}, null, (error) => {
     if (error) throw error;
     res.send("User deleted");
   });
@@ -124,7 +124,7 @@ app.get("/api/users", (req, res) => {
 //get one user by username
 app.get("/api/user/:username", (req, res) => {
   const param = req.params.username;
-  Users.find({ username: param }, (error, result) => {
+  Users.find({username: param}, (error, result) => {
     if (error) throw error;
     res.send(result);
   });
@@ -136,20 +136,20 @@ app.put("/api/user/:username", (req, res) => {
   const query = req.query;
 
   Users.updateOne(
-    { username: param },
-    { email: query.email, isAdmin: query.admin },
-    null,
-    (error, result) => {
-      if (error) throw error;
-      res.send(result);
-    }
+      {username: param},
+      {email: query.email, isAdmin: query.admin},
+      null,
+      (error, result) => {
+        if (error) throw error;
+        res.send(result);
+      }
   );
 });
 
 app.post("/api/complete-registration", (req, res) => {
   const userId = req.body.userId;
 
-  Users.updateOne({ _id: userId }, { isActive: true }, (error, result) => {
+  Users.updateOne({_id: userId}, {isActive: true}, (error, result) => {
     if (error) {
       console.log(error);
       res.send(error);
@@ -167,19 +167,20 @@ app.get("/api/products", (req, res) => {
 app.get("/api/products/:id", (req, res) => {
   const productId = req.params.id;
   const findedProduct = products.find(
-    (product) => product.id === parseInt(productId)
+      (product) => product.id === parseInt(productId)
   );
   res.send(findedProduct);
 });
 
-app.get("/api/top-products/:top",(req, res)=>{
+app.get("/api/top-products/:top", (req, res) => {
   let topNumber = req.params.top
-  let copyProduct=[...products]
-  let sorted = copyProduct.sort((a,b)=>{
+  let copyProduct = [...products]
+  let sorted = copyProduct.sort((a, b) => {
         return b.rating.rate - a.rating.rate
       }
   )
-  res.send(sorted.splice(0,topNumber))
+
+  res.send(sorted.splice(0, topNumber))
 })
 
 app.listen(serverConfig.port, (err) => {
