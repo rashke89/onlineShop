@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8f2cee8a-ead1-4dda-b295-0177f0e17bd7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/onlineShop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/onlineShop.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/dbConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/dbConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/serverConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/serverConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/userModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/mailService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/images/design.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/scss/base.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopAd/ShopAd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopAd/shopAd.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopCart/ShopCart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopCart/shop-cart.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/Arrow.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/Dot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/Dots.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/SlideContent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/SlideTitle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/Slider.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/SourceData.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ViewAd/ViewAd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ViewAd/view-ad.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/login/login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/login/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/navigation/Navigation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/register/register.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/register/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/About/About.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ActivateUserPage/ActivateUserPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdPage/AdPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AllUsers/AllUsers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AllUsers/User.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AllUsers/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AuthPage/AuthPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AuthPage/AuthPage.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Contact/Contact.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home/Home.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Shop/Shop.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Shop/shop.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Users/SingleUser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Users/Users.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/cartSlice.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/userSlice.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/authService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/shopService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-dev-teams.txt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2AvrAKDKI0w2R1O5Nk8kBqnmBgw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\onlineShop\backend\config" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.serverConfig.js">
+    <configuration name="serverConfig.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/backend/config/serverConfig.js" working-dir="$PROJECT_DIR$/backend/config">
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/backend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.serverConfig.js" />
+        <item itemvalue="npm.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8f2cee8a-ead1-4dda-b295-0177f0e17bd7" name="Changes" comment="" />
+      <created>1655900759610</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1655900759610</updated>
+      <workItem from="1655900762418" duration="272000" />
+      <workItem from="1655901053465" duration="225000" />
+      <workItem from="1655901500009" duration="2915000" />
+      <workItem from="1655905101822" duration="14217000" />
+      <workItem from="1655973808909" duration="13489000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
