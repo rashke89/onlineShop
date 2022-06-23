@@ -1,0 +1,2194 @@
+Index: frontend/src/components/Slider/Slider.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useEffect, useState} from 'react';\r\nimport axios from \"axios\";\r\nimport Arrow from \"./Arrow\";\r\nimport Dots from \"./Dots\";\r\nimport SlideContent from \"./SlideContent\";\r\nimport \"./style.scss\"\r\n\r\nfunction Slider() {\r\n    const [config, setConfig] = useState({\r\n        dots: true,\r\n        nav: true,\r\n        autoPlay: true,\r\n        timout: 5000\r\n    });\r\n    const [images, setImages] = useState([]);\r\n    const [currentImage, setCurrentImage] = useState(0);\r\n    const [numberImages, setNumberImages] = useState(0);\r\n\r\n    useEffect(() => {\r\n        axios.get(\"https://raw.githubusercontent.com/zile028/fake-db/main/slider_images.json\")\r\n            .then(res => res.data).then((res) => {\r\n            setImages(res)\r\n            setNumberImages(res.length)\r\n        })\r\n    }, []);\r\n\r\n    useEffect(() => {\r\n        const interval = setInterval(() => {\r\n            changeSlide(1)\r\n        }, config.timout)\r\n        return () => {\r\n            clearInterval(interval)\r\n        };\r\n    }, [currentImage]);\r\n\r\n    function changeSlide(movement) {\r\n        let imgIndex = currentImage + movement\r\n        if (imgIndex === numberImages) {\r\n            imgIndex = 0\r\n        } else if (imgIndex < 0) {\r\n            imgIndex = numberImages - 1\r\n        }\r\n        setCurrentImage(imgIndex)\r\n    }\r\n\r\n    return (\r\n        <section className=\"slider-wrapper\">\r\n            {images.length > 0 ? <SlideContent currentIndex={currentImage} images={images}/> : null}\r\n            {config.nav && <Arrow changeSlide={changeSlide}/>}\r\n            {config.dots &&\r\n                <Dots numberDots={numberImages} currentDot={currentImage} setCurrentSlide={setCurrentImage}/>}\r\n        </section>\r\n    );\r\n}\r\n\r\nexport default Slider;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/Slider/Slider.js b/frontend/src/components/Slider/Slider.js
+--- a/frontend/src/components/Slider/Slider.js	
++++ b/frontend/src/components/Slider/Slider.js	
+@@ -1,54 +1,71 @@
+-import React, {useEffect, useState} from 'react';
+-import axios from "axios";
++import React, {useEffect, useState} from "react";
+ import Arrow from "./Arrow";
+ import Dots from "./Dots";
+ import SlideContent from "./SlideContent";
+-import "./style.scss"
++import ShopService from "../../services/shopService";
++import "./style.scss";
++import {routeConfig} from "../../config/routeConfig";
+ 
+ function Slider() {
+-    const [config, setConfig] = useState({
+-        dots: true,
+-        nav: true,
+-        autoPlay: true,
+-        timout: 5000
+-    });
+     const [images, setImages] = useState([]);
+     const [currentImage, setCurrentImage] = useState(0);
+     const [numberImages, setNumberImages] = useState(0);
+-
+     useEffect(() => {
+-        axios.get("https://raw.githubusercontent.com/zile028/fake-db/main/slider_images.json")
+-            .then(res => res.data).then((res) => {
+-            setImages(res)
+-            setNumberImages(res.length)
+-        })
++        ShopService.getTopRatedProduct(5).then((res) => {
++            let ads = generateData(res.data)
++            setNumberImages(ads.length);
++            setImages(ads);
++        });
+     }, []);
+ 
+     useEffect(() => {
+-        const interval = setInterval(() => {
+-            changeSlide(1)
+-        }, config.timout)
++        let interval = null
++        if (configSlider.autoPlay) {
++            interval = setInterval(() => {
++                changeSlide(1);
++            }, configSlider.slideSpeed);
++        }
+         return () => {
+-            clearInterval(interval)
++            clearInterval(interval);
+         };
+     }, [currentImage]);
+ 
+-    function changeSlide(movement) {
+-        let imgIndex = currentImage + movement
++    const generateData = (data) => {
++        return data.map(ad => {
++            return {
++                title: ad.title,
++                subtitle: ad.category,
++                src: ad.image,
++                btnText: "Read more",
++                btnLink: routeConfig.AD_SHOP.realUrl(ad.id),
++            }
++        })
++    }
++
++    const changeSlide = (movement) => {
++        let imgIndex = currentImage + movement;
+         if (imgIndex === numberImages) {
+-            imgIndex = 0
++            imgIndex = 0;
+         } else if (imgIndex < 0) {
+-            imgIndex = numberImages - 1
++            imgIndex = numberImages - 1;
+         }
+-        setCurrentImage(imgIndex)
++        setCurrentImage(imgIndex);
+     }
+ 
+     return (
+         <section className="slider-wrapper">
+-            {images.length > 0 ? <SlideContent currentIndex={currentImage} images={images}/> : null}
+-            {config.nav && <Arrow changeSlide={changeSlide}/>}
+-            {config.dots &&
+-                <Dots numberDots={numberImages} currentDot={currentImage} setCurrentSlide={setCurrentImage}/>}
++            {images.length > 0 ? (
++                <SlideContent
++                    currentIndex={currentImage}
++                    image={images[currentImage]}
++                />
++            ) : null}
++            {configSlider.showArrow ? <Arrow changeSlide={changeSlide}/> : null}
++            {configSlider.showDots ? <Dots
++                numberDots={numberImages}
++                currentDot={currentImage}
++                setCurrentSlide={setCurrentImage}
++            /> : null}
+         </section>
+     );
+ }
+Index: frontend/src/components/Slider/SlideContent.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport SlideTitle from \"./SlideTitle\";\r\n\r\nfunction SlideContent({currentIndex, images}) {\r\n    return (<>\r\n            {images.map((image, index) => {\r\n                return (index === currentIndex &&\r\n                    <article className=\"content-holder\" key={index}>\r\n                        <img src={image.src} alt=\"\"/>\r\n                        {image.title && <SlideTitle title={image.title}/>}\r\n                    </article>\r\n                )\r\n            })}\r\n        </>\r\n    )\r\n}\r\n\r\nexport default SlideContent;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/Slider/SlideContent.js b/frontend/src/components/Slider/SlideContent.js
+--- a/frontend/src/components/Slider/SlideContent.js	
++++ b/frontend/src/components/Slider/SlideContent.js	
+@@ -1,18 +1,26 @@
+-import React from 'react';
+-import SlideTitle from "./SlideTitle";
++import React from "react";
++import { Link } from "react-router-dom";
+ 
+-function SlideContent({currentIndex, images}) {
+-    return (<>
+-            {images.map((image, index) => {
+-                return (index === currentIndex &&
+-                    <article className="content-holder" key={index}>
+-                        <img src={image.src} alt=""/>
+-                        {image.title && <SlideTitle title={image.title}/>}
+-                    </article>
+-                )
+-            })}
+-        </>
+-    )
++function SlideContent({ currentIndex, image }) {
++  return (
++    <>
++      <article className="content-holder" key={currentIndex}>
++        <div
++          className="content-image"
++          style={{ backgroundImage: `url(${image.src})` }}
++        ></div>
++        <div className="content-title">
++          <div>
++            <h2>{image.title}</h2>
++            <p>{image.subtitle}</p>
++          </div>
++          <Link className="content-btn" to={image.btnLink}>
++            {image.btnText}
++          </Link>
++        </div>
++      </article>
++    </>
++  );
+ }
+ 
+ export default SlideContent;
+\ No newline at end of file
+Index: backend/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const express = require(\"express\");\r\nconst mongoose = require(\"mongoose\");\r\nconst cors = require(\"cors\");\r\nconst dbConfig = require(\"./config/dbConfig\");\r\nconst Users = require(\"./models/userModel\");\r\nconst serverConfig = require(\"./config/serverConfig\");\r\nconst Mailer = require(\"./services/mailService\")\r\n\r\nconst app = express();\r\nmongoose.connect(dbConfig.MONGODB_URL)\r\n    .then(data => console.log(\"MONGO DB is connected.\"))\r\n    .catch(err => console.log(`Error while connecting to MONGO DB: ${err}`));\r\n\r\napp.use(express.urlencoded({extended: false}));\r\napp.use(express.json());\r\napp.use(cors());\r\n\r\napp.post(\"/api/login\", (req, res) => {\r\n    const reqBody = req.body;\r\n\r\n    const foundUser = Users.findOne(reqBody, (err, data) => {\r\n        if (err) {\r\n            const errorMsg = `Error on getting user from DB: ${err}`;\r\n            res.send(errorMsg);\r\n            return;\r\n        }\r\n        res.send(data || false);\r\n    });\r\n})\r\n\r\napp.post(\"/api/register\", async (req, res) => {\r\n    const reqBody = req.body;\r\n    console.log(\"request body\", reqBody)\r\n    const condition = {$or: [{username: reqBody.username}, {password: reqBody.password}]}\r\n    Users.findOne({username: reqBody.username}, async (err, data) => {\r\n        if (err) {\r\n            const errorMsg = `Error on register user: ${err}`;\r\n            console.log(errorMsg);\r\n            res.send(errorMsg);\r\n            return;\r\n        }\r\n        if (data) {\r\n            console.log(data)\r\n            res.send(`user already exist: ${data.username}`);\r\n        } else {\r\n            const newUser = new Users(reqBody);\r\n            const saveNewUser = await newUser.save();\r\n\r\n            const sendMail = new Mailer({\r\n                recipient: reqBody.email,\r\n                subject: \"Activate account\",\r\n                htmlMsg: `\r\n                        <h1>Activate account</h1>\r\n                        <p>Dear, ${reqBody.username}</p>\r\n                        <p>Please click on link bellow to activate your account</p>\r\n                        <a href=\"http://localhost:3000/user-activate/${saveNewUser._id.toString()}\" target=\"_blank\">Activate link</a>`\r\n            })\r\n\r\n            console.log(sendMail.sendMail())\r\n\r\n            res.send(saveNewUser || \"User not registered.\");\r\n        }\r\n    });\r\n});\r\n\r\napp.get(\"/\", (req, res) => {\r\n    res.send(\"Welcome to server\");\r\n})\r\n\r\n\r\n//delete user by email\r\napp.delete(\"/api/user/:email\", (req, res) => {\r\n    const params = req.params.email\r\n    Users.deleteOne({email: params}, null, (error) => {\r\n        if (error) throw error\r\n        res.send(\"User deleted\")\r\n    })\r\n})\r\n\r\n//get all users\r\napp.get(\"/api/users\", (req, res) => {\r\n    Users.find((error, result) => {\r\n        if (error) throw error;\r\n        res.send(result)\r\n    })\r\n})\r\n\r\n//get one user by username\r\napp.get(\"/api/user/:username\", (req, res) => {\r\n    const param = req.params.username\r\n    Users.findOne({\"username\": param}, (error, result) => {\r\n        if (error) throw error;\r\n        res.send(result)\r\n    })\r\n})\r\n\r\n//update user email by username\r\napp.put(\"/api/user/:username\", (req, res) => {\r\n    const param = req.params.username\r\n    const query = req.query\r\n\r\n    Users.updateOne({\"username\": param}, {email: query.email, isAdmin: query.admin}, null, (error, result) => {\r\n        if (error) throw error\r\n        res.send(result)\r\n    })\r\n})\r\n\r\napp.post(\"/api/complete-registration\", (req, res) => {\r\n    const userId = req.body.userId;\r\n    Users.updateOne({_id: userId}, {isActive: true}, (error, result) => {\r\n        if (error) {\r\n            console.log(error)\r\n            res.send(error)\r\n        } else {\r\n            console.log(\"Activate user...\", result)\r\n            res.send(result)\r\n        }\r\n    })\r\n})\r\n\r\n\r\napp.listen(serverConfig.port, err => {\r\n    if (err) {\r\n        console.log(err);\r\n    } else {\r\n        console.log(serverConfig.serverRunningMsg);\r\n        console.log(serverConfig.serverLink);\r\n    }\r\n});
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/index.js b/backend/index.js
+--- a/backend/index.js	
++++ b/backend/index.js	
+@@ -7,13 +7,17 @@
+ const Mailer = require("./services/mailService")
+ 
+ const app = express();
+-mongoose.connect(dbConfig.MONGODB_URL)
+-    .then(data => console.log("MONGO DB is connected."))
+-    .catch(err => console.log(`Error while connecting to MONGO DB: ${err}`));
++mongoose
++  .connect(dbConfig.MONGODB_URL)
++  .then((data) => console.log("MONGO DB is connected."))
++  .catch((err) => console.log(`${err}`));
+ 
+-app.use(express.urlencoded({extended: false}));
++app.use(express.urlencoded({ extended: false }));
+ app.use(express.json());
++// enable CORS - API calls and resource sharing
+ app.use(cors());
++// nodmailer config
++// const mailer = mainService.configureMail();
+ 
+ app.post("/api/login", (req, res) => {
+     const reqBody = req.body;
+@@ -56,34 +60,31 @@
+                         <a href="http://localhost:3000/user-activate/${saveNewUser._id.toString()}" target="_blank">Activate link</a>`
+             })
+ 
+-            console.log(sendMail.sendMail())
+-
+-            res.send(saveNewUser || "User not registered.");
++            res.send(saveNewUser || 'User not registered.');
+         }
+     });
+ });
+ 
+ app.get("/", (req, res) => {
+-    res.send("Welcome to server");
+-})
+-
++  res.send("Welcome to server");
++});
+ 
+ //delete user by email
+ app.delete("/api/user/:email", (req, res) => {
+-    const params = req.params.email
+-    Users.deleteOne({email: params}, null, (error) => {
+-        if (error) throw error
+-        res.send("User deleted")
+-    })
+-})
++  const params = req.params.email;
++  Users.deleteOne({ email: params }, null, (error) => {
++    if (error) throw error;
++    res.send("User deleted");
++  });
++});
+ 
+ //get all users
+ app.get("/api/users", (req, res) => {
+-    Users.find((error, result) => {
+-        if (error) throw error;
+-        res.send(result)
+-    })
+-})
++  Users.find((error, result) => {
++    if (error) throw error;
++    res.send(result);
++  });
++});
+ 
+ //get one user by username
+ app.get("/api/user/:username", (req, res) => {
+@@ -96,13 +97,54 @@
+ 
+ //update user email by username
+ app.put("/api/user/:username", (req, res) => {
+-    const param = req.params.username
+-    const query = req.query
++  const param = req.params.username;
++  const query = req.query;
+ 
+-    Users.updateOne({"username": param}, {email: query.email, isAdmin: query.admin}, null, (error, result) => {
+-        if (error) throw error
+-        res.send(result)
+-    })
++  Users.updateOne(
++    { username: param },
++    { email: query.email, isAdmin: query.admin },
++    null,
++    (error, result) => {
++      if (error) throw error;
++      res.send(result);
++    }
++  );
++});
++
++app.post("/api/complete-registration", (req, res) => {
++  const userId = req.body.userId;
++
++  Users.updateOne({ _id: userId }, { isActive: true }, (error, result) => {
++    if (error) {
++      console.log(error);
++      res.send(error);
++    } else {
++      console.log("activate user...", result);
++      res.send(result);
++    }
++  });
++});
++
++app.get("/api/products", (req, res) => {
++  res.send(products);
++});
++
++app.get("/api/products/:id", (req, res) => {
++  const productId = req.params.id;
++  const findedProduct = products.find(
++    (product) => product.id === parseInt(productId)
++  );
++  res.send(findedProduct);
++});
++
++app.get("/api/top-products/:top",(req, res)=>{
++  let topNumber = req.params.top
++  let copyProduct=[...products]
++  let sorted = copyProduct.sort((a,b)=>{
++        return b.rating.rate - a.rating.rate
++      }
++  )
++  res.send(sorted.splice(0,topNumber))
+ })
+ 
+ app.post("/api/complete-registration", (req, res) => {
+@@ -119,11 +161,11 @@
+ })
+ 
+ 
+-app.listen(serverConfig.port, err => {
+-    if (err) {
+-        console.log(err);
+-    } else {
+-        console.log(serverConfig.serverRunningMsg);
+-        console.log(serverConfig.serverLink);
+-    }
++app.listen(serverConfig.port, (err) => {
++  if (err) {
++    console.log(err);
++  } else {
++    console.log(serverConfig.serverRunningMsg);
++    console.log(serverConfig.serverLink);
++  }
+ });
+\ No newline at end of file
+Index: frontend/src/components/Slider/style.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.slider-wrapper {\r\n  $transition: .4s ease;\r\n  position: relative;\r\n  height: 600px;\r\n  user-select: none;\r\n  overflow: hidden;\r\n\r\n  .content-holder {\r\n    height: 100%;\r\n    position: relative;\r\n    animation-name: fadeInSlide;\r\n    animation-fill-mode: forwards;\r\n    animation-duration: 1s;\r\n    animation-timing-function: ease-in;\r\n\r\n    @keyframes fadeInSlide {\r\n      from {\r\n        opacity: .3;\r\n        transform: scale(1.9);\r\n      }\r\n      to {\r\n        transform: scale(1);\r\n        opacity: 1;\r\n      }\r\n    }\r\n\r\n    .slide-title {\r\n      position: absolute;\r\n      z-index: 5;\r\n      color: navy;\r\n      font-size: 60px;\r\n      top: 30%;\r\n      left: 50%;\r\n      transform: translate(-50%, -50%);\r\n      background-color: rgba(#fff, .4);\r\n      line-height: 1;\r\n      padding: 20px;\r\n      border-radius: 10px;\r\n      box-shadow: 0 0 10px rgba(#000, .8);\r\n      font-weight: 600;\r\n    }\r\n\r\n    img {\r\n      position: absolute;\r\n      height: 100%;\r\n      width: 100%;\r\n      object-fit: cover;\r\n    }\r\n  }\r\n\r\n  .arrows-holder {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 0;\r\n    transform: translateY(-50%);\r\n    width: 100%;\r\n\r\n    & > div {\r\n      height: 80px;\r\n      width: 80px;\r\n      cursor: pointer;\r\n      transition: $transition;\r\n      padding: 10px;\r\n\r\n      img {\r\n        animation-duration: 1s;\r\n        animation-timing-function: linear;\r\n        animation-iteration-count: infinite;\r\n      }\r\n\r\n      &:hover {\r\n        background: rgba(#000, 0.5);\r\n      }\r\n    }\r\n\r\n    .left {\r\n      float: left;\r\n      border-radius: 0 10px 10px 0;\r\n\r\n      &:hover img {\r\n        animation-name: blinkArrowLeft;\r\n      }\r\n    }\r\n\r\n    @keyframes blinkArrowLeft {\r\n      0% {\r\n        transform: translateX(0px)\r\n      }\r\n      33% {\r\n        transform: translateX(-10px)\r\n      }\r\n      66% {\r\n        transform: translateX(10px)\r\n      }\r\n      100% {\r\n        transform: translateX(0px)\r\n      }\r\n    }\r\n\r\n    .right {\r\n      float: right;\r\n      border-radius: 10px 0 0 10px;\r\n\r\n      &:hover img {\r\n        animation-name: blinkRightLeft;\r\n      }\r\n    }\r\n\r\n    @keyframes blinkRightLeft {\r\n      0% {\r\n        transform: translateX(0px)\r\n      }\r\n      33% {\r\n        transform: translateX(10px)\r\n      }\r\n      66% {\r\n        transform: translateX(-10px)\r\n      }\r\n      100% {\r\n        transform: translateX(0px)\r\n      }\r\n    }\r\n\r\n    img {\r\n      height: 100%;\r\n      width: 100%;\r\n      object-fit: cover;\r\n    }\r\n  }\r\n\r\n  .dots-holder {\r\n    width: 100%;\r\n    position: absolute;\r\n    bottom: 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    gap: 10px;\r\n    padding: 10px 0;\r\n\r\n    .dot {\r\n      height: 20px;\r\n      width: 20px;\r\n      border-radius: 50%;\r\n      background-color: #ddd;\r\n      transition: $transition;\r\n      cursor: pointer;\r\n\r\n      &.active {\r\n        background-color: tomato;\r\n      }\r\n\r\n      &:hover {\r\n        background-color: #6c6c6c;\r\n\r\n      }\r\n    }\r\n  }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/Slider/style.scss b/frontend/src/components/Slider/style.scss
+--- a/frontend/src/components/Slider/style.scss	
++++ b/frontend/src/components/Slider/style.scss	
+@@ -1,44 +1,59 @@
+ .slider-wrapper {
+-  $transition: .4s ease;
++  font-size: 62.5%;
++  $transition: 0.4s ease;
+   position: relative;
+   height: 600px;
+   user-select: none;
+   overflow: hidden;
+-
+-  .content-holder {
+-    height: 100%;
+-    position: relative;
+-    animation-name: fadeInSlide;
+-    animation-fill-mode: forwards;
+-    animation-duration: 1s;
+-    animation-timing-function: ease-in;
+-
+-    @keyframes fadeInSlide {
+-      from {
+-        opacity: .3;
+-        transform: scale(1.9);
++  box-shadow: 0 0 10px rgba(#000, 0.8);
++  padding: 10px;
++  .content {
++    &-holder {
++      display: flex;
++      height: 100%;
++      position: relative;
++      animation-name: fadeInSlide;
++      animation-fill-mode: forwards;
++      animation-duration: 1s;
++      animation-timing-function: ease-in;
++      & > div {
++        flex: 1;
+       }
+-      to {
+-        transform: scale(1);
+-        opacity: 1;
+-      }
++    }
++    &-image {
++      background-size: contain;
++      background-position: center;
++      background-repeat: no-repeat;
+     }
+ 
+-    .slide-title {
+-      position: absolute;
+-      z-index: 5;
++    &-title {
+       color: navy;
+-      font-size: 60px;
+-      top: 30%;
+-      left: 50%;
+-      transform: translate(-50%, -50%);
+-      background-color: rgba(#fff, .4);
+-      line-height: 1;
+       padding: 20px;
+-      border-radius: 10px;
+-      box-shadow: 0 0 10px rgba(#000, .8);
+-      font-weight: 600;
++      display: flex;
++      flex-direction: column;
++      align-items: center;
++      & > div {
++        flex: 1;
++        text-align: center;
++      }
++      h2 {
++        font-size: 3rem;
++        font-weight: 600;
++      }
++      p {
++        font-size: 2rem;
++      }
+     }
++
++    &-btn {
++      display: inline-block;
++      padding: 15px 20px;
++      font-size: 2rem;
++      text-transform: uppercase;
++      box-shadow: 0 0 10px rgba(#000, 0.8);
++      text-decoration: none;
++      border-radius: 10px;
++    }
+ 
+     img {
+       position: absolute;
+@@ -82,21 +97,6 @@
+       }
+     }
+ 
+-    @keyframes blinkArrowLeft {
+-      0% {
+-        transform: translateX(0px)
+-      }
+-      33% {
+-        transform: translateX(-10px)
+-      }
+-      66% {
+-        transform: translateX(10px)
+-      }
+-      100% {
+-        transform: translateX(0px)
+-      }
+-    }
+-
+     .right {
+       float: right;
+       border-radius: 10px 0 0 10px;
+@@ -106,21 +106,6 @@
+       }
+     }
+ 
+-    @keyframes blinkRightLeft {
+-      0% {
+-        transform: translateX(0px)
+-      }
+-      33% {
+-        transform: translateX(10px)
+-      }
+-      66% {
+-        transform: translateX(-10px)
+-      }
+-      100% {
+-        transform: translateX(0px)
+-      }
+-    }
+-
+     img {
+       height: 100%;
+       width: 100%;
+@@ -152,10 +137,48 @@
+ 
+       &:hover {
+         background-color: #6c6c6c;
++      }
++    }
++  }
+ 
+-      }
++  @keyframes blinkArrowLeft {
++    0% {
++      transform: translateX(0px);
++    }
++    33% {
++      transform: translateX(-10px);
+     }
++    66% {
++      transform: translateX(10px);
++    }
++    100% {
++      transform: translateX(0px);
++    }
+   }
+ 
++  @keyframes blinkRightLeft {
++    0% {
++      transform: translateX(0px);
++    }
++    33% {
++      transform: translateX(10px);
++    }
++    66% {
++      transform: translateX(-10px);
++    }
++    100% {
++      transform: translateX(0px);
++    }
++  }
+ 
+-}
+\ No newline at end of file
++  @keyframes fadeInSlide {
++    from {
++      opacity: 0;
++      // transform: scale(1.9);
++    }
++    to {
++      // transform: scale(1);
++      opacity: 1;
++    }
++  }
++}
+Index: frontend/src/components/Slider/SourceData.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>export const imageList = [\r\n    {\r\n        \"title\": \"First slide\",\r\n        \"src\": \"https://www.denofgeek.com/wp-content/uploads/2014/05/assassins-creed.jpg?fit=1280%2C720\"\r\n    },\r\n    {\r\n        \"title\": \"Second slide\",\r\n        \"src\": \"https://static2.srcdn.com/wordpress/wp-content/uploads/2022/02/Assassins-Creed-Altair-Templar.jpg?q=50&fit=crop&w=943&h=500&dpr=1.5\"\r\n    },\r\n    {\r\n        \"title\": \"Third slide\",\r\n        \"src\": \"https://imageio.forbes.com/blogs-images/robsalkowitz/files/2017/03/assassins-creed-2.jpg?format=jpg&width=960\"\r\n    },\r\n    {\r\n        \"title\": \"Fourth slide\",\r\n        \"src\": \"https://compass-ssl.xbox.com/assets/d7/29/d7299dda-c153-4b60-9040-a6266b22ffd6.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Fifth slide\",\r\n        \"src\": \"https://i.bo3.no/image/111814/assassins_creed_netflix__1_.jpg?c=0&h=900&w=1600\"\r\n    },\r\n    {\r\n        \"title\": \"Sixth slide\",\r\n        \"src\": \"https://goalz.online/wp-content/uploads/2022/04/Assassins-Creed-Nexus-VR.jpg\"\r\n    }\r\n]\r\n\r\nexport const arrows = {\r\n    left: \"https://img.icons8.com/external-bluetone-bomsymbols-/91/undefined/external-arrow-digital-design-bluetone-set-2-bluetone-bomsymbols--6.png\",\r\n    right: \"https://img.icons8.com/external-bluetone-bomsymbols-/91/undefined/external-arrow-digital-design-bluetone-set-2-bluetone-bomsymbols--7.png\"\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/Slider/SourceData.js b/frontend/src/components/Slider/SourceData.js
+--- a/frontend/src/components/Slider/SourceData.js	
++++ b/frontend/src/components/Slider/SourceData.js	
+@@ -1,30 +1,3 @@
+-export const imageList = [
+-    {
+-        "title": "First slide",
+-        "src": "https://www.denofgeek.com/wp-content/uploads/2014/05/assassins-creed.jpg?fit=1280%2C720"
+-    },
+-    {
+-        "title": "Second slide",
+-        "src": "https://static2.srcdn.com/wordpress/wp-content/uploads/2022/02/Assassins-Creed-Altair-Templar.jpg?q=50&fit=crop&w=943&h=500&dpr=1.5"
+-    },
+-    {
+-        "title": "Third slide",
+-        "src": "https://imageio.forbes.com/blogs-images/robsalkowitz/files/2017/03/assassins-creed-2.jpg?format=jpg&width=960"
+-    },
+-    {
+-        "title": "Fourth slide",
+-        "src": "https://compass-ssl.xbox.com/assets/d7/29/d7299dda-c153-4b60-9040-a6266b22ffd6.jpg"
+-    },
+-    {
+-        "title": "Fifth slide",
+-        "src": "https://i.bo3.no/image/111814/assassins_creed_netflix__1_.jpg?c=0&h=900&w=1600"
+-    },
+-    {
+-        "title": "Sixth slide",
+-        "src": "https://goalz.online/wp-content/uploads/2022/04/Assassins-Creed-Nexus-VR.jpg"
+-    }
+-]
+-
+ export const arrows = {
+     left: "https://img.icons8.com/external-bluetone-bomsymbols-/91/undefined/external-arrow-digital-design-bluetone-set-2-bluetone-bomsymbols--6.png",
+     right: "https://img.icons8.com/external-bluetone-bomsymbols-/91/undefined/external-arrow-digital-design-bluetone-set-2-bluetone-bomsymbols--7.png"
+Index: backend/models/userModel.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const mongoose = require('mongoose');\r\n\r\nconst userSchema = new mongoose.Schema({\r\n    username: {type: String, required: Boolean},\r\n    password: {type: String, required: Boolean},\r\n    email: {type: String, required: Boolean},\r\n    firstName: {type: String},\r\n    lastName: {type: String},\r\n    avatar: {type: String},\r\n    gender: {type: String},\r\n    address: {type: String},\r\n    city: {type: String},\r\n    postCode: {type: String},\r\n    phoneNumber: {type: Number},\r\n\r\n    isAdmin: {type: String, required: Boolean, default: false},\r\n    isActive: {type: String, required: Boolean, default: false},\r\n});\r\n\r\nconst UserModel = mongoose.model('users', userSchema);\r\n\r\nmodule.exports = UserModel;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/models/userModel.js b/backend/models/userModel.js
+--- a/backend/models/userModel.js	
++++ b/backend/models/userModel.js	
+@@ -13,8 +13,8 @@
+     postCode: {type: String},
+     phoneNumber: {type: Number},
+ 
+-    isAdmin: {type: String, required: Boolean, default: false},
+-    isActive: {type: String, required: Boolean, default: false},
++    isAdmin: {type: String, required: Boolean,  default: false},
++    isActive: {type: String, required: Boolean,  default: false},
+ });
+ 
+ const UserModel = mongoose.model('users', userSchema);
+Index: backend/fakeDb/products.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/fakeDb/products.json b/backend/fakeDb/products.json
+new file mode 100644
+--- /dev/null	
++++ b/backend/fakeDb/products.json	
+@@ -0,0 +1,243 @@
++
++[
++  {
++    "id": 1,
++    "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
++    "price": 109.95,
++    "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
++    "category": "men's clothing",
++    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
++    "rating": {
++      "rate": 3.9,
++      "count": 120
++    }
++  },
++  {
++    "id": 2,
++    "title": "Mens Casual Premium Slim Fit T-Shirts ",
++    "price": 22.3,
++    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
++    "category": "men's clothing",
++    "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
++    "rating": {
++      "rate": 4.1,
++      "count": 259
++    }
++  },
++  {
++    "id": 3,
++    "title": "Mens Cotton Jacket",
++    "price": 55.99,
++    "description": "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
++    "category": "men's clothing",
++    "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
++    "rating": {
++      "rate": 4.7,
++      "count": 500
++    }
++  },
++  {
++    "id": 4,
++    "title": "Mens Casual Slim Fit",
++    "price": 15.99,
++    "description": "The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.",
++    "category": "men's clothing",
++    "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
++    "rating": {
++      "rate": 2.1,
++      "count": 430
++    }
++  },
++  {
++    "id": 5,
++    "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
++    "price": 695,
++    "description": "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
++    "category": "jewelery",
++    "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
++    "rating": {
++      "rate": 4.6,
++      "count": 400
++    }
++  },
++  {
++    "id": 6,
++    "title": "Solid Gold Petite Micropave ",
++    "price": 168,
++    "description": "Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.",
++    "category": "jewelery",
++    "image": "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
++    "rating": {
++      "rate": 3.9,
++      "count": 70
++    }
++  },
++  {
++    "id": 7,
++    "title": "White Gold Plated Princess",
++    "price": 9.99,
++    "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
++    "category": "jewelery",
++    "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
++    "rating": {
++      "rate": 3,
++      "count": 400
++    }
++  },
++  {
++    "id": 8,
++    "title": "Pierced Owl Rose Gold Plated Stainless Steel Double",
++    "price": 10.99,
++    "description": "Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel",
++    "category": "jewelery",
++    "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
++    "rating": {
++      "rate": 1.9,
++      "count": 100
++    }
++  },
++  {
++    "id": 9,
++    "title": "WD 2TB Elements Portable External Hard Drive - USB 3.0 ",
++    "price": 64,
++    "description": "USB 3.0 and USB 2.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system",
++    "category": "electronics",
++    "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
++    "rating": {
++      "rate": 3.3,
++      "count": 203
++    }
++  },
++  {
++    "id": 10,
++    "title": "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
++    "price": 109,
++    "description": "Easy upgrade for faster boot up, shutdown, application load and response (As compared to 5400 RPM SATA 2.5” hard drive; Based on published specifications and internal benchmarking tests using PCMark vantage scores) Boosts burst write performance, making it ideal for typical PC workloads The perfect balance of performance and reliability Read/write speeds of up to 535MB/s/450MB/s (Based on internal testing; Performance may vary depending upon drive capacity, host device, OS and application.)",
++    "category": "electronics",
++    "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
++    "rating": {
++      "rate": 2.9,
++      "count": 470
++    }
++  },
++  {
++    "id": 11,
++    "title": "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
++    "price": 109,
++    "description": "3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster bootup and improved overall system performance. The advanced SLC Cache Technology allows performance boost and longer lifespan 7mm slim design suitable for Ultrabooks and Ultra-slim notebooks. Supports TRIM command, Garbage Collection technology, RAID, and ECC (Error Checking & Correction) to provide the optimized performance and enhanced reliability.",
++    "category": "electronics",
++    "image": "https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg",
++    "rating": {
++      "rate": 4.8,
++      "count": 319
++    }
++  },
++  {
++    "id": 12,
++    "title": "WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive",
++    "price": 114,
++    "description": "Expand your PS4 gaming experience, Play anywhere Fast and easy, setup Sleek design with high capacity, 3-year manufacturer's limited warranty",
++    "category": "electronics",
++    "image": "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg",
++    "rating": {
++      "rate": 4.8,
++      "count": 400
++    }
++  },
++  {
++    "id": 13,
++    "title": "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
++    "price": 599,
++    "description": "21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz",
++    "category": "electronics",
++    "image": "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
++    "rating": {
++      "rate": 2.9,
++      "count": 250
++    }
++  },
++  {
++    "id": 14,
++    "title": "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ",
++    "price": 999.99,
++    "description": "49 INCH SUPER ULTRAWIDE 32:9 CURVED GAMING MONITOR with dual 27 inch screen side by side QUANTUM DOT (QLED) TECHNOLOGY, HDR support and factory calibration provides stunningly realistic and accurate color and contrast 144HZ HIGH REFRESH RATE and 1ms ultra fast response time work to eliminate motion blur, ghosting, and reduce input lag",
++    "category": "electronics",
++    "image": "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg",
++    "rating": {
++      "rate": 2.2,
++      "count": 140
++    }
++  },
++  {
++    "id": 15,
++    "title": "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
++    "price": 56.99,
++    "description": "Note:The Jackets is US standard size, Please choose size as your usual wear Material: 100% Polyester; Detachable Liner Fabric: Warm Fleece. Detachable Functional Liner: Skin Friendly, Lightweigt and Warm.Stand Collar Liner jacket, keep you warm in cold weather. Zippered Pockets: 2 Zippered Hand Pockets, 2 Zippered Pockets on Chest (enough to keep cards or keys)and 1 Hidden Pocket Inside.Zippered Hand Pockets and Hidden Pocket keep your things secure. Humanized Design: Adjustable and Detachable Hood and Adjustable cuff to prevent the wind and water,for a comfortable fit. 3 in 1 Detachable Design provide more convenience, you can separate the coat and inner as needed, or wear it together. It is suitable for different season and help you adapt to different climates",
++    "category": "women's clothing",
++    "image": "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg",
++    "rating": {
++      "rate": 2.6,
++      "count": 235
++    }
++  },
++  {
++    "id": 16,
++    "title": "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
++    "price": 29.95,
++    "description": "100% POLYURETHANE(shell) 100% POLYESTER(lining) 75% POLYESTER 25% COTTON (SWEATER), Faux leather material for style and comfort / 2 pockets of front, 2-For-One Hooded denim style faux leather jacket, Button detail on waist / Detail stitching at sides, HAND WASH ONLY / DO NOT BLEACH / LINE DRY / DO NOT IRON",
++    "category": "women's clothing",
++    "image": "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg",
++    "rating": {
++      "rate": 2.9,
++      "count": 340
++    }
++  },
++  {
++    "id": 17,
++    "title": "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
++    "price": 39.99,
++    "description": "Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.",
++    "category": "women's clothing",
++    "image": "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg",
++    "rating": {
++      "rate": 3.8,
++      "count": 679
++    }
++  },
++  {
++    "id": 18,
++    "title": "MBJ Women's Solid Short Sleeve Boat Neck V ",
++    "price": 9.85,
++    "description": "95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem",
++    "category": "women's clothing",
++    "image": "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg",
++    "rating": {
++      "rate": 4.7,
++      "count": 130
++    }
++  },
++  {
++    "id": 19,
++    "title": "Opna Women's Short Sleeve Moisture",
++    "price": 7.95,
++    "description": "100% Polyester, Machine wash, 100% cationic polyester interlock, Machine Wash & Pre Shrunk for a Great Fit, Lightweight, roomy and highly breathable with moisture wicking fabric which helps to keep moisture away, Soft Lightweight Fabric with comfortable V-neck collar and a slimmer fit, delivers a sleek, more feminine silhouette and Added Comfort",
++    "category": "women's clothing",
++    "image": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
++    "rating": {
++      "rate": 4.5,
++      "count": 146
++    }
++  },
++  {
++    "id": 20,
++    "title": "DANVOUY Womens T Shirt Casual Cotton Short",
++    "price": 12.99,
++    "description": "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
++    "category": "women's clothing",
++    "image": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
++    "rating": {
++      "rate": 3.6,
++      "count": 145
++    }
++  }
++]
+\ No newline at end of file
+Index: backend/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/.gitignore b/backend/.gitignore
+new file mode 100644
+--- /dev/null	
++++ b/backend/.gitignore	
+@@ -0,0 +1,2 @@
++# dependencies
++/node_modules
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"JavaScriptSettings\">\r\n    <option name=\"languageLevel\" value=\"ES6\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="JavaScriptSettings">
+-    <option name="languageLevel" value="ES6" />
++    <option name="languageLevel" value="JSX" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: frontend/public/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <link rel=\"icon\" href=\"%PUBLIC_URL%/favicon.ico\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <meta name=\"theme-color\" content=\"#000000\" />\r\n    <meta\r\n      name=\"description\"\r\n      content=\"Web site created using create-react-app\"\r\n    />\r\n    <link rel=\"apple-touch-icon\" href=\"%PUBLIC_URL%/logo192.png\" />\r\n    <!--\r\n      manifest.json provides metadata used when your web app is installed on a\r\n      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/\r\n    -->\r\n    <link rel=\"manifest\" href=\"%PUBLIC_URL%/manifest.json\" />\r\n    <!--\r\n      Notice the use of %PUBLIC_URL% in the tags above.\r\n      It will be replaced with the URL of the `public` folder during the build.\r\n      Only files inside the `public` folder can be referenced from the HTML.\r\n\r\n      Unlike \"/favicon.ico\" or \"favicon.ico\", \"%PUBLIC_URL%/favicon.ico\" will\r\n      work correctly both with client-side routing and a non-root public URL.\r\n      Learn how to configure a non-root public URL by running `npm run build`.\r\n    -->\r\n    <title>React App</title>\r\n  </head>\r\n  <body>\r\n    <noscript>You need to enable JavaScript to run this app.</noscript>\r\n    <div id=\"root\"></div>\r\n    <!--\r\n      This HTML file is a template.\r\n      If you open it directly in the browser, you will see an empty page.\r\n\r\n      You can add webfonts, meta tags, or analytics to this file.\r\n      The build step will place the bundled scripts into the <body> tag.\r\n\r\n      To begin the development, run `npm start` or `yarn start`.\r\n      To create a production bundle, use `npm run build` or `yarn build`.\r\n    -->\r\n  </body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/public/index.html b/frontend/public/index.html
+--- a/frontend/public/index.html	
++++ b/frontend/public/index.html	
+@@ -24,7 +24,12 @@
+       work correctly both with client-side routing and a non-root public URL.
+       Learn how to configure a non-root public URL by running `npm run build`.
+     -->
++    <!-- JavaScript Bundle with Popper -->
++    <!-- CSS only -->
+     <title>React App</title>
++    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
++    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
++
+   </head>
+   <body>
+     <noscript>You need to enable JavaScript to run this app.</noscript>
+Index: frontend/src/index.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>* {\r\n    padding: 0;\r\n    margin: 0;\r\n    box-sizing: border-box;\r\n}\r\n\r\nhtml, body {\r\n    min-height: 100%;\r\n}\r\n\r\n#root {\r\n    min-height: 100vh;\r\n}\r\n\r\nimg {\r\n    width: 100%;\r\n    height: 100%;\r\n    object-fit: cover;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/index.css b/frontend/src/index.css
+--- a/frontend/src/index.css	
++++ b/frontend/src/index.css	
+@@ -10,10 +10,11 @@
+ 
+ #root {
+     min-height: 100vh;
++    display: grid;
+ }
+ 
+ img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+-}
+\ No newline at end of file
++}
+Index: frontend/src/components/navigation/Navigation.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useEffect} from 'react';\r\nimport {Link} from \"react-router-dom\";\r\nimport {useSelector} from \"react-redux\";\r\n\r\n\r\nfunction Navigation() {\r\n    const user = useSelector((state) => state.userStore.user)\r\n\r\n    return (\r\n        <nav className=\"navbar navbar-expand-lg bg-light\">\r\n            <div className=\"container-fluid\">\r\n                <Link className=\"navbar-brand\" to=\"/\">E-Shop</Link>\r\n                <button className=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\"\r\n                        aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                    <span className=\"navbar-toggler-icon\"></span>\r\n                </button>\r\n                <div className=\"collapse navbar-collapse\" id=\"navbarNav\">\r\n                    <ul className=\"navbar-nav ms-auto\">\r\n                        <li className=\"nav-item\">\r\n                            <Link className=\"nav-link active\" aria-current=\"page\" to=\"/\">Home</Link>\r\n                        </li>\r\n                        <li className=\"nav-item\">\r\n                            <Link className=\"nav-link\" to=\"/about\">About</Link>\r\n                        </li>\r\n                        <li className=\"nav-item\">\r\n                            <Link className=\"nav-link\" to=\"/shop\">Shop</Link>\r\n                        </li>\r\n                        <li className=\"nav-item\">\r\n                            <Link className=\"nav-link\" to=\"/contact\">Contact</Link>\r\n                        </li>\r\n                        <li className=\"nav-item\">\r\n                            {user.hasOwnProperty(\"username\") ?\r\n                                <Link className=\"nav-link\" to=\"/dashboard\">{user.username}</Link> :\r\n                                <Link className=\"nav-link\" to=\"/auth\">Login/Register</Link>\r\n                            }\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </nav>\r\n    );\r\n}\r\n\r\nexport default Navigation;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/navigation/Navigation.js b/frontend/src/components/navigation/Navigation.js
+--- a/frontend/src/components/navigation/Navigation.js	
++++ b/frontend/src/components/navigation/Navigation.js	
+@@ -1,15 +1,28 @@
+ import React, {useEffect} from 'react';
+ import {Link} from "react-router-dom";
+ import {useSelector} from "react-redux";
+-
++import ShopCart from "../ShopCart/ShopCart";
++import {routeConfig} from "../../config/routeConfig";
+ 
+ function Navigation() {
+-    const user = useSelector((state) => state.userStore.user)
++    // state - redux store from store.js,
++    // const user = useSelector((state) => state.userStore.user);
++    const {user} = useSelector((state) => state.userStore);
++    useEffect(() => {
++        console.log('use eff..', user);
++    }, []);
+ 
++    const userBtnLayout = () => {
++        return user.hasOwnProperty('username') ?
++                user.username :
++                <li className="nav-item">
++                    <Link className="nav-link" to={routeConfig.AUTH.url}>Login/Register</Link>
++                </li>
++    };
+     return (
+         <nav className="navbar navbar-expand-lg bg-light">
+-            <div className="container-fluid">
+-                <Link className="navbar-brand" to="/">E-Shop</Link>
++            <div className="container">
++                <Link className="navbar-brand" to={routeConfig.HOME.url}>E-Shop</Link>
+                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                     <span className="navbar-toggler-icon"></span>
+@@ -17,23 +30,21 @@
+                 <div className="collapse navbar-collapse" id="navbarNav">
+                     <ul className="navbar-nav ms-auto">
+                         <li className="nav-item">
+-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
++                            <Link className="nav-link active" aria-current="page" to={routeConfig.HOME.url}>Home</Link>
+                         </li>
+                         <li className="nav-item">
+-                            <Link className="nav-link" to="/about">About</Link>
++                            <Link className="nav-link" to={routeConfig.ABOUT.url}>About</Link>
+                         </li>
+                         <li className="nav-item">
+-                            <Link className="nav-link" to="/shop">Shop</Link>
++                            <Link className="nav-link" to={routeConfig.SHOP.url}>Shop</Link>
+                         </li>
+                         <li className="nav-item">
+-                            <Link className="nav-link" to="/contact">Contact</Link>
++                            <Link className="nav-link" to={routeConfig.CONTACT.url}>Contact</Link>
+                         </li>
+-                        <li className="nav-item">
+-                            {user.hasOwnProperty("username") ?
+-                                <Link className="nav-link" to="/dashboard">{user.username}</Link> :
+-                                <Link className="nav-link" to="/auth">Login/Register</Link>
+-                            }
++                        <li className="nav-item ">
++                            <ShopCart />
+                         </li>
++                        {userBtnLayout()}
+                     </ul>
+                 </div>
+             </div>
+Index: frontend/src/components/ShopAd/shopAd.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/ShopAd/shopAd.scss b/frontend/src/components/ShopAd/shopAd.scss
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/components/ShopAd/shopAd.scss	
+@@ -0,0 +1,64 @@
++.shop-ad-wrapper {
++  display: grid;
++
++  .shop-ad-content-wrapper {
++    min-height: 500px;
++    display: flex;
++    flex-direction: column;
++    align-items: center;
++    justify-content: space-between;
++    margin: 20px 0;
++    padding: 10px 0;
++    border-radius: 8px;
++    box-shadow: 1px 3px 9px rgb(0 0 0 / 50%);
++    background-color: #fff;
++    * {
++      padding: 0 10px;
++    }
++
++    .img {
++      height: 60%;
++      object-fit: contain;
++    }
++    .shop-ad-title {
++      font-weight: bold;
++      margin-top: 20px;
++    }
++    .shop-ad-price {
++      text-align: center;
++      font-size: 20px;
++      font-weight: bold;
++      padding: 10px 30px;
++      margin-bottom: 0;
++    }
++    .view-more-btn {
++      display: none;
++      color: #000;
++      border: 3px solid black;
++      background-color: #fff;
++      cursor: pointer;
++
++      text-decoration: none;
++      .view-more-btn-text {
++        //color: #fff;
++        padding: 10px 30px;
++        height: auto;
++        margin-bottom: 0;
++      }
++
++      &:hover {
++        background-color: #000;
++        color: #fff;
++      }
++    }
++    &:hover {
++      .shop-ad-price {
++        display: none;
++      }
++      .view-more-btn {
++        display: block;
++      }
++    }
++  }
++}
++
+Index: frontend/src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\nimport React, {useEffect} from \"react\";\r\nimport AuthPage from \"./pages/AuthPage/AuthPage\";\r\nimport './App.css';\r\n\r\nimport {Routes, Route, useNavigate} from \"react-router-dom\"\r\nimport {useDispatch} from \"react-redux\";\r\nimport {setUser, getUser} from \"./redux/userSlice\";\r\nimport Shop from \"./pages/Shop/Shop\";\r\nimport About from \"./pages/About/About\";\r\nimport Contact from \"./pages/Contact/Contact\";\r\nimport Navigation from \"./components/navigation/Navigation\";\r\nimport Home from \"./pages/Home/Home\";\r\nimport ActivateUser from \"./pages/ActivateUser/ActivateUser\";\r\nimport Dashboard from \"./pages/Dashboard/Dashboard\";\r\n\r\nexport const IsLoggedContext = React.createContext();\r\naxios.defaults.baseURL = 'http://localhost:4000';\r\n\r\nfunction App() {\r\n    const dispatch = useDispatch()\r\n    const navigate = useNavigate()\r\n    useEffect(() => {\r\n        \r\n        if (localStorage.hasOwnProperty(\"user\")) {\r\n            dispatch(setUser(JSON.parse(localStorage.getItem(\"user\"))))\r\n        } else {\r\n            // navigate(\"/auth\")\r\n        }\r\n    }, []);\r\n\r\n    return (\r\n        <div className=\"main-wrapper\">\r\n            <Navigation/>\r\n            <Routes>\r\n                <Route path=\"/\" element={<Home/>}/>\r\n                <Route path=\"/shop\" element={<Shop/>}/>\r\n                <Route path=\"/about\" element={<About/>}/>\r\n                <Route path=\"/contact\" element={<Contact/>}/>\r\n                <Route path=\"/auth\" element={<AuthPage/>}/>\r\n                <Route path=\"/user-activate/:id\" element={<ActivateUser/>}/>\r\n                <Route path=\"/dashboard\" element={<Dashboard/>}/>\r\n            </Routes>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default App;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/App.js b/frontend/src/App.js
+--- a/frontend/src/App.js	
++++ b/frontend/src/App.js	
+@@ -1,31 +1,31 @@
+ import axios from "axios";
+ import React, {useEffect} from "react";
+ import AuthPage from "./pages/AuthPage/AuthPage";
+-import './App.css';
++import './assets/scss/base.scss';
+ 
+ import {Routes, Route, useNavigate} from "react-router-dom"
+-import {useDispatch} from "react-redux";
+-import {setUser, getUser} from "./redux/userSlice";
+ import Shop from "./pages/Shop/Shop";
+ import About from "./pages/About/About";
+ import Contact from "./pages/Contact/Contact";
+ import Navigation from "./components/navigation/Navigation";
+ import Home from "./pages/Home/Home";
+-import ActivateUser from "./pages/ActivateUser/ActivateUser";
+-import Dashboard from "./pages/Dashboard/Dashboard";
++import {useDispatch} from "react-redux";
++import {setUser} from "./redux/userSlice";
++import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
++import AdPage from "./pages/AdPage/AdPage";
++import {routeConfig} from "./config/routeConfig";
+ 
+ export const IsLoggedContext = React.createContext();
+ axios.defaults.baseURL = 'http://localhost:4000';
+ 
+ function App() {
+-    const dispatch = useDispatch()
+-    const navigate = useNavigate()
++    const navigate = useNavigate();
++    const dispatch = useDispatch();
+     useEffect(() => {
+-        
+-        if (localStorage.hasOwnProperty("user")) {
+-            dispatch(setUser(JSON.parse(localStorage.getItem("user"))))
++        if (!localStorage.hasOwnProperty('user')) {
++            // navigate('/auth');
+         } else {
+-            // navigate("/auth")
++            dispatch(setUser(JSON.parse(localStorage.getItem('user'))))
+         }
+     }, []);
+ 
+@@ -33,13 +33,13 @@
+         <div className="main-wrapper">
+             <Navigation/>
+             <Routes>
+-                <Route path="/" element={<Home/>}/>
+-                <Route path="/shop" element={<Shop/>}/>
+-                <Route path="/about" element={<About/>}/>
+-                <Route path="/contact" element={<Contact/>}/>
+-                <Route path="/auth" element={<AuthPage/>}/>
+-                <Route path="/user-activate/:id" element={<ActivateUser/>}/>
+-                <Route path="/dashboard" element={<Dashboard/>}/>
++                <Route path={routeConfig.HOME.url} element={<Home/>}/>
++                <Route path={routeConfig.SHOP.url} element={<Shop/>}/>
++                <Route path={routeConfig.AD_SHOP.url} element={<AdPage/>}/>
++                <Route path={routeConfig.ABOUT.url} element={<About/>}/>
++                <Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
++                <Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
++                <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
+             </Routes>
+         </div>
+     );
+Index: frontend/package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"frontend\",\r\n  \"version\": \"0.1.0\",\r\n  \"private\": true,\r\n  \"dependencies\": {\r\n    \"@reduxjs/toolkit\": \"^1.8.2\",\r\n    \"@testing-library/jest-dom\": \"^5.16.4\",\r\n    \"@testing-library/react\": \"^13.3.0\",\r\n    \"@testing-library/user-event\": \"^13.5.0\",\r\n    \"axios\": \"^0.27.2\",\r\n    \"bootstrap\": \"^5.1.3\",\r\n    \"bootstrap-icons\": \"^1.8.3\",\r\n    \"react\": \"^18.1.0\",\r\n    \"react-dom\": \"^18.1.0\",\r\n    \"react-redux\": \"^8.0.2\",\r\n    \"react-router-dom\": \"^6.3.0\",\r\n    \"react-scripts\": \"5.0.1\",\r\n    \"sass\": \"^1.52.2\",\r\n    \"web-vitals\": \"^2.1.4\"\r\n  },\r\n  \"scripts\": {\r\n    \"start\": \"react-scripts start\",\r\n    \"build\": \"react-scripts build\",\r\n    \"test\": \"react-scripts test\",\r\n    \"eject\": \"react-scripts eject\"\r\n  },\r\n  \"eslintConfig\": {\r\n    \"extends\": [\r\n      \"react-app\",\r\n      \"react-app/jest\"\r\n    ]\r\n  },\r\n  \"browserslist\": {\r\n    \"production\": [\r\n      \">0.2%\",\r\n      \"not dead\",\r\n      \"not op_mini all\"\r\n    ],\r\n    \"development\": [\r\n      \"last 1 chrome version\",\r\n      \"last 1 firefox version\",\r\n      \"last 1 safari version\"\r\n    ]\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/package.json b/frontend/package.json
+--- a/frontend/package.json	
++++ b/frontend/package.json	
+@@ -9,7 +9,6 @@
+     "@testing-library/user-event": "^13.5.0",
+     "axios": "^0.27.2",
+     "bootstrap": "^5.1.3",
+-    "bootstrap-icons": "^1.8.3",
+     "react": "^18.1.0",
+     "react-dom": "^18.1.0",
+     "react-redux": "^8.0.2",
+Index: frontend/src/assets/scss/base.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/assets/scss/base.scss b/frontend/src/assets/scss/base.scss
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/assets/scss/base.scss	
+@@ -0,0 +1,4 @@
++.main-wrapper {
++  height: 100%;
++  background-color: #f3f3f3;
++}
+Index: frontend/src/components/ViewAd/view-ad.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/ViewAd/view-ad.scss b/frontend/src/components/ViewAd/view-ad.scss
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/components/ViewAd/view-ad.scss	
+@@ -0,0 +1,5 @@
++.view-ad-wrapper {
++  .add-to-cart-btn {
++    background-color: gray;
++  }
++}
+Index: frontend/src/components/ViewAd/ViewAd.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/ViewAd/ViewAd.js b/frontend/src/components/ViewAd/ViewAd.js
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/components/ViewAd/ViewAd.js	
+@@ -0,0 +1,88 @@
++import {useEffect, useState} from "react";
++import {useParams} from "react-router-dom";
++import ShopService from "../../services/shopService";
++import "./view-ad.scss";
++import {useDispatch} from "react-redux";
++import {addToCart} from "../../redux/cartSlice";
++
++const productMockData = {
++    category: "men's clothing",
++    description: "The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be" +
++        " reviewed below on the product description.",
++    id: 4,
++    image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
++    price: 15.99,
++    rating: {rate: 2.1, count: 430},
++    title: "Mens Casual Slim Fit",
++}
++
++export default function ViewAd() {
++    const [ad, setAd] = useState({});
++    const [isParamsAvailable, setIsParamsAvailable] = useState(true);
++    const [isApiFinished, setIsApiFinished] = useState(false);
++    const params = useParams();
++    const dispatch = useDispatch();
++
++    useEffect(() => {
++        if (params.adId) {
++            getAd();
++            // setAd(productMockData);
++        } else {
++            setIsParamsAvailable(false);
++        }
++    }, []);
++
++    const noParamsMsgLayout = () => {
++        return !isParamsAvailable ? <p>No product with this id.</p> : null;
++    };
++
++    const onAddToCart = () => {
++        dispatch(addToCart(ad))
++    };
++
++    const adLayout = () => {
++        return <div className="ad-wrapper row">
++            <div className="col-md-6">
++                <img src={ad.image} alt="Product image"/>
++            </div>
++            <div className="col-md-6">
++                <h3>{ad.title}</h3>
++                <p>{ad.category}</p>
++                <p>{ad.description}</p>
++                <p>{ad.price}</p>
++
++                <button className="btn add-to-cart-btn" onClick={onAddToCart}>Add to cart</button>
++            </div>
++        </div>
++    }
++
++    const getAd = () => {
++        ShopService.getAdById(params.adId)
++            .then(response => {
++                if (response.status === 200) {
++                    setAd(response.data);
++                }
++
++                if (!response.data) {
++                    setIsParamsAvailable(false)
++                }
++            })
++            .catch(error => {
++
++            })
++            .finally(() => {
++                setIsApiFinished(true);
++            });
++    };
++
++    return (
++        <div className="view-ad-wrapper container">
++            <div className="row">
++                <div className="col-md-12">
++                        {noParamsMsgLayout()}
++                        {ad && ad.hasOwnProperty('id') && adLayout()}
++                </div>
++            </div>
++        </div>
++    )
++}
+Index: frontend/src/config/routeConfig.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/config/routeConfig.js b/frontend/src/config/routeConfig.js
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/config/routeConfig.js	
+@@ -0,0 +1,26 @@
++// outsourcing vars
++export const routeConfig = {
++    HOME: {
++        url: '/'
++    },
++    SHOP: {
++        url: '/shop'
++    },
++    AD_SHOP: {
++        url: '/shop/ad/:adId',
++        realUrl: (adId) => `/shop/ad/${adId}`
++    },
++    ABOUT: {
++        url: '/about'
++    },
++    CONTACT: {
++        url: '/contact'
++    },
++    AUTH: {
++        url: '/auth'
++    },
++    USER_ACTIVATE: {
++        url: '/user-activate/:id',
++        realUrl: id => `/user-activate/${id}`
++    }
++}
+Index: frontend/src/components/ShopCart/shop-cart.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/ShopCart/shop-cart.scss b/frontend/src/components/ShopCart/shop-cart.scss
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/components/ShopCart/shop-cart.scss	
+@@ -0,0 +1,62 @@
++.shop-cart-wrapper {
++  position: relative;
++  padding: 0 15px;
++  display: flex;
++  align-items: center;
++  height: 100%;
++
++  &.show-badge {
++    .shop-cart-badge, .shop-cart-sum {
++      display: block;
++    }
++  }
++
++  svg {
++    width: 25px;
++    height: 25px;
++  }
++
++  .shop-cart-badge {
++    position: absolute;
++    display: none;
++    background: red;
++    border-radius: 50%;
++    padding: 0 5px;
++    bottom: 0;
++    color: white;
++    right: 3px;
++    line-height: 20px;
++  }
++
++  .shop-cart-sum {
++    position: absolute;
++    display: none;
++    width: 450px;
++    right: 0;
++    top: calc(100% + 20px);
++    height: 300px;
++    overflow-y: scroll;
++    background: white;
++    box-shadow: 3px 3px 8px 0px #00000085;
++    border-radius: 8px;
++    padding: 15px;
++
++    svg {
++      width: 20px;
++      height: 20px;
++      cursor: pointer;
++
++      &:hover {
++        fill: red;
++        transition: all 0.2s linear;
++      }
++    }
++
++    .remove-icon-wrapper {
++      align-items: center;
++      display: flex;
++      padding: 0;
++    }
++  }
++}
++
+Index: frontend/src/components/ShopCart/ShopCart.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/ShopCart/ShopCart.js b/frontend/src/components/ShopCart/ShopCart.js
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/components/ShopCart/ShopCart.js	
+@@ -0,0 +1,64 @@
++import React, {useEffect, useRef} from "react";
++import {FaCartPlus, FaMinusCircle, FaPlusCircle, FaTrashAlt} from "react-icons/fa";
++import "./shop-cart.scss";
++import {useDispatch, useSelector} from "react-redux";
++import {removeItem, handleCount} from "../../redux/cartSlice";
++
++function ShopCart() {
++    const {cart} = useSelector(state => state.cartStore);
++    const shopCartWrapperRef = useRef();
++    const dispatch = useDispatch();
++
++    useEffect(() => {
++        console.log(cart);
++        if (!shopCartWrapperRef.current) {
++            return;
++        }
++        if (cart.length) {
++            shopCartWrapperRef.current.classList.add('show-badge');
++        } else {
++            shopCartWrapperRef.current.classList.remove('show-badge');
++        }
++    }, [cart]);
++
++    const removeItemFromCart = (index) => {
++        dispatch(removeItem(index))
++    };
++
++    const handleShopCartCount = (index, isIncrement) => {
++        dispatch(handleCount({index, isIncrement}))
++    };
++
++    const shopCartSumLayout = () => {
++        return cart.map((item, index) => {
++            return <div className="shop-cart-item row mt-3" key={index}>
++                <div className="col-md-3">
++                    <img src={item.image} alt=""/>
++                </div>
++                <div className="col-md-8">
++                    <h5>{item.title}</h5>
++
++                    {item.count > 1 && <p>Count: <FaMinusCircle className="mx-2" onClick={() => handleShopCartCount(index, false)} /> {item.count}
++                    <FaPlusCircle className="mx-2" onClick={() => handleShopCartCount(index, true)}/></p>}
++
++                    <p className="fw-bold">{item.price * item.count} $</p>
++                </div>
++                <div className="col-md-1 remove-icon-wrapper">
++                    <FaTrashAlt onClick={() => {removeItemFromCart(index)}} />
++                </div>
++            </div>
++        })
++    }
++
++    return (
++        <div ref={shopCartWrapperRef} className="shop-cart-wrapper">
++            <FaCartPlus />
++            <span className="shop-cart-badge">{cart.length}</span>
++            <div className="shop-cart-sum">
++                {shopCartSumLayout()}
++            </div>
++        </div>
++    )
++}
++
++export default ShopCart;
+Index: frontend/src/pages/AdPage/AdPage.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/AdPage/AdPage.js b/frontend/src/pages/AdPage/AdPage.js
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/pages/AdPage/AdPage.js	
+@@ -0,0 +1,12 @@
++import ViewAd from "../../components/ViewAd/ViewAd";
++
++function AdPage() {
++
++    return (
++        <div className="ad-page-wrapper">
++            <ViewAd/>
++        </div>
++    )
++}
++
++export default AdPage;
+Index: frontend/src/pages/ActivateUserPage/ActivateUserPage.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/ActivateUserPage/ActivateUserPage.js b/frontend/src/pages/ActivateUserPage/ActivateUserPage.js
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/pages/ActivateUserPage/ActivateUserPage.js	
+@@ -0,0 +1,52 @@
++import {useEffect, useState} from "react";
++import {useNavigate, useParams} from "react-router-dom";
++import AuthService from "../../services/authService";
++
++function ActivateUserPage() {
++    const navigate = useNavigate();
++    const params = useParams();
++    const [isActivated, setIsActivated] = useState(false);
++    const [isApiFinished, setIsApiFinished] = useState(false);
++
++    useEffect(() => {
++        if (localStorage.hasOwnProperty('user')) {
++            navigate('/');
++        } else {
++            AuthService.completeRegistration({userId: params.id})
++                .then(response => {
++                    console.log(response);
++                    setIsActivated(true);
++                    setTimeout(() => {
++                        navigate('/auth');
++                    }, 10000)
++                })
++                .catch(error => {
++                    console.log(error);
++                    setIsActivated(false);
++                })
++                .finally(()=> {
++                    setIsApiFinished(true);
++                })
++        }
++    }, []);
++
++    const responseMsgLayout = () => {
++        return isActivated ?
++            <p>Successfully activated.</p> :
++            <p>User not activated.</p>
++    };
++
++    return (
++        <div className="container">
++            <div className="row">
++                <div className="col-md-12">
++                    <h1>Activate page</h1>
++
++                    {isApiFinished && responseMsgLayout()}
++                </div>
++            </div>
++        </div>
++    )
++}
++
++export default ActivateUserPage;
+Index: web-dev-teams.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/web-dev-teams.txt b/web-dev-teams.txt
+new file mode 100644
+--- /dev/null	
++++ b/web-dev-teams.txt	
+@@ -0,0 +1,32 @@
++team 1: 
++- Dejan Zivkovic
++- Sasa
++- Ivan (hansq3)
++- Nikola Damnjanovic
++- Nikola Miletic
++
++team 2:
++- Bratislav 
++- Andrijana
++- Kazimir
++- Ognjen
++- Veljko Andjelkovic
++
++team 3:
++- Andrija
++- Bogdan
++- Mihajlo
++- Selma 
++
++team 4:
++- Milan
++- Damir
++- Mila
++- Vladimir
++
++team 5:
++- Nemanja Novakovic
++- Dejan Lukic
++- Milos
++- Pavle
++- Aca
+Index: frontend/src/pages/Shop/shop.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/Shop/shop.scss b/frontend/src/pages/Shop/shop.scss
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/pages/Shop/shop.scss	
+@@ -0,0 +1,3 @@
++.shop-wrapper {
++  height: auto;
++}
+Index: frontend/src/redux/cartSlice.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/redux/cartSlice.js b/frontend/src/redux/cartSlice.js
+new file mode 100644
+--- /dev/null	
++++ b/frontend/src/redux/cartSlice.js	
+@@ -0,0 +1,41 @@
++import {createSlice} from "@reduxjs/toolkit";
++
++
++const cartSlice = createSlice({
++    name: 'cart',
++    initialState: {
++        cart: []
++    },
++    reducers: {
++        addToCart: (state,
++                    action) => {
++            let newItem = action.payload;
++            let foundItemIndex;
++            // TODO: id -> _id
++            let foundItem = state.cart.find((item, index) => {
++                if (item.id === newItem.id) {
++                    foundItemIndex = index;
++                    return item;
++                }
++            });
++
++            if (foundItem) {
++                state.cart[foundItemIndex].count = state.cart[foundItemIndex].count + 1;
++            } else {
++                newItem.count = 1;
++                state.cart.push(newItem);
++            }
++        },
++        removeItem: (state,
++                        action) => {
++            state.cart.splice(action.payload, 1)
++        },
++        handleCount: (state,
++        action) => {
++            state.cart[action.payload.index].count = action.payload.isIncrement ? state.cart[action.payload.index].count + 1 : state.cart[action.payload.index].count -1;
++        }
++    }
++});
++
++export const {addToCart, removeItem, handleCount} = cartSlice.actions;
++export default cartSlice.reducer;
+Index: frontend/src/pages/AuthPage/AuthPage.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useState} from 'react';\r\nimport Login from \"../../components/login/login\";\r\nimport Register from \"../../components/register/register\";\r\n\r\nimport \"./AuthPage.scss\";\r\n\r\nfunction AuthPage() {\r\n    const [isLogin, setIsLogin] = useState(true);\r\n\r\n    return (\r\n        <div className=\"auth-wrapper container-fluid\">\r\n            <div className=\"auth-forms row\">\r\n                <div className=\"col-md-6\">\r\n                    <img className=\"\"\r\n                         src=\"https://images.pexels.com/photos/2451622/pexels-photo-2451622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1\"\r\n                         alt=\"\"/>\r\n                </div>\r\n                <div className=\"col-md-6 p-md-5\">\r\n                    {isLogin ? <Login showLoginForm={setIsLogin}/> : <Register showLoginForm={setIsLogin}/>}\r\n                </div>\r\n            </div>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default AuthPage;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/pages/AuthPage/AuthPage.js b/frontend/src/pages/AuthPage/AuthPage.js
+--- a/frontend/src/pages/AuthPage/AuthPage.js	
++++ b/frontend/src/pages/AuthPage/AuthPage.js	
+@@ -1,4 +1,4 @@
+-import React, {useState} from 'react';
++import React, {useEffect, useState} from 'react';
+ import Login from "../../components/login/login";
+ import Register from "../../components/register/register";
+ 
+@@ -23,4 +23,4 @@
+     );
+ }
+ 
+-export default AuthPage;
+\ No newline at end of file
++export default AuthPage;
+Index: frontend/src/redux/store.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {configureStore} from \"@reduxjs/toolkit\";\r\nimport userSlice from \"./userSlice\";\r\n\r\nexport default configureStore({\r\n    reducer: {\r\n        userStore: userSlice\r\n    }\r\n})
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/redux/store.js b/frontend/src/redux/store.js
+--- a/frontend/src/redux/store.js	
++++ b/frontend/src/redux/store.js	
+@@ -1,8 +1,11 @@
+ import {configureStore} from "@reduxjs/toolkit";
+-import userSlice from "./userSlice";
++import userReducer from './userSlice';
++import cartSlice from "./cartSlice";
+ 
++// store definition (state)
+ export default configureStore({
+     reducer: {
+-        userStore: userSlice
++        userStore: userReducer,
++        cartStore: cartSlice
+     }
+-})
+\ No newline at end of file
++})
+Index: frontend/src/services/authService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\n\r\nclass AuthService {\r\n    static login(body) {\r\n        return axios.post(\"/api/login\", body)\r\n    }\r\n\r\n    static isLogged = () => {\r\n        if (localStorage.hasOwnProperty(\"user\")) {\r\n            return true\r\n        } else {\r\n            return false\r\n        }\r\n    }\r\n\r\n    static register(body) {\r\n        console.log(\"Auth serv\", body)\r\n        return axios.post(\"/api/register\", body)\r\n    }\r\n\r\n    static completeRegistration(body) {\r\n        return axios.post(\"/api/complete-registration\", body)\r\n    }\r\n}\r\n\r\nexport default AuthService
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/services/authService.js b/frontend/src/services/authService.js
+--- a/frontend/src/services/authService.js	
++++ b/frontend/src/services/authService.js	
+@@ -18,9 +18,12 @@
+         return axios.post("/api/register", body)
+     }
+ 
++    static completeRegistration(body) {
++        return axios.post("/api/complete-registration", body)
++    }
+     static completeRegistration(body) {
+         return axios.post("/api/complete-registration", body)
+     }
+ }
+ 
+-export default AuthService
+\ No newline at end of file
++export default AuthService
+Index: frontend/src/services/shopService.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from \"axios\";\r\n\r\nclass ShopService {\r\n\r\n    static getAds() {\r\n        return axios.get(\"https://fakestoreapi.com/products\")\r\n    }\r\n}\r\n\r\nexport default ShopService
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/services/shopService.js b/frontend/src/services/shopService.js
+--- a/frontend/src/services/shopService.js	
++++ b/frontend/src/services/shopService.js	
+@@ -1,10 +1,17 @@
+ import axios from "axios";
+ 
+ class ShopService {
+-
+     static getAds() {
+-        return axios.get("https://fakestoreapi.com/products")
++        return axios.get('/api/products');
++    }
++
++    static getAdById(adId) {
++        return axios.get(`/api/products/${adId}`);
++    }
++
++    static getTopRatedProduct(num){
++        return axios.get("/api/top-products/" + num)
+     }
+ }
+ 
+-export default ShopService
+\ No newline at end of file
++export default ShopService;
+Index: frontend/package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/package-lock.json b/frontend/package-lock.json
+--- a/frontend/package-lock.json	
++++ b/frontend/package-lock.json	
+@@ -14,9 +14,9 @@
+         "@testing-library/user-event": "^13.5.0",
+         "axios": "^0.27.2",
+         "bootstrap": "^5.1.3",
+-        "bootstrap-icons": "^1.8.3",
+         "react": "^18.1.0",
+         "react-dom": "^18.1.0",
++        "react-icons": "^4.4.0",
+         "react-redux": "^8.0.2",
+         "react-router-dom": "^6.3.0",
+         "react-scripts": "5.0.1",
+@@ -2998,29 +2998,6 @@
+         "url": "https://opencollective.com/popperjs"
+       }
+     },
+-    "node_modules/@reduxjs/toolkit": {
+-      "version": "1.8.2",
+-      "resolved": "https://registry.npmjs.org/@reduxjs/toolkit/-/toolkit-1.8.2.tgz",
+-      "integrity": "sha512-CtPw5TkN1pHRigMFCOS/0qg3b/yfPV5qGCsltVnIz7bx4PKTJlGHYfIxm97qskLknMzuGfjExaYdXJ77QTL0vg==",
+-      "dependencies": {
+-        "immer": "^9.0.7",
+-        "redux": "^4.1.2",
+-        "redux-thunk": "^2.4.1",
+-        "reselect": "^4.1.5"
+-      },
+-      "peerDependencies": {
+-        "react": "^16.9.0 || ^17.0.0 || ^18",
+-        "react-redux": "^7.2.1 || ^8.0.0-beta"
+-      },
+-      "peerDependenciesMeta": {
+-        "react": {
+-          "optional": true
+-        },
+-        "react-redux": {
+-          "optional": true
+-        }
+-      }
+-    },
+     "node_modules/@rollup/plugin-babel": {
+       "version": "5.3.1",
+       "resolved": "https://registry.npmjs.org/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz",
+@@ -3695,15 +3672,6 @@
+         "@types/node": "*"
+       }
+     },
+-    "node_modules/@types/hoist-non-react-statics": {
+-      "version": "3.3.1",
+-      "resolved": "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz",
+-      "integrity": "sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==",
+-      "dependencies": {
+-        "@types/react": "*",
+-        "hoist-non-react-statics": "^3.3.0"
+-      }
+-    },
+     "node_modules/@types/html-minifier-terser": {
+       "version": "6.1.0",
+       "resolved": "https://registry.npmjs.org/@types/html-minifier-terser/-/html-minifier-terser-6.1.0.tgz",
+@@ -3876,11 +3844,6 @@
+       "resolved": "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.2.tgz",
+       "integrity": "sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg=="
+     },
+-    "node_modules/@types/use-sync-external-store": {
+-      "version": "0.0.3",
+-      "resolved": "https://registry.npmjs.org/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz",
+-      "integrity": "sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA=="
+-    },
+     "node_modules/@types/ws": {
+       "version": "8.5.3",
+       "resolved": "https://registry.npmjs.org/@types/ws/-/ws-8.5.3.tgz",
+@@ -5126,11 +5089,6 @@
+         "@popperjs/core": "^2.10.2"
+       }
+     },
+-    "node_modules/bootstrap-icons": {
+-      "version": "1.8.3",
+-      "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.8.3.tgz",
+-      "integrity": "sha512-s5kmttnbq4BXbx3Bwnj39y+t7Vc3blTtyD77W3aYQ1LlNoS3lNbbGvSYhIbg26Im8KmjScyFpHEevlPOBcIDdA=="
+-    },
+     "node_modules/brace-expansion": {
+       "version": "1.1.11",
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+@@ -8275,19 +8233,6 @@
+         "@babel/runtime": "^7.7.6"
+       }
+     },
+-    "node_modules/hoist-non-react-statics": {
+-      "version": "3.3.2",
+-      "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz",
+-      "integrity": "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==",
+-      "dependencies": {
+-        "react-is": "^16.7.0"
+-      }
+-    },
+-    "node_modules/hoist-non-react-statics/node_modules/react-is": {
+-      "version": "16.13.1",
+-      "resolved": "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz",
+-      "integrity": "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
+-    },
+     "node_modules/hoopy": {
+       "version": "0.1.4",
+       "resolved": "https://registry.npmjs.org/hoopy/-/hoopy-0.1.4.tgz",
+@@ -13719,49 +13664,6 @@
+       "resolved": "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz",
+       "integrity": "sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w=="
+     },
+-    "node_modules/react-redux": {
+-      "version": "8.0.2",
+-      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-8.0.2.tgz",
+-      "integrity": "sha512-nBwiscMw3NoP59NFCXFf02f8xdo+vSHT/uZ1ldDwF7XaTpzm+Phk97VT4urYBl5TYAPNVaFm12UHAEyzkpNzRA==",
+-      "dependencies": {
+-        "@babel/runtime": "^7.12.1",
+-        "@types/hoist-non-react-statics": "^3.3.1",
+-        "@types/use-sync-external-store": "^0.0.3",
+-        "hoist-non-react-statics": "^3.3.2",
+-        "react-is": "^18.0.0",
+-        "use-sync-external-store": "^1.0.0"
+-      },
+-      "peerDependencies": {
+-        "@types/react": "^16.8 || ^17.0 || ^18.0",
+-        "@types/react-dom": "^16.8 || ^17.0 || ^18.0",
+-        "react": "^16.8 || ^17.0 || ^18.0",
+-        "react-dom": "^16.8 || ^17.0 || ^18.0",
+-        "react-native": ">=0.59",
+-        "redux": "^4"
+-      },
+-      "peerDependenciesMeta": {
+-        "@types/react": {
+-          "optional": true
+-        },
+-        "@types/react-dom": {
+-          "optional": true
+-        },
+-        "react-dom": {
+-          "optional": true
+-        },
+-        "react-native": {
+-          "optional": true
+-        },
+-        "redux": {
+-          "optional": true
+-        }
+-      }
+-    },
+-    "node_modules/react-redux/node_modules/react-is": {
+-      "version": "18.2.0",
+-      "resolved": "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz",
+-      "integrity": "sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w=="
+-    },
+     "node_modules/react-refresh": {
+       "version": "0.11.0",
+       "resolved": "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz",
+@@ -13924,22 +13826,6 @@
+         "node": ">=8"
+       }
+     },
+-    "node_modules/redux": {
+-      "version": "4.2.0",
+-      "resolved": "https://registry.npmjs.org/redux/-/redux-4.2.0.tgz",
+-      "integrity": "sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==",
+-      "dependencies": {
+-        "@babel/runtime": "^7.9.2"
+-      }
+-    },
+-    "node_modules/redux-thunk": {
+-      "version": "2.4.1",
+-      "resolved": "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.1.tgz",
+-      "integrity": "sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==",
+-      "peerDependencies": {
+-        "redux": "^4"
+-      }
+-    },
+     "node_modules/regenerate": {
+       "version": "1.4.2",
+       "resolved": "https://registry.npmjs.org/regenerate/-/regenerate-1.4.2.tgz",
+@@ -14082,11 +13968,6 @@
+       "resolved": "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz",
+       "integrity": "sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8="
+     },
+-    "node_modules/reselect": {
+-      "version": "4.1.6",
+-      "resolved": "https://registry.npmjs.org/reselect/-/reselect-4.1.6.tgz",
+-      "integrity": "sha512-ZovIuXqto7elwnxyXbBtCPo9YFEr3uJqj2rRbcOOog1bmu2Ag85M4hixSwFWyaBMKXNgvPaJ9OSu9SkBPIeJHQ=="
+-    },
+     "node_modules/resolve": {
+       "version": "1.22.0",
+       "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.22.0.tgz",
+@@ -15611,14 +15492,6 @@
+         "punycode": "^2.1.0"
+       }
+     },
+-    "node_modules/use-sync-external-store": {
+-      "version": "1.2.0",
+-      "resolved": "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz",
+-      "integrity": "sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==",
+-      "peerDependencies": {
+-        "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+-      }
+-    },
+     "node_modules/util-deprecate": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",
+@@ -18603,17 +18476,6 @@
+       "integrity": "sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==",
+       "peer": true
+     },
+-    "@reduxjs/toolkit": {
+-      "version": "1.8.2",
+-      "resolved": "https://registry.npmjs.org/@reduxjs/toolkit/-/toolkit-1.8.2.tgz",
+-      "integrity": "sha512-CtPw5TkN1pHRigMFCOS/0qg3b/yfPV5qGCsltVnIz7bx4PKTJlGHYfIxm97qskLknMzuGfjExaYdXJ77QTL0vg==",
+-      "requires": {
+-        "immer": "^9.0.7",
+-        "redux": "^4.1.2",
+-        "redux-thunk": "^2.4.1",
+-        "reselect": "^4.1.5"
+-      }
+-    },
+     "@rollup/plugin-babel": {
+       "version": "5.3.1",
+       "resolved": "https://registry.npmjs.org/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz",
+@@ -19095,15 +18957,6 @@
+         "@types/node": "*"
+       }
+     },
+-    "@types/hoist-non-react-statics": {
+-      "version": "3.3.1",
+-      "resolved": "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz",
+-      "integrity": "sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==",
+-      "requires": {
+-        "@types/react": "*",
+-        "hoist-non-react-statics": "^3.3.0"
+-      }
+-    },
+     "@types/html-minifier-terser": {
+       "version": "6.1.0",
+       "resolved": "https://registry.npmjs.org/@types/html-minifier-terser/-/html-minifier-terser-6.1.0.tgz",
+@@ -19276,11 +19129,6 @@
+       "resolved": "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.2.tgz",
+       "integrity": "sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg=="
+     },
+-    "@types/use-sync-external-store": {
+-      "version": "0.0.3",
+-      "resolved": "https://registry.npmjs.org/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz",
+-      "integrity": "sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA=="
+-    },
+     "@types/ws": {
+       "version": "8.5.3",
+       "resolved": "https://registry.npmjs.org/@types/ws/-/ws-8.5.3.tgz",
+@@ -20200,11 +20048,6 @@
+       "integrity": "sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==",
+       "requires": {}
+     },
+-    "bootstrap-icons": {
+-      "version": "1.8.3",
+-      "resolved": "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.8.3.tgz",
+-      "integrity": "sha512-s5kmttnbq4BXbx3Bwnj39y+t7Vc3blTtyD77W3aYQ1LlNoS3lNbbGvSYhIbg26Im8KmjScyFpHEevlPOBcIDdA=="
+-    },
+     "brace-expansion": {
+       "version": "1.1.11",
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+@@ -22468,21 +22311,6 @@
+         "@babel/runtime": "^7.7.6"
+       }
+     },
+-    "hoist-non-react-statics": {
+-      "version": "3.3.2",
+-      "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz",
+-      "integrity": "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==",
+-      "requires": {
+-        "react-is": "^16.7.0"
+-      },
+-      "dependencies": {
+-        "react-is": {
+-          "version": "16.13.1",
+-          "resolved": "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz",
+-          "integrity": "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
+-        }
+-      }
+-    },
+     "hoopy": {
+       "version": "0.1.4",
+       "resolved": "https://registry.npmjs.org/hoopy/-/hoopy-0.1.4.tgz",
+@@ -26253,26 +26081,6 @@
+       "resolved": "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz",
+       "integrity": "sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w=="
+     },
+-    "react-redux": {
+-      "version": "8.0.2",
+-      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-8.0.2.tgz",
+-      "integrity": "sha512-nBwiscMw3NoP59NFCXFf02f8xdo+vSHT/uZ1ldDwF7XaTpzm+Phk97VT4urYBl5TYAPNVaFm12UHAEyzkpNzRA==",
+-      "requires": {
+-        "@babel/runtime": "^7.12.1",
+-        "@types/hoist-non-react-statics": "^3.3.1",
+-        "@types/use-sync-external-store": "^0.0.3",
+-        "hoist-non-react-statics": "^3.3.2",
+-        "react-is": "^18.0.0",
+-        "use-sync-external-store": "^1.0.0"
+-      },
+-      "dependencies": {
+-        "react-is": {
+-          "version": "18.2.0",
+-          "resolved": "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz",
+-          "integrity": "sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w=="
+-        }
+-      }
+-    },
+     "react-refresh": {
+       "version": "0.11.0",
+       "resolved": "https://registry.npmjs.org/react-refresh/-/react-refresh-0.11.0.tgz",
+@@ -26395,20 +26203,6 @@
+         "strip-indent": "^3.0.0"
+       }
+     },
+-    "redux": {
+-      "version": "4.2.0",
+-      "resolved": "https://registry.npmjs.org/redux/-/redux-4.2.0.tgz",
+-      "integrity": "sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==",
+-      "requires": {
+-        "@babel/runtime": "^7.9.2"
+-      }
+-    },
+-    "redux-thunk": {
+-      "version": "2.4.1",
+-      "resolved": "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.1.tgz",
+-      "integrity": "sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==",
+-      "requires": {}
+-    },
+     "regenerate": {
+       "version": "1.4.2",
+       "resolved": "https://registry.npmjs.org/regenerate/-/regenerate-1.4.2.tgz",
+@@ -26520,11 +26314,6 @@
+       "resolved": "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz",
+       "integrity": "sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8="
+     },
+-    "reselect": {
+-      "version": "4.1.6",
+-      "resolved": "https://registry.npmjs.org/reselect/-/reselect-4.1.6.tgz",
+-      "integrity": "sha512-ZovIuXqto7elwnxyXbBtCPo9YFEr3uJqj2rRbcOOog1bmu2Ag85M4hixSwFWyaBMKXNgvPaJ9OSu9SkBPIeJHQ=="
+-    },
+     "resolve": {
+       "version": "1.22.0",
+       "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.22.0.tgz",
+@@ -27642,12 +27431,6 @@
+         "punycode": "^2.1.0"
+       }
+     },
+-    "use-sync-external-store": {
+-      "version": "1.2.0",
+-      "resolved": "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz",
+-      "integrity": "sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==",
+-      "requires": {}
+-    },
+     "util-deprecate": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",
+Index: frontend/src/components/ShopAd/ShopAd.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport \"./style.scss\"\r\n\r\nfunction ShopAd({ad}) {\r\n    return (\r\n        <div className=\"shop-ad-wrapper\">\r\n            <div className=\"shop-ad-image\">\r\n                <img src={ad.image} className=\"img-fluid\" alt=\"\"/>\r\n                <div className=\"shop-ad-preview\">\r\n                    <button><i className=\"bi-alarm\"></i>\r\n                    </button>\r\n                </div>\r\n            </div>\r\n            <div className=\"shop-ad-text\">\r\n                <h4 className=\"shop-ad-title\">{ad.title}</h4>\r\n                <p className=\"shop-ad-rate\">Rate: {ad.rating.rate}</p>\r\n                <div>\r\n                    <p className=\"shop-ad-price\">${ad.price}</p>\r\n                    <button className=\"add-to-cart\">Add to cart</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default ShopAd;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/frontend/src/components/ShopAd/ShopAd.js b/frontend/src/components/ShopAd/ShopAd.js
+--- a/frontend/src/components/ShopAd/ShopAd.js	
++++ b/frontend/src/components/ShopAd/ShopAd.js	
+@@ -1,26 +1,39 @@
+-import React from 'react';
+-import "./style.scss"
++import {useEffect, useState} from "react";
++import {Link} from "react-router-dom";
++import "./shopAd.scss";
++import {routeConfig} from "../../config/routeConfig";
++
++function ShopAd(props) {
++    // state can change
++    const [ad, setAd] = useState({});
+ 
+-function ShopAd({ad}) {
++    // mount
++    useEffect(() => {
++        // props cannot change
++        setAd(props.ad)
++    }, []);
++
++    // unmount
++    useEffect(() => {
++        return () => {
++            console.log('test unmount');
++        }
++    });
+     return (
+-        <div className="shop-ad-wrapper">
+-            <div className="shop-ad-image">
+-                <img src={ad.image} className="img-fluid" alt=""/>
+-                <div className="shop-ad-preview">
+-                    <button><i className="bi-alarm"></i>
+-                    </button>
++        <>
++            {ad?.image ? <div className="shop-ad-wrapper col-md-3">
++                <div className="shop-ad-content-wrapper">
++                    <img src={ad.image} className="img img-fluid" alt=""/>
++                    <p className="shop-ad-title">{ad.title}</p>
++                    <p>Rate: {ad.rating.rate}</p>
++                    <p className="shop-ad-price">{ad.price}$</p>
++                    <Link to={routeConfig.AD_SHOP.realUrl(ad.id)} className="view-more-btn">
++                        <p className="view-more-btn-text">View Product</p>
++                    </Link>
+                 </div>
+-            </div>
+-            <div className="shop-ad-text">
+-                <h4 className="shop-ad-title">{ad.title}</h4>
+-                <p className="shop-ad-rate">Rate: {ad.rating.rate}</p>
+-                <div>
+-                    <p className="shop-ad-price">${ad.price}</p>
+-                    <button className="add-to-cart">Add to cart</button>
+-                </div>
+-            </div>
+-        </div>
+-    );
++            </div> : null}
++        </>
++    )
+ }
+ 
+-export default ShopAd;
+\ No newline at end of file
++export default ShopAd;
