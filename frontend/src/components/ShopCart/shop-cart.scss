@@ -11,6 +11,13 @@
     }
   }
 
+  .fa-cart-icon {
+    &:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+  }
+
   svg {
     width: 25px;
     height: 25px;

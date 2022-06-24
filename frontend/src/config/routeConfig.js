@@ -22,5 +22,8 @@ export const routeConfig = {
     USER_ACTIVATE: {
         url: '/user-activate/:id',
         realUrl: id => `/user-activate/${id}`
+    },
+    ORDER: {
+        url: '/order'
     }
 }

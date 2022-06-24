@@ -11,9 +11,11 @@ import Navigation from "./components/navigation/Navigation";
 import Home from "./pages/Home/Home";
 import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
+import {setCart} from "./redux/cartSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import AdPage from "./pages/AdPage/AdPage";
 import {routeConfig} from "./config/routeConfig";
+import Order from "./pages/order/Order";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -22,12 +24,23 @@ function App() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
+        handleUserLogin();
+        handleShopCart();
+    }, []);
+
+    const handleUserLogin = () => {
         if (!localStorage.hasOwnProperty('user')) {
             // navigate('/auth');
         } else {
             dispatch(setUser(JSON.parse(localStorage.getItem('user'))))
         }
-    }, []);
+    };
+
+    const handleShopCart = () => {
+        if (localStorage.hasOwnProperty('shopCart')) {
+            dispatch(setCart(JSON.parse(localStorage.getItem('shopCart'))))
+        }
+    }
 
     return (
         <div className="main-wrapper">
@@ -40,6 +53,7 @@ function App() {
                 <Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
                 <Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
                 <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
+                <Route path={routeConfig.ORDER.url} element={<Order/>}/>
             </Routes>
         </div>
     );

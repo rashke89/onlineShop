@@ -8,9 +8,6 @@ function Navigation() {
     // state - redux store from store.js,
     // const user = useSelector((state) => state.userStore.user);
     const {user} = useSelector((state) => state.userStore);
-    useEffect(() => {
-        console.log('use eff..', user);
-    }, []);
 
     const userBtnLayout = () => {
         return user.hasOwnProperty('username') ?

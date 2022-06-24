@@ -32,10 +32,15 @@ const cartSlice = createSlice({
         },
         handleCount: (state,
         action) => {
-            state.cart[action.payload.index].count = action.payload.isIncrement ? state.cart[action.payload.index].count + 1 : state.cart[action.payload.index].count -1;
+            let count = action.payload.isIncrement ? state.cart[action.payload.index].count + 1 : state.cart[action.payload.index].count -1;
+            state.cart[action.payload.index].count = count < 1 ? 1 : count;
+        },
+        setCart: (state,
+        action) => {
+            state.cart = action.payload;
         }
     }
 });
 
-export const {addToCart, removeItem, handleCount} = cartSlice.actions;
+export const {addToCart, removeItem, handleCount, setCart} = cartSlice.actions;
 export default cartSlice.reducer;

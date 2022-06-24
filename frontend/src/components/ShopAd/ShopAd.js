@@ -13,12 +13,6 @@ function ShopAd(props) {
         setAd(props.ad)
     }, []);
 
-    // unmount
-    useEffect(() => {
-        return () => {
-            console.log('test unmount');
-        }
-    });
     return (
         <>
             {ad?.image ? <div className="shop-ad-wrapper col-md-3">

@@ -1,12 +1,15 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {FaCartPlus, FaMinusCircle, FaPlusCircle, FaTrashAlt} from "react-icons/fa";
 import "./shop-cart.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {removeItem, handleCount} from "../../redux/cartSlice";
+import {routeConfig} from "../../config/routeConfig";
+import {Link} from "react-router-dom";
 
 function ShopCart() {
     const {cart} = useSelector(state => state.cartStore);
     const shopCartWrapperRef = useRef();
+    const [showCartByClick, setShowCartByClick] = useState(true);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -16,6 +19,7 @@ function ShopCart() {
         }
         if (cart.length) {
             shopCartWrapperRef.current.classList.add('show-badge');
+            localStorage.setItem('shopCart', JSON.stringify(cart));
         } else {
             shopCartWrapperRef.current.classList.remove('show-badge');
         }
@@ -50,18 +54,29 @@ function ShopCart() {
         })
     }
 
+    const handleShowCart = () => {
+        setShowCartByClick(!showCartByClick);
+    }
+
     return (
         <div ref={shopCartWrapperRef} className="shop-cart-wrapper">
-            <FaCartPlus />
+            <FaCartPlus onClick={e => handleShowCart()} className="fa-cart-icon" />
             <span className="shop-cart-badge">{cart.length}</span>
-            <div className="shop-cart-sum">
-                <div className="items-wrapper">
-                    {shopCartSumLayout()}
-                </div>
-                <div className="order-btn-wrapper">
-                    <button className="btn btn-primary">Order Now</button>
-                </div>
-            </div>
+            {
+                showCartByClick &&
+                (
+                    <div className="shop-cart-sum">
+                        <div className="items-wrapper">
+                            {shopCartSumLayout()}
+                        </div>
+                        <div className="order-btn-wrapper">
+                            <Link to={routeConfig.ORDER.url}>
+                                <button className="btn btn-primary">Order Now</button>
+                            </Link>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     )
 }
