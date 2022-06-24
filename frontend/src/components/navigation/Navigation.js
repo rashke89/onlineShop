@@ -1,12 +1,16 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 function Navigation() {
 	// state - redux store from store.js,
 	// const user = useSelector((state) => state.userStore.user);
 	const {user} = useSelector((state) => state.userStore);
-
+	const navigate=useNavigate();
+	const logOut=()=>{
+		localStorage.clear();
+		navigate("/auth");
+	}
 
 	const userBtnLayout = () => {
 		return user.hasOwnProperty("username") ? (
@@ -39,8 +43,8 @@ function Navigation() {
 							My ads
 						</Link>
 					</li>
-					<li>
-						<Link to="/logout" className="dropdown-item">
+					<li onClick={logOut}>
+						<Link to="#" className="dropdown-item">
 							<i className="bi bi-box-arrow-right me-2"></i>
 							Logout
 						</Link>

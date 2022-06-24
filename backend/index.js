@@ -28,7 +28,7 @@ app.use(cors());
 
 
 
-//add Product
+//add myProduct
 
 app.post("/product/add", (req,res)=>{
 
@@ -66,7 +66,7 @@ app.get("/product/getMyAd/:myAdId", (req, res)=>{
 	const myAdId=req.params.myAdId;
 
 	Product.findOne({_id:myAdId},(error,data)=>{
-		console.log("DATA",data);
+
 		if(error){
 			console.log(error);
 			res.send(error)

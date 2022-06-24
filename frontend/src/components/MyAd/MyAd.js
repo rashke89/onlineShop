@@ -2,6 +2,7 @@ import React from 'react';
 import './MyAd.scss';
 import {Link} from "react-router-dom";
 import ShopService from "../../services/shopService";
+import RatingStar from "../ratingStar/RatingStar";
 
 
 
@@ -9,7 +10,14 @@ import ShopService from "../../services/shopService";
 function MyAd({product}) {
 
 
+	const generateRatingStar=(product)=>{
+		const content=[];
+		for (let i = 0; i < product.rating; i++) {
+			content.push(<RatingStar/>)
+		}
 
+		return content
+	}
 
 
 	return (
@@ -29,8 +37,7 @@ function MyAd({product}) {
 					<p className="text-muted">Category</p>
 					<p className="card-text">{product.description}</p>
 					<p className="product-rating">
-					//todo rating star
-						<i className="bi bi-star me-1"></i>
+						{generateRatingStar(product)}
 					</p>
 					<p className="product-price mb-0">
 						<sup>$</sup>{product.price}
@@ -43,12 +50,7 @@ function MyAd({product}) {
 							<i className="bi bi-pen"></i>
 						</span>
 					</Link>
-					{/*<button className="delete" type="button" onClick={()=>deleteMyAd(product._id)}>*/}
-					{/*	Delete*/}
-					{/*	<span>*/}
-					{/*		<i className="bi bi-trash"></i>*/}
-					{/*	</span>*/}
-					{/*</button>*/}
+
 					<Link className="delete" type="button" to={`/product/delete/${product._id}`}>
 						Delete
 						<span>

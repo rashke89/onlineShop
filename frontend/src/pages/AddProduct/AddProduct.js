@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ShopService from "../../services/shopService";
 import {useNavigate} from "react-router-dom";
+import "./AddProduct.scss"
 
 
 
@@ -71,7 +72,7 @@ function AddProduct() {
 								<label htmlFor="category">Category</label>
 							</div>
 							<div className="form-floating mb-3">
-								<input type="text" className="form-control" id="description" name="description" placeholder="Description" onChange={(event)=>handleInputChange(event)}/>
+								<input type="text" className="form-control" id="description" name="description"  placeholder="Description" onChange={(event)=>handleInputChange(event)}/>
 									<label htmlFor="description">Description</label>
 							</div>
 							<div className="form-floating mb-3">
@@ -82,9 +83,9 @@ function AddProduct() {
 								<input type="text" className="form-control" id="imgUrl" name="imgUrl" placeholder="Image URL" onChange={(event)=>handleInputChange(event)}/>
 								<label htmlFor="imgUrl">Image URL</label>
 							</div>
-							{!isFormValid? <p className="animate__shakeX animate__animated animate__fast">All fields are required</p>: null}
-							{isApiErr? <p className="animate__shakeX animate__animated animate__fast">Api error. Try again.</p>: null}
 							<button  className="btn btn-primary mt-3" onClick={onSubmit}>Add product</button>
+							{!isFormValid? <p className="error animate__shakeX animate__animated animate__fast">All fields are required</p>: null}
+							{isApiErr? <p className="error animate__shakeX animate__animated animate__fast">Api error. Try again.</p>: null}
 						</form>
 					</div>
 				</div>

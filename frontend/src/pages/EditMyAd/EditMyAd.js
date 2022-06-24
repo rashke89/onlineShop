@@ -50,7 +50,7 @@ function EditMyAd() {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 mx-auto">
-                            <h2 className="text-center mb-5">Add product</h2>
+                            <h2 className="text-center mb-5">Edit product</h2>
                             <form onSubmit={(event)=>{onSubmit(product,product._id, event)}}>
                                 <div className="form-floating mb-3">
                                     <input type="text" name="title" className="form-control" id="title" placeholder="Title" value={product.hasOwnProperty("title")? product.title: ""} onChange={(event)=>handleInputChange(event)}/>
@@ -78,8 +78,8 @@ function EditMyAd() {
                                 </div>
 
                                 <button type="submit" className="btn btn-primary mt-3" >Save</button>
-                                {isAdUpdated? <p>Successfully updated</p>:null}
-                                {isUpdateError? <p>Product not updated. Try again.</p>:null}
+                                {isAdUpdated? <p className="error animate__shakeX animate__animated animate__fast">Successfully updated</p>:null}
+                                {isUpdateError? <p className="error animate__shakeX animate__animated animate__fast">Product not updated. Try again.</p>:null}
                             </form>
                         </div>
                     </div>
