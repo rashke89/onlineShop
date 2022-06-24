@@ -7,7 +7,7 @@ const Users = require('./models/userModel');
 const serverConfig = require('./config/serverConfig');
 const app = express();
 const nodemailer = require("nodemailer");
-
+const Product=require("./models/productModel")
 
 
 
@@ -24,8 +24,82 @@ app.use(express.json());//Frontend request convert in JSON
 app.use(cors());
 
 
+//add myProduct
 
+app.post("/product/addMyProduct", (req,res)=>{
 
+    const reqBody=req.body;
+    Product.findOne(reqBody, async (err, data) => {
+        // console.log(data);
+        if (err) {
+            const errorMsg = `Error on register user: ${err}`;
+            console.log(errorMsg);
+            res.send(errorMsg);
+            return;
+        }
+
+        if (data) res.send(`Product already exist.`);
+        else {
+            const newProduct = new Product(reqBody);
+            const saveNewProduct = await newProduct.save();
+            console.log("Saved product",saveNewProduct);
+            res.send(saveNewProduct || 'Product not saved.');
+        }
+    });
+})
+
+// get myProducts
+app.get("/product/getMyProducts/:userId", (req, res) => {
+    const userId = req.params.userId;
+    Product.find({userId: userId}, (error, data) => {
+        if(error) {
+            res.send(error);
+        }
+
+        if(data) {
+            console.log(data);
+            res.send(data);
+        } else {
+            res.send("No products jet.");
+        }
+    })
+})
+
+// get myProduct
+app.get("/product/getMyProduct/:myProductId", (req, res)=>{
+    const myProductId=req.params.myProductId;
+
+    Product.findOne({_id:myProductId},(error,data)=>{
+        console.log("DATA",data);
+        if(error){
+            console.log(error);
+            res.send(error)
+        }
+        res.send(data)
+
+    })
+})
+
+//delete myProduct
+app.delete("/product/delete/:myProductId", (req, res) => {
+    const myProductId = req.params.myProductId;
+    Product.deleteOne({_id: myProductId},  async (error) => {
+        if (error) throw error
+        await res.send("Product deleted")
+    })
+})
+
+//update myProduct
+
+app.put("/product/save/:myProductId", (req,res)=>{
+    const params=req.params.myProductId;
+
+    Product.updateOne({"_id": params}, req.body, null, (error, result) => {
+        if (error) throw error;
+        res.send(result)
+    })
+
+})
 
 //LOGIN
 app.post('/api/login', (req, res) => {

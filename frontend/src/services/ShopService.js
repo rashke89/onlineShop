@@ -7,6 +7,23 @@ class ShopService{
     static getProduct(productId){
        return axios.get(`https://fakestoreapi.com/products/${productId}`)
     }
+    static addMyProduct(body){
+        return axios.post("/product/addMyProduct", body)
+    }
+    static getMyProducts(userId) {
+        return axios.get(`/product/getMyProducts/${userId}`)
+    }
+    static getMyProduct(myProductId){
+        return axios.get(`/product/getMyProduct/${myProductId}`)
+    }
+    static deleteMyProduct(myProductId){
+        return axios.delete(`/product/delete/${myProductId}`)
+
+    }
+
+    static saveMyProduct(body, myProductId){
+        return axios.put(`/product/save/${myProductId}`, body)
+    }
 }
 
 

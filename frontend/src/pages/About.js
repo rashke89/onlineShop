@@ -6,7 +6,10 @@ const About=()=>{
     return (
         <>
             <Navigation/>
-            <h1>About page</h1>
+            <div className="container about-page-wrapper">
+                <h1>About page</h1>
+
+            </div>
         </>
 
     )

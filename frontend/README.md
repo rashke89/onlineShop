@@ -184,3 +184,8 @@ da nam vrati taj proizvod preko prosledjenog id-a iz URL.
 Handlujemo response i smestamo te podatke u state product.
 U returnu definisemo izgled i prosledjujemo podatke koje smo dobili.
 Tu komponentu integrisemo u productView page.
+---------
+ShopCart
+----
+kreiramo komponentu shopCart u kojoj kreiramo ikonicu shopCart.
+Nju smestamo u navikaciju kao nav-item

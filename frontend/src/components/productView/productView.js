@@ -3,6 +3,8 @@ import {useParams} from "react-router-dom";
 import ShopService from "../../services/ShopService";
 import "animate.css"
 import {eventWrapper} from "@testing-library/user-event/dist/utils";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/cartSlice";
 
 const ProductView = () => {
 
@@ -10,6 +12,7 @@ const ProductView = () => {
     const [isParamsAvailable, setIsParamsAvailable] = useState(true)
     const [isApiFinished, setIsApiFinished] = useState(false)
     const params = useParams();
+    const dispatch=useDispatch();
 
     useEffect(() => {
         if (params.productId) {
@@ -36,6 +39,11 @@ const ProductView = () => {
         return !isParamsAvailable ?
             <h1 className="animate__shakeX animate__animated animate__fast text-center mt-5">No product with this id.</h1> : null;
     }
+
+    const onAddToCart=()=>{
+    dispatch(addToCart(product))
+    }
+
     const productLayout = () => {
         return <div className="product-wrapper row mt-5 d-flex justify-content-between">
                 <div className="col-md-5"><img src={product.image} alt={product.title} className="img-fluid"/></div>
@@ -44,7 +52,7 @@ const ProductView = () => {
                     <p>{product.category}</p>
                     <p>{product.description}</p>
                     <h3>{product.price} $</h3>
-                    <button className="btn btn-secondary mt-5 btn-lg">Add to cart</button>
+                    <button className="btn btn-secondary mt-5 btn-lg" onClick={onAddToCart}>Add to cart</button>
                 </div>
 
         </div>

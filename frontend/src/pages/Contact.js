@@ -6,7 +6,10 @@ const Contact=()=>{
     return (
         <>
        <Navigation/>
-        <h1>Contact page</h1>
+            <div className="container contact-page-wrapper">
+                <h1>Contact page</h1>
+
+            </div>
         </>
     )
 }

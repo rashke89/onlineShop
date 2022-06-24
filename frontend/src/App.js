@@ -8,10 +8,12 @@ import Contact from "./pages/Contact";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
-import AddProduct from "./pages/AddProduct";
+import AddProduct from "./pages/AddProduct/AddProduct";
 import MyProducts from "./pages/MyProducts";
 import ActivateUserPage from "./pages/ActivateUserPage";
 import ProductPage from "./pages/ProductPage";
+import DeleteMyProduct from "./pages/DeleteMyProduct/DeleteMyProduct";
+import EditMyProduct from "./pages/EditMyProduct/EditMyProduct";
 
 //Backend PORT
 axios.defaults.baseURL="http://localhost:4000";
@@ -37,9 +39,11 @@ function App(){
                <Route path="/about" element={<About/>}/>
                <Route path="/contact" element={<Contact/>}/>
                <Route path="/auth" element={<AuthPage/>}/>
+               <Route path="/user-activate/:id" element={<ActivateUserPage/>}/>
                <Route path="/myProducts" element={<MyProducts/>}/>
                <Route path="/addProduct" element={<AddProduct/>}/>
-               <Route path="/user-activate/:id" element={<ActivateUserPage/>}/>
+               <Route path="/product/edit/:myProductId" element={<EditMyProduct/>}/>
+               <Route path="/product/delete/:myProductId" element={<DeleteMyProduct/>}/>
            </Routes>
 
     )

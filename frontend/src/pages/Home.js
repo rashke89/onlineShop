@@ -6,7 +6,10 @@ const Home=()=>{
     return (
         <>
         <Navigation/>
+            <div className="container home-page-wrapper">
             <h1>Home page</h1>
+
+            </div>
         </>
     )
 }

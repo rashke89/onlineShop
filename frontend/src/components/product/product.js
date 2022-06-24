@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import "./shopAd.scss"
+import "./product.scss"
 
 const Product=(props)=>{
 

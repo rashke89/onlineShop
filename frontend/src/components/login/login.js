@@ -1,6 +1,5 @@
 import {useState} from "react";
 import "./login.css"
-import "animate.css"
 import fb from "./img/fb.png"
 import ig from "./img/ig.png"
 import tw from "./img/tw.png"

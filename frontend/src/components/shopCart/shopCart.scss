@@ -1,0 +1,15 @@
+
+.shop-cart-wrapper svg {
+  height: 100%;
+  width: 20px;
+}
+
+
+.shop-cart-wrapper {
+ position: relative;
+  .cartBadge{
+    position: absolute;
+    top:-5px;
+    right: -10px;
+  }
+}
