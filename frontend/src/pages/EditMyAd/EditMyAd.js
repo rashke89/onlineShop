@@ -80,7 +80,7 @@ function EditMyAd() {
                                     <label htmlFor="imgUrl">Image URL</label>
                                 </div>
 
-                                <button type="submit" className="btn btn-primary mt-3" >Save</button>
+                                <button type="submit" className="btn btn-secondary mt-3" >Save</button>
                                 {isAdUpdated? <p className="error animate__shakeX animate__animated animate__fast">Successfully updated</p>:null}
                                 {isUpdateError? <p className="error animate__shakeX animate__animated animate__fast">Product not updated. Try again.</p>:null}
                             </form>
