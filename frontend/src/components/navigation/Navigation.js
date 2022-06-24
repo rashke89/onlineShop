@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import ShopCart from "../ShopCart/ShopCart";
+import Dropdown from "../Dropdown/Dropdown";
 
 function Navigation() {
     // state - redux store from store.js,
@@ -12,9 +13,9 @@ function Navigation() {
     }, []);
 
     const userBtnLayout = () => {
-         return user.hasOwnProperty('username') ?
-
-            <Link className="nav-link" to="/userProfile">{user.username}</Link> :
+        return user.hasOwnProperty('username') ?
+            <Dropdown/> :
+            // <Link className="nav-link" to="/userProfile">{user.username}</Link> :
 
             <li className="nav-item">
                 <Link className="nav-link" to="/auth">Login/Register</Link>
@@ -43,7 +44,7 @@ function Navigation() {
                             <Link className="nav-link" to="/contact">Contact</Link>
                         </li>
                         <li className="nav-item ">
-                            <ShopCart />
+                            <ShopCart/>
                         </li>
                         {userBtnLayout()}
                     </ul>

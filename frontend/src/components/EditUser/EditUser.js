@@ -9,29 +9,37 @@ function EditUser(props) {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [editedUser, setEditedUser] = useState({});
+    const [isApiErr, setIsApiErr] = useState(false);
+    const [isApiFinish, setIsApiFinish] = useState(false);
+    const [isValidForm, setIsValidForm] = useState(true);
+
     const showModal = () => setModalIsOpen(true);
     const closeModal = (e) => {
         e.preventDefault();
         setModalIsOpen(false);
     }
     const dispatch = useDispatch();
-    const [isValidForm, setIsValidForm] = useState(true);
 
     useEffect(() => {
         setEditedUser(props.user);
     }, [props.user.username]);
 
     const onHandleInput = (e) => {
+        // setIsApiErr(false);
+        // setIsApiFinish(false);
+        // setIsValidForm(true);
+
         setEditedUser({...editedUser, [e.target.name]: e.target.value});
     }
 
-    const saveUser = (e) => {
+    const onSubmitForm = (e) => {
         e.preventDefault();
         console.log(editedUser)
         if (!editedUser.username || !editedUser.password || !editedUser.email || !editedUser.email.includes("@")) {
-            setIsValidForm(false)
+            setIsValidForm(false);
             return
         }
+
         setIsValidForm(true);
         AuthService.userUpdate(editedUser)
             .then(res => {
@@ -39,9 +47,14 @@ function EditUser(props) {
                     localStorage.setItem('user', JSON.stringify(editedUser));
                     console.log(res.data);
                     dispatch(updateUser(editedUser));
+                    setIsApiErr(false);
+                    setIsApiFinish(true);
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setIsApiErr(true);
+                console.log(err)
+            })
     }
 
     return (
@@ -50,7 +63,7 @@ function EditUser(props) {
                 <button className="btn btn-warning" onClick={showModal}>Edit</button>
             </div>
             <Modal isOpen={modalIsOpen} ariaHideApp={false}>
-                <form onSubmit={saveUser} method="post">
+                <form onSubmit={onSubmitForm} method="post">
 
                     <label htmlFor="username">Username</label>
                     <input className="form-control" name="username" type="text" id="username"
@@ -87,6 +100,8 @@ function EditUser(props) {
                     <button className="btn btn-success px-5 ms-auto">Save</button>
                     <button className="btn btn-success px-5 ms-auto" onClick={closeModal}>Close</button>
                     {!isValidForm ? <p>All fields are required!</p> : null}
+                    {isApiFinish ? <p>Successfuly updated!</p> : null}
+                    {isApiErr ? <p>ERROR:Ooops, something wrong, please try later!</p> : null}
                 </form>
             </Modal>
         </div>

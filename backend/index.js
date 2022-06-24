@@ -162,8 +162,8 @@ app.put("/api/userProfile", (req, res) => {
             const errorMsg = `Error on updating user: ${err}`;
             res.send(errorMsg);
         } else {
-            console.log('success...', data);
-            res.send(data)
+            // console.log('success...', data);
+            res.send(data);
         }
     })
 })

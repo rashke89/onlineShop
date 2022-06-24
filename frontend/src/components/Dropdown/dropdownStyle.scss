@@ -1,0 +1,28 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+.wrapper {
+  position: relative;
+
+}
+
+.list {
+  position: absolute;
+  width: 150px;
+  background: white;
+  border-top: none;
+  color: white;
+  visibility: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  z-index: 1;
+}
+
+
+.list.active {
+  visibility: visible;
+}
+
+.logout {
+  cursor: pointer;
+}

@@ -20,6 +20,7 @@ function UserProfile() {
                             <h4 className="text-center">Password: {user.password}</h4>
                             <h4 className="text-center">Address: {user.address}</h4>
                             <h4 className="text-center">City: {user.city}</h4>
+
                         </div>
                     </div>
                 </div>
