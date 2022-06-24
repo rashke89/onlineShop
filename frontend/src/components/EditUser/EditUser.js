@@ -59,7 +59,7 @@ function EditUser(props) {
 
     return (
         <div>
-            <div className="card-footer text-center">
+            <div className="card-footer">
                 <button className="btn btn-warning" onClick={showModal}>Edit</button>
             </div>
             <Modal isOpen={modalIsOpen} ariaHideApp={false}>
