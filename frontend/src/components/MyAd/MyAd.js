@@ -13,7 +13,7 @@ function MyAd({product}) {
 	const generateRatingStar=(product)=>{
 		const content=[];
 		for (let i = 0; i < product.rating; i++) {
-			content.push(<RatingStar/>)
+			content.push(<RatingStar key={i}/>)
 		}
 
 		return content
@@ -34,7 +34,7 @@ function MyAd({product}) {
 				/>
 				<div className="card-body pt-2 px-2 pb-0">
 					<h4 className="card-title">{product.title}</h4>
-					<p className="text-muted">Category</p>
+					<p className="text-muted">Category: {product.category}</p>
 					<p className="card-text">{product.description}</p>
 					<p className="product-rating">
 						{generateRatingStar(product)}
