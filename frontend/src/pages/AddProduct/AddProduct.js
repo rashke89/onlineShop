@@ -86,7 +86,7 @@ function AddProduct() {
 								<input type="text" className="form-control" id="imgUrl" name="imgUrl" placeholder="Image URL" onChange={(event)=>handleInputChange(event)}/>
 								<label htmlFor="imgUrl">Image URL</label>
 							</div>
-							<button  className="btn btn-primary mt-3" onClick={onSubmit}>Add product</button>
+							<button  className="btn btn-secondary mt-3" onClick={onSubmit}>Add product</button>
 							{!isFormValid? <p className="error animate__shakeX animate__animated animate__fast">All fields are required</p>: null}
 							{isApiErr? <p className="error animate__shakeX animate__animated animate__fast">Api error. Try again.</p>: null}
 						</form>

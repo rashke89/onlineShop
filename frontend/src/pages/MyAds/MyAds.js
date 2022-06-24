@@ -23,23 +23,21 @@ function MyAds(props) {
 	}, []);
 
 	return (
-		<div>
-			<h2 className="text-center my-5">My Ads</h2>
-			<div className="btn-wrapper d-flex justify-content-center align-items-center mb-5">
-				<Link to="/add-product" className="btn btn-primary">Add product</Link>
+		<div className="container mt-3">
+			<h1>My Products</h1>
+			<div className="d-flex justify-content-between m-auto container mt-3 mb-3">
+				<Link className="btn btn btn-secondary" to="/add-product">Add product</Link>
+				<div><span>Sort by: </span>
+					<select>
+						<option value="highPrice">Date</option>
+						<option value="lowPrice">Low price</option>
+						<option value="highPrice">High price</option>
+					</select></div>
 			</div>
-			<div className="container">
-				<div className="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
-					{products.map((product, index) => {
-						return(
-							<div className="col d-flex align-items-stretch" key={index}>
-								{product?.imgUrl ?
-									<MyAd product={product} /> : null }
-							</div>
-						)
-					})}
-				</div>
-
+			<div className="row">
+				{products.map((product,index)=>{
+					return <MyAd product={product} key={index}/>
+				})}
 			</div>
 		</div>
 	);
