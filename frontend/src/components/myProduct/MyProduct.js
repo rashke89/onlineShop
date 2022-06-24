@@ -16,7 +16,7 @@ function MyProduct({product}) {
 		return content
 	}
 	return (
-		<div className="ad-card-wrapper container col-md-4 mt-2 mb-3 d-flex align-items-stretch">
+		<div className="ad-card-wrapper col-md-4 mt-2 mb-3 d-flex align-items-stretch">
 			<div className="card product-card" >
 				{/*<div className="product-card-header">*/}
 				{/*	/!* Bonus: remove badge after 7 days *!/*/}

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./register.css"
 import "animate.css"
 import AuthService from "../../services/AuthService";
+import {useNavigate} from "react-router-dom";
 
 
 const Register = ({isLogin}) => {
@@ -13,12 +14,14 @@ const Register = ({isLogin}) => {
         city:"",
         email:"",
         username:"",
-        password: ""
+        password: "",
+        gender:""
 
     });
     const [isFormValid, setIsFormValid]=useState(true);
     const [isApiFinish, setIsApiFinish]=useState(false)
     const [isApiError, setIsApiError]=useState(false)
+    const navigate=useNavigate();
 
     //collect data from input fields
     const handleInputChange=(event)=>{
@@ -46,6 +49,7 @@ const Register = ({isLogin}) => {
                 if(response.status===200){
                     setIsApiFinish(true);
                     setIsApiError(false);
+
                 }
             } )
             //error handle
@@ -79,7 +83,10 @@ const Register = ({isLogin}) => {
                     <input type="text" className='input-field' name="city" placeholder="City" onChange={(event)=>{handleInputChange(event)}}/>
                     <label htmlFor="gender">Gender:</label>
                     <div className="gender">
-                        <select id="genderSelect">
+                        <select id="genderSelect" value="male" onChange={(event)=>{
+                            const selectedGender=event.target.value;
+                            setUserObj((prevState)=>({...prevState, gender:selectedGender}))
+                        }}>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>

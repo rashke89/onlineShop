@@ -15,7 +15,7 @@ const Product=(props)=>{
             { (product.hasOwnProperty("id"))?
                 <div className="shop-product-wrapper col-md-3">
                     <div className="shop-product-content-wrapper">
-                        <img src={product.image} className="img img-fluid" alt=""/>
+                        <img src={product.image} className="img card-img-top img-fluid" alt=""/>
                         <p className="shop-product-title">{product.title}</p>
                         <p>Rate: {product.rating.rate}</p>
                         <p className="shop-product-price">{product.price}$</p>
