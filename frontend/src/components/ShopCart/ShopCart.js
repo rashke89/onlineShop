@@ -55,7 +55,12 @@ function ShopCart() {
             <FaCartPlus />
             <span className="shop-cart-badge">{cart.length}</span>
             <div className="shop-cart-sum">
-                {shopCartSumLayout()}
+                <div className="items-wrapper">
+                    {shopCartSumLayout()}
+                </div>
+                <div className="order-btn-wrapper">
+                    <button className="btn btn-primary">Order Now</button>
+                </div>
             </div>
         </div>
     )

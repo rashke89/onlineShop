@@ -34,12 +34,24 @@
     width: 450px;
     right: 0;
     top: calc(100% + 20px);
-    height: 300px;
-    overflow-y: scroll;
+    height: 370px;
     background: white;
     box-shadow: 3px 3px 8px 0px #00000085;
     border-radius: 8px;
     padding: 15px;
+
+    .items-wrapper {
+      height: 300px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    .order-btn-wrapper {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     svg {
       width: 20px;
