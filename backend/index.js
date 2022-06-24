@@ -23,6 +23,41 @@ app.use(express.json());//Frontend request convert in JSON
 //Enable CORS-API calls and resource sharing
 app.use(cors());
 
+//get products
+
+app.get('/shop/products', (req,res)=>{
+
+    Product.find((error,data)=>{
+        if(error){
+            console.log(error);
+            res.send("ERROR. TRY AGAIN.");
+            return;
+        }
+
+        if(data){
+            res.send(data)
+        }else{
+            res.send("Product dont found")
+        }
+    })
+})
+
+//get product
+app.get("/shop/product/:productId", (req, res) => {
+    const productId = req.params.productId;
+    Product.findOne({_id: productId}, (error, data) => {
+        if(error) {
+            console.log(error);
+            res.send("ERROR. Try Again.")
+        }
+
+        if(data) {
+            res.send(data);
+        } else {
+            res.send("Product dont found");
+        }
+    })
+})
 
 //add myProduct
 

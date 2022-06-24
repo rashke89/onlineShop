@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ShopService from "../../services/ShopService";
 import "animate.css"
-import {eventWrapper} from "@testing-library/user-event/dist/utils";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../../redux/cartSlice";
 
@@ -14,12 +13,13 @@ const ProductView = () => {
     const params = useParams();
     const dispatch=useDispatch();
 
-    useEffect(() => {
+    useEffect( () => {
         if (params.productId) {
-            ShopService.getProduct(params.productId)
+             ShopService.getProduct(params.productId)
                 .then((response) => {
                     if (response.status === 200) {
-                        setProduct(response.data)
+                        setProduct(response.data[0])
+
                     }
                     if(!response.data){
                         setIsParamsAvailable(false)
@@ -29,9 +29,11 @@ const ProductView = () => {
             })
                 .finally(() => {
                     setIsApiFinished(true);
+
                 })
         } else {
             setIsParamsAvailable(false)
+
         }
     }, []);
 
@@ -46,7 +48,7 @@ const ProductView = () => {
 
     const productLayout = () => {
         return <div className="product-wrapper row mt-5 d-flex justify-content-between">
-                <div className="col-md-5"><img src={product.image} alt={product.title} className="img-fluid"/></div>
+                <div className="col-md-5"><img src={product.imgUrl} alt={product.title} className="img-fluid"/></div>
                 <div className="col-md-6 text-center">
                     <h3>{product.title}</h3>
                     <p>{product.category}</p>
@@ -59,12 +61,17 @@ const ProductView = () => {
     }
 
     return (
-        <div className="productView-wrapper container">
-
+        <div className="view-ad-wrapper container">
+            <div className="row">
+                <div className="col-md-12">
                     {noParamsMSgLayout()}
-                    {(product && product.hasOwnProperty("id")) && productLayout()}
+                    {product && product.hasOwnProperty("price") &&  productLayout()}
 
+
+                </div>
+            </div>
         </div>
+
     )
 }
 

@@ -11,6 +11,7 @@ const Shop = () => {
             .then((response) => {
                 if (response.status === 200) {
                     setProducts(response.data)
+
                 }
             })
             .catch((error) => {
@@ -31,10 +32,10 @@ const Shop = () => {
                     </select></div>
             </div>
             <div className="shop-wrapper container">
-                <div className="row  d-flex justify-content-between flex-wrap">
+                <div className="row  d-flex justify-content-start flex-wrap">
                     {products ?
                         products.map((product, index) => {
-                            return <Product product={product} key={product.id}/>
+                            return <Product product={product} key={product._id}/>
                         })
                         : <h1>No products. Try Later</h1>
 

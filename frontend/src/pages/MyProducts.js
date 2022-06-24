@@ -28,7 +28,7 @@ const MyProducts=()=>{
 
             <div className="container mt-3">
                 <h1>My Products</h1>
-                <div className="d-flex justify-content-start m-auto container mt-3 mb-3">
+                <div className="d-flex justify-content-between m-auto container mt-3 mb-3">
                     <Link className="btn btn btn-secondary" to="/addProduct">Add product</Link>
                     <div><span>Sort by: </span>
                         <select>

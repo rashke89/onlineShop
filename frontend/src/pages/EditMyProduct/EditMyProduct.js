@@ -81,7 +81,7 @@ function EditMyProduct() {
                                     <label htmlFor="imgUrl">Image URL</label>
                                 </div>
 
-                                <button type="submit" className="btn btn-primary mt-3" >Save</button>
+                                <button type="submit" className="btn btn-secondary mt-3" >Save</button>
                                 {isProductUpdated? <p>Successfully updated</p>:null}
                                 {isUpdateError? <p>Product not updated. Try again.</p>:null}
                                 {isApiError? <p>API ERROR. Try again.</p>:null}
