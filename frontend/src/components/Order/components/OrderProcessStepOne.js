@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import {FaTrashAlt, FaMinusCircle, FaPlusCircle} from "react-icons/fa";
 import {handleCount, removeItem} from "../../../redux/cartSlice";
 import StepperFooter from "./StepperFooter";
+import Count from "../../Count/Count";
 
 function OrderProcessStepOne() {
     const {cart} = useSelector(state => state.cartStore);
@@ -30,9 +31,7 @@ function OrderProcessStepOne() {
                     </td>
                     <td>{item.title}</td>
                     <td>
-                        <FaMinusCircle className="mx-2" onClick={() => handleShopCartCount(index, false)} />
-                        {item.count}
-                        <FaPlusCircle className="mx-2" onClick={() => handleShopCartCount(index, true)}/>
+                        <Count index={index} count={item.count}/>
                     </td>
                     <td>{item.price * item.count}</td>
                     <td><FaTrashAlt onClick={() => {removeItemFromCart(index)}} /></td>

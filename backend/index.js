@@ -7,6 +7,11 @@ const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
 const mainService = require("./services/mailService");
 const products = require("./fakeDb/products.json");
+const mainService = require('./services/mailService');
+const Product=require("./models/productModel")
+
+
+
 
 const app = express();
 mongoose
@@ -20,6 +25,73 @@ app.use(express.json());
 app.use(cors());
 // nodmailer config
 // const mailer = mainService.configureMail();
+
+
+
+
+
+//add myProduct
+
+app.post("/product/add", (req,res)=>{
+
+	const reqBody=req.body;
+	Product.findOne(reqBody, async (err, data) => {
+		// console.log(data);
+		if (err) {
+			const errorMsg = `Error on register user: ${err}`;
+			console.log(errorMsg);
+			res.send(errorMsg);
+			return;
+		}
+
+		if (data) res.send(`Product already exist`);
+		else {
+			const newProduct = new Product(reqBody);
+			const saveNewProduct = await newProduct.save();
+			console.log("Saved product",saveNewProduct);
+			res.send(saveNewProduct || 'Product not saved');
+		}
+	});
+})
+//delete myAd
+app.delete("/product/delete/:myAdId", (req, res) => {
+	const myAdId = req.params.myAdId;
+	Product.deleteOne({_id: myAdId},  async (error) => {
+		if (error) throw error
+		await res.send("Product deleted")
+	})
+})
+
+//getMyAd
+
+app.get("/product/getMyAd/:myAdId", (req, res)=>{
+	const myAdId=req.params.myAdId;
+
+	Product.findOne({_id:myAdId},(error,data)=>{
+
+		if(error){
+			console.log(error);
+			res.send(error)
+		}
+		res.send(data)
+
+	})
+})
+
+//update myAd
+
+app.put("/product/save/:myAdId", (req,res)=>{
+	const params=req.params.myAdId;
+
+		Product.updateOne({"_id": params}, req.body, null, (error, result) => {
+			if (error) throw error;
+			res.send(result)
+		})
+
+})
+
+
+
 
 // Login
 app.post("/api/login", (req, res) => {
@@ -35,11 +107,11 @@ app.post("/api/login", (req, res) => {
       return;
     }
 
-    // way 1
-    // if (data)
-    //     res.send(data);
-    // else
-    //     res.send('User not found.');
+		// way 1
+		// if (data)
+		//     res.send(data);
+		// else
+		//     res.send('User not found.');
 
     // way 2
     // res.send(data ? data : 'User not found.');
@@ -66,43 +138,45 @@ app.post("/api/register", async (req, res) => {
     else {
       const newUser = new Users(reqBody);
       const saveNewUser = await newUser.save();
-      console.log(saveNewUser._id.toString());
+        console.log(saveNewUser._id.toString());
 
-      let testAccount = await nodemailer.createTestAccount();
+        let testAccount = await nodemailer.createTestAccount();
 
-      let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-          user: testAccount.user, // generated ethereal user
-          pass: testAccount.pass, // generated ethereal password
-        },
-      });
+        let transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: testAccount.user, // generated ethereal user
+                pass: testAccount.pass, // generated ethereal password
+            },
+        });
 
-      let info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
-        to: reqBody.email, // list of receivers
-        subject: "Activate account", // Subject line
-        text: "", // plain text body
-        html: `
+        let info = await transporter.sendMail({
+            from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
+            to: reqBody.email, // list of receivers
+            subject: "Activate account", // Subject line
+            text: "", // plain text body
+            html: `
             <h1>Activate account</h1>
             <p>Dear, ${reqBody.username}</p>
             <p>Please click on link bellow to activate your account</p>
             <a href="http://localhost:3000/user-activate/${saveNewUser._id.toString()}" target="_blank">Activate link</a>
             `, // html body
-      });
+        });
 
-      console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
 
-      res.send(saveNewUser || "User not registered.");
-    }
-  });
+        console.log("Preview URL:", nodemailer.getTestMessageUrl(info));
+
+        res.send(saveNewUser || 'User not registered.');
+        }
+    });
 });
 
 app.get("/", (req, res) => {
-  res.send("Welcome to server");
-});
+    res.send("Welcome to server");
+})
+
 
 //delete user by email
 app.delete("/api/user/:email", (req, res) => {
@@ -120,6 +194,23 @@ app.get("/api/users", (req, res) => {
     res.send(result);
   });
 });
+
+// get my ads
+app.get("/product/my-adds/:userId", (req, res) => {
+	const userId = req.params.userId;
+	Product.find({userId: userId}, (error, data) => {
+		if(error) {
+			res.send(error);
+		}
+
+		if(data) {
+			console.log(data);
+			res.send(data);
+		} else {
+			res.send("No products jet.");
+		}
+	})
+})
 
 //get one user by username
 app.get("/api/user/:username", (req, res) => {

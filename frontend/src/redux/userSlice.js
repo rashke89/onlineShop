@@ -9,6 +9,7 @@ const userSlice = createSlice({
         //action
         setUser: (state,
                  action ) => {
+
             // action.payload = arg from setUser act
             state.user = action.payload;
         },
