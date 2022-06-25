@@ -7,7 +7,6 @@ const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
 const mainService = require("./services/mailService");
 const products = require("./fakeDb/products.json");
-const mainService = require('./services/mailService');
 const Product=require("./models/productModel")
 
 
