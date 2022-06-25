@@ -1,30 +1,31 @@
 import {useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
+import {routeConfig} from "../../config/routeConfig";
 import dropdownStyle from "./dropdownStyle.scss"
 
 
 function Dropdown() {
     const {user} = useSelector((state) => state.userStore);
     const navigate = useNavigate();
-    const ref = useRef();
+    const ref = useRef(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const clickedDropdown = (e) => {
         e.preventDefault();
-        setIsMenuOpen(true);
+        setIsMenuOpen(!isMenuOpen);
     }
     useEffect(() => {
         const clickedOutside = e => {
-            if (isMenuOpen && ref.current && !ref.current.contains(e.target)) {
+            if (isMenuOpen && ref.current !== null && !ref.current.contains(e.target)) {
                 setIsMenuOpen(false);
             }
         }
 
-        document.addEventListener('mousedown', clickedOutside);
+        window.addEventListener('mousedown', clickedOutside);
 
         return () => {
-            document.removeEventListener('mousedown', clickedOutside)
+            window.removeEventListener('mousedown', clickedOutside)
         }
 
     }, [isMenuOpen]);
@@ -39,15 +40,19 @@ function Dropdown() {
     return (
         localStorage.hasOwnProperty("user") ?
             <div className="wrapper">
-                <Link className="nav-link dropdown-toggle" onClick={clickedDropdown} to={"#"}>{user.username}</Link>
-
-                <ul className={`list ${isMenuOpen ? 'active' : 'inactive'}` } ref={ref}>
-                    <li><Link className="nav-link" to="/userProfile"><i className="bi bi-person mx-2"></i>Profile</Link></li>
-                    <li className="nav-link logout" onClick={logOut}><i className="bi bi-box-arrow-right mx-2"></i>Logout</li>
-                </ul>
+                <Link className="nav-link dropdown-toggle menu-trigger" onClick={clickedDropdown} to={"#"}>My
+                    account</Link>
+                <nav ref={ref} className={`menu ${isMenuOpen ? 'active' : 'inactive'}`}>
+                    <ul>
+                        <li><Link className="nav-link" to={routeConfig.USER_PROFILE.url}><i
+                            className="bi bi-person mx-2"></i>Profile</Link></li>
+                        <li className="nav-link logout" onClick={logOut}><i className="bi bi-box-arrow-right mx-2"></i>Logout
+                        </li>
+                    </ul>
+                </nav>
             </div> :
             <li className="nav-item">
-                <Link className="nav-link" to={"/auth"}>Login/Register</Link>
+                <Link className="nav-link" to={routeConfig.AUTH.url}>Login/Register</Link>
             </li>
     )
 

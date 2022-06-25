@@ -22,7 +22,7 @@ const userSlice = createSlice({
             //
             //     }
             // }
-        },
+        }
 
     },
 });

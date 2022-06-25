@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import "./shopAd.scss";
+import {routeConfig} from "../../config/routeConfig";
 
 function ShopAd(props) {
     // state can change
@@ -12,12 +13,6 @@ function ShopAd(props) {
         setAd(props.ad)
     }, []);
 
-    // unmount
-    useEffect(() => {
-        return () => {
-            console.log('test unmount');
-        }
-    });
     return (
         <>
             {ad?.image ? <div className="shop-ad-wrapper col-md-3">
@@ -26,7 +21,7 @@ function ShopAd(props) {
                     <p className="shop-ad-title">{ad.title}</p>
                     <p>Rate: {ad.rating.rate}</p>
                     <p className="shop-ad-price">{ad.price}$</p>
-                    <Link to={`/shop/ad/${ad.id}`} className="view-more-btn">
+                    <Link to={routeConfig.AD_SHOP.realUrl(ad.id)} className="view-more-btn">
                         <p className="view-more-btn-text">View Product</p>
                     </Link>
                 </div>
