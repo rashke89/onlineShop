@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import ShopService from "../../services/ShopService";
+import ShopService from "../../services/shopService";
 
 function ViewAd() {
 	const [ad, setAd] = useState({});

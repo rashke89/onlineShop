@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import AuthService from "../../services/AuthService";
+import AuthService from "../../services/authService";
 
 function ActivateUserPage() {
 	const navigate = useNavigate();

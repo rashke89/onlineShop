@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import shopService from "../../services/ShopService";
+import shopService from "../../services/shopService";
 import ShopAd from "../../components/ShopAd/ShopAd";
 
 const Shop = () => {

@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
 
 const Navbar = () => {
 	// state - redux store
 	const user = useSelector((state) => state.userStore.user);
+	const navigate = useNavigate();
 
-	useEffect(() => {
-		console.log(user);
-	}, [user]);
+	const logout = () => {
+		localStorage.clear();
+		navigate("/auth");
+	}
 
 	const userBtnLayout = () => {
 		return user.hasOwnProperty('username') ?
@@ -38,7 +40,7 @@ const Navbar = () => {
 						<hr className="dropdown-divider"/>
 					</li>
 					<li>
-						<a className="dropdown-item" href="#">
+						<a className="dropdown-item" href="#" onClick={logout}>
 							<i className="bi bi-box-arrow-right me-2"></i>
 							Logout
 						</a>
