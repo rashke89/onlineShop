@@ -2,6 +2,7 @@ import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import ShopCart from "../ShopCart/ShopCart";
+import Dropdown from "../Dropdown/Dropdown";
 import {routeConfig} from "../../config/routeConfig";
 
 function Navigation() {
@@ -29,7 +30,7 @@ function Navigation() {
 				</a>
 				<ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 					<li>
-						<a className="dropdown-item user-dropdown" href="/">
+						<Link to={routeConfig.USER_PROFILE.url} className="dropdown-item user-dropdown">
 							{/*TODO: change icons*/}
 							{user.isAdmin ? (
 								<i className="bi bi-person-workspace me-2"></i>
@@ -37,7 +38,7 @@ function Navigation() {
 								<i className="bi bi-person-circle me-2"></i>
 							)}
 							Profile
-						</a>
+						</Link>
 					</li>
 					<li>
 						<Link to="/my-ads" className="dropdown-item" href="/">

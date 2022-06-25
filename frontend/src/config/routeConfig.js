@@ -25,5 +25,8 @@ export const routeConfig = {
     },
     ORDER: {
         url: '/order'
+    },
+    USER_PROFILE: {
+        url: '/userProfile'
     }
 }

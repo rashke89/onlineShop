@@ -14,6 +14,7 @@ import {setUser} from "./redux/userSlice";
 import {setCart} from "./redux/cartSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import AdPage from "./pages/AdPage/AdPage";
+import UserProfile from "./pages/userProfile/UserProfile";
 import {routeConfig} from "./config/routeConfig";
 import Order from "./pages/order/Order";
 import MyAds from "./pages/MyAds/MyAds";
@@ -62,6 +63,7 @@ function App() {
                 <Route path="/add-product" element={<AddProduct/>}/>
                 <Route path="/product/edit/:myAdId" element={<EditMyAd/>}/>
                 <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
+                <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
             </Routes>
         </div>
     );

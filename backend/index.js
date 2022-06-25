@@ -293,6 +293,30 @@ app.post("/api/complete-registration", (req, res) => {
   });
 });
 
+// update user
+app.put("/api/userProfile", (req, res) => {
+    let id = req.body._id;
+    Users.updateOne({"_id": id}, {
+        $set: {
+            username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password,
+            address: req.body.address,
+            city: req.body.city
+        }
+    }, (err, data) => {
+        if (err) {
+            console.log(err);
+            const errorMsg = `Error on updating user: ${err}`;
+            res.send(errorMsg);
+        } else {
+            res.send(data);
+        }
+    })
+})
+
 app.get("/api/products", (req, res) => {
   res.send(products);
 });
