@@ -21,6 +21,7 @@ import MyAds from "./pages/MyAds/MyAds";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import EditMyAd from "./pages/EditMyAd/EditMyAd";
 import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
+import CookiesModal from './components/cookies/CookiesModal'
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -49,6 +50,7 @@ function App() {
 
     return (
         <div className="main-wrapper">
+            <CookiesModal />
             <Navigation/>
             <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>

@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const colors = require('colors');
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 const dbConfig = require("./config/dbConfig");
