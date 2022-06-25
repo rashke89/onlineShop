@@ -1,6 +1,7 @@
 const express = require ('express');
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const dbConfig = require('./config/dbConfig');
 const Users = require('./models/userModel');
 const serverConfig = require('./config/serverConfig');
@@ -10,12 +11,19 @@ const  app = express();
 mongoose.connect(dbConfig.MONGODB_URL)
     .then(data => console.log('mongo db is connected.'))
     .catch(err => console.log('Error while connecting to MONGO DB: $(err)'));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// enable CORS API calls and resource sharing
+app.use(cors());
 
 // router.use();
 
+
+//login
 app.post('/api/login', (req, res) =>{
+    console.log('request body ->',req.body)
     const reqBody = req.body;
     console.log(req.body);
 
@@ -24,7 +32,7 @@ app.post('/api/login', (req, res) =>{
         if (err){
             const errorMsg = `Error on getting user from DB: ${err}`;
             console.log(errorMsg);
-            res.send(errorMsg);
+            res.status(416).send(errorMsg);
             return;
         }
         // way 1
@@ -37,7 +45,7 @@ app.post('/api/login', (req, res) =>{
         // res.send(data ? data : 'User not found');
 
         //way 3
-        res.send(data || 'User not found');
+        res.send(data || 'User not found'); //if user exist send frontend OR send string
 
     });
 });
