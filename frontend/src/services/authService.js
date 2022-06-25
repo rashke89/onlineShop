@@ -15,6 +15,7 @@ class AuthService {
     static completeRegistration(body) {
         return axios.post("/api/complete-registration", body)
     }
+
 }
 
 export default AuthService

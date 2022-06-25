@@ -4,6 +4,7 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
+const Emails = require("./models/emailModel");
 const serverConfig = require("./config/serverConfig");
 const mainService = require("./services/mailService");
 const products = require("./fakeDb/products.json");
@@ -18,7 +19,7 @@ mongoose
   .then((data) => console.log("MONGO DB is connected."))
   .catch((err) => console.log(`${err}`));
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 // enable CORS - API calls and resource sharing
 app.use(cors());
@@ -94,7 +95,7 @@ app.put("/product/save/:myAdId", (req,res)=>{
 
 // Login
 app.post("/api/login", (req, res) => {
-  console.log("request body ->", req.body);
+  console.log('request body ->',req.body);
   const reqBody = req.body;
 
   const foundUser = Users.findOne(reqBody, (err, data) => {
@@ -106,11 +107,11 @@ app.post("/api/login", (req, res) => {
       return;
     }
 
-		// way 1
-		// if (data)
-		//     res.send(data);
-		// else
-		//     res.send('User not found.');
+    // way 1
+    // if (data)
+    //     res.send(data);
+    // else
+    //     res.send('User not found.');
 
     // way 2
     // res.send(data ? data : 'User not found.');
@@ -170,6 +171,48 @@ app.post("/api/register", async (req, res) => {
         res.send(saveNewUser || 'User not registered.');
         }
     });
+});
+
+// * CONTACT MESSAGE API CALL
+app.post('/api/send-message', async (req, res) => {
+    const reqBody = req.body;
+
+    // * ADD TO DATABASE
+    const newMessage = new Emails(reqBody);
+    const saveNewMessage = await newMessage.save();
+    // console.log(saveNewMessage);
+
+    // * NODEMAILER
+    let testAccount = await nodemailer.createTestAccount();
+
+    let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: testAccount.user, // generated ethereal user
+            pass: testAccount.pass, // generated ethereal password
+        },
+    });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+        from: `${reqBody.firstName} ${reqBody.lastName} <${reqBody.email}>`, // sender address
+        to: "onlineShop, office@onlineShop.com", // list of receivers
+        // subject: "", // Subject line
+        // text: "Hello world?", // plain text body
+        html: `
+        <p>
+            ${reqBody.message}
+        </p>
+        `, // html body
+
+    });
+
+    // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+    res.send();
 });
 
 app.get("/", (req, res) => {
