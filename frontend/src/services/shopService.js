@@ -2,11 +2,11 @@ import axios from "axios";
 
 class ShopService {
     static getAds() {
-        return axios.get('https://fakestoreapi.com/products');
+        return axios.get('/shop/products');
     }
 
     static getAdById(adId) {
-        return axios.get(`https://fakestoreapi.com/products/${adId}`);
+        return axios.get(`/shop/product/${adId}`);
     }
     static addProduct(body){
         return axios.post("/product/add/", body )

@@ -18,7 +18,7 @@ function Shop() {
         <div className="shop-wrapper container">
             <div className="row">
                 {ads.map((element, index) => {
-                    return <ShopAd ad={element} key={element.id}/>
+                    return <ShopAd ad={element} key={element._id}/>
                 })}
             </div>
         </div>

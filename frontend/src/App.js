@@ -14,8 +14,7 @@ import {setUser} from "./redux/userSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import AdPage from "./pages/AdPage/AdPage";
 import MyAds from "./pages/MyAds/MyAds";
-import AddProduct from "./pages/AddProduct/AddProduct";
-import EditMyAd from "./pages/EditMyAd/EditMyAd";
+import AddEddProduct from "./pages/AddEddProduct/AddEddProduct";
 import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
 
 export const IsLoggedContext = React.createContext();
@@ -44,8 +43,8 @@ function App() {
                 <Route path="/auth" element={<AuthPage/>}/>
                 <Route path="/user-activate/:id" element={<ActivateUserPage/>}/>
                 <Route path="/my-ads" element={<MyAds/>}/>
-                <Route path="/add-product" element={<AddProduct/>}/>
-                <Route path="/product/edit/:myAdId" element={<EditMyAd/>}/>
+                <Route path="/add-product" element={<AddEddProduct/>}/>
+                <Route path="/product/edit/:myAdId" element={<AddEddProduct/>}/>
                 <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
             </Routes>
         </div>
