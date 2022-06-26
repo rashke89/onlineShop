@@ -187,5 +187,23 @@ Tu komponentu integrisemo u productView page.
 ---------
 ShopCart
 ----
-kreiramo komponentu shopCart u kojoj kreiramo ikonicu shopCart.
-Nju smestamo u navikaciju kao nav-item
+U ProductPage, na dugme dodajemo funkciju da na klik pokrene funkciju addToStore
+i da tako smesti proizvod u redux store "cart"
+
+Kreiramo komponentu shopCart u kojoj kreiramo ikonicu shopCart.
+Nju smestamo u navigaciju kao nav-item.
+Kreiramo badge koji ce se prikazivati samo kada ima proizvoda u korpi.
+Proizvode cemo dodavati u redux. Ako ima proizvoda, dodelicemo badge-u klasu
+koja ima display:block property.
+
+Unutar shop-cart-wrapper dodajemo jos jedan div, u kojem cemo da prikazujemo sve
+proizvode koje smo dodali u cart.
+
+
+
+U cartSlice, u funkciju addToCart, proveravamo da li dolazeci proizvod(action.payload)
+ima isti id kao proizvod koji je vec dodat u store "cart".
+U sustini, proveravamo da li proizvod koji dodajemo vec postoji u cart.
+Ako se ne nalazi u cart, mi ga dodajemo. Ako se nalazi, uzimamo njegov index i updatujemo ga tako sto mu dodajemo property
+"count" i pri svakom dodavanju istog proizvoda, povecavamo count.
+

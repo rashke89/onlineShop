@@ -13,7 +13,7 @@ import MyProducts from "./pages/MyProducts";
 import ActivateUserPage from "./pages/ActivateUserPage";
 import ProductPage from "./pages/ProductPage";
 import DeleteMyProduct from "./pages/DeleteMyProduct/DeleteMyProduct";
-import EditMyProduct from "./pages/EditMyProduct/EditMyProduct";
+
 
 //Backend PORT
 axios.defaults.baseURL="http://localhost:4000";

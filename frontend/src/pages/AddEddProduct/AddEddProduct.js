@@ -7,7 +7,8 @@ import "./AddEddProduct.scss"
 const AddEddProduct=()=>{
     const navigate=useNavigate();
     const params=useParams();
-    const [isAdUpdated, setIsAdUpdated]=useState(false)
+    const [isProductUpdated, setIsProductUpdated]=useState(false)
+    const [isProductAdded, setIsProductAdded]=useState(false)
     const [isUpdateError, setIsUpdateError]=useState(false)
     const [product, setProduct]=useState({
         imgUrl: "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
@@ -52,6 +53,7 @@ const AddEddProduct=()=>{
                 if(response.status===200){
                     console.log("API success");
                     setIsApiError(false)
+                    setIsProductAdded(true);
                     navigate("/myProducts")
                 }
             })
@@ -65,7 +67,7 @@ const AddEddProduct=()=>{
     const editProduct=(body,myProductId)=>{
         return  ShopService.saveMyProduct(body, myProductId)
             .then((response)=>{
-                setIsAdUpdated(true)
+                setIsProductUpdated(true)
                 navigate("/myProducts")
             })
             .catch((error)=>{
@@ -132,7 +134,7 @@ const AddEddProduct=()=>{
                             {!isFormValid? <p className="error animate__shakeX animate__animated animate__fast ">All fields with * is required</p>:null}
                             {isApiError?  <p className="error animate__shakeX animate__animated animate__fast ">API ERROR. Please try again.</p>:null}
                             {isProductExist?  <p className="error animate__shakeX animate__animated animate__fast ">Product already exist. </p>:null}
-                            {isAdUpdated? <p className="error animate__shakeX animate__animated animate__fast">Successfully updated</p>:null}
+                            {isProductUpdated? <p className="error animate__shakeX animate__animated animate__fast">Successfully updated</p>:null}
                             {isUpdateError? <p className="error animate__shakeX animate__animated animate__fast" >Product not updated. Try again.</p>:null}
                         </form>
                     </div>

@@ -18,7 +18,7 @@ const ProductView = () => {
              ShopService.getProduct(params.productId)
                 .then((response) => {
                     if (response.status === 200) {
-                        setProduct(response.data[0])
+                        setProduct(response.data)
 
                     }
                     if(!response.data){

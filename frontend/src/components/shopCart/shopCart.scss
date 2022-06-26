@@ -6,15 +6,53 @@
 
 
 .shop-cart-wrapper {
- position: relative;
-  .cartBadge{
+  position: relative;
+
+  .cartBadge {
     position: absolute;
-    top:-5px;
+    top: -5px;
     right: -10px;
     display: none;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .displayBadge {
+    display: block;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+
+&:hover {
+    .shop-cart-summary {
+      display: block;
+    }
   }
 }
 
-.displayBadge{
-  display: block;
+.shop-cart-summary {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: 1px solid black;
+  background: #cbcbcb;
+  top: 100%;
+  right: 0;
+  display: none;
+  z-index: 2;
+
+  .shop-cart-item {
+    border-bottom: 1px solid black;
+    margin: 10px auto;
+  }
+
 }
+  .displayCartSummary{
+    display: block;
+  }
