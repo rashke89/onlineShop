@@ -8,7 +8,7 @@ import Contact from "./pages/Contact";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
-import AddProduct from "./pages/AddProduct/AddProduct";
+import AddEddProduct from "./pages/AddEddProduct/AddEddProduct";
 import MyProducts from "./pages/MyProducts";
 import ActivateUserPage from "./pages/ActivateUserPage";
 import ProductPage from "./pages/ProductPage";
@@ -41,8 +41,8 @@ function App(){
                <Route path="/auth" element={<AuthPage/>}/>
                <Route path="/user-activate/:id" element={<ActivateUserPage/>}/>
                <Route path="/myProducts" element={<MyProducts/>}/>
-               <Route path="/addProduct" element={<AddProduct/>}/>
-               <Route path="/product/edit/:myProductId" element={<EditMyProduct/>}/>
+               <Route path="/addProduct" element={<AddEddProduct/>}/>
+               <Route path="/product/edit/:myProductId" element={<AddEddProduct/>}/>
                <Route path="/product/delete/:myProductId" element={<DeleteMyProduct/>}/>
            </Routes>
 

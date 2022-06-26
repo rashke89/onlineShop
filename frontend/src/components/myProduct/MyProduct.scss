@@ -6,7 +6,11 @@
   box-shadow: 0px 15px 35px rgb(0 0 0 / 10%);
   border: none;
   position: relative;
-
+  img{
+    height: 350px;
+    object-fit: contain;
+    width: auto;
+  }
   .action-buttons {
     transform: translateY(150%);
     transition: transform .3s ease-out;

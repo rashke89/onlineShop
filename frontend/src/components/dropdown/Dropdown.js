@@ -5,7 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 const Dropdown = ({user}) => {
     const navigate=useNavigate();
     const logOut=()=>{
-        localStorage.clear();
+        localStorage.removeItem("user");
         navigate("/auth");
     }
     const displayUsername=" "+user.username.charAt(0).toUpperCase() + user.username.slice(1);
