@@ -41,7 +41,6 @@ const ShopCart = () => {
                 <div ref={cartSummary} className="shop-cart-summary container text-dark p-2 ">
                     {cart.map((product,index)=>{
 
-                        console.log(product);
                         return   <div className="shop-cart-item row" key={index}>
 
                          <div className="col-5">

@@ -5,20 +5,32 @@ import Product from "../components/product/product";
 
 const Shop = () => {
     const [products, setProducts] = useState([])
-
+    const[sort, setSort]=useState("");
+    let sortedProducts;
     useEffect(() => {
+
         ShopService.getProducts()
             .then((response) => {
                 if (response.status === 200) {
-                    setProducts(response.data)
 
+
+                    sortedProducts=response.data;
+
+
+                    if(sort==="lowPrice"){
+                        sortedProducts= sortedProducts.sort((a, b)=> a.price - b.price);
+                    }else if(sort==="highPrice"){
+
+                        sortedProducts= sortedProducts.sort((a, b)=> b.price - a.price);
+                    }
+                    setProducts(sortedProducts)
                 }
             })
             .catch((error) => {
                 console.log(error)
             })
 
-    }, [])
+    }, [sort])
 
     return (
         <>
@@ -26,7 +38,10 @@ const Shop = () => {
             <div className="shopNav d-flex justify-content-end m-auto container mt-3">
 
                 <div><span>Sort by: </span>
-                    <select>
+                    <select  onChange={(event)=>{
+                        setSort(event.target.value);
+
+                    }}>
                         <option value="lowPrice">Low price</option>
                         <option value="highPrice">High price</option>
                     </select></div>
