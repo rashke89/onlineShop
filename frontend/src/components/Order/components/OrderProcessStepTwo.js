@@ -6,7 +6,6 @@ function OrderProcessStepTwo() {
     return (
         <>
             <form onSubmit={handleSubmit}>
-
                 <div className="row">
                     <div className="col-md-6">
                         <div className="mb-3">
