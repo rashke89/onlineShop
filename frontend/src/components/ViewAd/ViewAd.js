@@ -43,7 +43,7 @@ export default function ViewAd() {
     const adLayout = () => {
         return <div className="ad-wrapper row">
             <div className="col-md-6">
-                <img src={ad.image} alt="Product image"/>
+                <img src={ad.imgUrl} alt="Product image"/>
             </div>
             <div className="col-md-6">
                 <h3>{ad.title}</h3>
@@ -59,6 +59,7 @@ export default function ViewAd() {
     const getAd = () => {
         ShopService.getAdById(params.adId)
             .then(response => {
+                console.log(response);
                 if (response.status === 200) {
                     setAd(response.data);
                 }
@@ -80,7 +81,7 @@ export default function ViewAd() {
             <div className="row">
                 <div className="col-md-12">
                         {noParamsMsgLayout()}
-                        {ad && ad.hasOwnProperty('id') && adLayout()}
+                        {ad && ad.hasOwnProperty('_id') && adLayout()}
                 </div>
             </div>
         </div>
