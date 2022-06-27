@@ -18,8 +18,7 @@ import UserProfile from "./pages/userProfile/UserProfile";
 import {routeConfig} from "./config/routeConfig";
 import Order from "./pages/order/Order";
 import MyAds from "./pages/MyAds/MyAds";
-import AddProduct from "./pages/AddProduct/AddProduct";
-import EditMyAd from "./pages/EditMyAd/EditMyAd";
+import AddEddProduct from "./pages/AddEddProduct/AddEddProduct";
 import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
 import CookiesModal from './components/cookies/CookiesModal'
 
@@ -62,8 +61,8 @@ function App() {
                 <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
                 <Route path={routeConfig.ORDER.url} element={<Order/>}/>
                 <Route path="/my-ads" element={<MyAds/>}/>
-                <Route path="/add-product" element={<AddProduct/>}/>
-                <Route path="/product/edit/:myAdId" element={<EditMyAd/>}/>
+                <Route path="/add-product" element={<AddEddProduct/>}/>
+                <Route path="/product/edit/:myAdId" element={<AddEddProduct/>}/>
                 <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
                 <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
             </Routes>

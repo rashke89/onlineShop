@@ -11,7 +11,7 @@ function Navigation() {
 	const {user} = useSelector((state) => state.userStore);
 	const navigate=useNavigate();
 	const logOut=()=>{
-		localStorage.clear();
+		localStorage.removeItem("user");
 		navigate("/auth");
 	}
 

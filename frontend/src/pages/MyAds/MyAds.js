@@ -5,6 +5,8 @@ import MyAd from "../../components/MyAd/MyAd";
 
 function MyAds(props) {
 	const [products, setProducts] = useState([]);
+	const[sort, setSort]=useState("");
+	let sortedAds;
 
 	const user = JSON.parse(localStorage.getItem("user"))._id;
 
@@ -13,14 +15,25 @@ function MyAds(props) {
 			.then(response => {
 				if(response.status === 200) {
 
-					setProducts(response.data);
+					sortedAds=response.data;
+
+
+					if(sort==="lowPrice"){
+						sortedAds= sortedAds.sort((a, b)=> a.price - b.price);
+					}else if(sort==="highPrice"){
+
+						sortedAds= sortedAds.sort((a, b)=> b.price - a.price);
+					}
+					setProducts(sortedAds)
+
+
 
 				}
 			})
 			.catch(error => {
 				console.log(error);
 			})
-	}, []);
+	}, [sort]);
 
 	return (
 		<div className="container mt-3">
@@ -28,8 +41,11 @@ function MyAds(props) {
 			<div className="d-flex justify-content-between m-auto container mt-3 mb-3">
 				<Link className="btn btn btn-secondary" to="/add-product">Add product</Link>
 				<div><span>Sort by: </span>
-					<select>
-						<option value="highPrice">Date</option>
+					<select onChange={(event)=>{
+						setSort(event.target.value);
+
+					}}>
+
 						<option value="lowPrice">Low price</option>
 						<option value="highPrice">High price</option>
 					</select></div>

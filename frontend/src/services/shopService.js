@@ -2,13 +2,12 @@ import axios from "axios";
 
 class ShopService {
     static getAds() {
-        return axios.get('/api/products');
+        return axios.get('/shop/products');
     }
 
     static getAdById(adId) {
-        return axios.get(`/api/products/${adId}`);
+        return axios.get(`/shop/product/${adId}`);
     }
-
     static getTopRatedProduct(num){
         return axios.get("/api/top-products/" + num)
     }
