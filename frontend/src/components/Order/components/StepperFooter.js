@@ -1,24 +1,52 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {handleCurrentStep} from "../../../redux/orderProcessSlice";
+import {handleCurrentStep, stepTwoIsSubmitted} from "../../../redux/orderProcessSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import AuthService from "../../../services/authService";
 
 function StepperFooter() {
     const {currentStep} = useSelector(state => state.orderProcessStore.orderProcess);
+    const {isSubmit} = useSelector(state => state.orderProcessStore.orderProcess.stepTwo);
+    const {cart} = useSelector(state => state.cartStore);
     const dispatch = useDispatch();
 
     useEffect(() => {
         console.log(currentStep);
     }, [currentStep]);
 
-    const handleCurState = (number) => {
-        dispatch(handleCurrentStep(currentStep + number))
+    const next = (number) => {
+        if (currentStep === 1)
+            validateStepOne(number);
+        if (currentStep === 2) {
+            dispatch(stepTwoIsSubmitted())
+        }
+    };
+
+    const validateStepOne = (number) => {
+        if (!cart.length) {
+            toast.error('Shop cart is empty.');
+            return
+        }
+        if (!AuthService.isUserLoggedIn()) {
+            toast.error('Please log in.');
+            return;
+        }
+        dispatch(handleCurrentStep(currentStep + 1))
+    };
+
+    const prev = () => {
+        dispatch(handleCurrentStep(currentStep - 1))
     }
 
     return (
-        <div className="w-100 d-flex justify-content-between my-5">
-            {currentStep > 1 && <button className="btn btn-primary" onClick={e => handleCurState(-1)}>prev</button>}
-            <button className="btn btn-primary" onClick={e => handleCurState(1)}>next</button>
-        </div>
+        <>
+            <div className={`w-100 d-flex my-5 ${currentStep > 1 ? 'justify-content-between' : 'justify-content-end'}`}>
+                {currentStep > 1 && <button className="btn btn-primary" onClick={e => prev(-1)}>prev</button>}
+                <button className="btn btn-primary" onClick={e => next()}>next</button>
+            </div>
+            <ToastContainer />
+        </>
+
     )
 }
 

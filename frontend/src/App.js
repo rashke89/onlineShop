@@ -14,13 +14,14 @@ import {setUser} from "./redux/userSlice";
 import {setCart} from "./redux/cartSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import AdPage from "./pages/AdPage/AdPage";
-import UserProfile from "./pages/userProfile/UserProfile";
 import {routeConfig} from "./config/routeConfig";
+import UserProfile from "./pages/userProfile/UserProfile";
 import Order from "./pages/order/Order";
 import MyAds from "./pages/MyAds/MyAds";
 import AddEddProduct from "./pages/AddEddProduct/AddEddProduct";
 import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
 import CookiesModal from './components/cookies/CookiesModal'
+import 'react-toastify/dist/ReactToastify.css';
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';

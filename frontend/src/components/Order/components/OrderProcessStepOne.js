@@ -25,7 +25,7 @@ function OrderProcessStepOne() {
                 <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>
-                        <img src={item.image} alt={item.title}/>
+                        <img src={item.imgUrl} alt={item.title}/>
                     </td>
                     <td>{item.title}</td>
                     <td>

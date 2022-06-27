@@ -3,33 +3,37 @@ import Arrow from "./Arrow";
 import Dots from "./Dots";
 import SlideContent from "./SlideContent";
 import ShopService from "../../services/shopService";
-import "./style.scss";
 import {routeConfig} from "../../config/routeConfig";
+import "./style.scss";
 
-function Slider() {
+function Slider({showArrow = true, showDots = true, slideSpeed = 5000, autoPlay = true}) {
     const [images, setImages] = useState([]);
     const [currentImage, setCurrentImage] = useState(0);
     const [numberImages, setNumberImages] = useState(0);
-    const [configSlider] = useState({
-        showArrow: true,
-        showDots: true,
-        slideSpeed: 5000,
-        autoPlay: true
-    })
+    const [errorResponse, setErrorResponse] = useState({msg: "", haveErr: false});
+
     useEffect(() => {
-        ShopService.getTopRatedProduct(5).then((res) => {
-            let ads = generateData(res.data)
-            setNumberImages(ads.length);
-            setImages(ads);
-        });
+        ShopService.getTopRatedProduct(5)
+            .then((res) => {
+                let ads = generateData(res.data)
+                setNumberImages(ads.length);
+                setImages(ads);
+            })
+            .catch(err => {
+                setErrorResponse({
+                    msg: err.message,
+                    haveErr: true
+                })
+            });
     }, []);
 
     useEffect(() => {
         let interval = null
-        if (configSlider.autoPlay) {
+        //if have one images don`t set interval
+        if (autoPlay && images.length > 1) {
             interval = setInterval(() => {
                 changeSlide(1);
-            }, configSlider.slideSpeed);
+            }, slideSpeed);
         }
         return () => {
             clearInterval(interval);
@@ -59,15 +63,15 @@ function Slider() {
     }
 
     return (
-        <section className="slider-wrapper">
-            {images.length > 0 ? (
+        <section className="slider slider-wrapper">
+            {images.length > 0 && !errorResponse.haveErr ? (
                 <SlideContent
                     currentIndex={currentImage}
                     image={images[currentImage]}
                 />
-            ) : null}
-            {configSlider.showArrow ? <Arrow changeSlide={changeSlide}/> : null}
-            {configSlider.showDots ? <Dots
+            ) : <h2 className="slider-error">{errorResponse.msg}</h2>}
+            {showArrow && images.length > 1 ? <Arrow changeSlide={changeSlide}/> : null}
+            {showDots && images.length > 1 ? <Dots
                 numberDots={numberImages}
                 currentDot={currentImage}
                 setCurrentSlide={setCurrentImage}

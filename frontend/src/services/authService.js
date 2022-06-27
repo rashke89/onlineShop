@@ -18,6 +18,9 @@ class AuthService {
     static userUpdate(body){
         return axios.put("api/userProfile",body);
     }
+    static isUserLoggedIn() {
+        return localStorage.hasOwnProperty('user');
+    }
 }
 
 export default AuthService
