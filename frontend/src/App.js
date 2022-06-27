@@ -15,11 +15,13 @@ import {setCart} from "./redux/cartSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import AdPage from "./pages/AdPage/AdPage";
 import UserProfile from "./pages/userProfile/UserProfile";
-
-
 import {routeConfig} from "./config/routeConfig";
 import Order from "./pages/order/Order";
-
+import MyAds from "./pages/MyAds/MyAds";
+import AddProduct from "./pages/AddProduct/AddProduct";
+import EditMyAd from "./pages/EditMyAd/EditMyAd";
+import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
+import CookiesModal from './components/cookies/CookiesModal'
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -48,9 +50,9 @@ function App() {
 
     return (
         <div className="main-wrapper">
+            <CookiesModal />
             <Navigation/>
             <Routes>
-
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>
                 <Route path={routeConfig.SHOP.url} element={<Shop/>}/>
                 <Route path={routeConfig.AD_SHOP.url} element={<AdPage/>}/>
@@ -59,8 +61,11 @@ function App() {
                 <Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
                 <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
                 <Route path={routeConfig.ORDER.url} element={<Order/>}/>
+                <Route path="/my-ads" element={<MyAds/>}/>
+                <Route path="/add-product" element={<AddProduct/>}/>
+                <Route path="/product/edit/:myAdId" element={<EditMyAd/>}/>
+                <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
                 <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
-
             </Routes>
         </div>
     );
