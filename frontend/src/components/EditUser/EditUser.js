@@ -4,39 +4,43 @@ import {useEffect, useState} from "react";
 import {updateUser, setUser} from "../../redux/userSlice";
 import AuthService from "../../services/authService";
 
+import customStyles from "./CustomStyle";
+import "./Edit_user.scss";
+
 
 function EditUser({showModal}) {
     const user = useSelector((state) => state.userStore.user);
-    // const [modallIsOpen, setModallIsOpen] = useState();
     const [editedUser, setEditedUser] = useState({});
+    const [passIsShown, setPassIsShown] = useState(false);
     const [isApiErr, setIsApiErr] = useState(false);
     const [isApiFinish, setIsApiFinish] = useState(false);
     const [isValidForm, setIsValidForm] = useState(true);
 
-      const closeModal = (e) => {
-         e.preventDefault();
-         showModal(false);
-      }
+    const togglePassword = () => {
+        setPassIsShown((passIsShown) => !passIsShown);
+    };
+
+    const closeModal = (e) => {
+        e.preventDefault();
+        showModal(false);
+    }
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         showModal(true);
-    },[]);
+    }, []);
 
-    // useEffect(()=>{
-    //     setModallIsOpen(props.showModal)
-    // },[props.showModal])
 
     useEffect(() => {
         setEditedUser(user);
     }, [user.username]);
 
-     const onHandleInput = (e) => {
+    const onHandleInput = (e) => {
         setEditedUser({...editedUser, [e.target.name]: e.target.value});
-     }
+    }
 
-     const onSubmitForm = (e) => {
-         e.preventDefault();
+    const onSubmitForm = (e) => {
+        e.preventDefault();
         console.log(editedUser)
         if (!editedUser.username || !editedUser.password || !editedUser.email || !editedUser.email.includes("@")) {
             setIsValidForm(false);
@@ -52,60 +56,79 @@ function EditUser({showModal}) {
                     dispatch(updateUser(editedUser));
                     setIsApiErr(false);
                     setIsApiFinish(true);
-
+                    setTimeout(() => showModal(false), 1500);
                 }
             })
             .catch(err => {
                 setIsApiErr(true);
                 console.log(err)
             })
-     }
+    }
 
     return (
         <div>
-            <Modal isOpen={true} ariaHideApp={false}>
+            <Modal isOpen={true} ariaHideApp={false} style={customStyles} aria-labelledby='contained-modal-title-vcenter'
+          centered>
+
+                {!isValidForm ? <p className="notification red">All fields are required!</p> : null}
+                {isApiFinish ? <p className="notification green">Successfuly updated!</p> : null}
+                {isApiErr ? <p className="notification red">ERROR:Ooops, something wrong, please try later!</p> : null}
+
                 <form onSubmit={onSubmitForm} method="post">
-                    <label htmlFor="username">Username</label>
-                    <input className="form-control" name="username" type="text" id="username"
-                           value={editedUser.username || ''}
-                           onChange={onHandleInput}/>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <label htmlFor="username">Username</label>
+                            <input className="form-control" name="username" type="text" id="username"
+                                   value={editedUser.username || ''}
+                                   onChange={onHandleInput}/>
 
-                    <label htmlFor="password">First name</label>
-                    <input className="form-control mb-3" name="firstName" type="text" id="firstName"
-                           value={editedUser.firstName  || ''}
-                           onInput={onHandleInput}/>
+                            <label htmlFor="firstName">First name</label>
+                            <input className="form-control" name="firstName" type="text" id="firstName"
+                                   value={editedUser.firstName || ''}
+                                   onInput={onHandleInput}/>
 
-                    <label htmlFor="lastname">Last name</label>
-                    <input className="form-control" name="lastName" type="text" id="lastName"
-                           value={editedUser.lastName  || ''}
-                           onChange={onHandleInput}/>
+                            <label htmlFor="lastName">Last name</label>
+                            <input className="form-control" name="lastName" type="text" id="lastName"
+                                   value={editedUser.lastName || ''}
+                                   onChange={onHandleInput}/>
 
-                    <label htmlFor="password">Password</label>
-                    <input className="form-control mb-3" name="password" type="password" id="password"
-                           value={editedUser.password  || ''}
-                           onInput={onHandleInput}/>
+                            <label htmlFor="password">Password</label>
+                            <input className="form-control" name="password" type={passIsShown ? "text" : "password"}
+                                   id="password"
+                                   value={editedUser.password || ''}
+                                   onInput={onHandleInput}/>
+                            <div className="checkbox-container">
+                                <label htmlFor="checkbox">Show password? </label>
+                                <input className="mx-1"
+                                    id="checkbox"
+                                    type="checkbox"
+                                    checked={passIsShown}
+                                    onChange={togglePassword}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="email">Email</label>
+                            <input className="form-control " name="email" type="email" id="email"
+                                   value={editedUser.email || ''}
+                                   onInput={onHandleInput}/>
 
-                    <label htmlFor="email">Email</label>
-                    <input className="form-control mb-3" name="email" type="email" id="email"
-                           value={editedUser.email  || ''}
-                           onInput={onHandleInput}/>
+                            <label htmlFor="address">Address</label>
+                            <input className="form-control" type="text" id="address" name="address"
+                                   value={editedUser.address || ''}
+                                   onInput={onHandleInput}/>
 
-                    <label htmlFor="address">Address</label>
-                    <input className="form-control" type="text" id="address" name="address"
-                           value={editedUser.address  || ''}
-                           onInput={onHandleInput}/>
+                            <label htmlFor="city">City</label>
+                            <input className="form-control" type="text" id="city" name="city"
+                                   value={editedUser.city || ''}
+                                   onInput={onHandleInput}/>
+                        </div>
+                        <div className="footer d-flex justify-content-center my-3">
+                            <button className="btn btn-outline-primary mx-2 save">Save</button>
+                            <button className="btn btn-outline-primary mx-2" onClick={closeModal}>Close</button>
+                        </div>
 
-                    <label htmlFor="city">City</label>
-                    <input className="form-control" type="text" id="city" name="city"
-                           value={editedUser.city  || ''}
-                           onInput={onHandleInput}/>
-
-                    <button className="btn btn-success px-5 ms-auto">Save</button>
-                    <button className="btn btn-success px-5 ms-auto" onClick={closeModal}>Close</button>
-
-                    {!isValidForm ? <p>All fields are required!</p> : null}
-                    {isApiFinish ? <p>Successfuly updated!</p> : null}
-                    {isApiErr ? <p>ERROR:Ooops, something wrong, please try later!</p> : null}
+                    </div>
                 </form>
             </Modal>
         </div>

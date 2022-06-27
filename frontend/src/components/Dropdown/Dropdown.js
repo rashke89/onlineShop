@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {routeConfig} from "../../config/routeConfig";
-import dropdownStyle from "./dropdownStyle.scss"
+import "./dropdownStyle.scss"
 
 
 function Dropdown() {

@@ -1,6 +1,7 @@
 import {useSelector} from "react-redux";
 import EditUser from "../../components/EditUser/EditUser";
 import {useState} from "react";
+import  "./user_profile.scss";
 
 function UserProfile() {
     const user = useSelector((state) => state.userStore.user);
@@ -8,27 +9,21 @@ function UserProfile() {
     const showModal = () => setModalIsOpen(true);
 
     return (
-        <div className="wrapper container-fluid">
+        <div className="wrapper container-fluid mt-5">
             <div className="row">
-                <div className="col-md-10 mx-auto">
-                    <div className="card ">
-                        <div className="card-header">
-                            <h2 className="text-center">Welcome {user.username}</h2>
-                        </div>
-                        <div className="card-body">
-                            <h6><b>First name:</b> {user.firstName}</h6>
-                            <h6><b>Last Name:</b> {user.lastName}</h6>
-                            <h6><b>Email:</b> {user.email}</h6>
-                            <h6><b>Password:</b> {user.password}</h6>
-                            <h6><b>Address:</b> {user.address}</h6>
-                            <h6><b>City:</b> {user.city}</h6>
-                        </div>
-                        <div className="card-footer">
-                            <button className="btn btn-warning" onClick={showModal}>Edit</button>
-                        </div>
-                    </div>
-                    {/*<EditUser user={user} showModal={modalIsOpen} key={user._id}/>*/}
-                    {modalIsOpen?<EditUser  showModal={setModalIsOpen} />:null}
+                <div className="col-md-4 mx-auto">
+                    <h4 className="text-center">Account settings</h4>
+                    <ul className="list-group my-5">
+                        <li className="list-group-item"><b>Username:</b> {user.username}</li>
+                        <li className="list-group-item"><b>First name:</b> {user.firstName}</li>
+                        <li className="list-group-item"><b>Last Name:</b> {user.lastName}</li>
+                        <li className="list-group-item"><b>Email:</b> {user.email}</li>
+                        <li className="list-group-item"><b>Password:</b> *****</li>
+                        <li className="list-group-item"><b>Address:</b> {user.address}</li>
+                        <li className="list-group-item"><b>City:</b> {user.city}</li>
+                        <button className="btn btn-outline-primary mx-auto my-2" onClick={showModal}>Edit profile</button>
+                    </ul>
+                    {modalIsOpen ? <EditUser showModal={setModalIsOpen}/> : null}
                 </div>
             </div>
         </div>
