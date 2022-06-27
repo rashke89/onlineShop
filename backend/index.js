@@ -5,9 +5,12 @@ const nodemailer = require('nodemailer');
 const dbConfig = require("./config/dbConfig");
 const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
+const Product = require("./models/productModel")
 // const mainService = require("./services/mailService");
 
 const app = express();
+
+// MongoDB connection
 mongoose
 	.connect(dbConfig.MONGODB_URL)
 	.then((data) => console.log("MONGO DB is connected."))
@@ -17,8 +20,73 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-// nodemailer config
-// const mailer = mainService.configureMail();
+// get shop products
+app.get("/shop/products", (req, res) => {
+	Product.find((error, data) => {
+		if(error) {
+			console.log(error);
+			res.send("Products could not be loaded. Please try again later.");
+			return;
+		}
+		res.send(data || "Product not found.");
+	})
+})
+
+// get my products
+app.get("/product/my-ads/:userId", (req, res) => {
+	const userId = req.params.userId;
+	Product.find({userId: userId}, (error, data) => {
+		if(error) {
+			res.send(error);
+		}
+		res.send(data || "No products jet.");
+	})
+})
+
+// add my product
+app.post("/product/addMyProduct", (req, res) => {
+	const reqBody = req.body;
+
+	Product.findOne(reqBody, async (err, data) => {
+		if(err) {
+			console.log("Error while adding product.");
+			res.send(err);
+			return;
+		}
+
+		if(data) {
+			res.send("Product already exists.")
+		} else {
+			const newProduct = new Product(reqBody);
+			const saveNewProduct = await newProduct.save();
+			console.log("Product added", saveNewProduct);
+			res.send(saveNewProduct || "Product not added.");
+		}
+	})
+})
+
+// get my product
+app.get('/product/getMyAd/:myAdId', (req, res) => {
+	const myAdId = req.params.myAdId;
+
+	Product.findOne({_id: myAdId}, (error, data) => {
+		if(error) {
+			console.log(error);
+			res.send(error);
+		}
+		res.send(data);
+	})
+})
+
+// update my product
+app.put('/product/getMyAd/:myAdId', (req, res) => {
+	const params = req.params.myAdId;
+
+	Product.updateOne({"_id": params}, req.body, null, (error, result) => {
+		if(error) throw error;
+		res.send(result);
+	})
+})
 
 // Login
 app.post("/api/login", (req, res) => {
@@ -32,17 +100,6 @@ app.post("/api/login", (req, res) => {
 			res.send(errorMsg);
 			return;
 		}
-
-		// way 1
-		// if (data)
-		//     res.send(data);
-		// else
-		//     res.send('User not found.');
-
-		// way 2
-		// res.send(data ? data : 'User not found.');
-
-		// way 3
 		res.send(data || "User not found.");
 	});
 });
@@ -55,7 +112,6 @@ app.post("/api/register", async (req, res) => {
 		username: reqBody.username,
 		email: reqBody.email
 	}
-
 
 	Users.findOne(currentUserData, async (error, result) => {
 		if(error) {
@@ -100,25 +156,6 @@ app.post("/api/register", async (req, res) => {
 			res.send({newUser: saveNewUser, registerStatus: true} || 'User not registered.');
 		}
 	})
-
-	// Users.findOne(reqBody, async (err, data) => {
-	//   console.log(data);
-	//   if (err) {
-	//     const errorMsg = `Error on register user: ${err}`;
-	//     console.log(errorMsg);
-	//     res.send(errorMsg);
-	//     return;
-	//   }
-	//
-	//   if (data) res.send(`user already exist: ${data.username}`);
-	//   else {
-	//     const newUser = new Users(reqBody);
-	//     const saveNewUser = await newUser.save();
-	//     console.log(saveNewUser);
-	//
-	//     res.send(saveNewUser || "User not registered.");
-	//   }
-	// });
 });
 
 // get one user: GET method, URL: 'api/user/:username', {username} is URL param

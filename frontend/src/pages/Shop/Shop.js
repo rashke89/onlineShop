@@ -1,29 +1,38 @@
 import React, {useEffect, useState} from "react";
-import shopService from "../../services/shopService";
-import ShopAd from "../../components/ShopAd/ShopAd";
+import ShopService from "../../services/shopService";
+import Product from "../../components/Product/Product";
 
-const Shop = () => {
-	const [ads, setAds] = useState([]);
+const Shop = (props) => {
+	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
-		shopService.getAds()
+		ShopService.getProducts()
 			.then(res => {
-				console.log(res);
 				if (res.status === 200) {
-					setAds(res.data);
+					setProducts(res.data);
 				}
 			})
-			.catch(err => {
-				console.log(err);
-			})
-	}, []);
+			.catch(err => console.log(err));
+	}, [])
 
 	return (
 		<div className="shop-wrapper container">
-			<div className="row">
-				{ads.map((element, index) => {
-					return <ShopAd ad={element} key={index}/>
-				})}
+			<div className="my-3 d-flex justify-content-end">
+				<span className="me-2">Sort by: </span>
+				<select>
+					<option value="highPrice">Date</option>
+					<option value="lowPrice">Low price</option>
+					<option value="highPrice">High price</option>
+				</select>
+			</div>
+			<div className="row d-flex justify-content-start flex-wrap">
+				{products ?
+					products.map(product => {
+					return <Product
+						product={product} key={product._id}/>
+				}) :
+					<h4>No products. Try Later</h4>
+				}
 			</div>
 		</div>
 	)

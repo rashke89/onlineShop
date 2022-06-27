@@ -31,10 +31,10 @@ const Navbar = () => {
 						</a>
 					</li>
 					<li>
-						<a className="dropdown-item" href="#">
+						<Link to="my-ads" className="dropdown-item" href="#">
 							<i className="bi bi-card-list me-2"></i>
 							My ads
-						</a>
+						</Link>
 					</li>
 					<li>
 						<hr className="dropdown-divider"/>
@@ -64,15 +64,13 @@ const Navbar = () => {
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
 						<li className="nav-item">
-							<Link to='/' className="nav-link active" aria-current="page"
-										href="frontend/src/components/Navbar/Navbar#">Home</Link>
+							<Link to='/' className="nav-link active" aria-current="page">Home</Link>
 						</li>
 						<li className="nav-item">
-							<Link to='/shop' className="nav-link active" aria-current="page"
-										href="frontend/src/components/Navbar/Navbar#">Shop</Link>
+							<Link to='/shop' className="nav-link active" aria-current="page">Shop</Link>
 						</li>
 						<li className="nav-item">
-							<Link to='/about-us' className="nav-link" href="frontend/src/components/Navbar/Navbar#">About us</Link>
+							<Link to='/about-us' className="nav-link">About us</Link>
 						</li>
 						<li className="nav-item">
 							<Link to='/contact' className="nav-link">Contact</Link>

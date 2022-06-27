@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import './assets/scss/base.scss';
 import AuthPage from "./pages/AuthPage/AuthPage";
@@ -14,6 +13,8 @@ import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import AdPage from "./pages/AdPage/AdPage";
+import MyAds from "./pages/MyAds/MyAds";
+import AddEditProduct from "./pages/AddEditProduct/AddEditProduct";
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
@@ -23,7 +24,7 @@ function App() {
 
 	useEffect(() => {
 		if (!localStorage.hasOwnProperty('user')) {
-			// navigate('/auth');
+			navigate('/auth');
 		} else {
 			dispatch(setUser(JSON.parse(localStorage.getItem('user'))));
 		}
@@ -41,6 +42,9 @@ function App() {
 				<Route path='/contact' element={<Contact/>}/>
 				<Route path='/auth' element={<AuthPage/>}/>
 				<Route path='/user-activate/:id' element={<ActivateUserPage/>}/>
+				<Route path='/my-ads' element={<MyAds/>}/>
+				<Route path="/add-product" element={<AddEditProduct/>}/>
+				<Route path="/product/edit/:myAdId" element={<AddEditProduct/>}/>
 			</Routes>
 
 		</div>
