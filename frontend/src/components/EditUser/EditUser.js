@@ -3,7 +3,9 @@ import Modal from 'react-modal';
 import {useEffect, useState} from "react";
 import {updateUser, setUser} from "../../redux/userSlice";
 import AuthService from "../../services/authService";
-import Edit_user from "./Edit_user.scss";
+
+import customStyles from "./CustomStyle";
+import "./Edit_user.scss";
 
 
 function EditUser({showModal}) {
@@ -17,23 +19,6 @@ function EditUser({showModal}) {
     const togglePassword = () => {
         setPassIsShown((passIsShown) => !passIsShown);
     };
-
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: '50%',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            boxShadow: '0 1px 8px rgba(0, 0, 0, 0.3)',
-        },
-        overlay:{
-            position: 'absolute',
-            backgroundColor: 'transparent'
-        }
-    };
-
 
     const closeModal = (e) => {
         e.preventDefault();

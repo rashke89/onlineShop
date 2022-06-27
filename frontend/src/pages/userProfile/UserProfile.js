@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
 import EditUser from "../../components/EditUser/EditUser";
 import {useState} from "react";
-import user_profile from "./user_profile.scss";
+import  "./user_profile.scss";
 
 function UserProfile() {
     const user = useSelector((state) => state.userStore.user);
@@ -12,8 +12,8 @@ function UserProfile() {
         <div className="wrapper container-fluid mt-5">
             <div className="row">
                 <div className="col-md-4 mx-auto">
-                    <h4 className="text-center nav-link">Account settings</h4>
-                    <ul className="list-group">
+                    <h4 className="text-center">Account settings</h4>
+                    <ul className="list-group my-5">
                         <li className="list-group-item"><b>Username:</b> {user.username}</li>
                         <li className="list-group-item"><b>First name:</b> {user.firstName}</li>
                         <li className="list-group-item"><b>Last Name:</b> {user.lastName}</li>
