@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import './FilterSort.scss';
 
-function FilterSort({setSort, filterStatus, setFilterStatus }) {
-	const [ filterPrice, setFilterPrice ] = useState(0);
+function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm}) {
+
+	const handleSearch = e => {
+		setSearchTerm(e.target.value);
+	}
 
 	const handleInput = e => {
 		setFilterPrice(e.target.value);
@@ -17,18 +20,10 @@ function FilterSort({setSort, filterStatus, setFilterStatus }) {
             <i className="bi bi-x"></i>
           </span>
 				</div>
-				<div className="search mt-3">
-					<form className="d-flex search" role="search">
-						<div className="input-group">
-							<input className="form-control" type="search" placeholder="Search" aria-label="Search" />
-							<button className="btn search-btn" type="submit">Search</button>
-						</div>
-					</form>
-				</div>
 				<div className="conditions px-3">
 					<div className="row mt-5 price">
-						<label for="priceRange" className="form-label">Price: {filterPrice}</label>
-						<input type="range" onInput={handleInput} className="form-range" defaultValue="0" min="0" max="10000" id="priceRange" />
+						<label htmlFor="priceRange" className="form-label">Price: {filterPrice}</label>
+						<input type="range" onInput={handleInput} className="form-range" defaultValue="0" min="0" max="1000" step="1" id="priceRange" />
 					</div>
 					{/* <div class="row g-2">
             <h4 className="mt-5">Price</h4>
@@ -55,8 +50,14 @@ function FilterSort({setSort, filterStatus, setFilterStatus }) {
 				<button className="btn filter-btn" onClick={() => setFilterStatus(!filterStatus)}>
 					Filter
 				</button>
-				<select className="form-select mx-3 sort" aria-label="Sort" onChange={(event) =>setSort(event.target.value)}>
-					<option selected>Sort by:</option>
+				<div className="search mx-3">
+					<form className="d-flex search h-100" role="search">
+						<div className="input-group">
+							<input className="form-control" type="search" placeholder="Search" aria-label="Search" onChange={handleSearch} />
+						</div>
+					</form>
+				</div>
+				<select className="form-select sort" defaultValue="Sort by:" aria-label="Sort" onChange={(event) =>setSort(event.target.value)}>
 					<option value="highPrice">High price</option>
 					<option value="lowPrice">Low price</option>
 				</select>

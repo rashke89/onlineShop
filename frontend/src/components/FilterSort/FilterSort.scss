@@ -6,12 +6,12 @@
   height: 100%;
   background: white;
   box-shadow: 2px 2px 50px rgb(204, 204, 204);
-  overflow: scroll;
+  //overflow: scroll;
   transform: translateX(-100%);
   transition: all 0.5s ease;
   opacity: 0;
   z-index: 99;
-  //overflow: auto;
+  overflow: auto;
   padding: 2rem;
   .header {
     display: flex;
