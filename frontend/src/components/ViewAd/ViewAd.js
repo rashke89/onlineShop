@@ -4,6 +4,7 @@ import ShopService from "../../services/shopService";
 import "./view-ad.scss";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../../redux/cartSlice";
+import ShareButton from "../ShareButton/ShareButton";
 
 const productMockData = {
     category: "men's clothing",
@@ -50,7 +51,12 @@ export default function ViewAd() {
                 <p>{ad.category}</p>
                 <p>{ad.description}</p>
                 <p>{ad.price}</p>
-
+                <ShareButton
+                    url={window.location.href}
+                    title={ad.title}
+                    description={ad.description}
+                    round={true}
+                    size={32}/>
                 <button className="btn add-to-cart-btn" onClick={onAddToCart}>Add to cart</button>
             </div>
         </div>
@@ -80,8 +86,8 @@ export default function ViewAd() {
         <div className="view-ad-wrapper container">
             <div className="row">
                 <div className="col-md-12">
-                        {noParamsMsgLayout()}
-                        {ad && ad.hasOwnProperty('_id') && adLayout()}
+                    {noParamsMsgLayout()}
+                    {ad && ad.hasOwnProperty('_id') && adLayout()}
                 </div>
             </div>
         </div>
