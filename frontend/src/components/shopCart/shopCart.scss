@@ -37,7 +37,6 @@
 .shop-cart-summary {
   position: absolute;
   width: 400px;
-  height: 400px;
   overflow: scroll;
   overflow-x: hidden;
   border: 1px solid black;
@@ -54,6 +53,23 @@
   .shop-cart-item {
     border-bottom: 1px solid black;
     margin: 10px auto;
+
+    .shop-cart-delete-item{
+      i:hover{
+        color: tomato;
+      }
+    }
+    svg:hover{
+      color: #ffad06;
+      line-height: 1;
+    }
+    .shop-item-count{
+      font-weight: 500;
+    }
+    .shop-item-total-price{
+      font-size: 1.75rem;
+      font-weight: 500;
+    }
   }
 
 

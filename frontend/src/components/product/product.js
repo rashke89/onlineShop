@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import "./product.scss"
 import RatingStar from "../ratingStar/RatingStar";
+import {routeConfig} from "../../config/routeConfig";
 
 const Product=(props)=>{
 
@@ -67,7 +68,7 @@ const Product=(props)=>{
                             </p>
                         </div>
                         <div className="action-buttons gap-2">
-                            <Link  to={`/shop/product/${product._id}`} className="view-more" type="button">
+                            <Link  to={routeConfig.SHOP_PRODUCT.realUrl(product._id)} className="view-more" type="button">
                                 View more
                                 <span>
                                     <i className="bi bi-info-circle"></i>

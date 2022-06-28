@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import ShopService from "../../services/ShopService";
+import {routeConfig} from "../../config/routeConfig";
 
 const DeleteMyProduct = () => {
     const params=useParams()
@@ -9,7 +10,7 @@ const DeleteMyProduct = () => {
         let myProductId=params.myProductId;
         ShopService.deleteMyProduct(myProductId)
             .then((response)=>{
-            navigate("/myProducts")
+            navigate(routeConfig.MY_PRODUCTS.url)
 
             })
             .catch((error)=>{

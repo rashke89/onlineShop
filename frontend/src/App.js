@@ -13,6 +13,8 @@ import MyProducts from "./pages/MyProducts";
 import ActivateUserPage from "./pages/ActivateUserPage";
 import ProductPage from "./pages/ProductPage";
 import DeleteMyProduct from "./pages/DeleteMyProduct/DeleteMyProduct";
+import {routeConfig} from "./config/routeConfig";
+import AllUsersTEST from "./pages/AllUsersTEST";
 
 
 //Backend PORT
@@ -33,17 +35,19 @@ function App(){
     return(
 
            <Routes>
-               <Route path="/" element={<Home/>}/>
-               <Route path="/shop" element={<Shop/>}/>
-               <Route path="/shop/product/:productId" element={<ProductPage/>}/>
-               <Route path="/about" element={<About/>}/>
-               <Route path="/contact" element={<Contact/>}/>
-               <Route path="/auth" element={<AuthPage/>}/>
-               <Route path="/user-activate/:id" element={<ActivateUserPage/>}/>
-               <Route path="/myProducts" element={<MyProducts/>}/>
-               <Route path="/addProduct" element={<AddEddProduct/>}/>
-               <Route path="/product/edit/:myProductId" element={<AddEddProduct/>}/>
-               <Route path="/product/delete/:myProductId" element={<DeleteMyProduct/>}/>
+               <Route path={routeConfig.HOME.url} element={<Home/>}/>
+               <Route path={routeConfig.SHOP.url} element={<Shop/>}/>
+               <Route path={routeConfig.SHOP_PRODUCT.url} element={<ProductPage/>}/>
+               <Route path={routeConfig.ABOUT.url} element={<About/>}/>
+               <Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
+               <Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
+               <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
+               <Route path={routeConfig.MY_PRODUCTS.url} element={<MyProducts/>}/>
+               <Route path={routeConfig.ADD_PRODUCT.url} element={<AddEddProduct/>}/>
+               <Route path={routeConfig.EDIT_PRODUCT.url} element={<AddEddProduct/>}/>
+               <Route path={routeConfig.DELETE_PRODUCT.url} element={<DeleteMyProduct/>}/>
+               //TEST todo DELETE
+               <Route path='/api/users' element={<AllUsersTEST/>}/>
            </Routes>
 
     )

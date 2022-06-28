@@ -15,7 +15,7 @@ const Register = ({isLogin}) => {
         email:"",
         username:"",
         password: "",
-        gender:""
+        gender:"male"
 
     });
     const [isFormValid, setIsFormValid]=useState(true);
@@ -83,7 +83,7 @@ const Register = ({isLogin}) => {
                     <input type="text" className='input-field' name="city" placeholder="City" onChange={(event)=>{handleInputChange(event)}}/>
                     <label htmlFor="gender">Gender:</label>
                     <div className="gender">
-                        <select id="genderSelect" value="male" onChange={(event)=>{
+                        <select id="genderSelect" onChange={(event)=>{
                             const selectedGender=event.target.value;
                             setUserObj((prevState)=>({...prevState, gender:selectedGender}))
                         }}>
@@ -93,7 +93,7 @@ const Register = ({isLogin}) => {
                     </div>
                     <button type="submit" className="submit-btn">Register</button>
                     {!isFormValid? <p className="isFormValid animate__shakeX animate__animated animate__fast">Field with * are required</p>:null}
-                    {isApiFinish? <p className="apiFinish animate__shakeX animate__animated animate__fast">Successfully registered</p>: null}
+                    {isApiFinish? <p className="apiFinish animate__shakeX animate__animated animate__fast">Successfully registered. Check your email for activation.</p>: null}
                     {isApiError? <p className="apiError animate__shakeX animate__animated animate__fast">API ERROR. Try again</p>:null}
                 </form>
 

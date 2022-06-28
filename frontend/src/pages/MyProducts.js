@@ -45,8 +45,8 @@ const MyProducts=()=>{
                             setSort(event.target.value);
 
                         }}>
-                            <option value="lowPrice">Low price</option>
-                            <option value="highPrice">High price</option>
+                            <option value="lowPrice" >Low price</option>
+                            <option value="highPrice" selected>High price</option>
                         </select></div>
                 </div>
                 <div className="row">

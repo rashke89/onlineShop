@@ -7,6 +7,7 @@ import AuthService from "../../services/AuthService";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "../../redux/userSlice";
+import {routeConfig} from "../../config/routeConfig";
 
 
 const Login = ({isLogin}) => {
@@ -56,7 +57,7 @@ const Login = ({isLogin}) => {
                         setIsUserFound(true)
                     localStorage.setItem("user", JSON.stringify(response.data))
                     dispatch(setUser(response.data))
-                    navigate("/")
+                    navigate(routeConfig.HOME.url)
                     }
                 }
             })

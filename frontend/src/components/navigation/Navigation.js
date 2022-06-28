@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import Dropdown from "../dropdown/Dropdown";
 import logo from '../../assets/shop-icon.png'
 import ShopCart from "../shopCart/shopCart";
+import {routeConfig} from "../../config/routeConfig";
 
 
 function Navigation() {
@@ -12,7 +13,7 @@ function Navigation() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
-                <Link className="navbar-brand mb-0 h1 text-light" to="/"><img src={logo} alt="Logo"/> OnlineShop</Link>
+                <Link className="navbar-brand mb-0 h1 text-light" to={routeConfig.HOME.url}><img src={logo} alt="Logo"/> OnlineShop</Link>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -28,16 +29,16 @@ function Navigation() {
                 <div className="collapse navbar-collapse" id="navbarText">
                     <ul className="navbar-nav ms-auto ">
                         <li className="nav-item">
-                            <Link className="nav-link active text-light" aria-current="page" to="/">Home</Link>
+                            <Link className="nav-link active text-light" aria-current="page" to={routeConfig.HOME.url}>Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-light" to="/about">About</Link>
+                            <Link className="nav-link text-light" to={routeConfig.ABOUT.url}>About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-light" to="/shop">Shop</Link>
+                            <Link className="nav-link text-light" to={routeConfig.SHOP.url}>Shop</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-light" to="/contact">Contact</Link>
+                            <Link className="nav-link text-light" to={routeConfig.CONTACT.url}>Contact</Link>
                         </li>
                         <li className="nav-item">
                             <ShopCart/>
@@ -46,7 +47,7 @@ function Navigation() {
                          user.hasOwnProperty("username") ?
                              <Dropdown user={user}/>
                             :  <li className="nav-item">
-                                 <Link className="nav-link text-light" to="/auth">Login/Register</Link>
+                                 <Link className="nav-link text-light" to={routeConfig.AUTH.url}>Login/Register</Link>
                              </li>
                         }
                     </ul>

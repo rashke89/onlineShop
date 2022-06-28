@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import AuthService from "../services/AuthService";
+import {routeConfig} from "../config/routeConfig";
 
 
 const ActivateUserPage=()=>{
@@ -10,13 +11,13 @@ const ActivateUserPage=()=>{
     const [isApiFinished, setIsApiFinished]=useState(false);
     useEffect(() => {
        if(localStorage.hasOwnProperty("user")){
-           navigate("/")
+           navigate(routeConfig.HOME.url)
        }else{
         AuthService.completeRegistration({id:params.id})
             .then(response=>{
                 if(response){
                 setIsActivated(true);
-                setTimeout(navigate("/auth"),6000)
+                setTimeout(navigate(routeConfig.AUTH.url),6000)
                 }
             })
             .catch(error=>{

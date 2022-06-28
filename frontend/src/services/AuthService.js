@@ -14,6 +14,11 @@ class AuthService{
     static completeRegistration(body){
         return axios.post("/api/complete-registration", body)
     }
-}
+//TEST todo DELETE
+    static allUsersTEST(){
+       return axios.get("/api/users")
+    }
+    }
+
 
 export default AuthService;

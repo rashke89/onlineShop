@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './MyProduct.scss';
 import {Link, useNavigate} from "react-router-dom";
 import RatingStar from "../ratingStar/RatingStar";
+import {routeConfig} from "../../config/routeConfig";
 
 function MyProduct({product}) {
 	const [favorite, setFavorite] = useState(false);
@@ -49,14 +50,14 @@ function MyProduct({product}) {
 					</p>
 				</div>
 				<div className="action-buttons gap-2">
-					<Link  to={`/product/edit/${product._id}`} className="edit" type="button">
+					<Link  to={routeConfig.EDIT_PRODUCT.realUrl(product._id)} className="edit" type="button">
 						Edit
 						<span>
 						<i className="bi bi-pen"></i>
 						</span>
 					</Link>
 
-					<Link className="delete" type="button" to={`/product/delete/${product._id}`}>
+					<Link className="delete" type="button" to={routeConfig.DELETE_PRODUCT.realUrl(product._id)}>
 						Delete
 						<span>
 							<i className="bi bi-trash"></i>

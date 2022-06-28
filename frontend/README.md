@@ -206,4 +206,58 @@ ima isti id kao proizvod koji je vec dodat u store "cart".
 U sustini, proveravamo da li proizvod koji dodajemo vec postoji u cart.
 Ako se ne nalazi u cart, mi ga dodajemo. Ako se nalazi, uzimamo njegov index i updatujemo ga tako sto mu dodajemo property
 "count" i pri svakom dodavanju istog proizvoda, povecavamo count.
+------
+Remove item form cart
+-----
+U divu gde prikazujemo item u cart, dodajemo ikonicu kojoj cemo na klik da pozivamo funkciju
 
+``````
+const removeItemFromCart = (index) => {
+dispatch(removeItem(index));
+}
+``````
+U cartSlice definisemo funkciju:
+
+````
+   removeItem:(state,action)=>{
+            state.cart.splice(action.payload,1);
+        },
+````
+Poenta je da prosledimo intex proizvoda koji je u cart store-u. Na osnovu njega, u funkciji
+koju smo definisali u cartSlice, uz pomoc slice metode uklanjamo proizvod iz cart store-a
+S obzirom da smo u useEffect definisali da se komponenta ponovo renderuje na promenu cart niza,
+proizvod se uklanja i ne vidi se vise.
+
+------
+HandleCount
+------
+Unutar cartItem dodajemo ikonice minus i plus koje cemo koristiti da povecavamo broj
+proizvoda u cart.
+Definisemo jednu funkciju koja ce da dodaje ili oduzima count za taj proizvod.
+
+Metoda u cartSlice:
+````
+ handleCount:(state,action)=>{
+
+            state.cart[action.payload.index].count=
+                action.payload.isIncrement ?
+                state.cart[action.payload.index].count+1
+                :state.cart[action.payload.index].count-1;
+
+        }
+````
+
+Na click na minus ili plus, pozivamo funkciju:
+
+````
+ const handleShopCartCount = (index, isIncrement) => {
+
+        dispatch(handleCount({index,isIncrement}))
+    }
+````
+kojoj prosledjujemo index i false ako smo kliknuloi na minus i true ako smo kliknuli na plus.
+Na osnovu toga u metodi unutar cartSlice oduzimamo ili dodajemo count
+
+
+
+------
