@@ -3,6 +3,7 @@ import React from "react";
 import './order-process.scss'
 import {useSelector} from "react-redux";
 import OrderProcessStepTwo from "./components/OrderProcessStepTwo";
+import OrderProcessStepTree from "./components/OrderProcessStepTree";
 import StepperFooter from "./components/StepperFooter";
 
 function OrderProcess() {
@@ -13,6 +14,8 @@ function OrderProcess() {
             return <OrderProcessStepOne/>
         if (currentStep === 2)
             return <OrderProcessStepTwo/>
+        if (currentStep === 3)
+            return <OrderProcessStepTree/>
     }
 
     return (

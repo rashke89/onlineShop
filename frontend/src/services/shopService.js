@@ -28,6 +28,10 @@ class ShopService {
     static saveMyAd(body, myAdId){
         return axios.put(`/product/save/${myAdId}`, body)
     }
+
+    static initPayment(body) {
+        return axios.post('/api/payment/init-payment', body)
+    }
 }
 
 export default ShopService;

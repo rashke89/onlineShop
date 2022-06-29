@@ -18,7 +18,8 @@ function StepperFooter() {
         if (currentStep === 1)
             validateStepOne(number);
         if (currentStep === 2) {
-            dispatch(stepTwoIsSubmitted())
+            dispatch(stepTwoIsSubmitted());
+            dispatch(handleCurrentStep(currentStep + 1));
         }
     };
 
