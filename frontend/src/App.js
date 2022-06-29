@@ -15,6 +15,8 @@ import ProductPage from "./pages/ProductPage";
 import DeleteMyProduct from "./pages/DeleteMyProduct/DeleteMyProduct";
 import {routeConfig} from "./config/routeConfig";
 import AllUsersTEST from "./pages/AllUsersTEST";
+import Order from "./pages/Order/Order";
+import {setCart} from "./redux/cartSlice";
 
 
 //Backend PORT
@@ -26,10 +28,15 @@ function App(){
     //check if user login
  useEffect(()=>{
     if(!localStorage.hasOwnProperty("user")) {
-    // navigate('/auth');
+    navigate('/auth');
     }else {
         dispatch(setUser(JSON.parse(localStorage.getItem("user"))))
     }
+
+    // if(localStorage.hasOwnProperty('shopCart')){
+    //     dispatch(setCart(JSON.parse(localStorage.getItem('shopCart'))))
+    // }
+
  }, [])
 
     return(
@@ -46,6 +53,7 @@ function App(){
                <Route path={routeConfig.ADD_PRODUCT.url} element={<AddEddProduct/>}/>
                <Route path={routeConfig.EDIT_PRODUCT.url} element={<AddEddProduct/>}/>
                <Route path={routeConfig.DELETE_PRODUCT.url} element={<DeleteMyProduct/>}/>
+               <Route path={routeConfig.ORDER.url} element={<Order/>}/>
                //TEST todo DELETE
                <Route path='/api/users' element={<AllUsersTEST/>}/>
            </Routes>

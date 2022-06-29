@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Navigation from "../components/navigation/Navigation";
 import ShopService from "../services/ShopService";
-import Product from "../components/product/product";
+import Product from "../components/product/Product";
 
 const Shop = () => {
     const [products, setProducts] = useState([])

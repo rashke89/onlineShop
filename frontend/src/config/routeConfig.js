@@ -37,5 +37,8 @@ export const routeConfig={
     DELETE_PRODUCT:{
         url:`/product/delete/:myProductId`,
         realUrl:(myProductId)=>`/product/delete/${myProductId}`
+    },
+    ORDER:{
+        url: '/order'
     }
 }

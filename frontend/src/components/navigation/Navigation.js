@@ -4,7 +4,7 @@ import "./Navigation.css"
 import {useSelector} from "react-redux";
 import Dropdown from "../dropdown/Dropdown";
 import logo from '../../assets/shop-icon.png'
-import ShopCart from "../shopCart/shopCart";
+import ShopCart from "../shopCart/ShopCart";
 import {routeConfig} from "../../config/routeConfig";
 
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import "./product.scss"
+import "./Product.scss"
 import RatingStar from "../ratingStar/RatingStar";
 import {routeConfig} from "../../config/routeConfig";
 

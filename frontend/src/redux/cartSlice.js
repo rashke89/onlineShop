@@ -13,40 +13,51 @@ const cartSlice = createSlice({
             let foundItemIndex;
 
             //compare new product(action.payload) with products in cartSummary
-            let foundItem = state.cart.find((item,index) => {
+            let foundItem = state.cart.find((item, index) => {
                 if (item._id === newItem._id) {
-                    foundItemIndex=index;
+                    foundItemIndex = index;
                     return item;
                 }
             })
 
             //if product already in cart, update product count by index
-            if (foundItem){
-                state.cart[foundItemIndex].count+=1;
+            if (foundItem) {
+                state.cart[foundItemIndex].count += 1;
 
                 //if product new in cart, add to redux store "cart"
-            }else{
-                newItem.count=1;
+            } else {
+                newItem.count = 1;
                 state.cart.push(newItem)
             }
 
 
         },
-        removeItem:(state,action)=>{
-            state.cart.splice(action.payload,1);
+        removeItem: (state, action) => {
+            state.cart.splice(action.payload, 1);
         },
 
-        handleCount:(state,action)=>{
+        handleCount: (state, action) => {
 
-            state.cart[action.payload.index].count=
-                action.payload.isIncrement ?
-                state.cart[action.payload.index].count+1
-                :state.cart[action.payload.index].count-1;
+            if (state.cart[action.payload.index].count > 1) {
+                state.cart[action.payload.index].count =
+                    action.payload.isIncrement ?
+                        state.cart[action.payload.index].count + 1
+                        : state.cart[action.payload.index].count - 1;
+            }else if(state.cart[action.payload.index].count===1){
+                state.cart[action.payload.index].count =
+                    action.payload.isIncrement ?
+                        state.cart[action.payload.index].count + 1:1;
+            }
 
+
+        },
+
+        setCart: (state, action) => {
+            state.cart = action.payload;
         }
 
     }
 })
 
-export const {addToCart, removeItem, handleCount} = cartSlice.actions;
+export const {addToCart, removeItem, handleCount, setCart} = cartSlice.actions;
 export default cartSlice.reducer;

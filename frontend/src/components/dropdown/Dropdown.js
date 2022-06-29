@@ -1,12 +1,16 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {routeConfig} from "../../config/routeConfig";
+import {useDispatch} from "react-redux";
+import {setCart} from "../../redux/cartSlice";
 
 
 const Dropdown = ({user}) => {
+    const dispatch=useDispatch();
     const navigate=useNavigate();
     const logOut=()=>{
         localStorage.removeItem("user");
+        dispatch(setCart(""))
         navigate(routeConfig.AUTH.url);
     }
     const displayUsername=" "+user.username.charAt(0).toUpperCase() + user.username.slice(1);

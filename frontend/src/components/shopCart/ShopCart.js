@@ -1,8 +1,12 @@
-import "./shopCart.scss"
+import "./ShopCart.scss"
 import React, {useEffect, useRef, useState} from 'react';
-import {FaCartPlus, FaMinusCircle, FaPlusCircle} from "react-icons/fa";
-import {useDispatch, useSelector} from "react-redux";
-import {handleCount, removeItem} from "../../redux/cartSlice";
+import {FaCartPlus} from "react-icons/fa";
+import { useSelector} from "react-redux";
+
+import {Link} from "react-router-dom";
+import {routeConfig} from "../../config/routeConfig";
+import Count from "../count/Count";
+import DeleteCartItem from "../deleteCartItem/DeleteCartItem";
 
 
 const ShopCart = () => {
@@ -11,8 +15,11 @@ const ShopCart = () => {
     const shopCartWrapperRef = useRef();
     const [isCart, setIsCart] = useState(false);
     const cartSummary = useRef();
-    const dispatch = useDispatch();
+
     useEffect(() => {
+
+
+
         if (!shopCartWrapperRef.current) {
             return
         }
@@ -21,24 +28,27 @@ const ShopCart = () => {
             setIsCart(true)
 
 
+
         } else {
             setIsCart(false)
 
+
         }
+
+
     }, [cart]);
+
+
+    
 
     const displayCartSummary = () => {
         cartSummary.current.classList.toggle("displayCartSummary")
     }
 
-    const removeItemFromCart = (index) => {
-        dispatch(removeItem(index));
-    }
 
-    const handleShopCartCount = (index, isIncrement) => {
 
-        dispatch(handleCount({index,isIncrement}))
-    }
+
+
 
 
     return (
@@ -59,27 +69,14 @@ const ShopCart = () => {
                             </div>
                             <div className="col-5">
                                 <h6 className="text-center">{product.title}</h6>
-                                {product.count>1 &&
-                                    <p>
-                                        Count: <FaMinusCircle onClick={() => {
-                                        handleShopCartCount(index, false)
-                                    }}/><span
-                                        className="shop-item-count mx-2">{product.count}</span><FaPlusCircle
-                                        onClick={() => {
-                                            handleShopCartCount(index, true)
-                                        }}/>
-                                    </p>}
+                                {product.count>1 && <Count product={product} index={index} key={index}/>
+                                   }
                                 <p className=""> Total: <span
                                     className="shop-item-total-price"><sup>$</sup>{product.price * product.count}</span>
                                 </p>
                             </div>
-                            <div className="shop-cart-delete-item col-2 text-center"
-                                 onClick={() => {
-                                     removeItemFromCart(index)
-                                 }}>
-                                <i className="bi bi-trash-fill"></i>
-                            </div>
 
+                            <DeleteCartItem index={index}/>
 
                         </div>
                     })
@@ -87,7 +84,10 @@ const ShopCart = () => {
                     }
                     <div className="row text-center">
                         <div className="col-6 m-auto">
-                            {cart.length ? <button className="btn btn-secondary m-auto">Go to shopCart</button> :
+                            {cart.length ?
+                                <Link to={routeConfig.ORDER.url}>  <button className="btn btn-secondary m-auto" >Go to shopCart</button> </Link>
+
+                                :
                                 <p>No products</p>}
 
                         </div>

@@ -1,5 +1,5 @@
 import Navigation from "../components/navigation/Navigation";
-import ProductView from "../components/productView/productView";
+import ProductView from "../components/productView/ProductView";
 
 const ProductPage=()=>{
 
