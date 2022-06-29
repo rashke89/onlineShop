@@ -1,0 +1,21 @@
+.order-process-step-one-wrapper{
+  user-select: none;
+  .table{
+    tbody{
+      img{
+        height: 50px;
+        width: 50px;
+      }
+    }
+    .shop-item-total-price{
+      font-size: 1.75rem;
+      font-weight: 500;
+    }
+    .shop-cart-delete-item{
+        i:hover{
+          color: tomato;
+        }
+
+    }
+  }
+}
