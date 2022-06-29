@@ -6,7 +6,6 @@
   height: 100%;
   background: white;
   box-shadow: 2px 2px 50px rgb(204, 204, 204);
-  //overflow: scroll;
   transform: translateX(-100%);
   transition: all 0.5s ease;
   opacity: 0;
@@ -30,8 +29,7 @@
   }
 }
 
-.filter-btn,
-.search-btn {
+.filter-btn {
   background-color: #1daaa3;
   border-radius: 0;
   border: 1px solid #1daaa3;
@@ -41,6 +39,20 @@
     background-color: #fff;
     border: 1px solid #1daaa3;
     color: #1daaa3;
+  }
+}
+
+.search {
+  position: relative;
+  span {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    z-index: 10;
+    i {
+      color: #6C757D;
+    }
   }
 }
 

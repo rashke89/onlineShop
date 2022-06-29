@@ -48,16 +48,21 @@ function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFil
 		<>
 			<div className="d-flex justify-content-start container my-5">
 				<button className="btn filter-btn" onClick={() => setFilterStatus(!filterStatus)}>
+					<i className="bi bi-funnel me-2"></i>
 					Filter
 				</button>
 				<div className="search mx-3">
 					<form className="d-flex search h-100" role="search">
 						<div className="input-group">
-							<input className="form-control" type="search" placeholder="Search" aria-label="Search" onChange={handleSearch} />
+							<input className="form-control" type="search" placeholder="Search" aria-label="Search..." onChange={handleSearch} />
+							<span>
+								<i className="bi bi-search"></i>
+							</span>
 						</div>
 					</form>
 				</div>
 				<select className="form-select sort" defaultValue="Sort by:" aria-label="Sort" onChange={(event) =>setSort(event.target.value)}>
+					<option>Sort by:</option>
 					<option value="highPrice">High price</option>
 					<option value="lowPrice">Low price</option>
 				</select>
