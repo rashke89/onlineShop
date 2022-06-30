@@ -6,12 +6,32 @@ import FilterSort from "../../components/FilterSort/FilterSort";
 
 function Shop({filterStatus, setFilterStatus}) {
 	const [ads, setAds] =useState([]);
-	const [ filterPrice, setFilterPrice ] = useState(0);
+	const [filterPrice, setFilterPrice] = useState(0);
 	const [searchTerm, setSearchTerm] = useState("");
 	const[sort, setSort]=useState("");
 	let sortedAds;
 	let filteredAds;
 	let searchedAds;
+
+// Search
+	useEffect(() => {
+		if(searchTerm !== "") {
+			shopService.getSearchedAds(searchTerm)
+				.then(res => {
+					if(res.status === 200) {
+						searchedAds = res.data;
+					}
+
+					// if(searchTerm) {
+					// 	searchedAds = searchedAds.filter(ad => { return ad.title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1})
+					// }
+					setAds(searchedAds);
+
+				})
+				.catch(err => console.log(err))
+		}
+
+	}, [searchTerm]);
 
 	// Sort
 	useEffect(() => {
@@ -19,14 +39,13 @@ function Shop({filterStatus, setFilterStatus}) {
 			.then((res) => {
 				if (res.status === 200)
 
-					sortedAds=res.data;
+				sortedAds = res.data;
 
+				if(sort === "lowPrice"){
+					sortedAds= sortedAds.sort((a, b) => a.price - b.price);
+				}else if(sort === "highPrice"){
 
-				if(sort==="lowPrice"){
-					sortedAds= sortedAds.sort((a, b)=> a.price - b.price);
-				}else if(sort==="highPrice"){
-
-					sortedAds= sortedAds.sort((a, b)=> b.price - a.price);
+					sortedAds= sortedAds.sort((a, b) => b.price - a.price);
 				}
 				setAds(sortedAds)
 
@@ -38,41 +57,26 @@ function Shop({filterStatus, setFilterStatus}) {
 
 	// Filter
 	useEffect(() => {
-		shopService.getAds()
-			.then(res => {
-				if(res.status === 200) {
-					filteredAds = res.data;
-				}
+		if(filterPrice !== 0) {
+			shopService.getFilteredAds(filterPrice)
+				.then(res => {
+					if(res.status === 200) {
+						filteredAds = res.data;
+					}
 
-				if(filterPrice > 0) {
-					filteredAds = filteredAds.filter(ad => { return ad.price < parseInt(filterPrice, 10) })
-				}
-				setAds(filteredAds);
-			})
-			.catch(err => console.log(err))
+					// if(filterPrice > 0) {
+					// 	filteredAds = filteredAds.filter(ad => { return ad.price < parseInt(filterPrice, 10) })
+					// }
+					setAds(filteredAds);
+				})
+				.catch(err => console.log(err))
+		}
 	}, [filterPrice]);
-
-	// Search
-	useEffect(() => {
-		shopService.getAds()
-			.then(res => {
-				if(res.status === 200) {
-					searchedAds = res.data;
-				}
-
-				if(searchTerm) {
-					searchedAds = searchedAds.filter(ad => { return ad.title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1})
-				}
-				setAds(searchedAds);
-
-			})
-			.catch(err => console.log(err))
-	}, [searchTerm]);
 
 	return (
 		<div className="shop-wrapper container">
 			<div className="row">
-				<FilterSort setSort={setSort} filterStatus={filterStatus} setFilterStatus={setFilterStatus} filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm} />
+				<FilterSort setSort={setSort} filterStatus={filterStatus} setFilterStatus={setFilterStatus} filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm}/>
 			</div>
 			{/*<div className="shopNav d-flex justify-content-end m-auto container mt-3">*/}
 

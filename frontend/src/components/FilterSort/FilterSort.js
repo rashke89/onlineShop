@@ -55,9 +55,6 @@ function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFil
 					<form className="d-flex search h-100" role="search">
 						<div className="input-group">
 							<input className="form-control" type="search" placeholder="Search" aria-label="Search..." onChange={handleSearch} />
-							<span>
-								<i className="bi bi-search"></i>
-							</span>
 						</div>
 					</form>
 				</div>

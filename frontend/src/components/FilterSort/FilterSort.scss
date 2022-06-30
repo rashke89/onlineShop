@@ -42,20 +42,6 @@
   }
 }
 
-.search {
-  position: relative;
-  span {
-    position: absolute;
-    top: 50%;
-    right: 5%;
-    transform: translateY(-50%);
-    z-index: 10;
-    i {
-      color: #6C757D;
-    }
-  }
-}
-
 .sort {
   border-radius: 0;
   border: 1px solid #1daaa3;
