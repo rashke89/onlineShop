@@ -135,6 +135,7 @@ const AddEddProduct=()=>{
                                        id="description"
                                        name="description"
                                        placeholder="Description"
+                                       maxLength="240"
                                        defaultValue={product.hasOwnProperty("title")? product.description: ""}
                                        onChange={(event)=>{handleInputChange(event)}}/>
                                 <label htmlFor="description">*Description</label>

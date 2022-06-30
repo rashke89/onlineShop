@@ -37,20 +37,6 @@ const Product=(props)=>{
                 // </div>
                 <div className="product-card-wrapper col-md-4 mt-2 mb-3 d-flex  align-items-stretch">
                     <div className="card product-card " >
-                        {/*<div className="product-card-header">*/}
-                        {/*	/!* Bonus: remove badge after 7 days *!/*/}
-                        {/*	/!*<span className="badge bg-danger">New</span>*!/*/}
-                        {/*	<div*/}
-                        {/*		className={favorite ? "favorite set-favorite" : "favorite"}*/}
-                        {/*		onClick={() => setFavorite(!favorite)}*/}
-                        {/*	>*/}
-                        {/*		{favorite ? (*/}
-                        {/*			<i className="bi bi-heart-fill"></i>*/}
-                        {/*		) : (*/}
-                        {/*			<i className="bi bi-heart"></i>*/}
-                        {/*		)}*/}
-                        {/*	</div>*/}
-                        {/*</div>*/}
                         <img
                             src={product.imgUrl}
                             className="card-img-top img-fluid w-75 mx-auto"
