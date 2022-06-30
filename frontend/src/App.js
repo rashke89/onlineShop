@@ -50,7 +50,7 @@ function App() {
 
     return (
         <div className="main-wrapper">
-            <CookiesModal />
+            {!JSON.parse(localStorage.getItem('cookie')) &&  <CookiesModal />}
             <Navigation/>
             <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>
