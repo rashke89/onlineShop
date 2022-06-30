@@ -1,5 +1,6 @@
 import React from "react"
 import Navigation from "../components/navigation/Navigation";
+import ContactForm from "../components/contactForm/contactForm";
 
 const Contact=()=>{
 
@@ -7,7 +8,7 @@ const Contact=()=>{
         <>
        <Navigation/>
             <div className="container contact-page-wrapper">
-                <h1>Contact page</h1>
+             <ContactForm/>
 
             </div>
         </>
