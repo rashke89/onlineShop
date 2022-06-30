@@ -105,11 +105,21 @@ const AddEddProduct=()=>{
                         <h2 className="text-center mb-5">{isAddProduct? "Add product":"Edit product"}</h2>
                         <form onSubmit={(event)=>{onSubmit(product,product._id,event)}}>
                             <div className="form-floating mb-3">
-                                <input type="text" name="title" className="form-control" id="title" placeholder="Title" value={product.hasOwnProperty("title")? product.title: ""} onChange={(event)=>{handleInputChange(event)}} />
+                                <input type="text" name="title"
+                                       className="form-control"
+                                       id="title"
+                                       placeholder="Title"
+                                       defaultValue={product.hasOwnProperty("title")? product.title: ""}
+                                       onChange={(event)=>{handleInputChange(event)}} />
                                 <label htmlFor="title">*Title</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <select className="form-select" id="category" name="category" aria-label="Category" onChange={(event)=>{
+                                <select className="form-select"
+                                        id="category"
+                                        name="category"
+                                        aria-label="Category"
+                                        defaultValue={"1"}
+                                        onChange={(event)=>{
                                     const selectedCategory=event.target.value
                                     setProduct((prevState) =>({...prevState,category:selectedCategory}))
                                 }}>
@@ -120,15 +130,31 @@ const AddEddProduct=()=>{
                                 <label htmlFor="category">Category</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input type="text" className="form-control" id="description" name="description" placeholder="Description" value={product.hasOwnProperty("title")? product.description: ""} onChange={(event)=>{handleInputChange(event)}}/>
+                                <input type="text"
+                                       className="form-control"
+                                       id="description"
+                                       name="description"
+                                       placeholder="Description"
+                                       defaultValue={product.hasOwnProperty("title")? product.description: ""}
+                                       onChange={(event)=>{handleInputChange(event)}}/>
                                 <label htmlFor="description">*Description</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input type="number" className="form-control" id="price" name="price" placeholder="Price" value={product.hasOwnProperty("title")? product.price: ""} onChange={(event)=>{handleInputChange(event)}}/>
+                                <input type="number"
+                                       className="form-control"
+                                       id="price" name="price"
+                                       placeholder="Price"
+                                       defaultValue={product.hasOwnProperty("title")? product.price: ""}
+                                       onChange={(event)=>{handleInputChange(event)}}/>
                                 <label htmlFor="price">*Price</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input type="text" className="form-control" id="imgUrl" name="imgUrl" placeholder="Image URL" value={product.hasOwnProperty("title")? product.imgUrl: ""} onChange={(event)=>{handleInputChange(event)}}/>
+                                <input type="text"
+                                       className="form-control"
+                                       id="imgUrl" name="imgUrl"
+                                       placeholder="Image URL"
+                                       defaultValue={product.hasOwnProperty("title")? product.imgUrl: ""}
+                                       onChange={(event)=>{handleInputChange(event)}}/>
                                 <label htmlFor="imgUrl">Image URL</label>
                             </div>
                             <button type="submit" className="btn btn-secondary mt-3">{(isAddProduct)? 'Add product':"Save"}</button>

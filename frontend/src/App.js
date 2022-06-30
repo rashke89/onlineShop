@@ -17,6 +17,7 @@ import {routeConfig} from "./config/routeConfig";
 import AllUsersTEST from "./pages/AllUsersTEST";
 import Order from "./pages/Order/Order";
 import {setCart} from "./redux/cartSlice";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 //Backend PORT

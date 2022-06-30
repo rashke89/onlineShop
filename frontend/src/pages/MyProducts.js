@@ -41,12 +41,12 @@ const MyProducts=()=>{
                 <div className="d-flex justify-content-between m-auto container mt-3 mb-3">
                     <Link className="btn btn btn-secondary" to="/addProduct">Add product</Link>
                     <div><span>Sort by: </span>
-                        <select  onChange={(event)=>{
+                        <select defaultValue={"lowPrice"}  onChange={(event)=>{
                             setSort(event.target.value);
 
                         }}>
                             <option value="lowPrice" >Low price</option>
-                            <option value="highPrice" selected>High price</option>
+                            <option value="highPrice">High price</option>
                         </select></div>
                 </div>
                 <div className="row">
