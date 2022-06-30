@@ -32,6 +32,18 @@ app.get("/shop/products", (req, res) => {
 	})
 })
 
+// get shop product details
+app.get("/api/products/:productId", (req, res) => {
+	Product.findOne((error, data) => {
+		if(error) {
+			console.log(error);
+			res.send("Product details could not be loaded.")
+			return;
+		}
+		res.send(data || "Product not found.");
+	})
+})
+
 // get my products
 app.get("/product/getMyProducts/:userId", (req, res) => {
 	const userId = req.params.userId;

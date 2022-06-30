@@ -9,7 +9,6 @@ class ShopService {
         return axios.get(`/product/getMyProducts/${userId}`);
     }
 
-
     static addMyProduct(body){
         return axios.post("/product/addMyProduct", body)
     }
@@ -22,8 +21,8 @@ class ShopService {
         return axios.get(`/product/getMyProduct/${myProductId}`);
     }
 
-    static getAdById(adId) {
-        return axios.get(`/api/products/${adId}`);
+    static getProductById(productId) {
+        return axios.get(`/api/products/${productId}`);
     }
 
     static getTopRatedProduct(num){
