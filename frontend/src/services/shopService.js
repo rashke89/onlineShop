@@ -5,20 +5,21 @@ class ShopService {
         return axios.get("/shop/products");
     }
 
-    static getMyAds(userId) {
-        return axios.get(`/product/my-ads/${userId}`);
+    static getMyProducts(userId) {
+        return axios.get(`/product/getMyProducts/${userId}`);
     }
 
-    static getMyAd(myAdId) {
-        return axios(`/product/getMyAd/${myAdId}`);
+
+    static addMyProduct(body){
+        return axios.post("/product/addMyProduct", body)
     }
 
-    static saveMyAd(body, myAdId) {
-        return axios(`/product/getMyAd/${myAdId}`);
+    static saveMyProduct(body, myProductId) {
+        return axios.put(`/product/save/${myProductId}`, body);
     }
 
-    static addProduct(body) {
-        return axios.get("/product/addMyProduct", body);
+    static getMyProduct(myProductId) {
+        return axios.get(`/product/getMyProduct/${myProductId}`);
     }
 
     static getAdById(adId) {

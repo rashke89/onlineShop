@@ -3,12 +3,12 @@ import {Link} from "react-router-dom";
 import ShopService from "../../services/shopService";
 import Product from "../../components/Product/Product";
 
-function MyAds() {
+function MyProducts() {
 	const [products, setProducts] = useState([]);
 	const user = JSON.parse(localStorage.getItem("user"))._id;
 
 	useEffect(() => {
-	    ShopService.getMyAds(user)
+	    ShopService.getMyProducts(user)
 				.then(res => {
 					if(res.status === 200) {
 						setProducts(res.data)
@@ -41,4 +41,4 @@ function MyAds() {
 	);
 }
 
-export default MyAds;
+export default MyProducts;

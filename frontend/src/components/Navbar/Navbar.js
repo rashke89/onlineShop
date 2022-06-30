@@ -31,7 +31,7 @@ const Navbar = () => {
 						</a>
 					</li>
 					<li>
-						<Link to="my-ads" className="dropdown-item" href="#">
+						<Link to="myProducts" className="dropdown-item" href="#">
 							<i className="bi bi-card-list me-2"></i>
 							My ads
 						</Link>

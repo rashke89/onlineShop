@@ -33,7 +33,7 @@ app.get("/shop/products", (req, res) => {
 })
 
 // get my products
-app.get("/product/my-ads/:userId", (req, res) => {
+app.get("/product/getMyProducts/:userId", (req, res) => {
 	const userId = req.params.userId;
 	Product.find({userId: userId}, (error, data) => {
 		if(error) {
@@ -44,32 +44,33 @@ app.get("/product/my-ads/:userId", (req, res) => {
 })
 
 // add my product
-app.post("/product/addMyProduct", (req, res) => {
-	const reqBody = req.body;
+app.post("/product/addMyProduct", (req,res)=>{
 
+	const reqBody=req.body;
 	Product.findOne(reqBody, async (err, data) => {
-		if(err) {
-			console.log("Error while adding product.");
-			res.send(err);
+		// console.log(data);
+		if (err) {
+			const errorMsg = `Error on register user: ${err}`;
+			console.log(errorMsg);
+			res.send(errorMsg);
 			return;
 		}
 
-		if(data) {
-			res.send("Product already exists.")
-		} else {
+		if (data) res.send(`Product already exist.`);
+		else {
 			const newProduct = new Product(reqBody);
 			const saveNewProduct = await newProduct.save();
-			console.log("Product added", saveNewProduct);
-			res.send(saveNewProduct || "Product not added.");
+			console.log("Saved product",saveNewProduct);
+			res.send(saveNewProduct || 'Product not saved.');
 		}
-	})
+	});
 })
 
 // get my product
-app.get('/product/getMyAd/:myAdId', (req, res) => {
-	const myAdId = req.params.myAdId;
+app.get('/product/getMyProduct/:myProductId', (req, res) => {
+	const myProductId=req.params.myProductId;
 
-	Product.findOne({_id: myAdId}, (error, data) => {
+	Product.findOne({_id: myProductId}, (error, data) => {
 		if(error) {
 			console.log(error);
 			res.send(error);
@@ -79,10 +80,10 @@ app.get('/product/getMyAd/:myAdId', (req, res) => {
 })
 
 // update my product
-app.put('/product/getMyAd/:myAdId', (req, res) => {
-	const params = req.params.myAdId;
+app.put('/product/save/:myProductId', (req, res) => {
+	const params = req.params.myProductId;
 
-	Product.updateOne({"_id": params}, req.body, null, (error, result) => {
+	Product.updateOne({_id: params}, req.body, null, (error, result) => {
 		if(error) throw error;
 		res.send(result);
 	})
