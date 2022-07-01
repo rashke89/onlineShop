@@ -23,7 +23,7 @@
       .ad-heading {
         color: #222;
         font-size: 28px;
-        font-weight: 600;
+        font-weight: 700;
         line-height: 39px;
         letter-spacing: 0.84px;
         margin-top: 0;
@@ -56,6 +56,7 @@
   }
 //BOTTOM TWO
   .static {
+
     .discount-box {
       display: inline-block;
       background-color: #1daaa3;
@@ -117,7 +118,7 @@
     .discount-img-box {
       position: relative;
       text-align: center;
-      width: 90%;
+      background-color: black;
       &:before {
         background-color: rgba(0, 0, 0, 0.451);
         content: "";
@@ -129,14 +130,14 @@
       }
 
       img {
-        max-width: 100%;
+        max-width: 89%;
         height: auto;
       }
     }
 
     .discount-img-content {
       position: absolute;
-      top: 35%;
+      top: 30%;
       left: 0;
       right: 0;
       margin: 0 auto;
@@ -191,15 +192,25 @@
 
 .reverse {
   flex-direction: row-reverse;
+  padding-right: 10px;
   .shop-now {
     bottom: 10px;
     left: 5%;
   }
 }
 
+  //position: relative;
+  //    background-color: #f7f7f7;
+  //    display: flex;
+  //    margin-bottom: 30px;
+  //    padding-bottom: 60px;
+  //    padding-top: 60px;
+  //    padding-left: 10px;
+  //    border: 1px solid red;
+
 .right{
   .img{
-    width: 100%;
+    width: 80%;
   }
 }
 
