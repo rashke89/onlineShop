@@ -45,7 +45,7 @@ function ShopCart() {
                     {item.count > 1 && <p>Count: <FaMinusCircle className="mx-2" onClick={() => handleShopCartCount(index, false)} /> {item.count}
                     <FaPlusCircle className="mx-2" onClick={() => handleShopCartCount(index, true)}/></p>}
 
-                    <p className="fw-bold">{item.price * item.count} $</p>
+                    <p className="fw-bold">{item.totalPrice} $</p>
                 </div>
                 <div className="col-md-1 remove-icon-wrapper">
                     <FaTrashAlt onClick={() => {removeItemFromCart(index)}} />

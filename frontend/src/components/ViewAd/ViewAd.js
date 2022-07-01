@@ -26,7 +26,6 @@ export default function ViewAd() {
     useEffect(() => {
         if (params.adId) {
             getAd();
-            // setAd(productMockData);
         } else {
             setIsParamsAvailable(false);
         }
@@ -59,7 +58,6 @@ export default function ViewAd() {
     const getAd = () => {
         ShopService.getAdById(params.adId)
             .then(response => {
-                console.log(response);
                 if (response.status === 200) {
                     setAd(response.data);
                 }

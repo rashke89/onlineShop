@@ -9,7 +9,16 @@ function OrderProcessStepTwo() {
 
 
     useEffect(() => {
-        dispatch(updateStepTwoForm({...form, ...user}))
+        let userObj = {
+            email: user?.email,
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+            address: user?.address,
+            city: user?.city,
+            postCode: user?.postCode,
+            phoneNumber: user?.phoneNumber,
+        }
+        dispatch(updateStepTwoForm({...form, ...userObj}))
     }, [])
 
     useEffect(() => {
@@ -26,8 +35,15 @@ function OrderProcessStepTwo() {
         dispatch(updateStepTwoForm(newForm));
     };
 
+    const handleCheckboxChange = e => {
+        console.log(e);
+        let newForm = {...form};
+        newForm[e.target.id] = e.target.checked;
+        dispatch(updateStepTwoForm(newForm));
+    }
+
     const errorMsgLayout = (formProperty) => {
-        return isSubmit && !formProperty ? <small id="emailHelp" className="form-text text-danger">Required field</small> : null;
+        return isSubmit && !formProperty ? <small id="emailHelp" className="form-text text-danger d-block">Required field</small> : null;
     }
     return (
         <>
@@ -59,6 +75,17 @@ function OrderProcessStepTwo() {
                             <input type="text" className="form-control" id="address" defaultValue={form?.address} onChange={e => handleFormChange(e)}/>
                             {errorMsgLayout(form?.address)}
                         </div>
+
+                        <div className="mb-3 form-check">
+                            <input type="checkbox" className="form-check-input" id="terms" onChange={e => handleCheckboxChange(e)}/>
+                            <label className="form-check-label" htmlFor="terms">Accept terms</label>
+                            {errorMsgLayout(form?.terms)}
+                        </div>
+                        <div className="mb-3 form-check">
+                            <input type="checkbox" className="form-check-input" id="conditions" onChange={e => handleCheckboxChange(e)}/>
+                            <label className="form-check-label" htmlFor="conditions">Accept conditions</label>
+                            {errorMsgLayout(form?.conditions)}
+                        </div>
                     </div>
                     <div className="col-md-6">
                         <div className="mb-3 form-group">
@@ -79,14 +106,6 @@ function OrderProcessStepTwo() {
                     </div>
                 </div>
 
-                <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="terms"/>
-                    <label className="form-check-label" htmlFor="terms">Accept terms</label>
-                </div>
-                <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="conditions"/>
-                    <label className="form-check-label" htmlFor="conditions">Accept conditions</label>
-                </div>
             </form> }
 
         </>

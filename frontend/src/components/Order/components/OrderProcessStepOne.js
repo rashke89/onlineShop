@@ -7,10 +7,6 @@ function OrderProcessStepOne() {
     const {cart} = useSelector(state => state.cartStore);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        console.log('order proces step 1...', cart);
-    }, [cart]);
-
     const handleShopCartCount = (index, isIncrement) => {
         dispatch(handleCount({index, isIncrement}))
     }
@@ -33,7 +29,7 @@ function OrderProcessStepOne() {
                         {item.count}
                         <FaPlusCircle className="mx-2" onClick={() => handleShopCartCount(index, true)}/>
                     </td>
-                    <td>{item.price * item.count}</td>
+                    <td>{item.totalPrice}</td>
                     <td><FaTrashAlt onClick={() => {removeItemFromCart(index)}} /></td>
                 </tr>
             )
