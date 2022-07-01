@@ -2,3 +2,17 @@
   height: 100%;
   background-color: #f3f3f3;
 }
+
+.btn {
+  background-color: #1daaa3;
+  border-radius: 0;
+  border: 1px solid #1daaa3;
+  color: #fff;
+  padding: 10px 20px;
+
+  &:hover {
+    background-color: #fff;
+    border: 1px solid #1daaa3;
+    color: #1daaa3;
+  }
+}

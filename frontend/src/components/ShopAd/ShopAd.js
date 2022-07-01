@@ -13,21 +13,15 @@ function ShopAd(props) {
         setAd(props.ad)
     }, []);
 
-    // unmount
-    useEffect(() => {
-        return () => {
-            console.log('test unmount');
-        }
-    });
     return (
         <>
-            {ad?.image ? <div className="shop-ad-wrapper col-md-3">
+            {ad?.imgUrl ? <div className="shop-ad-wrapper col-md-3">
                 <div className="shop-ad-content-wrapper">
-                    <img src={ad.image} className="img img-fluid" alt=""/>
+                    <img src={ad.imgUrl} className="img img-fluid" alt=""/>
                     <p className="shop-ad-title">{ad.title}</p>
-                    <p>Rate: {ad.rating.rate}</p>
+                    <p>Rate: {ad.rating}</p>
                     <p className="shop-ad-price">{ad.price}$</p>
-                    <Link to={routeConfig.AD_SHOP.realUrl(ad.id)} className="view-more-btn">
+                    <Link to={routeConfig.AD_SHOP.realUrl(ad._id)} className="view-more-btn">
                         <p className="view-more-btn-text">View Product</p>
                     </Link>
                 </div>

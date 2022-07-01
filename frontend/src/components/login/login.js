@@ -14,10 +14,6 @@ function Login({showLoginForm}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-            console.log('password is');
-    }, [userData?.username]);
-
     const onHandleInput = (e) => {
         let newInput = userData;
         newInput[e.target.name] = e.target.value;
