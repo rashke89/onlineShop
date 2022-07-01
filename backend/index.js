@@ -49,6 +49,30 @@ app.get('/shop/products', (req,res)=>{
 	})
 })
 
+// random 6 Masonry products
+app.get('/api/home', (req,res)=>{
+
+	Product.find((error,data)=>{
+		if(error){
+			console.log(error);
+			res.send("ERROR. TRY AGAIN.");
+			return;
+		}
+		if (data) {
+            let copyData = [...data];
+            let randSix = [];
+            for (let i = 0; i < 4; i++) {
+                let rand = Math.floor(Math.random() * copyData.length);
+                randSix.push(copyData[rand]);
+                copyData.splice(rand,1);
+            }
+             res.send(randSix);
+        } else {
+            res.send("Product dont found")
+        }
+	})
+})
+
 //get product
 app.get("/shop/product/:productId", (req, res) => {
 	const productId = req.params.productId;
