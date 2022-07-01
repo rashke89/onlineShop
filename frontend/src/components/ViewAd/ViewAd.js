@@ -4,6 +4,7 @@ import ShopService from "../../services/shopService";
 import "./view-ad.scss";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../../redux/cartSlice";
+import HeaderProduct from "../HeaderProduct/HeaderProduct";
 
 const productMockData = {
     category: "men's clothing",
@@ -77,7 +78,8 @@ export default function ViewAd() {
     };
 
     return (
-        <div className="view-ad-wrapper container">
+        <div className="view-ad-wrapper container-fluid p-0">
+            <HeaderProduct productInfo={ad} />
             <div className="row">
                 <div className="col-md-12">
                         {noParamsMsgLayout()}

@@ -11,7 +11,7 @@ function CookiesModal() {
   useEffect(() => {
     setTimeout(() => {
       setModalShow(true)
-    }, 2000)
+    }, 5000)
   }, [])
 
   const setCookie = (e) => {

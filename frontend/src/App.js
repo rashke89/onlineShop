@@ -22,6 +22,7 @@ import AddEddProduct from "./pages/AddEddProduct/AddEddProduct";
 import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
 import CookiesModal from './components/cookies/CookiesModal'
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from "./components/Footer/Footer";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -67,6 +68,7 @@ function App() {
                 <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
                 <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
             </Routes>
+            <Footer/>
         </div>
     );
 }
