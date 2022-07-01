@@ -1,32 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
+import React, { useState, useEffect } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
-import './CookiesModal.scss'
-import CookieSvg from './CookieSvg'
+import './CookiesModal.scss';
+import CookieSvg from './CookieSvg';
 
 function CookiesModal() {
-  const [modalShow, setModalShow] = useState(false)
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setModalShow(true)
-    }, 5000)
-  }, [])
+    // setTimeout(() => {
+    //   setModalShow(true)
+    // }, 5000)
 
-  const onClickUnderstand = (e) => {
+    if (localStorage.hasOwnProperty('cookie')) {
+      setModalShow(false);
+    } else {
+      setTimeout(() => {
+        setModalShow(true);
+      }, 5000);
+    }
+  }, []);
+
+  const onCookieHandler = (e) => {
     if (e.target.name === 'accept') {
-      localStorage.setItem('accept', true)
-      setModalShow(false)
+      localStorage.setItem('cookie', true);
+      setModalShow(false);
     }
-  }
-
-  const onClickDeckline = (e) => {
     if (e.target.name === 'decline') {
-      localStorage.setItem('accept', false)
+      localStorage.setItem('cookie', false);
+      setModalShow(false);
     }
-    setModalShow(false)
-  }
+  };
 
   return (
     <>
@@ -59,14 +64,14 @@ function CookiesModal() {
             <Button
               name='decline'
               className='btn btn-lg btn-warning'
-              onClick={onClickDeckline}
+              onClick={onCookieHandler}
             >
               I Decline
             </Button>
             <Button
               name='accept'
               className='btn btn-lg btn-danger'
-              onClick={onClickUnderstand}
+              onClick={onCookieHandler}
             >
               I Understand
             </Button>
@@ -74,7 +79,7 @@ function CookiesModal() {
         </Modal>
       )}
     </>
-  )
+  );
 }
 
-export default CookiesModal
+export default CookiesModal;
