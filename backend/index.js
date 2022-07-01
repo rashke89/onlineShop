@@ -34,7 +34,8 @@ app.get("/shop/products", (req, res) => {
 
 // get shop product details
 app.get("/api/products/:productId", (req, res) => {
-	Product.findOne((error, data) => {
+	const productId = req.params.productId;
+	Product.findOne({_id: productId}, (error, data) => {
 		if(error) {
 			console.log(error);
 			res.send("Product details could not be loaded.")

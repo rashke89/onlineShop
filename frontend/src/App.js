@@ -7,7 +7,7 @@ import Shop from "./pages/Shop/Shop";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Navbar from "./components/Navbar/Navbar";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Home from './components/Home/Home';
 import {useDispatch} from "react-redux";
 import {setUser} from "./redux/userSlice";
@@ -19,6 +19,7 @@ import AddEditProduct from "./pages/AddEditProduct/AddEditProduct";
 axios.defaults.baseURL = 'http://localhost:4000';
 
 function App() {
+	const [viewCartItems, setViewCartItems] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -31,9 +32,9 @@ function App() {
 	}, []);
 
 	return (
-		<div className="App">
+		<div className={`main-wrapper ${viewCartItems ? 'cart-view-opened' : ''}`}>
 
-			<Navbar/>
+			<Navbar viewCartItems={viewCartItems} setViewCartItems={setViewCartItems}/>
 			<Routes>
 				<Route path='/' element={<Home/>}/>
 				<Route path='/shop' element={<Shop/>}/>

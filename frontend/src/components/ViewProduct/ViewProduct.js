@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import ShopService from "../../services/shopService";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/cartSlice";
 
 function ViewProduct() {
 	const [product, setProduct] = useState({});
 	const [isParamsAvailable, setIsParamsAvailable] = useState(true);
 	const [isApiFinished, setIsApiFinished] = useState(false);
 	const params = useParams();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if(params.productId) {
@@ -20,10 +23,14 @@ function ViewProduct() {
 		return !isParamsAvailable ? <p>Product not found. </p> : null;
 	}
 
+	const addToCartHandler = () => {
+		dispatch(addToCart(product));
+	}
+
 	const productLayout = () => {
 		return <div className="product-wrapper row mt-5">
 			<div className="col-md-6">
-				<img src={product.imgUrl} alt={product.title}/>
+				<img src={product.imgUrl} alt={product.title} className="img-fluid"/>
 			</div>
 			<div className="col-md-6">
 				<h3>{product.title}</h3>
@@ -31,13 +38,13 @@ function ViewProduct() {
 				<p>{product.description}</p>
 				<p>{product.price}</p>
 
-				<button className="btn btn-primary add-to-cart-btn">Add to cart</button>
+				<button className="btn btn-primary add-to-cart-btn" onClick={addToCartHandler}>Add to cart</button>
 			</div>
 		</div>
 	}
 
 	const getProduct = () => {
-		ShopService.getProductById(params._id)
+		ShopService.getProductById(params.productId)
 			.then(response => {
 				if(response.status === 200) {
 					setProduct(response.data);
@@ -51,7 +58,6 @@ function ViewProduct() {
 			})
 			.finally(() => {
 				setIsApiFinished(true);
-				console.log('product...', product);
 			})
 	}
 
