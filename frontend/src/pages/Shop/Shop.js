@@ -6,7 +6,7 @@ import FilterSort from "../../components/FilterSort/FilterSort";
 
 function Shop({filterStatus, setFilterStatus}) {
     const [ads, setAds] = useState([]);
-    const [filterPrice, setFilterPrice] = useState(0);
+    const [filterPrice, setFilterPrice] = useState('');
     const [searchTerm, setSearchTerm] = useState("");
     const [sort, setSort] = useState("");
     let sortedAds;
@@ -63,7 +63,11 @@ function Shop({filterStatus, setFilterStatus}) {
 
     // Filter
     useEffect(() => {
-        if (filterPrice !== 0) {
+
+
+        if (filterPrice !=='' && filterPrice!=='0') {
+
+
             shopService.getFilteredAds(filterPrice)
                 .then(res => {
                     if (res.status === 200) {
@@ -76,6 +80,15 @@ function Shop({filterStatus, setFilterStatus}) {
                     setAds(filteredAds);
                 })
                 .catch(err => console.log(err))
+        }else{
+            console.log("5. TEST");
+            shopService.getAds()
+                .then((res) => {
+                    if (res.status === 200) {
+                        setAds(res.data)
+                    }
+                })
+                .catch(err => console.log(err));
         }
     }, [filterPrice]);
 
@@ -83,6 +96,15 @@ function Shop({filterStatus, setFilterStatus}) {
 
     }, [ads])
 
+    // function getAllAds(){
+    //     return shopService.getAds()
+    //         .then((res) => {
+    //             if (res.status === 200) {
+    //                 setAds(res.data)
+    //             }
+    //         })
+    //         .catch(err => console.log(err));
+    // }
     return (
         <div className="shop-wrapper container">
             <div className="row">
