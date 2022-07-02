@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import shopService from '../../services/shopService';
 import ShopAd from "../../components/ShopAd/ShopAd";
 import './shop.scss';
+import '../../assets/scss/base.scss';
 
 function Shop() {
     const [ads, setAds] =useState([]);
@@ -43,9 +44,9 @@ function Shop() {
                     </select></div>
             </div>
             <div className="row">
-                {ads.map((element) => {
+                {ads.length > 0 ? ads.map((element) => {
                     return <ShopAd ad={element} key={element._id}/>
-                })}
+                }) : <div className="loader"></div>}
             </div>
         </div>
     );
