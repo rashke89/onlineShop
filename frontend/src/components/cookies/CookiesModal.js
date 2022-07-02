@@ -14,19 +14,17 @@ function CookiesModal() {
     }, 5000)
   }, [])
 
-  const onClickUnderstand = (e) => {
+  const setCookie = (e) => {
     if (e.target.name === 'accept') {
-      localStorage.setItem('accept', true)
+      localStorage.setItem('cookie', true)
       setModalShow(false)
     }
-  }
-
-  const onClickDeckline = (e) => {
-    if (e.target.name === 'decline') {
-      localStorage.setItem('accept', false)
+    else if (e.target.name === 'decline') {
+      localStorage.setItem('cookie', false)
     }
     setModalShow(false)
   }
+
 
   return (
     <>
@@ -59,14 +57,14 @@ function CookiesModal() {
             <Button
               name='decline'
               className='btn btn-lg btn-warning'
-              onClick={onClickDeckline}
+              onClick={setCookie}
             >
               I Decline
             </Button>
             <Button
               name='accept'
               className='btn btn-lg btn-danger'
-              onClick={onClickUnderstand}
+              onClick={setCookie}
             >
               I Understand
             </Button>
