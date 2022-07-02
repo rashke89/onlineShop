@@ -3,6 +3,7 @@ import shopService from '../../services/shopService';
 import ShopAd from "../../components/ShopAd/ShopAd";
 import './shop.scss';
 import FilterSort from "../../components/FilterSort/FilterSort";
+import '../../assets/scss/base.scss';
 
 function Shop({filterStatus, setFilterStatus}) {
     const [ads, setAds] = useState([]);
@@ -89,21 +90,10 @@ function Shop({filterStatus, setFilterStatus}) {
                 <FilterSort setSort={setSort} filterStatus={filterStatus} setFilterStatus={setFilterStatus}
                             filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm}/>
             </div>
-            {/*<div className="shopNav d-flex justify-content-end m-auto container mt-3">*/}
-
-            {/*	<div><span>Sort by: </span>*/}
-            {/*		<select  onChange={(event)=>{*/}
-            {/*			setSort(event.target.value);*/}
-
-            {/*		}}>*/}
-            {/*			<option value="lowPrice">Low price</option>*/}
-            {/*			<option value="highPrice">High price</option>*/}
-            {/*		</select></div>*/}
-            {/*</div>*/}
             <div className="row">
-                {ads.map((element) => {
+                {ads.length > 0 ? ads.map((element) => {
                     return <ShopAd ad={element} key={element._id}/>
-                })}
+                }) : <div className="loader"></div>}
             </div>
         </div>
     );
