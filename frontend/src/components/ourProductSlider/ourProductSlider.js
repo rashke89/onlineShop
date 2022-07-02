@@ -48,7 +48,7 @@ function OurProductSlider() {
                             </span>
                         </a>
                         <p className="hover-content">
-                            <a href=""><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            <a href=""><i className="fa fa-shopping-cart"></i>Add to cart</a>
                         </p>
                     </div>
                 })}
