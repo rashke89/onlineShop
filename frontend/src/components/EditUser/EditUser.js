@@ -72,33 +72,33 @@ function EditUser({showModal}) {
 
                 {!isValidForm ? <p className="notification red">All fields are required!</p> : null}
                 {isApiFinish ? <p className="notification green">Successfuly updated!</p> : null}
-                {isApiErr ? <p className="notification red">ERROR:Ooops, something wrong, please try later!</p> : null}
+                {isApiErr ? <p className="notification red">ERROR:Ooops, something went wrong, please try later!</p> : null}
 
                 <form onSubmit={onSubmitForm} method="post">
                     <div className="row">
                         <div className="col-md-6">
-                            <label htmlFor="username">Username</label>
+                            <label className="label" htmlFor="username">Username</label>
                             <input className="form-control" name="username" type="text" id="username"
                                    value={editedUser.username || ''}
                                    onChange={onHandleInput}/>
 
-                            <label htmlFor="firstName">First name</label>
+                            <label className="label" htmlFor="firstName">First name</label>
                             <input className="form-control" name="firstName" type="text" id="firstName"
                                    value={editedUser.firstName || ''}
                                    onInput={onHandleInput}/>
 
-                            <label htmlFor="lastName">Last name</label>
+                            <label className="label" htmlFor="lastName">Last name</label>
                             <input className="form-control" name="lastName" type="text" id="lastName"
                                    value={editedUser.lastName || ''}
                                    onChange={onHandleInput}/>
 
-                            <label htmlFor="password">Password</label>
+                            <label className="label" htmlFor="password">Password</label>
                             <input className="form-control" name="password" type={passIsShown ? "text" : "password"}
                                    id="password"
                                    value={editedUser.password || ''}
                                    onInput={onHandleInput}/>
                             <div className="checkbox-container">
-                                <label htmlFor="checkbox">Show password? </label>
+                                <label className="label" htmlFor="checkbox">Show password? </label>
                                 <input className="mx-1"
                                     id="checkbox"
                                     type="checkbox"
@@ -108,17 +108,17 @@ function EditUser({showModal}) {
                             </div>
                         </div>
                         <div className="col-md-6">
-                            <label htmlFor="email">Email</label>
+                            <label className="label" htmlFor="email">Email</label>
                             <input className="form-control " name="email" type="email" id="email"
                                    value={editedUser.email || ''}
                                    onInput={onHandleInput}/>
 
-                            <label htmlFor="address">Address</label>
+                            <label className="label" htmlFor="address">Address</label>
                             <input className="form-control" type="text" id="address" name="address"
                                    value={editedUser.address || ''}
                                    onInput={onHandleInput}/>
 
-                            <label htmlFor="city">City</label>
+                            <label className="label" htmlFor="city">City</label>
                             <input className="form-control" type="text" id="city" name="city"
                                    value={editedUser.city || ''}
                                    onInput={onHandleInput}/>

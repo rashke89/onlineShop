@@ -4,7 +4,9 @@ class ShopService {
     static getAds() {
         return axios.get('/shop/products');
     }
-
+      static getRandomAds() {
+        return axios.get('/api/home');
+    }
     static getAdById(adId) {
         return axios.get(`/shop/product/${adId}`);
     }

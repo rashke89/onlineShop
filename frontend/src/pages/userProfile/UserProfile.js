@@ -12,7 +12,7 @@ function UserProfile() {
         <div className="wrapper container-fluid mt-5">
             <div className="row">
                 <div className="col-md-4 mx-auto">
-                    <h4 className="text-center">Account settings</h4>
+                    <h4 className="text-center heading">Account settings</h4>
                     <ul className="list-group my-5">
                         <li className="list-group-item"><b>Username:</b> {user.username}</li>
                         <li className="list-group-item"><b>First name:</b> {user.firstName}</li>
