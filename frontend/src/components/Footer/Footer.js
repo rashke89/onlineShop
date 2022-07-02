@@ -50,7 +50,7 @@ function Footer() {
         </a>
       </section>
 
-      <section className="footer-info">
+      <section className="footer-info container">
         <article>
           <h2>About The Store</h2>
           <ul>
@@ -62,17 +62,14 @@ function Footer() {
               </p>
             </li>
             <li>
-              {" "}
               <FaPhoneAlt /> &nbsp; Call Us 08 523 456 78
             </li>
             <li>
               <a href="#">
-                {" "}
                 <FaMailBulk /> &nbsp; Info@ourdomain.Com
               </a>
             </li>
             <li>
-              {" "}
               <FaMapMarkerAlt /> &nbsp; Melbourne, Australia.
             </li>
           </ul>
