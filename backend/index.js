@@ -49,6 +49,30 @@ app.get('/shop/products', (req,res)=>{
 	})
 })
 
+// get filtered products
+app.get("/api/filteredAds/:price", (req, res) => {
+	const price = req.params.price;
+	Product.find({ price: {$lt: price }}, (error, data) => {
+		if(error) {
+			console.log(error);
+			res.send(error);
+		}
+		res.send(data);
+	})
+})
+
+// get searched products
+app.get("/api/product/search/:searchTerm", (req, res) => {
+	const searchTerm = req.params.searchTerm;
+	Product.find({ title: {$regex: searchTerm, "$options": "i" }}, (error, data) => {
+		if(error) {
+			console.log(error);
+			res.send(error);
+		}
+		res.send(data);
+	})
+})
+
 //get product
 app.get("/shop/product/:productId", (req, res) => {
 	const productId = req.params.productId;

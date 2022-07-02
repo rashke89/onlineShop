@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import './assets/scss/base.scss';
 
@@ -27,6 +27,7 @@ export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
 
 function App() {
+    const [filterStatus, setFilterStatus] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -49,12 +50,12 @@ function App() {
     }
 
     return (
-        <div className="main-wrapper">
+        <div className={`main-wrapper ${filterStatus ? 'filter-opened' : ''}`}>
             <CookiesModal />
             <Navigation/>
             <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>
-                <Route path={routeConfig.SHOP.url} element={<Shop/>}/>
+                <Route path={routeConfig.SHOP.url} element={<Shop filterStatus={filterStatus} setFilterStatus={setFilterStatus}/>}/>
                 <Route path={routeConfig.AD_SHOP.url} element={<AdPage/>}/>
                 <Route path={routeConfig.ABOUT.url} element={<About/>}/>
                 <Route path={routeConfig.CONTACT.url} element={<Contact/>}/>

@@ -11,6 +11,12 @@ class ShopService {
     static getTopRatedProduct(num){
         return axios.get("/api/top-products/" + num)
     }
+    static getFilteredAds(price) {
+        return axios.get(`/api/filteredAds/${price}`);
+    }
+    static getSearchedAds(searchTerm) {
+        return axios.get(`/api/product/search/${searchTerm}`)
+    }
     static addProduct(body){
         return axios.post("/product/add/", body )
     }

@@ -13,7 +13,6 @@ function ShopCart() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(cart);
         if (!shopCartWrapperRef.current) {
             return;
         }
