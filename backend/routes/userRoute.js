@@ -7,7 +7,7 @@ const {loginUser, registerUser, completeUserRegistration, deleteUser, getAllUser
 const router=express.Router();
 
 //LOGIN
-router.post('/login',loginUser);
+router.post('/login',validate,loginUser);
 
 //LOGIN END
 
@@ -33,5 +33,14 @@ router.get('/:username',getUserByUsername)
 
 router.put('/:username',updateUserByUsername)
 
+
+function validate(req,res,next){
+    let body=req.body;
+    if(!body.username || !body.password){
+        res.send("User name and password are required")
+        return;
+    }
+    next();
+}
 
 module.exports=router;

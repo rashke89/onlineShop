@@ -68,8 +68,11 @@ const AddEddProduct=()=>{
     const editProduct=(body,myProductId)=>{
         return  ShopService.saveMyProduct(body, myProductId)
             .then((response)=>{
+                if(response.status===200){
                 setIsProductUpdated(true)
                 navigate(routeConfig.MY_PRODUCTS.url)
+
+                }
             })
             .catch((error)=>{
                 setIsUpdateError(true)

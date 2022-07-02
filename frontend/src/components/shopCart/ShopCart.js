@@ -60,7 +60,7 @@ const ShopCart = () => {
                 <span
                     className={`${isCart ? "displayBadge" : null} cartBadge badge rounded-pill bg-warning text-dark`}>{cart.length}</span>
                 <div ref={cartSummary} className="shop-cart-summary container text-dark p-2 ">
-                    {cart.map((product, index) => {
+                    { cart?.map((product, index) => {
 
                         return <div className="shop-cart-item row" key={index}>
 

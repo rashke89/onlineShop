@@ -9,7 +9,7 @@ const Product=require("./models/productModel")
 const userRouter=require('./routes/userRoute')
 const nodemailer = require("nodemailer");
 const Emails = require("./models/emailModel");
-
+const paymentRouter=require('./routes/paymentRouter')
 
 
 //CONNECT TO MONGO DB
@@ -204,7 +204,7 @@ app.post('/api/send-message', async (req, res) => {
     res.send();
 });
 
-
+app.use('/api/payment', paymentRouter)
 
 
 //Server TEST

@@ -10,7 +10,7 @@ const StepperFooter = () => {
     const {currentStep} = useSelector(state => state.orderProcessStore.orderProcess);
     const dispatch = useDispatch();
     const {cart} = useSelector(state => state.cartStore)
-    const {isSubmit}=useSelector(state=>state.orderProcessStore.orderProcess.stepTwo);
+    const {isSubmit} = useSelector(state => state.orderProcessStore.orderProcess.stepTwo);
 
     useEffect(() => {
 
@@ -24,7 +24,8 @@ const StepperFooter = () => {
         }
 
         if (currentStep === 2) {
-        dispatch(stepTwoIsSubmitted())
+            dispatch(stepTwoIsSubmitted())
+            dispatch(handleCurrentStep(currentStep + 1))
         }
 
     }
@@ -55,7 +56,7 @@ const StepperFooter = () => {
                 {currentStep <= 3 ? <button className="btn btn-secondary"
                                             onClick={(event) => next()}>{currentStep === 3 ? "Pay" : "Next step"}</button> : null}
             </div>
-                <ToastContainer/>
+            <ToastContainer/>
 
         </>
 

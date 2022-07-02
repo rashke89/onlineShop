@@ -3,6 +3,7 @@ import OrderProcessStepOne from "./components/orderProcessStepOne/OrderProcessSt
 import {useSelector} from "react-redux";
 import OrderProcessStepTwo from "./components/orderProcessStepTwo/OrderProcessStepTwo";
 import StepperFooter from "./components/stepperFooter/StepperFooter";
+import OrderProcessStepThree from "./components/orderProcessStepThree/OrderProcessStepThree";
 
 const OrderProcess = () => {
 
@@ -14,6 +15,8 @@ const OrderProcess = () => {
             return <OrderProcessStepOne/>
         }else if(currentStep===2){
             return <OrderProcessStepTwo/>
+        }else if(currentStep===3){
+            return <OrderProcessStepThree/>
         }
     }
     return (

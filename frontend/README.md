@@ -261,3 +261,24 @@ Na osnovu toga u metodi unutar cartSlice oduzimamo ili dodajemo count
 
 
 ------
+Stripe
+-------
+Prvo instaliramo stripe
+
+````
+npm i stripe
+````
+Na backendu na pravimo API call koji ce da se okine kada preko frontenda posaljemo zahtev za
+payment.
+
+Kreiramo const payment gde definisemo iznos, valutu, nacin placanja itd.
+````
+const payment= await stripeLib.paymentIntents.create({
+    amount:10,
+    currency:"eur",
+    automatic_payment_methods:{
+        enabled:true
+    },
+});
+````
+!!!!---Ovaj payment ustvari salje Secret Key Stripe-u.---!!!!
