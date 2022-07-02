@@ -1,5 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import MessageService from "../../services/messageService";
+import { useNavigate } from "react-router-dom";
+import { routeConfig } from "../../config/routeConfig";
 import './contact-form.scss';
 
 function ContactForm() {
@@ -29,8 +31,8 @@ function ContactForm() {
             <div className="errorMessage">Something went wrong, please try again.</div>
     }
 
-    // * SELECT MESSAGE
-    const contactFormMessage = useRef();
+    // * NAVIGATE
+    const navigate = useNavigate();
 
     // * STATES FOR FORM VALIDATION, MESSAGE FOR USER, AND API CALL
     const [isSent, setIsSent] = useState(false);
@@ -82,9 +84,9 @@ function ContactForm() {
             })
             .finally(() => {
                 setIsApiFinished(true);
-                setInterval(function () {
-                    contactFormMessage.current.classList.add('hidden');
-                }, 5000)
+                setTimeout(function () {
+                    navigate(routeConfig.SHOP.url)
+                }, 3000)
             })
     }
 
@@ -142,7 +144,7 @@ function ContactForm() {
                                 <br />
                             </div>
 
-                            <div ref={contactFormMessage}>
+                            <div>
                                 {
                                     isApiFinished ?
                                         showMsg() :

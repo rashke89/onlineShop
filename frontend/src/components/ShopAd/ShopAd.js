@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./shopAd.scss";
-import {routeConfig} from "../../config/routeConfig";
+import { routeConfig } from "../../config/routeConfig";
 
 function ShopAd(props) {
     // state can change
@@ -17,7 +17,7 @@ function ShopAd(props) {
         <>
             {ad?.imgUrl ? <div className="shop-ad-wrapper col-md-3">
                 <div className="shop-ad-content-wrapper">
-                    <img src={ad.imgUrl} className="img img-fluid" alt=""/>
+                    <img src={ad.imgUrl} className="img img-fluid" alt="" />
                     <p className="shop-ad-title">{ad.title}</p>
                     <p>Rate: {ad.rating}</p>
                     <p className="shop-ad-price">{ad.price}$</p>
