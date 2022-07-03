@@ -23,6 +23,7 @@ import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
 import CookiesModal from './components/cookies/CookiesModal'
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./components/Footer/Footer";
+import UnsubscribePage from "./pages/UnsubscribePage/UnsubscribePage";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -52,11 +53,12 @@ function App() {
 
     return (
         <div className={`main-wrapper ${filterStatus ? 'filter-opened' : ''}`}>
-            {!JSON.parse(localStorage.getItem('cookie')) &&  <CookiesModal />}
+            {!JSON.parse(localStorage.getItem('cookie')) && <CookiesModal/>}
             <Navigation/>
             <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>
-                <Route path={routeConfig.SHOP.url} element={<Shop filterStatus={filterStatus} setFilterStatus={setFilterStatus}/>}/>
+                <Route path={routeConfig.SHOP.url}
+                       element={<Shop filterStatus={filterStatus} setFilterStatus={setFilterStatus}/>}/>
                 <Route path={routeConfig.AD_SHOP.url} element={<AdPage/>}/>
                 <Route path={routeConfig.ABOUT.url} element={<About/>}/>
                 <Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
@@ -68,6 +70,7 @@ function App() {
                 <Route path="/product/edit/:myAdId" element={<AddEddProduct/>}/>
                 <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
                 <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
+                <Route path={routeConfig.UNSUBSCRIBE.url} element={<UnsubscribePage/>}/>
             </Routes>
             <Footer/>
         </div>
