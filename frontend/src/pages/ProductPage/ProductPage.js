@@ -1,7 +1,7 @@
 import React from 'react';
 import ViewProduct from "../../components/ViewProduct/ViewProduct";
 
-function ProductPage() {
+const ProductPage = () => {
 	return (
 		<div className="ad-page-wrapper">
 			<ViewProduct />

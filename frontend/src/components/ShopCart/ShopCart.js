@@ -1,33 +1,27 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './shop-cart.scss';
-import {useDispatch, useSelector} from "react-redux";
-import {handleCount, removeItem} from "../../redux/cartSlice";
+import {useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import Count from "../Count/Count";
+import RemoveCartItem from "../RemoveCartItem/RemoveCartItem";
+import {routeConfig} from "../../config/routeConfig";
 
-function ShopCart({viewCartItems, setViewCartItems}) {
+const ShopCart = ({viewCartItems, setViewCartItems}) => {
 	const {cart} = useSelector(state => state.cartStore);
 	const shopCartWrapperRef = useRef();
-	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (!shopCartWrapperRef.current) {
 			return;
 		}
 
-		// TODO: refactor
 		if (cart.length) {
 			shopCartWrapperRef.current.classList.add('show-badge');
+			localStorage.setItem('shopCart', JSON.stringify(cart));
 		} else {
 			shopCartWrapperRef.current.classList.remove('show-badge');
 		}
 	}, [cart]);
-
-	const removeItemFromCart = (index) => {
-		dispatch(removeItem(index));
-	}
-
-	const handleShopCartCount = (index, isIncrement) => {
-		dispatch(handleCount({index, isIncrement}));
-	}
 
 	const shopCartItemsLayout = () => {
 		return (
@@ -38,6 +32,12 @@ function ShopCart({viewCartItems, setViewCartItems}) {
 						<i className="bi bi-x"></i>
 					</span>
 				</div>
+				{cart.length > 0 ?
+					<div className="go-to-cart my-3">
+						<Link to={routeConfig.ORDER.url} className="btn btn-outline-secondary" onClick={() => setViewCartItems(!viewCartItems)}>Order</Link>
+					</div> :
+					<h3>Cart is empty</h3>
+				}
 				<div className="cart-sidebar-items">
 					{cart.map((item, index) => {
 						return <div className="cart-sidebar-item row mt-5" key={index}>
@@ -49,20 +49,8 @@ function ShopCart({viewCartItems, setViewCartItems}) {
 								<p className="price">$ {item.price * item.count}</p>
 							</div>
 							<div className="col-md-3 col-right">
-								{item.count > 1 &&
-									<div className="p-0 count">
-										<i className="bi bi-dash"
-											 onClick={() => handleShopCartCount(index, false)}>
-										</i>
-										{item.count && <p className="m-0">{item.count}</p>}
-										<i className="bi bi-plus"
-											 onClick={() => handleShopCartCount(index, true)}>
-										</i>
-									</div>
-								}
-								<i className="bi bi-trash remove"
-									 onClick={() => removeItemFromCart(index)}>
-								</i>
+								{item.count > 1 && <Count item={item} index={index}/>}
+								<RemoveCartItem index={index} />
 							</div>
 						</div>
 					})}

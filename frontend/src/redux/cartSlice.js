@@ -27,11 +27,16 @@ const cartSlice = createSlice({
 			state.cart.splice(action.payload, 1);
 		},
 		handleCount: (state, action) => {
-			let count = state.cart[action.payload.index].count;
-			state.cart[action.payload.index].count = action.payload.isIncrement ? count + 1 : count - 1;
+			let cartState = state.cart[action.payload.index].count;
+			let count = action.payload.isIncrement ? cartState + 1 : cartState - 1;
+
+			state.cart[action.payload.index].count = count < 1 ? 1 : count;
+		},
+		setCart: (state, action) => {
+			state.cart = action.payload;
 		}
 	}
 })
 
-export const {addToCart, removeItem, handleCount} = cartSlice.actions;
+export const {addToCart, removeItem, handleCount, setCart} = cartSlice.actions;
 export default cartSlice.reducer;

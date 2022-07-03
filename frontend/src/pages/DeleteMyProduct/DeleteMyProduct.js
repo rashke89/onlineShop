@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import ShopService from "../../services/shopService";
 import {routeConfig} from "../../config/routeConfig";
 
-function DeleteMyProduct() {
+const DeleteMyProduct = () => {
 	const params = useParams();
 	const navigate = useNavigate();
 

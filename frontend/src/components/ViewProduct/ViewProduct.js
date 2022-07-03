@@ -4,7 +4,7 @@ import ShopService from "../../services/shopService";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../../redux/cartSlice";
 
-function ViewProduct() {
+const ViewProduct = () => {
 	const [product, setProduct] = useState({});
 	const [isParamsAvailable, setIsParamsAvailable] = useState(true);
 	const [isApiFinished, setIsApiFinished] = useState(false);

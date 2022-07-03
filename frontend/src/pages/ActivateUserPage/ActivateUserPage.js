@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import AuthService from "../../services/authService";
 import {routeConfig} from "../../config/routeConfig";
 
-function ActivateUserPage() {
+const ActivateUserPage = () => {
 	const navigate = useNavigate();
 	const params = useParams();
 	const [isActivated, setIsActivated] = useState(false);

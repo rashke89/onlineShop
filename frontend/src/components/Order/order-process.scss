@@ -1,0 +1,40 @@
+.step-one-wrapper {
+  text-align: center;
+  .header {
+    border: 1px solid #ddd;
+  }
+  .cart-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  img {
+    width: 40%;
+  }
+  .price {
+    font-size: 1.5rem;
+  }
+  .count {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+  }
+  .remove {
+    cursor: pointer;
+    transition: all .2s ease;
+    font-size: 1.5rem;
+    &:hover {
+      color: #dc3545;
+    }
+  }
+}
+
+.stepper-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

@@ -4,7 +4,7 @@ import ShopService from "../../services/shopService";
 import Product from "../../components/Product/Product";
 import {routeConfig} from "../../config/routeConfig";
 
-function MyProducts() {
+const MyProducts = () => {
 	const [products, setProducts] = useState([]);
 	const user = JSON.parse(localStorage.getItem("user"))._id;
 

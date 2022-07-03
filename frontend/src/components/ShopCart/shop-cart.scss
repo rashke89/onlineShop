@@ -87,12 +87,12 @@
       align-items: center;
       height: 50%;
       border-radius: 5px;
-      border: 1px solid #dddddd;
-
+      border: 1px solid #ddd;
     }
     .remove {
       margin: 0.5rem auto 0 auto;
       transition: all .2s ease;
+      font-size: 1.5rem;
       &:hover {
         color: #dc3545;
       }

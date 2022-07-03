@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react";
-// import Navigation from "../../components/navigation/Navigation";
 import {useNavigate, useParams} from "react-router-dom";
 import ShopService from "../../services/shopService";
 import {routeConfig} from "../../config/routeConfig";
-// import {routeConfig} from "../../config/routeConfig";
 
-const AddEddProduct=()=>{
+const AddEddProduct = () =>{
 	const navigate=useNavigate();
 	const params=useParams();
 	const [isProductUpdated, setIsProductUpdated]=useState(false)

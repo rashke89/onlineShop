@@ -36,5 +36,8 @@ export const routeConfig = {
 	DELETE_PRODUCT: {
 		url: '/product/delete/:myProductId',
 		fullUrl: (myProductId) => `/product/delete/${myProductId}`
+	},
+	ORDER: {
+		url: '/order'
 	}
 }

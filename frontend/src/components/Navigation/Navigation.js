@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import ShopCart from "../ShopCart/ShopCart";
 import {routeConfig} from "../../config/routeConfig";
 
-const Navbar = ({viewCartItems, setViewCartItems}) => {
+const Navigation = ({viewCartItems, setViewCartItems}) => {
 	// state - redux store
 	const user = useSelector((state) => state.userStore.user);
 	const navigate = useNavigate();
@@ -57,7 +57,7 @@ const Navbar = ({viewCartItems, setViewCartItems}) => {
 	return (
 		<nav className="navbar navbar-expand-md bg-light">
 			<div className="container-fluid">
-				<Link to={routeConfig.HOME.url} className="navbar-brand" href="frontend/src/components/Navbar/Navbar#">Navbar</Link>
+				<Link to={routeConfig.HOME.url} className="navbar-brand" href="frontend/src/components/Navigation/Navigation#">Navigation</Link>
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse"
 								data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 								aria-label="Toggle navigation">
@@ -88,4 +88,4 @@ const Navbar = ({viewCartItems, setViewCartItems}) => {
 	);
 };
 
-export default Navbar;
+export default Navigation;
