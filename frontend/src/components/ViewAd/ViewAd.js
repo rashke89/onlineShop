@@ -4,6 +4,8 @@ import ShopService from "../../services/shopService";
 import "./view-ad.scss";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../../redux/cartSlice";
+import HeaderProduct from "../HeaderProduct/HeaderProduct";
+import ShareButton from "../ShareButton/ShareButton";
 
 const productMockData = {
     category: "men's clothing",
@@ -26,7 +28,6 @@ export default function ViewAd() {
     useEffect(() => {
         if (params.adId) {
             getAd();
-            // setAd(productMockData);
         } else {
             setIsParamsAvailable(false);
         }
@@ -50,7 +51,12 @@ export default function ViewAd() {
                 <p>{ad.category}</p>
                 <p>{ad.description}</p>
                 <p>{ad.price}</p>
-
+                <ShareButton
+                    url={window.location.href}
+                    title={ad.title}
+                    description={ad.description}
+                    round={true}
+                    size={32}/>
                 <button className="btn add-to-cart-btn" onClick={onAddToCart}>Add to cart</button>
             </div>
         </div>
@@ -59,7 +65,6 @@ export default function ViewAd() {
     const getAd = () => {
         ShopService.getAdById(params.adId)
             .then(response => {
-                console.log(response);
                 if (response.status === 200) {
                     setAd(response.data);
                 }
@@ -76,11 +81,12 @@ export default function ViewAd() {
             });
     };
     return (
-        <div className="view-ad-wrapper container">
-            <div className="row">
+        <div className="view-ad-wrapper container-fluid p-0">
+            <HeaderProduct productInfo={ad} />
+            <div className="row mt-5">
                 <div className="col-md-12">
-                        {noParamsMsgLayout()}
-                        {ad && ad.hasOwnProperty('_id') && adLayout()}
+                    {noParamsMsgLayout()}
+                    {ad && ad.hasOwnProperty('_id') && adLayout()}
                 </div>
             </div>
         </div>

@@ -2,38 +2,66 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import ShopService from "../../../services/shopService";
 import {loadStripe} from "@stripe/stripe-js";
-import {Elements, PaymentElement} from "@stripe/react-stripe-js";
+import {Elements, PaymentElement, useElements, useStripe} from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe('pk_test_51LE86WICBi42q51NTvYro1xsDdciS1c7P588igQVzS0sAF64k9cDdJxlyxufgIeSdQcI7v83lPO4MPrzqGtdG3yV00n15bVGRe')
 
-function OrderProcessStepTree() {
-    const {cart} = useSelector(state => state.cartStore);
+function OrderProcessStepTree({sk}) {
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const submitPayment = async () => {
+        if (!stripe || !elements || !sk)
+            return;
+
+        const paymentResponse  = await stripe.confirmPayment({
+            elements,
+            confirmParams: {
+                // Make sure to change this to your payment completion page
+                return_url: "http://localhost:3000/order",
+            },
+        });
+    }
+
+    return (
+        <>
+            {stripe && <div>
+                <h1>step 3</h1>
+                <PaymentElement/>
+                <button className="btn" onClick={e => submitPayment()}>Submit</button>
+            </div>}
+        </>
+    )
+}
+
+function StripeElements() {
     const [sk, setSk] = useState('');
-    const dispatch = useDispatch();
+    const {cart} = useSelector(state => state.cartStore);
+    const options = {
+        clientSecret: sk
+    };
 
     useEffect(() => {
-        console.log('order proces step 3...', cart);
-        ShopService.initPayment({amount: 300})
+        console.log(cart);
+        let sumPrice = cart.reduce((state, item) => {
+            return state + item.totalPrice;
+        }, 0)
+
+        console.log(sumPrice);
+        ShopService.initPayment({amount: sumPrice})
             .then(response => {
                 console.log(response.data);
                 setSk(response.data)
             })
             .catch(err => console.log(err))
     }, []);
-
-    const options = {
-        clientSecret: sk
-    }
-
     return (
         <>
             {sk && <Elements stripe={stripePromise} options={options}>
-                <h1>step 3</h1>
-                <PaymentElement/>
+                <OrderProcessStepTree sk={sk}/>
             </Elements>}
-
         </>
     )
 }
 
-export default OrderProcessStepTree;
+export default StripeElements;

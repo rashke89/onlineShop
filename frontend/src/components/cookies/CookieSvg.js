@@ -11,7 +11,7 @@ function CookieSvg() {
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
       >
-        <g id='cookies-svgrepo-com 1' clip-path='url(#clip0_1_4)'>
+        <g id='cookies-svgrepo-com 1' clipPath='url(#clip0_1_4)'>
           <g>
             <path
               id='Vector'

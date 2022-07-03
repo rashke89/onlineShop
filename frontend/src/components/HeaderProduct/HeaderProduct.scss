@@ -1,0 +1,12 @@
+
+.header-wrapper{
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(11, 11, 11, 0.500), rgba(13, 13, 13, 0.850));
+    h2{
+        text-transform: uppercase;
+        color: white;
+    }
+}

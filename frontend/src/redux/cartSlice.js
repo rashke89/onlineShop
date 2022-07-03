@@ -13,7 +13,7 @@ const cartSlice = createSlice({
             let foundItemIndex;
             // TODO: id -> _id
             let foundItem = state.cart.find((item, index) => {
-                if (item.id === newItem.id) {
+                if (item._id === newItem._id) {
                     foundItemIndex = index;
                     return item;
                 }
@@ -21,8 +21,10 @@ const cartSlice = createSlice({
 
             if (foundItem) {
                 state.cart[foundItemIndex].count = state.cart[foundItemIndex].count + 1;
+                state.cart[foundItemIndex].totalPrice = state.cart[foundItemIndex].count * state.cart[foundItemIndex].price
             } else {
                 newItem.count = 1;
+                newItem.totalPrice = newItem.price;
                 state.cart.push(newItem);
             }
         },
@@ -32,8 +34,10 @@ const cartSlice = createSlice({
         },
         handleCount: (state,
         action) => {
-            let count = action.payload.isIncrement ? state.cart[action.payload.index].count + 1 : state.cart[action.payload.index].count -1;
+            let product = state.cart[action.payload.index];
+            let count = action.payload.isIncrement ? product.count + 1 : product.count -1;
             state.cart[action.payload.index].count = count < 1 ? 1 : count;
+            state.cart[action.payload.index].totalPrice = product.count * product.price
         },
         setCart: (state,
         action) => {

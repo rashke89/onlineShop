@@ -20,7 +20,8 @@ const orderProcessSlice = createSlice({
                     terms: false,
                     conditions: false
                 },
-                isSubmit: false
+                isSubmit: false,
+                isValid: false
             },
             stepTree: {
 
@@ -35,7 +36,10 @@ const orderProcessSlice = createSlice({
         },
         updateStepTwoForm: (state,
         action) => {
-            state.orderProcess.stepTwo.form = action.payload;
+            let payload = action.payload;
+
+            state.orderProcess.stepTwo.isValid = !Object.values(payload).some(item => !item);
+            state.orderProcess.stepTwo.form = payload;
         },
         stepTwoIsSubmitted: (state, action) => {
             state.orderProcess.stepTwo.isSubmit = true;
