@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import "./product.scss";
+import {routeConfig} from "../../config/routeConfig";
 
 
 const Product = (props) => {
@@ -44,21 +45,21 @@ const Product = (props) => {
 						</div>
 						<div className="action-buttons gap-2">
 							{pathname === "/shop" ?
-								<Link to={`/shop/product/${product._id}`} className="view-more" type="button">
+								<Link to={routeConfig.SHOP_PRODUCT.fullUrl(product._id)} className="view-more" type="button">
 									View more
 									<span>
 									<i className="bi bi-info-circle"></i>
 								</span>
 								</Link> :
 								<>
-									<Link  to={`/product/edit/${product._id}`} className="edit" type="button">
+									<Link  to={routeConfig.EDIT_PRODUCT.fullUrl(product._id)} className="edit" type="button">
 										Edit
 										<span>
 											<i className="bi bi-pen"></i>
 										</span>
 									</Link>
 
-									<Link className="delete" type="button" to={`/product/delete/${product._id}`}>
+									<Link className="delete" type="button" to={routeConfig.DELETE_PRODUCT.fullUrl(product._id)}>
 										Delete
 										<span>
 											<i className="bi bi-trash"></i>

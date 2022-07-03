@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import ShopService from "../../services/shopService";
 import Product from "../../components/Product/Product";
+import {routeConfig} from "../../config/routeConfig";
 
 function MyProducts() {
 	const [products, setProducts] = useState([]);
@@ -23,7 +24,7 @@ function MyProducts() {
 		<div className="container mt-3">
 			<h1>My products</h1>
 			<div className="d-flex justify-content-between m-auto container mt-3 mb-3">
-				<Link className="btn btn btn-secondary" to="/add-product">Add product</Link>
+				<Link className="btn btn btn-secondary" to={routeConfig.ADD_PRODUCT.url}>Add product</Link>
 				<div><span>Sort by: </span>
 					<select>
 						<option value="highPrice">Date</option>

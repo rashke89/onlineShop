@@ -15,6 +15,8 @@ import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import MyProducts from "./pages/MyProducts/MyProducts";
 import AddEditProduct from "./pages/AddEditProduct/AddEditProduct";
+import {routeConfig} from "./config/routeConfig";
+import DeleteMyProduct from "./pages/DeleteMyProduct/DeleteMyProduct";
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
@@ -25,7 +27,7 @@ function App() {
 
 	useEffect(() => {
 		if (!localStorage.hasOwnProperty('user')) {
-			navigate('/auth');
+			navigate(routeConfig.AUTH.url);
 		} else {
 			dispatch(setUser(JSON.parse(localStorage.getItem('user'))));
 		}
@@ -36,16 +38,17 @@ function App() {
 
 			<Navbar viewCartItems={viewCartItems} setViewCartItems={setViewCartItems}/>
 			<Routes>
-				<Route path='/' element={<Home/>}/>
-				<Route path='/shop' element={<Shop/>}/>
-				<Route path='/shop/product/:productId' element={<ProductPage/>}/>
-				<Route path='/about-us' element={<About/>}/>
-				<Route path='/contact' element={<Contact/>}/>
-				<Route path='/auth' element={<AuthPage/>}/>
-				<Route path='/user-activate/:id' element={<ActivateUserPage/>}/>
-				<Route path='/myProducts' element={<MyProducts/>}/>
-				<Route path="/add-product" element={<AddEditProduct/>}/>
-				<Route path="/product/edit/:myProductId" element={<AddEditProduct/>}/>
+				<Route path={routeConfig.HOME.url} element={<Home/>}/>
+				<Route path={routeConfig.SHOP.url} element={<Shop/>}/>
+				<Route path={routeConfig.SHOP_PRODUCT.url} element={<ProductPage/>}/>
+				<Route path={routeConfig.ABOUT.url} element={<About/>}/>
+				<Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
+				<Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
+				<Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
+				<Route path={routeConfig.MY_PRODUCTS.url} element={<MyProducts/>}/>
+				<Route path={routeConfig.ADD_PRODUCT.url} element={<AddEditProduct/>}/>
+				<Route path={routeConfig.EDIT_PRODUCT.url} element={<AddEditProduct/>}/>
+				<Route path={routeConfig.DELETE_PRODUCT.url} element={<DeleteMyProduct/>}/>
 			</Routes>
 
 		</div>

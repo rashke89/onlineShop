@@ -92,6 +92,15 @@ app.get('/product/getMyProduct/:myProductId', (req, res) => {
 	})
 })
 
+// delete my product
+app.delete('/product/delete/:myProductId', (req, res) => {
+	const myProductId = req.params.myProductId;
+	Product.deleteOne({_id: myProductId}, async (error) => {
+		if(error) throw error;
+		await res.send("Product deleted.");
+	})
+})
+
 // update my product
 app.put('/product/save/:myProductId', (req, res) => {
 	const params = req.params.myProductId;

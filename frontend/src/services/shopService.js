@@ -21,6 +21,10 @@ class ShopService {
         return axios.get(`/product/getMyProduct/${myProductId}`);
     }
 
+    static deleteMyProduct(myProductId) {
+        return axios.delete(`/product/delete/${myProductId}`);
+    }
+
     static getProductById(productId) {
         return axios.get(`/api/products/${productId}`);
     }

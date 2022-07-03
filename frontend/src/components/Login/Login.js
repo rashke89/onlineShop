@@ -4,6 +4,7 @@ import "./login.scss";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "../../redux/userSlice";
+import {routeConfig} from "../../config/routeConfig";
 
 const Login = () => {
 	const [username, setUsername] = useState('');
@@ -32,7 +33,7 @@ const Login = () => {
 					// TODO: send user to some page
 					localStorage.setItem('user', JSON.stringify(res.data));
 					dispatch(setUser(res.data));
-					navigate('/');
+					navigate(routeConfig.HOME.url);
 				}
 			})
 			.catch((error) => {

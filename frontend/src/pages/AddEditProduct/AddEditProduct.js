@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 // import Navigation from "../../components/navigation/Navigation";
 import {useNavigate, useParams} from "react-router-dom";
 import ShopService from "../../services/shopService";
+import {routeConfig} from "../../config/routeConfig";
 // import {routeConfig} from "../../config/routeConfig";
 
 const AddEddProduct=()=>{
@@ -54,7 +55,7 @@ const AddEddProduct=()=>{
 					console.log("API success");
 					setIsApiError(false)
 					setIsProductAdded(true);
-					navigate('/myProducts');
+					navigate(routeConfig.MY_PRODUCTS.url);
 				}
 			})
 			.catch((error)=>{
@@ -68,7 +69,7 @@ const AddEddProduct=()=>{
 		return  ShopService.saveMyProduct(body, myProductId)
 			.then((response)=>{
 				setIsProductUpdated(true)
-				navigate('/myProducts');
+				navigate(routeConfig.MY_PRODUCTS.url);
 			})
 			.catch((error)=>{
 				console.log(error);
