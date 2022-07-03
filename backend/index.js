@@ -50,8 +50,8 @@ app.get('/shop/products', (req,res)=>{
 })
 
 // random 6 Masonry products
-app.get('/api/home', (req,res)=>{
-
+app.get('/api/home/:numberOfAds', (req,res)=>{
+	let number = req.params.numberOfAds;
 	Product.find((error,data)=>{
 		if(error){
 			console.log(error);
@@ -61,7 +61,7 @@ app.get('/api/home', (req,res)=>{
 		if (data) {
             let copyData = [...data];
             let randSix = [];
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < number; i++) {
                 let rand = Math.floor(Math.random() * copyData.length);
                 randSix.push(copyData[rand]);
                 copyData.splice(rand,1);

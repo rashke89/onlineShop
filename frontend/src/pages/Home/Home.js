@@ -8,7 +8,7 @@ function Home(props) {
         <div className="container">
             <h1>Home</h1>
             <Slider />
-            <Masonry/>
+            <Masonry changeSide={false}/>
         </div>
     );
 }
