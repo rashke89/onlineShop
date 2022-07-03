@@ -36,7 +36,7 @@ function ViewProduct() {
 				<h3>{product.title}</h3>
 				<p>{product.category}</p>
 				<p>{product.description}</p>
-				<p>{product.price}</p>
+				<p className="fw-bold">$ {product.price}</p>
 
 				<button className="btn btn-primary add-to-cart-btn" onClick={addToCartHandler}>Add to cart</button>
 			</div>

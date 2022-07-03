@@ -28,6 +28,12 @@
   z-index: 99;
   overflow: auto;
   padding: 2rem;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  p {
+    margin: 0;
+  }
   .header {
     display: flex;
     justify-content: space-between;
@@ -46,5 +52,50 @@
   &.active {
     transform: translateX(0);
     opacity: 1;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.5);
+    border-radius: 20px;
+    border: transparent;
+  }
+}
+
+.cart-sidebar-item {
+  .price {
+    font-weight: bold;
+    margin-top: 0.5rem;
+  }
+  .col-right {
+    display: flex;
+    flex-direction: column;
+    i {
+      &:hover {
+        font-weight: bold;
+      }
+    }
+    .count {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+      border-radius: 5px;
+      border: 1px solid #dddddd;
+
+    }
+    .remove {
+      margin: 0.5rem auto 0 auto;
+      transition: all .2s ease;
+      &:hover {
+        color: #dc3545;
+      }
+    }
   }
 }

@@ -5,6 +5,9 @@
     height: 100vh;
     overflow-y: hidden;
     margin-right: 30%;
+    @media (max-width: 768px) {
+      margin-right: 0;
+    }
     &:before{
       content: "";
       background: rgba(0,0,0,.6);
