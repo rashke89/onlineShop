@@ -1,20 +1,20 @@
 import {useEffect, useState} from "react";
 import {routeConfig} from "../../config/routeConfig";
 
-function AdComponentSmaller(props) {
+function AdComponentSmaller({products}) {
     const [ad, setAd] = useState([]);
 
     useEffect(() => {
-        setAd(props.products)
-    }, [props.products]);
+        setAd(products)
+    }, [products]);
 
     return (
         <>
             {ad.map((el, index) => {
                 if (index < 2) {
                     return (
-                        <div className={`${index % 2 === 0 ? 'modern-box modern-shop reverse' : 'modern-box modern-shop'}`} key={el._id}>
-                            <div className="col-md-7 col-sm-6 col-xs-6">
+                        ad &&<div className={`${index % 2 === 0 ? 'modern-box modern-shop reverse' : 'modern-box modern-shop'}`} key={el._id}>
+                            <div className="col-md-7 col-sm-6 col-xs-6 img-holder">
                                 <img src={el.imgUrl} className="img" alt=""/>
                             </div>
                             <div className="col-md-5 col-sm-6 col-xs-6">

@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import shopService from '../../services/shopService';
-
-import "./masonryStyle.scss"
 import AdComponentSmaller from "./AdComponentSmaller";
 import AdComponentBigger from "./AdComponentBigger";
+import "./masonryStyle.scss"
 
 
 function Masonry({changeSide}) {
@@ -26,7 +25,7 @@ function Masonry({changeSide}) {
 
     return (
         <>
-            {ads && <div className="masonry row">
+            {ads.length > 0 && <div className="masonry row">
                 <div className={`col-md-5 col-sm-5 col-xs-12 left ad ${!isChangeSide ? 'order-first':'order-last'}`}><AdComponentSmaller products={ads}/></div>
                 <div className="col-md-7 col-sm-7 col-xs-12 right ad"><AdComponentBigger products={ads}/></div>
             </div>}

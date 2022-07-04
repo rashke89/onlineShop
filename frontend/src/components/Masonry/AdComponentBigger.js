@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 import {routeConfig} from "../../config/routeConfig";
 
-function AdComponentBigger(props) {
+function AdComponentBigger({products}) {
     const [ad, setAd] = useState([]);
 
     useEffect(() => {
-        setAd(props.products)
-    }, [props.products]);
+        setAd(products)
+    }, []);
 
     return (
         <>
@@ -14,10 +14,10 @@ function AdComponentBigger(props) {
                 if (index >= 2) {
                     return (
                         <div className={`${index % 2 === 0 ? 'modern-box modern-product reverse' : 'modern-box modern-product'}`} key={el._id}>
-                            <div className="col-md-4 col-sm-6 col-xs-6">
+                            <div className="col-md-3 col-sm-6 col-xs-6">
                                 <img src={el.imgUrl} className="img" alt=""/>
                             </div>
-                            <div className="col-md-8 col-sm-6 col-xs-6">
+                            <div className="col-md-9 col-sm-6 col-xs-6">
                                 <h3 className="ad-heading">{el.title}</h3>
                             </div>
                             <a href={routeConfig.AD_SHOP.realUrl(el._id)} className="shop-now">Shop now

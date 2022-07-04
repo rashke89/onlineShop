@@ -73,7 +73,7 @@ app.get("/api/product/search/:searchTerm", (req, res) => {
 	})
 })
 
-// random 6 Masonry products
+// random  Masonry products
 app.get('/api/home/:numberOfAds', (req,res)=>{
 	let number = req.params.numberOfAds;
 	Product.find((error,data)=>{
@@ -84,13 +84,13 @@ app.get('/api/home/:numberOfAds', (req,res)=>{
 		}
 		if (data) {
             let copyData = [...data];
-            let randSix = [];
+            let randAds = [];
             for (let i = 0; i < number; i++) {
                 let rand = Math.floor(Math.random() * copyData.length);
-                randSix.push(copyData[rand]);
+                randAds.push(copyData[rand]);
                 copyData.splice(rand,1);
             }
-             res.send(randSix);
+             res.send(randAds);
         } else {
             res.send("Product dont found")
         }

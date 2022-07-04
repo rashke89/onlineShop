@@ -8,9 +8,9 @@ function Home(props) {
     return (
         <div className="container">
             <h1>Home</h1>
-            <Slider />
+            <Slider/>
             <Masonry changeSide={false}/>
-            <OurProductSlider />
+            <OurProductSlider/>
         </div>
     );
 }
