@@ -14,7 +14,7 @@ function Home(props) {
                     <Slider/>
                 </div>
                 <div className="home-section-wrapper">
-                    <Masonry/>
+                    <Masonry  changeSide={false}/>
                 </div> <div className="home-section-wrapper">
                     <OurProductSlider/>
                 </div>

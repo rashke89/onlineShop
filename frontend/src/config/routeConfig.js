@@ -32,5 +32,8 @@ export const routeConfig = {
     UNSUBSCRIBE: {
         url: '/unsubscribe/:id',
         realUrl: id => `/unsubscribe/${id}`,
+    },
+    DASHBOARD: {
+        url: '/dashboard',
     }
 }
