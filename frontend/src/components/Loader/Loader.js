@@ -1,15 +1,16 @@
 import React from 'react';
 import "./loader.scss"
+import {useSelector} from "react-redux";
 
 function Loader() {
+    const {show} = useSelector(state => state.loaderStore);
     return (
-        <div className="loader-wrapper">
-            <div className="loader-bar">
-                <div className="loader-bar-item"></div>
-                <div className="loader-bar-item"></div>
-                <div className="loader-bar-item"></div>
-            </div>
-        </div>
+        <>
+            {show && <div className="loader-wrapper">
+                <div className="loader"></div>
+            </div> }
+        </>
+
     );
 }
 

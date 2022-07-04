@@ -15,14 +15,6 @@ const userSlice = createSlice({
         },
         updateUser: (state, action ) => {
             state.user = action.payload;
-              // for (let key in state.user) {
-            //     if (!action.payload[key]){
-            //         state.user[key] = state.user[key]
-            //     }else{
-            //         state.user[key] = action.payload[key];
-            //
-            //     }
-            // }
         }
 
     },

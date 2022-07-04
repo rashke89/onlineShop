@@ -17,16 +17,16 @@ routes.post("/login", validate, (req, res) => {
         }
 
         // way 1
-        // if (data)
-        //     res.send(data);
-        // else
-        //     res.send('User not found.');
+        if (data)
+            res.send(data);
+        else
+            res.status(409).send('User not found.');
 
         // way 2
         // res.send(data ? data : 'User not found.');
 
         // way 3
-        res.send(data || "User not found.");
+        // res.send(data || "User not found.");
     });
 });
 
