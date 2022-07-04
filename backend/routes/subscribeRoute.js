@@ -22,7 +22,7 @@ routes.put('/addToList', async (req, res) => {
                     htmlString: `
                         <h2>Thanks for subscribe</h2>
                         <p>If you like to remove from subscribe list click on next link:</p>
-                        <a href="http://localhost:3000/unsubscribe/${addSubscribe._id.toString()}">Remove form subscribe list</a>
+                        <a href="http://${reqBody.host}/unsubscribe/${addSubscribe._id.toString()}">Remove form subscribe list</a>
                         `
                 }
             )

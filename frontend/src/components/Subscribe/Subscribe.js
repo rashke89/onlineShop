@@ -6,6 +6,7 @@ function Subscribe({bgUrl, titleText, titleTextBefore, titleTextAfter}) {
     const [subscribeEmail, setSubscribeEmail] = useState("");
     const [responseMsg, setResponseMsg] = useState("");
     const [errMsg, setErrMsg] = useState("");
+    const host = window.location.host;
     const inputEmail = useRef();
 
     const style = {
@@ -24,7 +25,7 @@ function Subscribe({bgUrl, titleText, titleTextBefore, titleTextAfter}) {
             setErrMsg("You must input valid E-mail address")
             inputEmail.current.focus()
         } else {
-            SubscribeService.addToSubscribeList(subscribeEmail)
+            SubscribeService.addToSubscribeList(subscribeEmail, host)
                 .then(res => {
                     setResponseMsg(res.data);
                 })

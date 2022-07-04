@@ -2,8 +2,8 @@ import axios from "axios";
 
 
 class SubscribeService {
-    static addToSubscribeList(email) {
-        return axios.put(`/api/subscribe/addToList`, {email: email})
+    static addToSubscribeList(email,host) {
+        return axios.put(`/api/subscribe/addToList`, {email: email, host:host})
     }
 
     static removeFromSubscribeList(body) {
