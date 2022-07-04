@@ -7,7 +7,7 @@ class SubscribeService {
     }
 
     static removeFromSubscribeList(body) {
-        return axios.delete(`/api/subscribe/unsubscribe`, body)
+        return axios.post(`/api/subscribe/unsubscribe`, body)
     }
 
     static getAll() {

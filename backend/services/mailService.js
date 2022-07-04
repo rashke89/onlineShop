@@ -1,15 +1,15 @@
 const nodemailer = require('nodemailer');
+const mailConfig = require("../config/mailConfig");
 
 class Mailer {
     constructor({recipient, subject, htmlString}) {
         this.mailOptions = {
-            from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
+            from: mailConfig.fromName + "<" + mailConfig.fromMail + ">", // sender address
             to: recipient, // list of receivers
             subject: subject, // Subject line
             text: "", // plain text body
             html: htmlString, // html body
         }
-
     }
 
     async sendMailToRecipient() {
@@ -17,9 +17,9 @@ class Mailer {
         let testAccount = await nodemailer.createTestAccount();
 
         let transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            secure: false, // true for 465, false for other ports
+            host: mailConfig.host,
+            port: mailConfig.port,
+            secure: mailConfig.secure,
             auth: {
                 user: testAccount.user, // generated ethereal user
                 pass: testAccount.pass, // generated ethereal password

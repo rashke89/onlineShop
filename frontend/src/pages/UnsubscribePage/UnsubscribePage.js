@@ -17,7 +17,7 @@ function UnsubscribePage() {
     const [isFinished, setIsFinished] = useState(false);
 
     useEffect(() => {
-        SubscribeService.removeFromSubscribeList({id: params.id})
+        SubscribeService.removeFromSubscribeList({subscribeId: params.id})
             .then(res => {
                 setResponseInfo(res.data)
             })

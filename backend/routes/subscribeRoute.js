@@ -32,13 +32,17 @@ routes.put('/addToList', async (req, res) => {
     })
 })
 
-routes.delete('/unsubscribe', (req, res) => {
-    const reqBody = req.body
-    Subscribe.deleteOne(reqBody, (error) => {
-        if (error) throw res.send({isRemove: false, msg: error})
+routes.post('/unsubscribe', (req, res) => {
+    const subscribeId = req.body.subscribeId
+    Subscribe.deleteOne({_id: subscribeId}, (error) => {
+        if (error) {
+            res.send({isRemove: false, msg: error})
+            return
+        }
         res.send({isRemove: true, msg: "You are now remove from subscribe list and don`t receive news on your email."})
     })
 })
+
 
 routes.get("/getAll", (req, res) => {
     Subscribe.find((error, result) => {
