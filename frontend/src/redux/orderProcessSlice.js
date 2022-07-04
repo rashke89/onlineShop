@@ -6,7 +6,15 @@ const orderProcessSlice = createSlice({
 		orderProcess: {
 			currentStep: 1,
 			stepTwoForm: {
-
+				email: '',
+				firstName: '',
+				lastName: '',
+				address: '',
+				city: '',
+				postCode: '',
+				phoneNumber: '',
+				terms: false,
+				conditions: false
 			},
 			stepThreeForm: {
 
