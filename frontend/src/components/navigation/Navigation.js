@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import ShopCart from "../ShopCart/ShopCart";
 import {routeConfig} from "../../config/routeConfig";
 import {setUser} from "../../redux/userSlice";
-
+import "./navigation.scss";
 function Navigation() {
 	// state - redux store from store.js,
 	const {user} = useSelector((state) => state.userStore);
@@ -64,7 +64,7 @@ function Navigation() {
 		);
 	};
 	return (
-		<nav className="navbar navbar-expand-lg navbar-light bg-light">
+		<nav className="navbar navbar-expand-lg ">
 			<div className="container">
 				<Link className="navbar-brand" to="/">E-Shop</Link>
 
