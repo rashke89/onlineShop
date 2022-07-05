@@ -1,30 +1,32 @@
 import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ShopCart from "../ShopCart/ShopCart";
 import {routeConfig} from "../../config/routeConfig";
+import {setUser} from "../../redux/userSlice";
 
 const Navigation = ({viewCartItems, setViewCartItems}) => {
 	// state - redux store
-	const user = useSelector((state) => state.userStore.user);
+	const {user} = useSelector((state) => state.userStore);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const logout = () => {
-		localStorage.clear();
+		localStorage.removeItem("user");
+		dispatch(setUser({}));
 		navigate(routeConfig.AUTH.url);
 	}
 
 	const userBtnLayout = () => {
 		return user.hasOwnProperty('username') ?
 			<li className="nav-item dropdown">
-				<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+				<a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
 					 aria-expanded="false">
 					{user.username}
 				</a>
 				<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
 					<li>
 						<a className="dropdown-item user-dropdown" href="#">
-							{/*TODO: change icons*/}
 							{user.isAdmin ?
 								<i className="bi bi-person-workspace me-2"></i> :
 								<i className="bi bi-person-circle me-2"></i>
@@ -33,7 +35,7 @@ const Navigation = ({viewCartItems, setViewCartItems}) => {
 						</a>
 					</li>
 					<li>
-						<Link to={routeConfig.MY_PRODUCTS.url} className="dropdown-item" href="#">
+						<Link to={routeConfig.MY_PRODUCTS.url} className="dropdown-item">
 							<i className="bi bi-card-list me-2"></i>
 							My products
 						</Link>
@@ -41,8 +43,8 @@ const Navigation = ({viewCartItems, setViewCartItems}) => {
 					<li>
 						<hr className="dropdown-divider"/>
 					</li>
-					<li>
-						<a className="dropdown-item" href="#" onClick={logout}>
+					<li onClick={logout}>
+						<a className="dropdown-item" href="#">
 							<i className="bi bi-box-arrow-right me-2"></i>
 							Logout
 						</a>

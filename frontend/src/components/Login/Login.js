@@ -17,7 +17,6 @@ const Login = () => {
 	const onPasswordChange = event => setPassword(event.target.value);
 	const onSubmitForm = (event) => {
 		event.preventDefault();
-		console.log("form submit >", username, password);
 
 		if (!username || !password) {
 			setIsFormValid(false);
@@ -29,7 +28,6 @@ const Login = () => {
 		AuthService.login({username, password})
 			.then((res) => {
 				if (res && res.status === 200) {
-					console.log("API res ->", res.data);
 					// TODO: send user to some page
 					localStorage.setItem('user', JSON.stringify(res.data));
 					dispatch(setUser(res.data));

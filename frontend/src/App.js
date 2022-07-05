@@ -19,6 +19,7 @@ import AddEditProduct from "./pages/AddEditProduct/AddEditProduct";
 import {routeConfig} from "./config/routeConfig";
 import DeleteMyProduct from "./pages/DeleteMyProduct/DeleteMyProduct";
 import Order from "./pages/Order/Order";
+import 'react-toastify/dist/ReactToastify.css';
 
 axios.defaults.baseURL = 'http://localhost:4000';
 

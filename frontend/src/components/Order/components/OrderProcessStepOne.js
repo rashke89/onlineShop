@@ -1,14 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useSelector} from "react-redux";
 import Count from "../../Count/Count";
 import RemoveCartItem from "../../RemoveCartItem/RemoveCartItem";
 
 const OrderProcessStepOne = () => {
 	const {cart} = useSelector(state => state.cartStore);
-
-	useEffect(() => {
-		console.log('order step 1', cart);
-	}, [cart]);
 
 	const emptyCartLayout = () => {
 		return !cart.length && <h4 className="my-5">Cart is empty <i className="bi bi-bag-dash"></i></h4>
@@ -38,6 +34,7 @@ const OrderProcessStepOne = () => {
 					<div className="col-md-1">
 						<RemoveCartItem index={index}/>
 					</div>
+					<hr className="text-muted mt-3"/>
 				</div>
 			})}
 		</div>

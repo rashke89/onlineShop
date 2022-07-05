@@ -12,8 +12,13 @@ class AuthService {
     static getAllUsers() {
         return axios.get("/api/users")
     }
+
     static completeRegistration(body) {
         return axios.post("/api/complete-registration", body)
+    }
+
+    static isUserLoggedIn() {
+        return localStorage.hasOwnProperty('user');
     }
 }
 
