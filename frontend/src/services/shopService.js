@@ -40,6 +40,10 @@ class ShopService {
     static initPayment(body) {
         return axios.post('/api/payment/init-payment', body)
     }
+
+    static getRandomSliderAds(numberAds) {
+        return axios.get(`/api/home/slider/${numberAds}`);
+    }
 }
 
 export default ShopService;
