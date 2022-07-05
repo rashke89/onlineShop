@@ -8,6 +8,7 @@ const Users = require("./models/userModel");
 const Emails = require("./models/emailModel");
 const serverConfig = require("./config/serverConfig");
 const products = require("./fakeDb/products.json");
+const clients = require("./fakeDb/clients.json");
 const Product = require("./models/productModel");
 
 const userRoute = require('./routes/userRoute');
@@ -97,6 +98,11 @@ app.get('/api/home/:numberOfAds', (req,res)=>{
         }
 	})
 })
+
+// getting clients from clients.json
+app.get("/api/home",(req,res)=>{
+    res.send(clients);
+});
 
 //get product
 app.get("/shop/product/:productId", (req, res) => {
