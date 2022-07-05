@@ -1,0 +1,13 @@
+.login {
+  transform: scale(0);
+
+  &-show {
+    transition: .4s ease;
+    //transform: scale(1);
+  }
+
+  &-hide {
+    transform: scale(0);
+    transition: .4s ease;
+  }
+}

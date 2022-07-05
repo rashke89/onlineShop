@@ -8,19 +8,6 @@ module.exports = function isAtlas(topologyDescription) {
   }
 
   const hostnames = Array.from(topologyDescription.servers.keys());
-
-  if (hostnames.length === 0) {
-    return false;
-  }
-
-  for (let i = 0, il = hostnames.length; i < il; ++i) {
-    const url = new URL(hostnames[i]);
-    if (
-      url.hostname.endsWith('.mongodb.net') === false ||
-      url.port !== '27017'
-    ) {
-      return false;
-    }
-  }
-  return true;
+  return hostnames.length > 0 &&
+    hostnames.every(host => host.endsWith('.mongodb.net:27017'));
 };

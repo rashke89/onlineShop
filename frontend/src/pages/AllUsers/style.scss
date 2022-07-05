@@ -1,0 +1,45 @@
+.users-wrapper {
+  width: 900px;
+  margin: 5vh auto;
+
+  h2 {
+    text-align: center;
+    line-height: 3;
+    text-transform: uppercase;
+  }
+
+  table {
+    width: 100%;
+    line-height: 1.7;
+    border-collapse: collapse;
+
+    thead {
+      tr {
+        border: 1px solid gray;
+      }
+
+      th {
+        padding: 5px;
+      }
+    }
+
+    tbody {
+      tr {
+        transition: background-color .1s linear;
+        cursor: pointer;
+
+        &:nth-child(even) {
+          background-color: #efefef;
+        }
+
+        &:hover {
+          background-color: cadetblue;
+        }
+
+        td {
+          padding: 5px;
+        }
+      }
+    }
+  }
+}

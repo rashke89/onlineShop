@@ -31,11 +31,8 @@ module.exports = function setupTimestamps(schema, timestamps) {
   }
 
   if (createdAt && !schema.paths[createdAt]) {
-    const baseImmutableCreatedAt = schema.base.get('timestamps.createdAt.immutable');
-    const immutable = baseImmutableCreatedAt != null ? baseImmutableCreatedAt : true;
-    schemaAdditions[createdAt] = { [schema.options.typeKey || 'type']: Date, immutable };
+    schemaAdditions[createdAt] = { [schema.options.typeKey || 'type']: Date, immutable: true };
   }
-
   schema.add(schemaAdditions);
 
   schema.pre('save', function(next) {

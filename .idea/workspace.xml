@@ -1,18 +1,291 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8f2cee8a-ead1-4dda-b295-0177f0e17bd7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/services/AuthService.js" afterDir="false" />
+    <list default="true" id="c3db6d2c-03a7-40a9-ab87-ded33f99e40d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/SCSS/base.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/shopService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/onlineShop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/onlineShop.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/dbConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/dbConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/serverConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/serverConfig.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/userModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/assert.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/assert.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/async_hooks.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/async_hooks.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/buffer.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/buffer.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/child_process.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/child_process.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/cluster.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/cluster.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/console.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/console.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/crypto.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/crypto.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/dgram.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/dgram.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/diagnostics_channel.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/diagnostics_channel.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/dns.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/dns.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/dns/promises.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/dns/promises.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/domain.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/domain.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/events.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/events.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/fs.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/fs.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/fs/promises.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/fs/promises.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/http.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/http.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/http2.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/http2.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/https.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/https.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/inspector.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/inspector.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/net.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/net.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/os.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/os.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/path.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/path.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/perf_hooks.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/perf_hooks.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/process.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/process.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/punycode.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/punycode.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/querystring.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/querystring.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/readline.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/readline.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/repl.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/repl.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/stream.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/stream.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/string_decoder.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/string_decoder.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/test.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/timers.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/timers.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/tls.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/tls.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/trace_events.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/trace_events.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/tty.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/tty.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/url.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/url.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/util.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/util.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/v8.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/v8.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/vm.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/vm.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/wasi.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/wasi.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/worker_threads.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/worker_threads.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/node/zlib.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/node/zlib.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/whatwg-url/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/whatwg-url/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/@types/whatwg-url/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/@types/whatwg-url/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/.eslintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/.nycrc" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/.nycrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/test/GetIntrinsic.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/get-intrinsic/test/GetIntrinsic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/.github/workflows/test.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/docs.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/docs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/test/examples.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/test/examples.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/test/misc.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/test/misc.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/test/post.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/test/post.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/test/pre.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/test/pre.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/kareem/test/wrap.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/kareem/test/wrap.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/admin.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/admin.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/bulk/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/bulk/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/bulk/common.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/bulk/common.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/change_stream.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/change_stream.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/change_stream.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/change_stream.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/auth/mongodb_aws.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/auth/mongodb_aws.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/auth/mongodb_aws.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/auth/mongodb_aws.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/auth/scram.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/auth/scram.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/auth/scram.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/auth/scram.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/commands.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/commands.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/commands.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/commands.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connect.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connect.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connect.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection_pool.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection_pool.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection_pool.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection_pool.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection_pool_events.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/connection_pool_events.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/message_stream.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/message_stream.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/message_stream.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/message_stream.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/compression.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/compression.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/compression.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/compression.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/shared.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/shared.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/shared.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cmap/wire_protocol/shared.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/collection.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/collection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/collection.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/collection.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/connection_string.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/connection_string.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/connection_string.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/connection_string.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/constants.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/constants.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/abstract_cursor.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/abstract_cursor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/abstract_cursor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/abstract_cursor.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/aggregation_cursor.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/aggregation_cursor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/aggregation_cursor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/aggregation_cursor.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/find_cursor.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/find_cursor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/find_cursor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/cursor/find_cursor.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/db.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/db.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/deps.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/deps.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/deps.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/deps.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/encrypter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/encrypter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/encrypter.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/encrypter.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/error.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/error.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/error.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/error.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/gridfs/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/gridfs/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/gridfs/upload.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/gridfs/upload.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/index.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/mongo_client.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/mongo_client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/mongo_client.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/mongo_client.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/command.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/command.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/command.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/connect.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/connect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/connect.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/connect.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/create_collection.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/create_collection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/create_collection.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/create_collection.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/drop.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/drop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/drop.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/drop.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/estimated_document_count.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/estimated_document_count.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/estimated_document_count.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/estimated_document_count.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/execute_operation.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/execute_operation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/execute_operation.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/execute_operation.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/find.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/find.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/find.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/find.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/indexes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/indexes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/indexes.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/indexes.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/insert.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/insert.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/insert.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/insert.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/list_collections.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/list_collections.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/list_collections.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/operations/list_collections.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/monitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/monitor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/monitor.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/server.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/server.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/srv_polling.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/srv_polling.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/srv_polling.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/srv_polling.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/topology.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/topology.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/topology.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/topology.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/topology_description.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/topology_description.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/topology_description.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sdam/topology_description.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sessions.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sessions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sessions.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/sessions.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/utils.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/lib/utils.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/mongodb.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/mongodb.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/admin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/admin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/bulk/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/bulk/common.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/change_stream.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/change_stream.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/auth/mongodb_aws.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/auth/mongodb_aws.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/auth/scram.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/auth/scram.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/commands.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/commands.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/connect.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/connect.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/connection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/connection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/connection_pool.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/connection_pool.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/connection_pool_events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/connection_pool_events.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/message_stream.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/message_stream.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/wire_protocol/compression.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/wire_protocol/compression.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/wire_protocol/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/wire_protocol/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/wire_protocol/shared.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cmap/wire_protocol/shared.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/collection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/collection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/connection_string.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/connection_string.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cursor/abstract_cursor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cursor/abstract_cursor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cursor/aggregation_cursor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cursor/aggregation_cursor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cursor/find_cursor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/cursor/find_cursor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/db.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/deps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/deps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/encrypter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/encrypter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/error.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/error.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/gridfs/upload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/gridfs/upload.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/mongo_client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/mongo_client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/mongo_types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/mongo_types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/command.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/connect.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/connect.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/create_collection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/create_collection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/drop.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/drop.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/estimated_document_count.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/estimated_document_count.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/execute_operation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/execute_operation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/find.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/find.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/indexes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/indexes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/insert.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/insert.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/list_collections.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/operations/list_collections.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/monitor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/monitor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/srv_polling.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/srv_polling.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/topology.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/topology.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/topology_description.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sdam/topology_description.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sessions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/sessions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/transactions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/transactions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongodb/src/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongodb/src/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/dist/browser.umd.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/dist/browser.umd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lgtm.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/cast/objectid.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/cast/objectid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/document.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/document.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/error/disconnected.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/error/disconnected.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/error/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/error/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/clone.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/clone.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/discriminator/areDiscriminatorValuesEqual.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/discriminator/areDiscriminatorValuesEqual.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/isBsonType.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/isBsonType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/path/setDottedPath.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/path/setDottedPath.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/timestamps/setupTimestamps.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/timestamps/setupTimestamps.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/topology/isAtlas.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/topology/isAtlas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/update/applyTimestampsToChildren.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/update/applyTimestampsToChildren.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/update/castArrayFilters.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/update/castArrayFilters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/updateValidators.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/helpers/updateValidators.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/options/SchemaTypeOptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/options/SchemaTypeOptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/query.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/query.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/SubdocumentPath.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/SubdocumentPath.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/decimal128.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/decimal128.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/documentarray.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/documentarray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/objectid.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/objectid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/string.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/schema/string.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/statemachine.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/statemachine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/types/DocumentArray/methods/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/types/DocumentArray/methods/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/types/array/methods/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/types/array/methods/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/types/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/types/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/validoptions.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/lib/validoptions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/aggregate.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/types/aggregate.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/callback.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/collection.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/connection.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/types/connection.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/document.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/types/document.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/error.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/types/error.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/expressions.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/helpers.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/indizes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/inferschematype.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/middlewares.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/models.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/mongooseoptions.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/types/mongooseoptions.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/pipelinestage.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/types/pipelinestage.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/populate.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/query.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/schemaoptions.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/mongoose/types/schemaoptions.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/schematypes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/session.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/types.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/utility.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/node_modules/mongoose/types/validation.d.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/authPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/authPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/authPage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/authService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,80 +301,33 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2AvrAKDKI0w2R1O5Nk8kBqnmBgw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2BVveOIAyuaYS1sCd7cPP27kYyH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\onlineShop\backend\config" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Node.js.serverConfig.js">
-    <configuration name="serverConfig.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/backend/config/serverConfig.js" working-dir="$PROJECT_DIR$/backend/config">
-      <method v="2" />
-    </configuration>
-    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/backend/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="test" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Node.js.serverConfig.js" />
-        <item itemvalue="npm.test" />
-      </list>
-    </recent_temporary>
-  </component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8f2cee8a-ead1-4dda-b295-0177f0e17bd7" name="Changes" comment="" />
-      <created>1655900759610</created>
+      <changelist id="c3db6d2c-03a7-40a9-ab87-ded33f99e40d" name="Changes" comment="" />
+      <created>1657004168397</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1655900759610</updated>
-      <workItem from="1655900762418" duration="272000" />
-      <workItem from="1655901053465" duration="225000" />
-      <workItem from="1655901500009" duration="2915000" />
-      <workItem from="1655905101822" duration="14217000" />
-      <workItem from="1655973808909" duration="39495000" />
+      <updated>1657004168397</updated>
+      <workItem from="1657004173731" duration="784000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
