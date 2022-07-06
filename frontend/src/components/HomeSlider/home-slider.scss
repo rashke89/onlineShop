@@ -3,12 +3,16 @@
 .slider {
   text-align: center;
   position: relative;
-  transition: all .3s ease;
+  transition: all .4s ease-in-out;
   .slide {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    opacity: 0;
+    &.active {
+      opacity: 1;
+    }
   }
   .slide-title {
     font-family: 'Playfair Display', serif;

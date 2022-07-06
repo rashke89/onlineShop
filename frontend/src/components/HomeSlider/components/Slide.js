@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 function Slide({product, index, currentSlide}) {
 	return (
-		<div className="slide">
+		<div className={index === currentSlide ? "slide active" : "slide"}>
 			{index === currentSlide &&
 				<>
 					<h3 className="slide-title animate__animated animate__slideInLeft">{product.title}</h3>
