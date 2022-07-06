@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {handleCurrentStep} from "../../../redux/orderProcessSlice";
+import {handleCurrentStep, stepTwoIsSubmitted} from "../../../redux/orderProcessSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import AuthService from "../../../services/authService";
 
@@ -15,8 +15,7 @@ const StepperFooter = () => {
 			validateStepOne(number);
 		}
 		if(currentStep === 2) {
-
-			return;
+			dispatch(stepTwoIsSubmitted());
 		}
 	}
 

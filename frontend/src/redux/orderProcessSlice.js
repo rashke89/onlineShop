@@ -34,9 +34,12 @@ const orderProcessSlice = createSlice({
 		},
 		updateStepTwoForm: (state, action) => {
 			state.orderProcess.stepTwo.form = action.payload;
+		},
+		stepTwoIsSubmitted: (state, action) => {
+			state.orderProcess.stepTwo.isSubmit = true;
 		}
 	}
 });
 
-export const {handleCurrentStep, updateStepTwoForm} = orderProcessSlice.actions;
+export const {handleCurrentStep, updateStepTwoForm, stepTwoIsSubmitted} = orderProcessSlice.actions;
 export default orderProcessSlice.reducer;
