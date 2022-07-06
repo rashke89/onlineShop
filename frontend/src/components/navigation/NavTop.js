@@ -1,4 +1,10 @@
-import './nav-top.scss';
+
+import {useDispatch, useSelector} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import {routeConfig} from "../../config/routeConfig";
+import ShopCart from "../ShopCart/ShopCart";
+import {setUser} from "../../redux/userSlice";
+
 
 import {
     FaPhoneAlt,
@@ -6,10 +12,72 @@ import {
     FaAngleDown,
     FaLaptopHouse,
     FaSearch,
-    FaShoppingCart
-  } from "react-icons/fa";
+} from "react-icons/fa";
+
+import './nav-top.scss';
+
+
+
 
 function NavTop(){
+	const {user} = useSelector((state) => state.userStore);
+    const navigate=useNavigate();
+	const dispatch = useDispatch();
+
+    const logOut=()=>{
+		localStorage.removeItem("user");
+		dispatch(setUser({}))
+		navigate("/auth");
+	}
+
+
+    const userBtnLayout = () => {
+		return user.hasOwnProperty("username") ? (
+			<li className="nav-item dropdown">
+				<a
+					className="nav-link dropdown-toggle"
+					href="/"
+					id="navbarDropdown"
+					role="button"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					{user.username}
+				</a>
+				<ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+					<li>
+						<Link to={routeConfig.USER_PROFILE.url} className="dropdown-item user-dropdown">
+							{/*TODO: change icons*/}
+							{user.isAdmin ? (
+								<i className="bi bi-person-workspace me-2"></i>
+							) : (
+								<i className="bi bi-person-circle me-2"></i>
+							)}
+							Profile
+						</Link>
+					</li>
+					<li>
+						<Link to="/my-ads" className="dropdown-item" href="/">
+							<i className="bi bi-card-list me-2"></i>
+							My ads
+						</Link>
+					</li>
+					<li onClick={logOut}>
+						<Link to="#" className="dropdown-item">
+							<i className="bi bi-box-arrow-right me-2"></i>
+							Logout
+						</Link>
+					</li>
+				</ul>
+			</li>
+		) : (
+			<li className="nav-item">
+				<Link to="/auth" className="nav-link">
+					Login/Register
+				</Link>
+			</li>
+		);
+	};
 
     return (
         <section className='nav-bar-wrapper'>
@@ -30,7 +98,9 @@ function NavTop(){
                 </div>
 
                 <div className='info-account'>
-                    <p>MY ACCOUNT <FaAngleDown/> </p>
+                    {/* <p>MY ACCOUNT <FaAngleDown/> </p> */}
+                    {userBtnLayout()}
+                    
                 </div>
 
             </article>
@@ -62,7 +132,7 @@ function NavTop(){
 
                     <div className='middle-cart'>
                         <a href='/'>
-                            <FaShoppingCart/>
+                            <ShopCart />
                         </a>
                     </div>
 

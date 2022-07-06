@@ -68,6 +68,13 @@
             flex: 1;
             display: flex;
             justify-content: flex-start;
+            li{
+                list-style: none;
+                text-transform: uppercase;
+                a{
+                    color: black;
+                }
+            }
         }
         
     }
@@ -75,7 +82,7 @@
     .nav-bar-middle{
         display: flex;
         justify-content: space-between;
-        padding: 70px;
+        padding: 50px;
         .middle-logo{
             text-transform: uppercase;
             font-size: 2.4rem;
@@ -132,7 +139,7 @@
                 justify-content: center;
                 align-items: center;
                 background-color: $secondFontColor;
-                padding: 0 20px;
+                // padding: 0 20px;
                 margin-left: 30px;
                 a{
                     color: white;
