@@ -35,5 +35,11 @@ export const routeConfig = {
     },
     DASHBOARD: {
         url: '/dashboard',
+    },
+    ADMIN_USERS: {
+        url: 'users',
+    },
+    ADMIN_PRODUCTS: {
+        url: 'products',
     }
 }

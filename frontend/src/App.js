@@ -27,12 +27,15 @@ import UnsubscribePage from "./pages/UnsubscribePage/UnsubscribePage";
 import Loader from "./components/Loader/Loader";
 import Dashboard from "./pages/dashboard/Dashboard";
 import {Navigate} from "react-router";
+import Users from "./adminComponents/users/Users";
+import Products from "./adminComponents/products/Products";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
 
 function App() {
     const [filterStatus, setFilterStatus] = useState(false);
+    const [isCheckingUserFinished, setIsCheckingUserFinished] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -46,6 +49,7 @@ function App() {
         } else {
             dispatch(setUser(JSON.parse(localStorage.getItem('user'))))
         }
+        setIsCheckingUserFinished(true);
     };
 
     const handleShopCart = () => {
@@ -59,7 +63,7 @@ function App() {
             <Loader/>
             {!JSON.parse(localStorage.getItem('cookie')) && <CookiesModal/>}
             <Navigation/>
-            <Routes>
+            {isCheckingUserFinished && <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>
                 <Route path={routeConfig.SHOP.url}
                        element={<Shop filterStatus={filterStatus} setFilterStatus={setFilterStatus}/>}/>
@@ -79,11 +83,13 @@ function App() {
                 {/*admin part*/}
                 <Route path={routeConfig.DASHBOARD.url}
                        element={<AdminProtect>
-                                    <Dashboard/>
-                                </AdminProtect>}>
-
+                           <Dashboard/>
+                       </AdminProtect>}>
+                    <Route path={routeConfig.ADMIN_USERS.url} element={<Users/>}/>
+                    <Route path={routeConfig.ADMIN_PRODUCTS.url} element={<Products/>}/>
                 </Route>
-            </Routes>
+            </Routes>}
+
             <Footer/>
         </div>
     );
@@ -92,7 +98,7 @@ function App() {
 function AdminProtect({children}) {
     const {user} = useSelector(state => state.userStore);
 
-    if (user?.isAdmin !== 'true') return <Navigate to={routeConfig.SHOP.url} />
+    if (user?.isAdmin !== 'true') return <Navigate to={routeConfig.SHOP.url}/>
     return (
         {...children}
     )
