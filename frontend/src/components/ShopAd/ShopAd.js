@@ -3,11 +3,11 @@ import "./shopAd.scss";
 
 function ShopAd(props) {
     // state can change
-    const [ad, setAd] = useState({});
+    const [ad, setAd] = useState({});  // useState var moze da se menja unutar komponente
 
     useEffect(() => {
 
-        // props cannot change
+        // props cannot change // unchangeable
         console.log(props.ad);
         setAd(props.ad)
     }, []);

@@ -17,7 +17,7 @@ function Slider() {
         // setNumberImages(imageList.length)
         // console.log(JSON.stringify(imageList))
 
-        axios.get("https://raw.githubusercontent.com/zile028/fake-db/main/slider_images.json")
+        axios.get("https://raw.githubusercontent.com/peratrusnik/img/main/images.json")
             .then(res => res.data).then((res) => {
             setImages(res)
             setNumberImages(res.length)

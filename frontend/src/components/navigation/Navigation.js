@@ -1,7 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux"; // hook
 
 function Navigation() {
+    // state = redux store from store.js
+    const user = useSelector((state) => state.userStore.user);
+    useEffect(() => {
+        console.log('use eff', user)
+    },  [user]);
+
+    const userBtnLayout = () => {
+        return user.hasOwnProperty('username') ?
+            user.username :
+            <li className="nav-item">
+                <Link className="nav-link" to="/auth">Login/Register</Link>
+            </li>
+    }
     return (
         <nav className="navbar navbar-expand-lg bg-light">
             <div className="container-fluid">
@@ -24,9 +38,7 @@ function Navigation() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/auth">Login/Register</Link>
-                        </li>
+                        {userBtnLayout()}
                     </ul>
                 </div>
             </div>
