@@ -13,7 +13,7 @@ function ClientsWord() {
         ClientsService.getClients()
             .then(res => {
                 if (res.status === 200) {
-                    setClients(res.data)
+                    setClients(res.data);
                 }
             })
             .catch(err => {
@@ -21,24 +21,13 @@ function ClientsWord() {
             })
     }, []);
 
-    // const settings = {
-    //     infinite: true,
-    //     slidesToShow: 3,
-    //     slidesToScroll: 3,
-    //     arrows: false,
-    //     dots: true
-    // };
-
     const settings = {
-
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 3,
         arrows: false,
         dots: true,
-
         responsive: [{
-
             breakpoint: 1024,
             settings: {
                 slidesToShow: 2,
@@ -47,25 +36,21 @@ function ClientsWord() {
             }
 
         }, {
-
             breakpoint: 600,
             settings: {
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 dots: true
             }
-
-        }
-        ]
-    }
-
+        }]
+    };
 
     return (
         <>
-            <div className="clients-header">
-                <h3>Words from clients</h3>
-            </div>
-            <div className="testimonial-box">
+            {clients.length > 0 &&<div className="testimonial-box">
+                <div className="clients-header">
+                    <h3>Words from clients</h3>
+                </div>
                 <Slider {...settings}>
                     {clients.map((client, index) => {
                         return <div className="col-md-12" key={index}>
@@ -80,10 +65,9 @@ function ClientsWord() {
                         </div>
                     })}
                 </Slider>
-            </div>
+            </div>}
         </>
     )
-
 }
 
 export default ClientsWord;

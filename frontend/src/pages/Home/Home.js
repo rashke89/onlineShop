@@ -21,9 +21,6 @@ function Home(props) {
                     <OurProductSlider/>
                 </div>
                 <div className="home-section-wrapper">
-                    <Masonry changeSide={true}/>
-                </div>
-                <div className="home-section-wrapper">
                     <Subscribe titleText="save 50% of sale"
                                titleTextBefore="Our Latest Collection"
                                titleTextAfter="Be the first to know about latest and modern furniture"

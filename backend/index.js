@@ -99,7 +99,7 @@ app.get('/api/home/:numberOfAds', (req,res)=>{
 	})
 })
 
-// getting clients from clients.json
+// getting clients from fakeDb/clients.json
 app.get("/api/home",(req,res)=>{
     res.send(clients);
 });
