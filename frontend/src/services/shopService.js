@@ -40,6 +40,10 @@ class ShopService {
     static initPayment(body) {
         return axios.post('/api/payment/init-payment', body)
     }
+
+    static ordered(order) {
+        return axios.post('/api/ordered', order);
+    }
 }
 
 export default ShopService;

@@ -53,7 +53,7 @@ function OurProductSlider() {
                             <a href="" className="add-to-cart" onClick={e => {
                                 e.preventDefault();
                                 dispatch(addToCart(ad));
-                            }}><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                            }}><i className="fa fa-shopping-cart"></i>Add to cart</a> <br />
                             <a href={`/shop/ad/${ad._id}`} className="view-product">View product</a>
                         </p>
                     </div>
