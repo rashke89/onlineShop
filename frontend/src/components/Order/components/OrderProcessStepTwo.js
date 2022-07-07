@@ -42,32 +42,32 @@ const OrderProcessStepTwo = () => {
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="firstName" className="form-label">First name</label>
-						<input type="text" className="form-control" id="firstName" defaultValue={form?.firstName}/>
+						<input type="text" className="form-control" id="firstName" defaultValue={form?.firstName} onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.firstName)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="lastName" className="form-label">Last name</label>
-						<input type="text" className="form-control" id="lastName" defaultValue={form?.lastName}/>
+						<input type="text" className="form-control" id="lastName" defaultValue={form?.lastName} onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.lastName)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="address" className="form-label">Address</label>
-						<input type="text" className="form-control" id="address" defaultValue={form?.address}/>
+						<input type="text" className="form-control" id="address" defaultValue={form?.address} onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.address)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="city" className="form-label">City</label>
-						<input type="text" className="form-control" id="city" defaultValue={form?.city}/>
+						<input type="text" className="form-control" id="city" defaultValue={form?.city} onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.city)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="postCode" className="form-label">Post code</label>
-						<input type="text" className="form-control" id="postCode" defaultValue={form?.postCode}/>
+						<input type="text" className="form-control" id="postCode" defaultValue={form?.postCode} onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.postCode)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="phoneNumber" className="form-label">Phone number</label>
-						<input type="number" className="form-control" id="phoneNumber" defaultValue={form?.phoneNumber}/>
+						<input type="number" className="form-control" id="phoneNumber" defaultValue={form?.phoneNumber} onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.phoneNumber)}
 					</div>
 					<div className="col-12">

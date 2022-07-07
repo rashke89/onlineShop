@@ -1,25 +1,25 @@
 import axios from "axios";
 
 class AuthService {
-    static login(body) {
-        return axios.post("/api/login", body)
-    }
+	static login(body) {
+		return axios.post("/api/user/login", body)
+	}
 
-    static register(body) {
-        return axios.post("/api/register", body)
-    }
+	static register(body) {
+		return axios.post("/api/user/register", body)
+	}
 
-    static getAllUsers() {
-        return axios.get("/api/users")
-    }
+	static getAllUsers() {
+		return axios.get("/api/user/get-all-users")
+	}
 
-    static completeRegistration(body) {
-        return axios.post("/api/complete-registration", body)
-    }
+	static completeRegistration(body) {
+		return axios.post("/api/user/complete-registration", body)
+	}
 
-    static isUserLoggedIn() {
-        return localStorage.hasOwnProperty('user');
-    }
+	static isUserLoggedIn() {
+		return localStorage.hasOwnProperty('user');
+	}
 }
 
 export default AuthService
