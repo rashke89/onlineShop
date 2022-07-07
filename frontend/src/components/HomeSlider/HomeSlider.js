@@ -13,7 +13,7 @@ function HomeSlider() {
 	useEffect(() => {
 		let loop = setInterval(() => {
 			setCurrentSlide(currentSlide === length - 1 ? 0 : currentSlide + 1);
-		}, 5000);
+		}, 10000);
 
 		return() => {
 			clearInterval(loop);
@@ -26,7 +26,7 @@ function HomeSlider() {
 			.then(response => {
 				if(response.status === 200) {
 					setRandomProducts(response.data);
-					console.log(randomProducts);
+					// console.log(randomProducts);
 				}
 			})
 			.catch(error => {
@@ -39,7 +39,7 @@ function HomeSlider() {
 	};
 
 	return (
-		<div className="container-fluid p-0 overflow-hidden" style={{ backgroundColor: bgColor[currentSlide] }}>
+		<div className="home-slider-wrapper container-fluid p-0 overflow-hidden" style={{ backgroundColor: bgColor[currentSlide] }}>
 			<div className="row py-5">
 				<div className="col-md-12">
 					<div className="slider">
