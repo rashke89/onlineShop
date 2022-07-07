@@ -7,16 +7,16 @@ import {addToCart} from "../../redux/cartSlice";
 import HeaderProduct from "../HeaderProduct/HeaderProduct";
 import ShareButton from "../ShareButton/ShareButton";
 
-const productMockData = {
-    category: "men's clothing",
-    description: "The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be" +
-        " reviewed below on the product description.",
-    id: 4,
-    image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
-    price: 15.99,
-    rating: {rate: 2.1, count: 430},
-    title: "Mens Casual Slim Fit",
-}
+// const productMockData = {
+//     category: "men's clothing",
+//     description: "The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be" +
+//         " reviewed below on the product description.",
+//     id: 4,
+//     image: "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+//     price: 15.99,
+//     rating: {rate: 2.1, count: 430},
+//     title: "Mens Casual Slim Fit",
+// }
 
 export default function ViewAd() {
     const [ad, setAd] = useState({});
@@ -38,11 +38,11 @@ export default function ViewAd() {
     };
 
     const onAddToCart = () => {
-        dispatch(addToCart(ad))
+        dispatch(addToCart(ad));
     };
 
     const adLayout = () => {
-        return <div className="ad-wrapper row">
+        return <div className="row mt-5">
             <div className="col-md-6">
                 <img src={ad.imgUrl} alt="Product image"/>
             </div>
@@ -57,7 +57,7 @@ export default function ViewAd() {
                     description={ad.description}
                     round={true}
                     size={32}/>
-                <button className="btn add-to-cart-btn" onClick={onAddToCart}>Add to cart</button>
+                <button className="btn" onClick={onAddToCart}>Add to cart</button>
             </div>
         </div>
     }
@@ -81,14 +81,10 @@ export default function ViewAd() {
             });
     };
     return (
-        <div className="view-ad-wrapper container-fluid p-0">
+        <div className="container-fluid p-0 view-ad-wrapper ">
             <HeaderProduct productInfo={ad} />
-            <div className="row mt-5">
-                <div className="col-md-12">
                     {noParamsMsgLayout()}
                     {ad && ad.hasOwnProperty('_id') && adLayout()}
-                </div>
-            </div>
         </div>
     )
 }

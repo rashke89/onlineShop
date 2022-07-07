@@ -131,9 +131,9 @@ function NavTop(){
                     </div>
 
                     <div className='middle-cart'>
-                        <a href='/'>
+                        <div className="cart-icon">
                             <ShopCart />
-                        </a>
+                        </div>
                     </div>
 
                 </div>
