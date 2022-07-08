@@ -1,0 +1,43 @@
+@import '../../assets/scss/variable.scss';
+$navBackround: #252525;
+
+.main-nav{
+    background-color: $navBackround;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    &.sticky-nav{
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    &.animate__animated.animate__backInDown{
+        --animate-duration: .5s;
+      }
+    .main-nav-links{
+        text-transform: uppercase;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        .furn-logo{
+            font-size: 1.4rem;
+            font-weight: 700;
+                span:nth-child(2){
+                    color: $secondFontColor;
+                }
+        }
+        a{
+            font-size: .9rem;
+            color: white;
+            font-weight: 600;
+            margin: 0 5px;
+            &:hover{
+                color: $secondFontColor;
+                transition: $transition;
+            }
+            &.active{
+                color: $secondFontColor;
+            }
+        }
+    }
+}

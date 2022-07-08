@@ -30,6 +30,7 @@ import {Navigate} from "react-router";
 import Users from "./adminComponents/users/Users";
 import Products from "./adminComponents/products/Products";
 import Stats from "./adminComponents/stats";
+import NavTop from "./components/navigation/NavTop";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -63,6 +64,7 @@ function App() {
         <div className={`main-wrapper ${filterStatus ? 'filter-opened' : ''}`}>
             <Loader/>
             {!JSON.parse(localStorage.getItem('cookie')) && <CookiesModal/>}
+            <NavTop/>
             <Navigation/>
             {isCheckingUserFinished && <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>

@@ -3,9 +3,9 @@ import Slider from "react-slick";
 import ShopService from "../../services/shopService";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
+import './ourProductSlider.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './ourProductSlider.scss';
 
 
 function OurProductSlider() {
