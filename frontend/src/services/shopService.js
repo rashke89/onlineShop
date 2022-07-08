@@ -44,6 +44,10 @@ class ShopService {
     static ordered(order) {
         return axios.post('/api/ordered', order);
     }
+
+    static getRandomSliderAds(numberAds) {
+        return axios.get(`/api/home/slider/${numberAds}`);
+    }
 }
 
 export default ShopService;
