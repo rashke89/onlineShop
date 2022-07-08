@@ -27,7 +27,6 @@ function OrderProcessStepTree({ sk }) {
     return (
         <>
             {stripe && <div>
-                <h1>step 3</h1>
                 <PaymentElement />
                 <StepperFooter submitPayment={submitPayment} />
             </div>}
@@ -43,12 +42,12 @@ function StripeElements() {
     };
 
     useEffect(() => {
-        console.log(cart);
+        // console.log(cart);
         let sumPrice = cart.reduce((state, item) => {
             return state + item.totalPrice;
         }, 0)
 
-        console.log(sumPrice);
+        // console.log(sumPrice);
         ShopService.initPayment({ amount: sumPrice })
             .then(response => {
                 console.log(response.data);

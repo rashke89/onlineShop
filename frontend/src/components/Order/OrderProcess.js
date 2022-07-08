@@ -9,6 +9,9 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { setCart } from "../../redux/cartSlice";
 import { routeConfig } from "../../config/routeConfig";
 import ShopService from "../../services/shopService";
+import Succeeded from "./components/paymentMessages/Succeeded";
+import Processing from "./components/paymentMessages/Processing";
+import Error from "./components/paymentMessages/Error";
 
 function OrderProcess() {
 
@@ -66,16 +69,18 @@ function PaymentMessage({ msg }) {
         dispatch(setCart([]));
         setTimeout(() => {
             navigate(routeConfig.SHOP.url);
-        }, 3000)
+        }, 5000)
     }, [])
 
     function displayMessage() {
         if (msg === 'succeeded') {
-            return <div>Payment succeeded!</div>
+            return <Succeeded />
+            // todo LINIJU IZNAD ZAKOMENTARISI OVO ODKOMENTARISI DA POGLEDAS SVE MOGUCNOSTI
+            // return <div><Processing /> <Succeeded /> <Error /></div>
         } else if (msg === 'processing') {
-            return <div>Your payment is processing.</div>
+            return <Processing />
         } else if (msg === 'requires_payment_method') {
-            return <div>Your payment was not successful, please try again.</div>
+            return <Error />
         }
     }
 
