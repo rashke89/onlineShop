@@ -75,8 +75,6 @@ function PaymentMessage({ msg }) {
     function displayMessage() {
         if (msg === 'succeeded') {
             return <Succeeded />
-            // todo LINIJU IZNAD ZAKOMENTARISI OVO ODKOMENTARISI DA POGLEDAS SVE MOGUCNOSTI
-            // return <div><Processing /> <Succeeded /> <Error /></div>
         } else if (msg === 'processing') {
             return <Processing />
         } else if (msg === 'requires_payment_method') {

@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import ShopCart from "../ShopCart/ShopCart";
 import {routeConfig} from "../../config/routeConfig";
@@ -31,7 +31,7 @@ function Navigation() {
 				</a>
 				<ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 					<li>
-						<Link to={routeConfig.USER_PROFILE.url} className="dropdown-item user-dropdown">
+						<NavLink to={routeConfig.USER_PROFILE.url} className="dropdown-item user-dropdown">
 							{/*TODO: change icons*/}
 							{user.isAdmin ? (
 								<i className="bi bi-person-workspace me-2"></i>
@@ -39,19 +39,19 @@ function Navigation() {
 								<i className="bi bi-person-circle me-2"></i>
 							)}
 							Profile
-						</Link>
+						</NavLink>
 					</li>
 					<li>
-						<Link to="/my-ads" className="dropdown-item" href="/">
+						<NavLink to="/my-ads" className="dropdown-item" href="/">
 							<i className="bi bi-card-list me-2"></i>
 							My ads
-						</Link>
+						</NavLink>
 					</li>
 					<li onClick={logOut}>
-						<Link to="#" className="dropdown-item">
+						<NavLink to="#" className="dropdown-item">
 							<i className="bi bi-box-arrow-right me-2"></i>
 							Logout
-						</Link>
+						</NavLink>
 					</li>
 				</ul>
 			</li>
@@ -82,16 +82,16 @@ function Navigation() {
 				<div className="collapse navbar-collapse" id="navbarText">
 					<ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 						<li className="nav-item">
-							<Link className="nav-link active" aria-current="page" to="/">Home</Link>
+							<NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/about">About</Link>
+							<NavLink className="nav-link" to="/about">About</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/shop">Shop</Link>
+							<NavLink className="nav-link" to="/shop">Shop</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/contact">Contact</Link>
+							<NavLink className="nav-link" to="/contact">Contact</NavLink>
 						</li>
                         <li className="nav-item">
                             <ShopCart />
