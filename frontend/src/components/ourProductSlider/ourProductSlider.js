@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import ShopService from "../../services/shopService";
-import './ourProductSlider.scss';
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartSlice";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import './ourProductSlider.scss';
 
 
 function OurProductSlider() {
 
     const [ads, setAds] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        ShopService.getAds()
+        ShopService.getRandomAds(10)
             .then(response => {
                 if (response.status === 200) {
-                    console.log(response.data);
                     setAds(response.data);
                 }
             })
@@ -48,13 +50,15 @@ function OurProductSlider() {
                             </span>
                         </a>
                         <p className="hover-content">
-                            <a href=""><i className="fa fa-shopping-cart"></i>Add to cart</a>
+                            <a href="" className="add-to-cart" onClick={e => {
+                                e.preventDefault();
+                                dispatch(addToCart(ad));
+                            }}><i className="fa fa-shopping-cart"></i>Add to cart</a> <br />
+                            <a href={`/shop/ad/${ad._id}`} className="view-product">View product</a>
                         </p>
                     </div>
                 })}
             </Slider>
-
-
         </div>
     )
 }

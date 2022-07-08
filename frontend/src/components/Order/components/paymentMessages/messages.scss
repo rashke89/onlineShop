@@ -1,0 +1,81 @@
+.succeeded-wrapper,
+.processing-wrapper,
+.error-wrapper {
+    margin-top: 80px;
+
+    h3 {
+        display: flex;
+
+        svg {
+            margin-right: 10px;
+            font-size: 35px;
+        }
+    }
+
+    p {
+        text-indent: 50px;
+
+        &::after {
+            content: "";
+            height: 1px;
+            display: block;
+            margin: 10px 0 0 50px;
+        }
+    }
+}
+
+.succeeded-wrapper {
+    svg {
+        color: green;
+    }
+
+    p {
+        &::after {
+            width: 174px;
+            background-color: green;
+        }
+    }
+}
+
+.error-wrapper {
+    svg {
+        color: tomato;
+    }
+
+    p {
+        &::after {
+            width: 115px;
+            background-color: tomato;
+        }
+    }
+}
+
+.processing-wrapper {
+    svg {
+        color: darkblue;
+        animation: hourglass 3s linear infinite;
+
+    }
+}
+
+@keyframes hourglass {
+    0% {
+        transform: rotateZ(0deg)
+    }
+
+    25% {
+        transform: rotateZ(0deg)
+    }
+
+    50% {
+        transform: rotateZ(180deg)
+    }
+
+    75% {
+        transform: rotateZ(360deg)
+    }
+
+    100% {
+        transform: rotateZ(360deg)
+    }
+}
