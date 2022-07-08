@@ -20,15 +20,17 @@ function Home(props) {
                 <div className="home-section-wrapper">
                     <OurProductSlider/>
                 </div>
-                <div className="home-section-wrapper">
-                    <Subscribe titleText="save 50% of sale"
-                               titleTextBefore="Our Latest Collection"
-                               titleTextAfter="Be the first to know about latest and modern furniture"
-                               bgUrl="https://quantumalgorithms.ca/sites/default/files/2021-06/Subscribe%20BG.jpg"/>
-                </div>
-                 <div className="home-section-wrapper">
-                    <ClientsWord/>
-                </div>
+            </div>
+            <div className="home-section-wrapper">
+                <Subscribe titleText="save 50% of sale"
+                           titleTextBefore="Our Latest Collection"
+                           titleTextAfter="Be the first to know about latest and modern furniture"
+                           bgUrl="https://quantumalgorithms.ca/sites/default/files/2021-06/Subscribe%20BG.jpg"/>
+            </div>
+            <div className="container">
+            <div className="home-section-wrapper">
+                <ClientsWord/>
+            </div>
             </div>
         </>
     );
