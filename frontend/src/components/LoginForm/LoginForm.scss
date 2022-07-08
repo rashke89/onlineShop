@@ -1,0 +1,39 @@
+.login-register-wrapper h3 {
+    text-align: center;
+    margin: 30px;
+}
+
+.login-register-form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.login-register-form div button {
+    width: 100%;
+}
+
+.login-register-form h5 {
+    margin-bottom: 40px;
+    padding-top: 50px;
+}
+
+.login-text-btn,
+.register-text-btn {
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.login-text-btn svg,
+.register-text-btn svg {
+    display: inline;
+    transition: margin .3s linear;
+    font-size: 14px;
+}
+
+.login-text-btn:hover svg,
+.register-text-btn:hover svg {
+    margin-left: 4px;
+}

@@ -1,0 +1,9 @@
+.register-text-btn svg {
+    display: inline;
+    transition: margin .3s linear;
+    font-size: 14px;
+}
+
+.register-text-btn:hover svg {
+    margin-left: 4px;
+}

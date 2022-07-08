@@ -1,0 +1,113 @@
+.shop-cart-wrapper {
+    position: relative;
+
+    svg {
+        display: inline;
+    }
+
+    .shop-cart-badge {
+        position: absolute;
+        background-color: tomato;
+        color: white;
+        border-radius: 50%;
+        top: 12px;
+        font-size: 16px;
+        padding: 0px 9px;
+        left: 15px;
+    }
+
+    .add-product-message,
+    .old-product-message {
+        font-size: 14px;
+        position: absolute;
+        width: max-content;
+        padding: 10px;
+        color: #fff;
+        border-radius: 4px;
+        top: 50px;
+
+        & svg {
+            margin-right: 10px;
+        }
+    }
+
+    .add-product-message {
+        background-color: rgba(43, 148, 62, 0.8);
+    }
+
+    .old-product-message {
+        background-color: rgba(11, 93, 215, 0.8);
+    }
+
+    .shop-cart-summary-wrapper {
+        background-color: #ddd;
+        padding: 10px;
+        position: absolute;
+        // width: max-content;
+        width: 300px;
+        // margin-top: 30px;
+        border-radius: 4px;
+        // max-height: 400px;
+        // overflow: auto;
+        box-shadow: 0 0 6px rgb(0 0 0 / 38%);
+        font-size: 12px;
+        z-index: 10;
+
+        .shop-cart-items {
+            overflow: auto;
+            max-height: 400px;
+
+            & .react-index:last-child {
+
+                .shop-cart-item-after{
+                    display: none;
+                }
+            }
+
+            .shop-cart-item {
+                display: grid;
+                // grid-template-columns: 2fr 3fr 1fr;
+                // grid-template-columns: 1.5fr 3fr .5fr;
+                grid-template-columns: auto 1fr auto;
+                gap: 0 10px;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    object-fit: contain;
+                }
+
+                .content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    .count {
+                        display: flex;
+                        gap: 5px;
+                    }
+                }
+
+                & div:last-child {
+                    justify-self: center;
+                }
+
+                .remove {
+                    align-self: center;
+                }
+            }
+
+            .shop-cart-item-after {
+                width: 85%;
+                margin: 15px auto;
+                height: 1px;
+                background-color: #000;
+            }
+        }
+
+        .order-btn-wrapper {
+            text-align: center;
+            margin: 20px 0 10px 0;
+        }
+    }
+}

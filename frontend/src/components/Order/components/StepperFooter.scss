@@ -1,0 +1,25 @@
+.buttons-wrapper {
+    width: 100%;
+    display: flex;
+    margin: 50px 0;
+
+    button {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-back {
+        
+        & svg {
+            margin-right: 0.75rem;
+        }
+    }
+
+    .btn-proceed {
+        
+        & svg {
+            margin-left: 0.75rem;
+        }
+    }
+
+}

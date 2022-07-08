@@ -1,0 +1,39 @@
+tbody {
+    
+    img {
+        width: 100px;
+        max-height: 100px;
+        object-fit: contain;
+    }
+
+    .count {
+
+        span {
+            margin-right: 10px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    svg {
+        display: inline;
+        cursor: pointer;
+    }
+}
+
+.remove-product-message {
+    background-color: rgba(255, 99, 71, 0.95);
+    font-size: 14px;
+    position: absolute;
+    width: max-content;
+    padding: 10px;
+    color: #fff;
+    border-radius: 4px;
+
+    & svg {
+        display: inline;
+        margin-right: 10px;
+    }
+}
