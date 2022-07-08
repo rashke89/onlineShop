@@ -29,6 +29,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import {Navigate} from "react-router";
 import Users from "./adminComponents/users/Users";
 import Products from "./adminComponents/products/Products";
+import Stats from "./adminComponents/stats";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -85,6 +86,7 @@ function App() {
                        element={<AdminProtect>
                            <Dashboard/>
                        </AdminProtect>}>
+                    <Route index element={<Stats/>}/>
                     <Route path={routeConfig.ADMIN_USERS.url} element={<Users/>}/>
                     <Route path={routeConfig.ADMIN_PRODUCTS.url} element={<Products/>}/>
                 </Route>

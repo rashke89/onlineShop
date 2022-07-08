@@ -3,6 +3,11 @@ import {FaUsers, FaBoxOpen, FaTag, FaMailBulk, FaSubscript} from "react-icons/fa
 
 export const ADMIN_SIDEBAR_CONFIG = [
     {
+        name: "Das",
+        url: "",
+        icon: <FaUsers className="mx-2" />
+    },
+    {
         name: "Users",
         url: "users",
         icon: <FaUsers className="mx-2" />
