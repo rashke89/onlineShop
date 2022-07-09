@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {NavLink, useNavigate, Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import ShopCart from "../ShopCart/ShopCart";
+import {NavLink, Link} from "react-router-dom";
 import {routeConfig} from "../../config/routeConfig";
-import {setUser} from "../../redux/userSlice";
 import "./navigation.scss";
 
 function Navigation() {
@@ -34,21 +31,21 @@ function Navigation() {
 			</Link>}
 
 
-			<Link className="nav-link"  to={routeConfig.HOME.url}>
+			<NavLink className="nav-link"  to={routeConfig.HOME.url}>
 				Home
-			</Link>
+			</NavLink>
 
-			<Link className="nav-link" to={routeConfig.ABOUT.url}>
+			<NavLink className="nav-link" to={routeConfig.ABOUT.url}>
 				About
-			</Link>
+			</NavLink>
 
-			<Link className="nav-link" to={routeConfig.SHOP.url}>
+			<NavLink className="nav-link" to={routeConfig.SHOP.url}>
 				Shop
-			</Link>
+			</NavLink>
 
-			<Link className="nav-link" to={routeConfig.CONTACT.url}>
+			<NavLink className="nav-link" to={routeConfig.CONTACT.url}>
 				Contact
-			</Link>
+			</NavLink>
 		</div>
 
 	</nav>

@@ -70,7 +70,15 @@ function PaymentMessage({ msg }) {
         setTimeout(() => {
             navigate(routeConfig.SHOP.url);
         }, 5000)
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        dispatch(setCart([]));
+        localStorage.removeItem("shopCart");
+        setTimeout(() => {
+            navigate(routeConfig.SHOP.url);
+        }, 3000)
+    })
 
     function displayMessage() {
         if (msg === 'succeeded') {
