@@ -1,9 +1,10 @@
-
+import { useEffect, useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {routeConfig} from "../../config/routeConfig";
 import ShopCart from "../ShopCart/ShopCart";
 import {setUser} from "../../redux/userSlice";
+import ShopService from "../../services/shopService";
 
 
 import {
@@ -15,14 +16,23 @@ import {
 } from "react-icons/fa";
 
 import './nav-top.scss';
+import { setCurrency } from "../../redux/currencySlice";
 
 
 
 
 function NavTop(){
 	const {user} = useSelector((state) => state.userStore);
+    const {currency} = useSelector((state) => state.currencyStore);
     const navigate=useNavigate();
 	const dispatch = useDispatch();
+    // const [currFromL, setCurrFromL] = useState("")
+
+
+    useEffect(() => {
+        localStorage.setItem("Currency", currency);
+        console.log("iz useefeee ",currency);
+    }, [currency]);
 
     const logOut=()=>{
 		localStorage.removeItem("user");
@@ -79,6 +89,28 @@ function NavTop(){
 		);
 	};
 
+    const currencyBtn = (e) => {
+        console.log("iddddd",e.target.value);
+        // console.log("currr value",e.target.defaultValue);
+        dispatch(setCurrency(e.target.value));
+        // setCurrFromL(e.target.value);
+
+        console.log("poslije dispach iddddd",e.target.value);		
+	};
+
+    const checkCurrency = () =>{
+        if(currency === "USD"){
+            return "USD";
+        }
+        if(currency === "RSD"){
+            return "RSD";
+        }
+        if(currency === "EUR"){
+            return "EUR";
+        }
+    
+    }
+
     return (
         <section className='nav-bar-wrapper'>
             
@@ -93,7 +125,23 @@ function NavTop(){
                         <a href='/'> <FaMailBulk/> &nbsp; <span> Email: </span> Info@Ourdomain.Com </a>
                     </div>
                     <div className='currency'> 
-                        <p>Currency : USD <FaAngleDown/> </p>
+                        {/* <p>Currency : USD <FaAngleDown/> </p> */}
+                        <label htmlFor="currency">Currency : </label>
+                        {/* {localStorage.Currency !== ""?  */}
+
+                        <select id="currency" defaultValue={checkCurrency()}   onChange={currencyBtn}>
+                            
+
+                            <option value="USD"  >USD</option> 
+                            <option value="EUR"  >EUR</option> 
+                            <option value="RSD"  >RSD</option> 
+
+
+                            
+                        </select> 
+                        {/* : null}  */}
+                        {/* {console.log("iz stateeee",currency)} */}
+
                     </div>
                 </div>
 
