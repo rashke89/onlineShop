@@ -30,7 +30,10 @@ const cartSlice = createSlice({
         },
         removeItem: (state,
                         action) => {
-            state.cart.splice(action.payload, 1)
+            let cartCopy = [...state.cart];
+            cartCopy.splice(action.payload, 1);
+            state.cart = cartCopy;
+            localStorage.setItem("shopCart", JSON.stringify(cartCopy))
         },
         handleCount: (state,
         action) => {

@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 const routes = express.Router();
 
 routes.post("/login", validate, (req, res) => {
-    console.log('request body ->',req.body);
+    console.log('request body ->', req.body);
     const reqBody = req.body;
 
     const foundUser = Users.findOne(reqBody, (err, data) => {
@@ -17,16 +17,16 @@ routes.post("/login", validate, (req, res) => {
         }
 
         // way 1
-        // if (data)
-        //     res.send(data);
-        // else
-        //     res.send('User not found.');
+        if (data)
+            res.send(data);
+        else
+            res.status(409).send('User not found.');
 
         // way 2
         // res.send(data ? data : 'User not found.');
 
         // way 3
-        res.send(data || "User not found.");
+        // res.send(data || "User not found.");
     });
 });
 
@@ -101,7 +101,6 @@ routes.get("/get-all-users", (req, res) => {
 
 routes.post("/complete-registration", (req, res) => {
     const userId = req.body.userId;
-
     Users.updateOne({_id: userId}, {isActive: true}, (error, result) => {
         if (error) {
             console.log(error);

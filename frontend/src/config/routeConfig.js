@@ -28,5 +28,18 @@ export const routeConfig = {
     },
     USER_PROFILE: {
         url: '/userProfile'
+    },
+    UNSUBSCRIBE: {
+        url: '/unsubscribe/:id',
+        realUrl: id => `/unsubscribe/${id}`,
+    },
+    DASHBOARD: {
+        url: '/dashboard',
+    },
+    ADMIN_USERS: {
+        url: 'users',
+    },
+    ADMIN_PRODUCTS: {
+        url: 'products',
     }
 }

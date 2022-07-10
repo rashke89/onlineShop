@@ -123,7 +123,7 @@ function AddEddProduct() {
 								<label htmlFor="category">Category</label>
 							</div>
 							<div className="form-floating mb-3">
-								<input type="text" className="form-control" id="description" name="description"  placeholder="Description"  value={product.hasOwnProperty("title")? product.description: ""} onChange={(event)=>handleInputChange(event)}/>
+								<input type="text" className="form-control" id="description" name="description"  maxLength="240" placeholder="Description"  value={product.hasOwnProperty("title")? product.description: ""} onChange={(event)=>handleInputChange(event)}/>
 									<label htmlFor="description">Description</label>
 							</div>
 							<div className="form-floating mb-3">

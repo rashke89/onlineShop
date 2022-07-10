@@ -4,12 +4,20 @@ class ShopService {
     static getAds() {
         return axios.get('/shop/products');
     }
-
+      static getRandomAds(masonryAds) {
+        return axios.get(`/api/home/${masonryAds}`);
+    }
     static getAdById(adId) {
         return axios.get(`/shop/product/${adId}`);
     }
     static getTopRatedProduct(num){
         return axios.get("/api/top-products/" + num)
+    }
+    static getFilteredAds(price) {
+        return axios.get(`/api/filteredAds/${price}`);
+    }
+    static getSearchedAds(searchTerm) {
+        return axios.get(`/api/product/search/${searchTerm}`)
     }
     static addProduct(body){
         return axios.post("/product/add/", body )
@@ -31,6 +39,14 @@ class ShopService {
 
     static initPayment(body) {
         return axios.post('/api/payment/init-payment', body)
+    }
+
+    static ordered(order) {
+        return axios.post('/api/ordered', order);
+    }
+
+    static getRandomSliderAds(numberAds) {
+        return axios.get(`/api/home/slider/${numberAds}`);
     }
 }
 
