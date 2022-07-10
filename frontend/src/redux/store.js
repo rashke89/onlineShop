@@ -1,10 +1,15 @@
 import {configureStore} from "@reduxjs/toolkit";
 import userReducer from './userSlice';
-
+import cartSlice from "./cartSlice";
+import orderProcessSlice from "./orderProcessSlice";
+import loaderSlice from "./loaderSlice";
 
 // store definition (state)
 export default configureStore({
     reducer: {
-        userStore: userReducer
+        userStore: userReducer,
+        cartStore: cartSlice,
+        orderProcessStore: orderProcessSlice,
+        loaderStore: loaderSlice
     }
 })

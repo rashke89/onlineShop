@@ -1,0 +1,51 @@
+.loader {
+  &-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(gray, .5);
+    height: 100vh;
+    width: 100vw;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-bar {
+    border: 2px solid gray;
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    &-item {
+      height: 100%;
+      width: 8px;
+      background-color: green;
+      position: relative;
+      left: -10%;
+      animation-name: rightLeft;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+
+    }
+  }
+
+  @keyframes rightLeft {
+    0% {
+      left: -10%;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: -10%;
+    }
+  }
+}

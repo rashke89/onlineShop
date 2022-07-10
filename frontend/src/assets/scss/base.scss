@@ -1,3 +1,85 @@
 .main-wrapper {
   height: 100%;
+  background-color: #f3f3f3;
+  transition: all .5s ease;
+  &.filter-opened {
+    height: 100vh;
+    overflow-y: hidden;
+    margin-left: 30%;
+    &:before{
+      content: "";
+      background: rgba(0,0,0,.6);
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 5;
+    }
+  }
+}
+
+.btn {
+  background-color: #1daaa3;
+  border-radius: 0;
+  border: 1px solid #1daaa3;
+  color: #fff;
+  padding: 10px 20px;
+
+  &:hover {
+    background-color: #fff;
+    border: 1px solid #1daaa3;
+    color: #1daaa3;
+  }
+
+  &:focus {
+    background-color: #1daaa3;
+    border: 1px solid #1daaa3;
+    box-shadow: 0 0 0 0.25rem rgb(29 170 163 / 50%);
+  }
+
+  &.secondary-btn {
+    background-color: #fff;
+    border-radius: 0;
+    border: 1px solid #1daaa3;
+    color: #000;
+
+    &:hover {
+      background-color: #1daaa3;
+      border: 1px solid #1daaa3;
+    }
+  }
+}
+
+.filter-btn,
+.search-btn,
+.sort,
+.form-control {
+  &:focus,
+  &:active {
+    border-color: #1daaa3;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(29 170 163 / 25%);
+  }
+}
+
+// * LOADER
+.loader {
+  border: 8px solid #fff;
+  border-radius: 50%;
+  border-top: 8px solid #1daaa3;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

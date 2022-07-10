@@ -1,40 +1,32 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./shopAd.scss";
+import { routeConfig } from "../../config/routeConfig";
 
 function ShopAd(props) {
     // state can change
     const [ad, setAd] = useState({});
-    const [count, setCount] = useState(true);
 
     // mount
     useEffect(() => {
         // props cannot change
-        console.log(props.ad.el);
-        setAd(props.ad.el)
+        setAd(props.ad)
     }, []);
 
-    // condition
-    useEffect(() => {
-        // props cannot change
-        console.log('test');
-        // setAd(props.ad)
-    }, [count]);
-
-    // unmount
-    useEffect(() => {
-        return () => {
-            console.log('test unmount');
-        }
-    });
     return (
-        <div className="shop-ad-wrapper col-md-3">
-            {ad?.image ? <div>
-                <img src={ad.image} className="img img-fluid" alt=""/>
-                <p className="shop-ad-title">{ad.title}</p>
-                <p>Rate: {ad.rating.rate}</p>
-                <p className="shop-ad-price">{ad.price}$</p>
+        <>
+            {ad?.imgUrl ? <div className="shop-ad-wrapper col-md-3">
+                <div className="shop-ad-content-wrapper">
+                    <img src={ad.imgUrl} className="img img-fluid" alt="" />
+                    <p className="shop-ad-title">{ad.title}</p>
+                    <p>Rate: {ad.rating}</p>
+                    <p className="shop-ad-price">{ad.price}$</p>
+                    <Link to={routeConfig.AD_SHOP.realUrl(ad._id)} className="view-more-btn">
+                        <p className="view-more-btn-text">View Product</p>
+                    </Link>
+                </div>
             </div> : null}
-        </div>
+        </>
     )
 }
 

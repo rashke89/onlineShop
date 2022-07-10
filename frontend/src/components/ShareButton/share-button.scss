@@ -1,0 +1,20 @@
+.share-social-wrapper {
+  line-height: 1;
+  font-size: 62.5%;
+  width: 100%;
+  padding: 10px 5px;
+  border: 1px solid rgba(#ddd, .9);
+  border-radius: 0.5em;
+  margin-bottom: 2em;
+  display: flex;
+  gap: 0.5em;
+
+  & > button {
+    transition: transform .4s linear;
+    cursor: pointer;
+
+    &:hover {
+      transform: rotate(45deg);
+    }
+  }
+}

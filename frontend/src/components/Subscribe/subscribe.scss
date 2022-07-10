@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap');
+
+.subscribe {
+  font-size: 62.5%;
+
+  &-wrapper {
+    padding: 40px 0;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      min-height: 50vh;
+      color: #ffffff;
+    }
+  }
+
+  &-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 6em;
+
+    &-before {
+      font-family: 'Tangerine', cursive;
+      font-size: 6em;
+    }
+
+    &-after {
+      font-size: 2em;
+      font-size: 2em;
+    }
+  }
+
+  form {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 50px;
+
+    input {
+      letter-spacing: .1em;
+      font-size: 1.6em;
+      padding: 5px;
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #ffffff;
+      outline: none;
+      color: #ffffff;
+
+      &::placeholder {
+        font-style: oblique;
+      }
+    }
+
+    button {
+      letter-spacing: .1em;
+      background-color: #ffffff;
+      outline: none;
+      border: none;
+      text-transform: uppercase;
+      font-size: 1.3em;
+      font-weight: 700;
+      padding: .5em 2.5em;
+    }
+  }
+
+  &-error {
+    font-size: 1.6em;
+    color: #FF6347FF;
+  }
+
+  &-response {
+    font-size: 2em;
+    color: tomato;
+  }
+}

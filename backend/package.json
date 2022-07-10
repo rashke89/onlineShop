@@ -5,14 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "server": "nodemon index.js",
+    "client": "cd ../frontend && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node index"
   },
   "author": "We",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.4.0",
+    "concurrently": "^7.2.2",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "mongoose": "^6.3.4",
-    "nodemon": "^2.0.16"
+    "nodemailer": "^6.7.5",
+    "nodemon": "^2.0.19",
+    "stripe": "^9.10.0"
   }
 }

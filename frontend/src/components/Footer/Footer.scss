@@ -1,0 +1,114 @@
+$backgroundColor: #000000;
+$firstFontColor: #ededed;
+$secondFontColor: #1daaa3;
+$thirdFontColor: #828282;
+$transition:  0.5s ease-in;
+
+.underline{
+    display: block;
+    content: "";
+    width: 20%;
+    height: 3px;
+    background: $firstFontColor;
+    margin: 20px 0
+}
+
+.footer-wrapper{
+    margin-top: 50px;
+    background-color: $backgroundColor;
+    padding: 80px 80px 0 ;
+    color: $firstFontColor;
+    .footer-title{
+        text-align: center;
+        text-transform: uppercase;
+        a{
+            text-decoration: none;
+            font-size: 2.7rem;
+            color: $firstFontColor;
+            font-weight: 400;
+            span:last-child{
+                color: $secondFontColor;
+            }
+        }
+    }
+    .footer-links{
+        display: flex;
+        justify-content: center;
+        a{
+            font-size: 1.2rem;
+            margin: 20px 5px;
+            text-decoration: none;
+            color: $thirdFontColor;
+            border: 1px solid $thirdFontColor;
+            padding: 13px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover{
+                transition: $transition;
+                background-color: $secondFontColor;
+                color: $firstFontColor;
+            }
+        }
+    }
+    .footer-info{
+        display: flex;
+        justify-content: space-between; 
+        article:nth-child(1), article:nth-child(4){
+            flex: 2;
+        }
+        article:nth-child(2), article:nth-child(3){
+            flex: 1;
+        }
+        article{
+            padding: 30px;
+            h2{
+                text-transform: uppercase;
+                font-size: 1.3rem;
+                &::after{
+                    @extend .underline;
+                }
+            }
+            ul{
+                list-style: none;
+                padding: 0;
+                li{
+                    color: $thirdFontColor;
+                    line-height: 2.5rem;
+                    a{
+                        text-decoration: none;
+                        color: $thirdFontColor;
+                        &:hover{
+                            color: $secondFontColor;
+                            cursor: pointer;
+                            transition: $transition;
+                        }
+                    }
+                    p{
+                        line-height: normal;
+                    }
+                }
+            }
+            .footer-image-holder{
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                img{
+                    width: 30%;
+                    border: 2px solid $thirdFontColor;
+                    height: 100px;
+                    margin-bottom: 15px;
+                    background-color: white;
+                    padding: 10px;
+                    &:hover{
+                        border: 2px solid $secondFontColor;
+                        padding: 5px;
+                        transition: $transition;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

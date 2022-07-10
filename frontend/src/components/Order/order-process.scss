@@ -1,0 +1,23 @@
+.order-table-wrapper {
+  img {
+    width: 120px;
+  }
+}
+
+.order-process-step-two-wrapper {
+  label.form-label, label.form-check-label {
+    margin-top: 0;
+  }
+  .form-group {
+    height: 100px;
+
+    input {
+      border-radius: 0;
+      border: 1px solid #d9d9d9;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
