@@ -45,6 +45,8 @@
             border-right: 1px solid $borderFont;
             div{
                 flex: 1;
+                display: flex;
+                align-items: center;
             }
             .email{
                 a{
@@ -59,8 +61,13 @@
                 }
             }
             .currency{
-                display: flex;
                 justify-content: flex-end;
+                p{
+                    color: $borderFont;
+                }
+                li{
+                    list-style: none;
+                }
             }
 
         }

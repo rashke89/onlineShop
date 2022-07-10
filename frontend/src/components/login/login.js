@@ -50,8 +50,8 @@ function Login({showLoginForm}) {
             <label htmlFor="password">Password</label>
             <input className="form-control mb-3" name="password" type="password" id="password" onInput={onHandleInput}/>
 
-            <button type="button" className="btn btn-primary px-5" onClick={loginForm}>Go to register</button>
-            <button className="btn btn-success px-5 ms-auto">OK</button>
+            <button type="button" className="btn btn-primary px-5 form-control mb-3" onClick={loginForm}>Go to register</button>
+            <button className="btn btn-success px-5 ms-auto form-control">OK</button>
             {!isValidForm && <p>Username and password is required!</p>}
         </form>
     );
