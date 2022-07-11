@@ -32,6 +32,10 @@ class ShopService {
     static getTopRatedProduct(num){
         return axios.get("/api/top-products/" + num);
     }
+
+    static initPayment(body) {
+        return axios.post('/api/payment/init-payment', body);
+    }
 }
 
 export default ShopService;

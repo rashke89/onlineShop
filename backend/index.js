@@ -6,6 +6,7 @@ const Users = require("./models/userModel");
 const serverConfig = require("./config/serverConfig");
 const Product = require("./models/productModel");
 const userRoute = require("./routes/userRoute");
+const paymentRoute = require('./routes/paymentRoute');
 // const mainService = require("./services/mailService");
 
 const app = express();
@@ -113,6 +114,9 @@ app.put('/product/save/:myProductId', (req, res) => {
 
 // User routes
 app.use("/api/user", userRoute);
+
+// Stripe
+app.use('/api/payment', paymentRoute);
 
 
 app.listen(serverConfig.port, (err) => {

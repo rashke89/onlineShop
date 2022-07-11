@@ -16,6 +16,7 @@ const StepperFooter = () => {
 		}
 		if(currentStep === 2) {
 			dispatch(stepTwoIsSubmitted());
+			dispatch(handleCurrentStep(currentStep + 1));
 		}
 	}
 
