@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {addToCart} from "../../redux/cartSlice";
 import HeaderProduct from "../HeaderProduct/HeaderProduct";
 import ShareButton from "../ShareButton/ShareButton";
+import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 
 // const productMockData = {
 //     category: "men's clothing",
@@ -50,7 +51,9 @@ export default function ViewAd() {
                 <h3>{ad.title}</h3>
                 <p>{ad.category}</p>
                 <p>{ad.description}</p>
-                <p>{ad.price}</p>
+                <p>
+                    <ChangeCurrency adConvertPrice={ad.price} />
+                </p>
                 <ShareButton
                     url={window.location.href}
                     title={ad.title}

@@ -11,7 +11,6 @@ const currencySlice = createSlice({
         setCurrency: (state,
                  action ) => {
             state.currency = action.payload;
-            console.log(state.currency, "oz ssas");
         },
 
     },

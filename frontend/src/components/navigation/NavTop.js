@@ -26,12 +26,9 @@ function NavTop(){
     const {currency} = useSelector((state) => state.currencyStore);
     const navigate=useNavigate();
 	const dispatch = useDispatch();
-    // const [currFromL, setCurrFromL] = useState("")
-
 
     useEffect(() => {
         localStorage.setItem("Currency", currency);
-        console.log("iz useefeee ",currency);
     }, [currency]);
 
     const logOut=()=>{
@@ -90,12 +87,7 @@ function NavTop(){
 	};
 
     const currencyBtn = (e) => {
-        console.log("iddddd",e.target.value);
-        // console.log("currr value",e.target.defaultValue);
         dispatch(setCurrency(e.target.value));
-        // setCurrFromL(e.target.value);
-
-        console.log("poslije dispach iddddd",e.target.value);		
 	};
 
     const checkCurrency = () =>{
@@ -125,30 +117,20 @@ function NavTop(){
                         <a href='/'> <FaMailBulk/> &nbsp; <span> Email: </span> Info@Ourdomain.Com </a>
                     </div>
                     <div className='currency'> 
-                        {/* <p>Currency : USD <FaAngleDown/> </p> */}
+
                         <label htmlFor="currency">Currency : </label>
-                        {/* {localStorage.Currency !== ""?  */}
-
-                        <select id="currency" defaultValue={checkCurrency()}   onChange={currencyBtn}>
+                        <select className="selectCurr" id="currency" defaultValue={checkCurrency()}   onChange={currencyBtn}>
                             
-
                             <option value="USD"  >USD</option> 
                             <option value="EUR"  >EUR</option> 
                             <option value="RSD"  >RSD</option> 
-
-
-                            
+                
                         </select> 
-                        {/* : null}  */}
-                        {/* {console.log("iz stateeee",currency)} */}
-
                     </div>
                 </div>
 
                 <div className='info-account'>
-                    {/* <p>MY ACCOUNT <FaAngleDown/> </p> */}
-                    {userBtnLayout()}
-                    
+                    {userBtnLayout()}      
                 </div>
 
             </article>

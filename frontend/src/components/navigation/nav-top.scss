@@ -62,11 +62,21 @@
             }
             .currency{
                 justify-content: flex-end;
-                p{
+                label{
                     color: $borderFont;
                 }
-                li{
-                    list-style: none;
+                select{
+                    cursor: pointer;
+                    border: none;
+                    margin: 0 5px;
+                    padding: 2px 4px;
+                    &:focus{
+                        outline: none;
+                       text-shadow: 0 0 3px $secondFontColor; 
+                    }
+                    option{
+                        padding: 2px 4px;
+                    }
                 }
             }
 
