@@ -12,14 +12,22 @@ class AuthService {
     static getAllUsers() {
         return axios.get("/api/user/get-all-users")
     }
+
     static completeRegistration(body) {
         return axios.post("/api/user/complete-registration", body)
     }
-    static userUpdate(body){
-        return axios.put("api/user/user-profile",body);
+
+    static userUpdate(body) {
+        return axios.put("api/user/user-profile", body);
     }
+
     static isUserLoggedIn() {
         return localStorage.hasOwnProperty('user');
+    }
+
+    static changePassword(body) {
+        //TODO add this API Call on backend
+        return axios.post("api/user/change-password", body);
     }
 }
 
