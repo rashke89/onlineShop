@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {removeItem, handleCount} from "../../redux/cartSlice";
 import {routeConfig} from "../../config/routeConfig";
 import {useNavigate} from "react-router-dom";
+import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 
 function ShopCart() {
     const {cart} = useSelector(state => state.cartStore);
@@ -45,7 +46,9 @@ function ShopCart() {
                     {item.count > 1 && <p>Count: <FaMinusCircle className="mx-2" onClick={() => handleShopCartCount(index, false)} /> {item.count}
                     <FaPlusCircle className="mx-2" onClick={() => handleShopCartCount(index, true)}/></p>}
 
-                    <p className="fw-bold">{item.totalPrice} $</p>
+                    <p className="fw-bold">
+                        <ChangeCurrency adConvertPrice={item.totalPrice} />
+                    </p>
                 </div>
                 <div className="col-md-1 remove-icon-wrapper">
                     <FaTrashAlt onClick={() => {removeItemFromCart(index)}} />

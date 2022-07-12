@@ -6,6 +6,7 @@ import { addToCart } from "../../redux/cartSlice";
 import './ourProductSlider.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 
 
 function OurProductSlider() {
@@ -46,7 +47,9 @@ function OurProductSlider() {
                             </span>
                             <h3>{ad.title}</h3>
                             <span className="price">
-                                <span className="amount">${ad.price}</span>
+                                <span className="amount">
+                                    <ChangeCurrency adConvertPrice={ad.price} />
+                                </span>
                             </span>
                         </a>
                         <p className="hover-content">

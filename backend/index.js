@@ -15,6 +15,7 @@ const Product = require("./models/productModel");
 const userRoute = require('./routes/userRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const subscribeRoute = require('./routes/subscribeRoute');
+const {json} = require("express");
 
 
 const app = express();
@@ -49,6 +50,31 @@ app.get('/shop/products', (req, res) => {
         } else {
             res.send("Product dont found")
         }
+    })
+})
+
+// get numbers for Admin
+app.get("/api/admin/numbers-info", (req, res) => {
+    let userNumbers;
+    let productNumbers;
+    Product.find((error, data) => {
+        if (error) {
+            console.log(error);
+            res.send(error);
+        }
+        else{
+            productNumbers = data.length;
+        }
+    })
+    Users.find((error, data) => {
+        if (error){
+            console.log("daddd", error);
+            res.send(error)
+        }
+        else{
+            userNumbers = data.length;
+        }
+        res.send({ users: userNumbers, products: productNumbers});
     })
 })
 

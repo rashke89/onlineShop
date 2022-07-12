@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './FilterSort.scss';
+import {useSelector} from "react-redux";
+
 
 
 
 	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm}) {
 
+		const {symbol} = useSelector(state=>state.currencyStore);
 		const handleSearch = e => {
 			setSearchTerm(e.target.value);
 		}
@@ -24,7 +27,7 @@ import './FilterSort.scss';
 					</div>
 					<div className="conditions px-3">
 						<div className="row mt-5 price">
-							<label htmlFor="priceRange" className="form-label">Price: {filterPrice}</label>
+							<label htmlFor="priceRange" className="form-label">Price: {filterPrice} {symbol}</label>
 							<input type="range" onInput={handleInput} className="form-range" defaultValue="0" min="0"
 								   max="1000" step="1" id="priceRange"/>
 						</div>
@@ -33,6 +36,8 @@ import './FilterSort.scss';
 				</div>
 			);
 		};
+
+
 		return (
 			<>
 				<div className="d-flex justify-content-start container my-5">
