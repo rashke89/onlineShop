@@ -134,7 +134,7 @@ function NavTop(){
 
                             <option value="USD"  >USD</option> 
                             <option value="EUR"  >EUR</option> 
-                            <option value="RSD"  >RSD</option> 
+                            <option value="RSD"  >RSD</option>
 
 
                             
