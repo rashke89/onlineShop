@@ -1,8 +1,8 @@
 import axios from "axios";
 
 class AdminService{
-    static numbersInfo(){
-        return axios.get("api/admin/numbers-info")
+    static getStats(){
+        return axios.get("api/admin/stats")
     }
 }
 

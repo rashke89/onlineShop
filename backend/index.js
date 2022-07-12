@@ -15,6 +15,7 @@ const Product = require("./models/productModel");
 const userRoute = require('./routes/userRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const subscribeRoute = require('./routes/subscribeRoute');
+const SubscribeModel = require('./models/subscribeModel')
 const {json} = require("express");
 
 
@@ -54,9 +55,11 @@ app.get('/shop/products', (req, res) => {
 })
 
 // get numbers for Admin
-app.get("/api/admin/numbers-info", (req, res) => {
+app.get("/api/admin/stats", (req, res) => {
     let userNumbers;
     let productNumbers;
+    let allEmails;
+    let allSubs;
     Product.find((error, data) => {
         if (error) {
             console.log(error);
@@ -64,6 +67,24 @@ app.get("/api/admin/numbers-info", (req, res) => {
         }
         else{
             productNumbers = data.length;
+        }
+    })
+    Emails.find((error, data) => {
+        if (error){
+            console.log("daddd", error);
+            res.send(error)
+        }
+        else{
+            allEmails = data.length;
+        }
+    })
+    SubscribeModel.find((error, data) => {
+        if (error){
+            console.log("daddd", error);
+            res.send(error)
+        }
+        else{
+            allSubs = data.length;
         }
     })
     Users.find((error, data) => {
@@ -74,7 +95,7 @@ app.get("/api/admin/numbers-info", (req, res) => {
         else{
             userNumbers = data.length;
         }
-        res.send({ users: userNumbers, products: productNumbers});
+        res.send({ users: userNumbers, products: productNumbers, emails :allEmails, subs: allSubs});
     })
 })
 
