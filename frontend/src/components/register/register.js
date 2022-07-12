@@ -25,7 +25,7 @@ function Register({showLoginForm}) {
 
     const loginForm = () => showLoginForm(true)
     const onHandleInput = (e) => {
-        let newInput = userData
+        let newInput = userData;
         newInput[e.target.name] = e.target.value
         setUserData(newInput)
     }

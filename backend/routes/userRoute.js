@@ -82,12 +82,12 @@ routes.post("/register", async (req, res) => {
     });
 });
 
-//delete user by email
-routes.delete("/:email", (req, res) => {
-    const params = req.params.email;
-    Users.deleteOne({email: params}, null, (error) => {
+//delete user by id
+routes.delete("/delete:id", (req, res) => {
+    const params = req.params.id;
+    Users.deleteOne({_id: params}, async (error) => {
         if (error) throw error;
-        res.send("User deleted");
+       await res.send("User deleted");
     });
 });
 

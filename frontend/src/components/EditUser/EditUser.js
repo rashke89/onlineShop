@@ -70,9 +70,9 @@ function EditUser({showModal}) {
             <Modal isOpen={true} ariaHideApp={false} style={customStyles} aria-labelledby='contained-modal-title-vcenter'
           centered>
 
-                {!isValidForm ? <p className="notification red">All fields are required!</p> : null}
-                {isApiFinish ? <p className="notification green">Successfuly updated!</p> : null}
-                {isApiErr ? <p className="notification red">ERROR:Ooops, something went wrong, please try later!</p> : null}
+                {!isValidForm ? <p className="notification text-warning">All fields are required!</p> : null}
+                {isApiFinish ? <p className="notification text-success">Successfuly updated!</p> : null}
+                {isApiErr ? <p className="notification text-warning">ERROR:Ooops, something went wrong, please try later!</p> : null}
 
                 <form onSubmit={onSubmitForm} method="post">
                     <div className="row">
