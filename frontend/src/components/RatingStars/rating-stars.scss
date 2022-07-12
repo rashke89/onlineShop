@@ -1,0 +1,9 @@
+.stars-wrapper{
+    display: flex;
+    justify-content: center;
+    .ratingstarFill{
+        color: black;
+        font-size: 1.7rem;
+        margin: 3px;
+    }
+}

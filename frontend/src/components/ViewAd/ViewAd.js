@@ -7,6 +7,8 @@ import {addToCart} from "../../redux/cartSlice";
 import HeaderProduct from "../HeaderProduct/HeaderProduct";
 import ShareButton from "../ShareButton/ShareButton";
 import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
+import RatingStars from "../RatingStars/RatingStars";
+
 
 // const productMockData = {
 //     category: "men's clothing",
@@ -49,6 +51,7 @@ export default function ViewAd() {
             </div>
             <div className="col-md-6">
                 <h3>{ad.title}</h3>
+                    <RatingStars rating={ad.rating}/>
                 <p>{ad.category}</p>
                 <p>{ad.description}</p>
                 <p>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./shopAd.scss";
 import { routeConfig } from "../../config/routeConfig";
+import RatingStars from "../RatingStars/RatingStars";
 
 import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 
@@ -18,7 +19,9 @@ function ShopAd(props) {
                 <div className="shop-ad-content-wrapper">
                     <img src={ad.imgUrl} className="img img-fluid" alt="" />
                     <p className="shop-ad-title">{ad.title}</p>
-                    <p>Rate: {ad.rating}</p>
+                    <span className="shop-ad-rating">
+                        <RatingStars rating={ad.rating}/>
+                    </span>
                     <p className="shop-ad-price">
                         <ChangeCurrency adConvertPrice={ad.price} />
                     </p>
