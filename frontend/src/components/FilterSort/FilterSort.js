@@ -3,7 +3,7 @@ import './FilterSort.scss';
 
 
 
-	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm}) {
+	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm, searchTerm}) {
 
 		const handleSearch = e => {
 			setSearchTerm(e.target.value);
@@ -42,7 +42,11 @@ import './FilterSort.scss';
 					<div className="search mx-3">
 						<form className="d-flex search h-100" role="search">
 							<div className="input-group">
-								<input className="form-control" type="search" placeholder="Search" aria-label="Search"
+								<input className="form-control"
+									   type="search"
+									   defaultValue={searchTerm}
+									   placeholder="Search"
+									   aria-label="Search"
 									   onChange={handleSearch}/>
 							</div>
 						</form>

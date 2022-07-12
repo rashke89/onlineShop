@@ -15,13 +15,15 @@ import {
 } from "react-icons/fa";
 
 import './nav-top.scss';
+import {useState} from "react";
 
 
 
 
 function NavTop(){
 	const {user} = useSelector((state) => state.userStore);
-    const navigate=useNavigate();
+	const [search, setSearch] = useState("");
+    const navigate = useNavigate();
 	const dispatch = useDispatch();
 
     const logOut=()=>{
@@ -79,6 +81,21 @@ function NavTop(){
 		);
 	};
 
+    const onSearch = e => {
+        e.preventDefault();
+        setSearch(e.target.value);
+    };
+
+    const goToShop = e => {
+        e.preventDefault();
+        search.length > 3 && navigate(`${routeConfig.SHOP.url}?search=${search}`)
+    }
+
+    const test = e => {
+        if (e.keyCode === 13)
+            goToShop(e);
+    }
+
     return (
         <section className='nav-bar-wrapper'>
             
@@ -126,8 +143,8 @@ function NavTop(){
                     </div>
 
                     <div className='middle-search'>
-                        <input type='search' placeholder='Search...' />
-                        <a href='/'> <FaSearch/> </a>
+                        <input type='search' placeholder='Search...' onKeyDown={e => test(e)} onChange={e => onSearch(e)} />
+                        <span onClick={e => goToShop(e)}> <FaSearch/> </span>
                     </div>
 
                     <div className='middle-cart'>
