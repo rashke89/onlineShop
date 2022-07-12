@@ -30,7 +30,7 @@ const OrderProcessStepOne = () => {
 					<div className="col-md-1">
 						<Count item={item} index={index}/>
 					</div>
-					<div className="col-md-2 price">$ {item.price}</div>
+					<div className="col-md-2 price">$ {item.totalPrice}</div>
 					<div className="col-md-1">
 						<RemoveCartItem index={index}/>
 					</div>

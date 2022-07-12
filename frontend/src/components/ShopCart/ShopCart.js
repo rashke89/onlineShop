@@ -46,7 +46,7 @@ const ShopCart = ({viewCartItems, setViewCartItems}) => {
 							</div>
 							<div className="col-md-6">
 								<p>{item.title}</p>
-								<p className="price">$ {item.price * item.count}</p>
+								<p className="price">$ {item.totalPrice}</p>
 							</div>
 							<div className="col-md-3 col-right">
 								{item.count > 1 && <Count item={item} index={index}/>}

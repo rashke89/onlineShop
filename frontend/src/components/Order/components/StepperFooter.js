@@ -7,7 +7,7 @@ import AuthService from "../../../services/authService";
 const StepperFooter = () => {
 	const {cart} = useSelector(state => state.cartStore);
 	const {currentStep} = useSelector(state => state.orderProcessStore.orderProcess);
-	const {isSubmit} = useSelector(state => state.orderProcessStore.orderProcess.stepTwo);
+	const {isSubmit, isValid} = useSelector(state => state.orderProcessStore.orderProcess.stepTwo);
 	const dispatch = useDispatch();
 
 	const next = (number) => {
@@ -16,7 +16,7 @@ const StepperFooter = () => {
 		}
 		if(currentStep === 2) {
 			dispatch(stepTwoIsSubmitted());
-			dispatch(handleCurrentStep(currentStep + 1));
+			isValid && dispatch(handleCurrentStep(currentStep + 1));
 		}
 	}
 

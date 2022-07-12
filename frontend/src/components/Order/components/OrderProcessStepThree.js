@@ -2,17 +2,61 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import ShopService from "../../../services/shopService";
 import {loadStripe} from "@stripe/stripe-js";
-import {Elements, PaymentElement} from "@stripe/react-stripe-js";
+import {Elements, PaymentElement, useElements, useStripe} from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe('pk_test_51LIxQ0GspIrbt6HI0X8GdcwOPmQ7DExFW9spCJh3HcAlh5mtpOziVhRUhM4vnU31NvDJYiktqVo3JrJTXgwJEuyc00KVDYTD4N');
 
 const OrderProcessStepThree = () => {
-	const {cart} = useSelector(state => state.cartStore);
-	const [secretKey, setSecretKey] = useState('');
+	const stripe = useStripe();
+	const elements = useElements();
 	const dispatch = useDispatch();
 
+	const submitPayment = async () => {
+		if (!stripe || !elements) {
+			return;
+		}
+
+		const paymentResponse = await stripe.confirmPayment({
+			elements,
+			confirmParams: {
+				return_url: "http://localhost:3000/order",
+			},
+		});
+	}
+
+	return (
+		<>
+			{
+				stripe &&
+				<div className="step-three-wrapper">
+					<div className="row w-75 mx-auto mt-5">
+						<div className="col-12">
+							<PaymentElement/>
+							<button className="btn btn-outline-info" onClick={e => submitPayment()}>
+								Order <i className="bi bi-credit-card"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			}
+		</>
+	);
+};
+
+function StripeElements() {
+	const [secretKey, setSecretKey] = useState('');
+	const {cart} = useSelector(state => state.cartStore);
+
+	const options = {
+		clientSecret: secretKey
+	}
+
 	useEffect(() => {
-		ShopService.initPayment({amount: 300})
+		let sum = cart.reduce((state, item) => {
+			return state + item.totalPrice;
+		}, 0)
+
+		ShopService.initPayment({amount: sum})
 			.then(res => {
 				setSecretKey(res.data);
 			})
@@ -20,21 +64,15 @@ const OrderProcessStepThree = () => {
 				console.log(error);
 			})
 	}, []);
-
-	const options = {
-		clientSecret: secretKey
-	}
-
 	return (
 		<>
-			{
-				secretKey &&
+			{secretKey &&
 				<Elements stripe={stripePromise} options={options} key={options.clientSecret}>
-					<PaymentElement />
+					<OrderProcessStepThree secretKey={secretKey}/>
 				</Elements>
 			}
 		</>
-	);
-};
+	)
+}
 
-export default OrderProcessStepThree;
+export default StripeElements;

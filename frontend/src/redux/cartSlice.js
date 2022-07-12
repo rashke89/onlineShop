@@ -18,8 +18,10 @@ const cartSlice = createSlice({
 
 			if(itemAdded) {
 				state.cart[addedItemIndex].count++;
+				state.cart[addedItemIndex].totalPrice = state.cart[addedItemIndex].count * state.cart[addedItemIndex].price;
 			} else {
 				newItem.count = 1;
+				newItem.totalPrice = newItem.price;
 				state.cart.push(newItem);
 			}
 		},
@@ -27,10 +29,11 @@ const cartSlice = createSlice({
 			state.cart.splice(action.payload, 1);
 		},
 		handleCount: (state, action) => {
-			let cartState = state.cart[action.payload.index].count;
-			let count = action.payload.isIncrement ? cartState + 1 : cartState - 1;
+			let cartState = state.cart[action.payload.index];
+			let count = action.payload.isIncrement ? cartState.count + 1 : cartState.count - 1;
 
 			state.cart[action.payload.index].count = count < 1 ? 1 : count;
+			state.cart[action.payload.index].totalPrice = cartState.count * cartState.price;
 		},
 		setCart: (state, action) => {
 			state.cart = action.payload;

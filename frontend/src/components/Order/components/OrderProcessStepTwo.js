@@ -8,12 +8,17 @@ const OrderProcessStepTwo = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(updateStepTwoForm({...form, ...user}));
+		let userObj = {
+			email: user?.email,
+			firstName: user?.firstName,
+			lastName: user?.lastName,
+			address: user?.address,
+			city: user?.city,
+			postCode: user?.postCode,
+			phoneNumber: user?.phoneNumber,
+		}
+		dispatch(updateStepTwoForm({...form, ...userObj}));
 	}, []);
-
-	useEffect(() => {
-
-	}, [isSubmit]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -30,9 +35,15 @@ const OrderProcessStepTwo = () => {
 			<div id="emailHelp" className="form-text text-danger">Required field.</div> : null;
 	}
 
+	const checkboxHandler = (e) => {
+		let newForm = {...form};
+		newForm[e.target.id] = e.target.checked;
+		dispatch(updateStepTwoForm(newForm));
+	}
+
 	return (
 		<div className="step-two-wrapper">
-			<div className="row w-75 mx-auto">
+			<div className="row w-75 mx-auto mt-5">
 				{form && <form onSubmit={handleSubmit} className="row g-3">
 					<div className="col-md-6">
 						<label htmlFor="email" className="form-label">Email</label>
@@ -42,46 +53,54 @@ const OrderProcessStepTwo = () => {
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="firstName" className="form-label">First name</label>
-						<input type="text" className="form-control" id="firstName" defaultValue={form?.firstName} onChange={(e) => formChangeHandler(e)}/>
+						<input type="text" className="form-control" id="firstName" defaultValue={form?.firstName}
+									 onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.firstName)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="lastName" className="form-label">Last name</label>
-						<input type="text" className="form-control" id="lastName" defaultValue={form?.lastName} onChange={(e) => formChangeHandler(e)}/>
+						<input type="text" className="form-control" id="lastName" defaultValue={form?.lastName}
+									 onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.lastName)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="address" className="form-label">Address</label>
-						<input type="text" className="form-control" id="address" defaultValue={form?.address} onChange={(e) => formChangeHandler(e)}/>
+						<input type="text" className="form-control" id="address" defaultValue={form?.address}
+									 onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.address)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="city" className="form-label">City</label>
-						<input type="text" className="form-control" id="city" defaultValue={form?.city} onChange={(e) => formChangeHandler(e)}/>
+						<input type="text" className="form-control" id="city" defaultValue={form?.city}
+									 onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.city)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="postCode" className="form-label">Post code</label>
-						<input type="text" className="form-control" id="postCode" defaultValue={form?.postCode} onChange={(e) => formChangeHandler(e)}/>
+						<input type="text" className="form-control" id="postCode" defaultValue={form?.postCode}
+									 onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.postCode)}
 					</div>
 					<div className="col-md-6">
 						<label htmlFor="phoneNumber" className="form-label">Phone number</label>
-						<input type="number" className="form-control" id="phoneNumber" defaultValue={form?.phoneNumber} onChange={(e) => formChangeHandler(e)}/>
+						<input type="number" className="form-control" id="phoneNumber" defaultValue={form?.phoneNumber}
+									 onChange={(e) => formChangeHandler(e)}/>
 						{errorMsgLayout(form?.phoneNumber)}
 					</div>
 					<div className="col-12">
 						<div className="form-check">
-							<input className="form-check-input" type="checkbox" id="terms"/>
+							<input className="form-check-input" type="checkbox" id="terms" onChange={(e) => checkboxHandler(e)}/>
 							<label className="form-check-label" htmlFor="terms">
 								Accept terms
 							</label>
+							{errorMsgLayout(form?.terms)}
 						</div>
 						<div className="form-check">
-							<input className="form-check-input" type="checkbox" id="conditions"/>
+							<input className="form-check-input" type="checkbox" id="conditions" onChange={(e) => checkboxHandler(e)}/>
 							<label className="form-check-label" htmlFor="conditions">
 								Accept conditions
 							</label>
+							{errorMsgLayout(form?.conditions)}
 						</div>
 					</div>
 				</form>}
