@@ -382,3 +382,28 @@ app.listen(serverConfig.port, (err) => {
         console.log(serverConfig.serverLink);
     }
 });
+
+// get all email admin
+app.get('/api/admin/all-messages', (req, res)=>{
+    Emails.find((err, data)=>{
+        if(err){
+            console.log(err ,"iz email");
+            res.send(data)
+        }
+        if(data){
+            res.send(data)
+        }
+    })
+})
+
+app.delete('/api/admin/delete-msg/:id', (req,res) => {
+    let idMsg = req.params.id;
+    Emails.deleteOne({_id: idMsg}, (err, data) => {
+        if(data){
+            res.send("Uspjesno izbrisano")
+        }
+        if(err){
+            res.send("errror ")
+        }
+    })
+})

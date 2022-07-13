@@ -12,5 +12,4 @@ function StatsNumber({number, label}) {
         </>
     )
 }
-
 export default StatsNumber;
