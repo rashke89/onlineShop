@@ -6,7 +6,7 @@ import './rating-stars.scss';
 function RatingStars({rating}){
     const numStars =[1,1,1,1,1]
     useEffect(()=>{
-        console.log(parseInt(rating))
+        // console.log(parseInt(rating))
     },[rating])
 
 

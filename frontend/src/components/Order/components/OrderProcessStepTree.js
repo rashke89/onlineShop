@@ -37,18 +37,20 @@ function OrderProcessStepTree({ sk }) {
 function StripeElements() {
     const [sk, setSk] = useState('');
     const { cart } = useSelector(state => state.cartStore);
+    const {currency} = useSelector(state => state.currencyStore)
     const options = {
         clientSecret: sk
     };
 
     useEffect(() => {
         // console.log(cart);
+        let currToLow = currency.toLowerCase()
         let sumPrice = cart.reduce((state, item) => {
             return state + item.totalPrice;
         }, 0)
 
         // console.log(sumPrice);
-        ShopService.initPayment({ amount: sumPrice })
+        ShopService.initPayment({ amount: sumPrice, currency: currToLow })
             .then(response => {
                 console.log(response.data);
                 setSk(response.data)
