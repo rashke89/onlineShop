@@ -23,7 +23,7 @@ class ShopService {
         return axios.post("/product/add/", body )
     }
     static getMyAds(userId) {
-        return axios.get(`/product/my-adds/${userId}`)
+        return axios.get(`/product/my-adds`)
     }
     static deleteMyAd(myAdId){
         return axios.delete(`/product/delete/${myAdId}`)

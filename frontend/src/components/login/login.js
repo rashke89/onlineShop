@@ -35,9 +35,12 @@ function Login({showLoginForm}) {
             .then(res => {
                 console.log(res.data);
                 if (res && res.status === 200) {
-                localStorage.setItem('user', JSON.stringify(res.data));
-                dispatch(setUser(res.data));
-                navigate(`/${res.data.isAdmin ? 'dashboard': ''}`);
+                    // var decoded = jwt.verify(JSON.stringify(res.data), 'shhhhh');
+                    // console.log(decoded);
+                    localStorage.setItem('user', JSON.stringify(res.data.user));
+                    localStorage.setItem('token', JSON.stringify(res.data.token));
+                    dispatch(setUser(res.data.user));
+                    navigate(`/${res.data.isAdmin ? 'dashboard': ''}`);
             } else
                 toast.info(res.data)
         }).catch(err => {

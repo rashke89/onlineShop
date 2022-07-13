@@ -28,6 +28,7 @@ function NavTop(){
 
     const logOut=()=>{
 		localStorage.removeItem("user");
+		localStorage.removeItem("token");
 		dispatch(setUser({}))
 		navigate("/auth");
 	}

@@ -1,7 +1,9 @@
+const validationService =  require("../services/validationService");
 const express = require('express');
 const Users = require("../models/userModel");
 const nodemailer = require("nodemailer");
 const routes = express.Router();
+var jwt = require('jsonwebtoken');
 
 routes.post("/login", validate, (req, res) => {
     console.log('request body ->', req.body);
@@ -20,7 +22,8 @@ routes.post("/login", validate, (req, res) => {
             res.status(409).send('User not found.');
         else {
             let userIsActive = data.isActive === 'true';
-            res.status(userIsActive ? 200 : 210).send(userIsActive ? data : "Please activate you account.")
+            var token = jwt.sign({...data}, 'shhhhh');
+            res.status(userIsActive ? 200 : 210).send(userIsActive ? {token, user: data} : "Please activate you account.")
         }
         // way 1
         // if (data)
@@ -98,7 +101,7 @@ routes.delete("/:email", (req, res) => {
 });
 
 //get all users
-routes.get("/get-all-users", (req, res) => {
+routes.get("/get-all-users", validationService.authValidation, (req, res) => {
     Users.find((error, result) => {
         if (error) throw error;
         res.send(result);
