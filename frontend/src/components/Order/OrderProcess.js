@@ -78,7 +78,7 @@ function PaymentMessage({ msg }) {
         setTimeout(() => {
             navigate(routeConfig.SHOP.url);
         }, 3000)
-    })
+    }, [])
 
     function displayMessage() {
         if (msg === 'succeeded') {

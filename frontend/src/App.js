@@ -30,6 +30,7 @@ import Users from "./adminComponents/users/Users";
 import Products from "./adminComponents/products/Products";
 import Stats from "./adminComponents/stats";
 import NavTop from "./components/navigation/NavTop";
+import Emails from "./adminComponents/emails/emails";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -109,6 +110,8 @@ function App() {
                     <Route index element={<Stats/>}/>
                     <Route path={routeConfig.ADMIN_USERS.url} element={<Users/>}/>
                     <Route path={routeConfig.ADMIN_PRODUCTS.url} element={<Products/>}/>
+                    <Route path={routeConfig.ADMIN_EMAILS.url} element={<Emails/>}/>
+
                 </Route>
             </Routes>}
 

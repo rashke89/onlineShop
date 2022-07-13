@@ -41,5 +41,8 @@ export const routeConfig = {
     },
     ADMIN_PRODUCTS: {
         url: 'products',
+    },
+    ADMIN_EMAILS:{
+        url:'emails',
     }
 }

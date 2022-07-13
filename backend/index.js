@@ -17,6 +17,8 @@ var jwt = require('jsonwebtoken');
 const userRoute = require('./routes/userRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const subscribeRoute = require('./routes/subscribeRoute');
+const SubscribeModel = require('./models/subscribeModel')
+const {json} = require("express");
 
 
 const app = express();
@@ -51,6 +53,51 @@ app.get('/shop/products', (req, res) => {
         } else {
             res.send("Product dont found")
         }
+    })
+})
+
+// get numbers for Admin
+app.get("/api/admin/stats", (req, res) => {
+    let userNumbers;
+    let productNumbers;
+    let allEmails;
+    let allSubs;
+    Product.find((error, data) => {
+        if (error) {
+            console.log(error);
+            res.send(error);
+        }
+        else{
+            productNumbers = data.length;
+        }
+    })
+    Emails.find((error, data) => {
+        if (error){
+            console.log("daddd", error);
+            res.send(error)
+        }
+        else{
+            allEmails = data.length;
+        }
+    })
+    SubscribeModel.find((error, data) => {
+        if (error){
+            console.log("daddd", error);
+            res.send(error)
+        }
+        else{
+            allSubs = data.length;
+        }
+    })
+    Users.find((error, data) => {
+        if (error){
+            console.log("daddd", error);
+            res.send(error)
+        }
+        else{
+            userNumbers = data.length;
+        }
+        res.send({ users: userNumbers, products: productNumbers, emails :allEmails, subs: allSubs});
     })
 })
 
@@ -337,3 +384,28 @@ app.listen(serverConfig.port, (err) => {
         console.log(serverConfig.serverLink);
     }
 });
+
+// get all email admin
+app.get('/api/admin/all-messages', (req, res)=>{
+    Emails.find((err, data)=>{
+        if(err){
+            console.log(err ,"iz email");
+            res.send(data)
+        }
+        if(data){
+            res.send(data)
+        }
+    })
+})
+
+app.delete('/api/admin/delete-msg/:id', (req,res) => {
+    let idMsg = req.params.id;
+    Emails.deleteOne({_id: idMsg}, (err, data) => {
+        if(data){
+            res.send("Uspjesno izbrisano")
+        }
+        if(err){
+            res.send("errror ")
+        }
+    })
+})

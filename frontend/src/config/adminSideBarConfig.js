@@ -24,7 +24,7 @@ export const ADMIN_SIDEBAR_CONFIG = [
     },
     {
         name: "Mails",
-        url: "mails",
+        url: "emails",
         icon: <FaMailBulk className="mx-2" />
     },
     {

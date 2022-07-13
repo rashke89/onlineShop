@@ -5,9 +5,11 @@ const stripeLib = stripe('sk_test_51LE86WICBi42q51Nzzn6JysljOWRoBSpAn2SpItLAANNU
 
 routes.post('/init-payment',  async (req, res) => {
     console.log(req.body.amount);
+    console.log(req.body.currency);
+
     const payment = await stripeLib.paymentIntents.create({
         amount: req.body.amount,
-        currency: "eur",
+        currency: req.body.currency,
         automatic_payment_methods: {
             enabled: true
         },
