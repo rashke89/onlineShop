@@ -39,5 +39,8 @@ export const routeConfig = {
 	},
 	ORDER: {
 		url: '/order'
+	},
+	DASHBOARD: {
+		url: '/dashboard'
 	}
 }

@@ -13,6 +13,7 @@ const OrderProcess = () => {
 	const {currentStep} = useSelector(state => state.orderProcessStore.orderProcess);
 	const [searchParams] = useSearchParams();
 	const [message, setMessage] = useState('');
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if(searchParams.get('redirect_status')) {

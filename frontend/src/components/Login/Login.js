@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "../../redux/userSlice";
 import {routeConfig} from "../../config/routeConfig";
+import {showLoader} from "../../redux/loaderSlice";
 
 const Login = () => {
 	const [username, setUsername] = useState('');
@@ -24,6 +25,9 @@ const Login = () => {
 		}
 		setIsFormValid(true);
 
+		// Show loader after form validation
+		dispatch(showLoader(true));
+
 		// API call
 		AuthService.login({username, password})
 			.then((res) => {
@@ -37,6 +41,7 @@ const Login = () => {
 			.catch((error) => {
 				console.log(error);
 			})
+			.finally(() => dispatch(showLoader(false)));
 	}
 
 	return (

@@ -1,18 +1,23 @@
 import React, {useEffect, useState} from "react";
 import ShopService from "../../services/shopService";
 import Product from "../../components/Product/Product";
+import {useDispatch} from "react-redux";
+import {showLoader} from "../../redux/loaderSlice";
 
 const Shop = (props) => {
+	const dispatch = useDispatch();
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
+		dispatch(showLoader(true));
 		ShopService.getProducts()
 			.then(res => {
 				if (res.status === 200) {
 					setProducts(res.data);
 				}
 			})
-			.catch(err => console.log(err));
+			.catch(err => console.log(err))
+			.finally(() => dispatch(showLoader(false)))
 	}, [])
 
 	return (

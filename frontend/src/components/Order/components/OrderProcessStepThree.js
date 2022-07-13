@@ -3,13 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import ShopService from "../../../services/shopService";
 import {loadStripe} from "@stripe/stripe-js";
 import {Elements, PaymentElement, useElements, useStripe} from "@stripe/react-stripe-js";
+import {showLoader} from "../../../redux/loaderSlice";
 
 const stripePromise = loadStripe('pk_test_51LIxQ0GspIrbt6HI0X8GdcwOPmQ7DExFW9spCJh3HcAlh5mtpOziVhRUhM4vnU31NvDJYiktqVo3JrJTXgwJEuyc00KVDYTD4N');
 
 const OrderProcessStepThree = () => {
 	const stripe = useStripe();
 	const elements = useElements();
-	const dispatch = useDispatch();
 
 	const submitPayment = async () => {
 		if (!stripe || !elements) {
@@ -46,6 +46,7 @@ const OrderProcessStepThree = () => {
 function StripeElements() {
 	const [secretKey, setSecretKey] = useState('');
 	const {cart} = useSelector(state => state.cartStore);
+	const dispatch = useDispatch();
 
 	const options = {
 		clientSecret: secretKey
@@ -56,6 +57,8 @@ function StripeElements() {
 			return state + item.totalPrice;
 		}, 0)
 
+		dispatch(showLoader(true));
+
 		ShopService.initPayment({amount: sum})
 			.then(res => {
 				setSecretKey(res.data);
@@ -63,6 +66,7 @@ function StripeElements() {
 			.catch(error => {
 				console.log(error);
 			})
+			.finally(() => dispatch(showLoader(false)))
 	}, []);
 	return (
 		<>

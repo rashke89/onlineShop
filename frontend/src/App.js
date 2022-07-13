@@ -9,7 +9,7 @@ import Contact from "./pages/Contact/Contact";
 import Navigation from "./components/Navigation/Navigation";
 import {useEffect, useState} from "react";
 import Home from './components/Home/Home';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "./redux/userSlice";
 import {setCart} from "./redux/cartSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
@@ -20,6 +20,8 @@ import {routeConfig} from "./config/routeConfig";
 import DeleteMyProduct from "./pages/DeleteMyProduct/DeleteMyProduct";
 import Order from "./pages/Order/Order";
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "./components/Loader/Loader";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
@@ -47,9 +49,21 @@ function App() {
 		}
 	}
 
+	const AdminProtect = ({children}) => {
+		const {user} = useSelector(state => state.userStore);
+
+		if(!user.username) {
+
+		}
+
+		return(
+			{children}
+		)
+	}
+
 	return (
 		<div className={`main-wrapper ${viewCartItems ? 'cart-view-opened' : ''}`}>
-
+			<Loader />
 			<Navigation viewCartItems={viewCartItems} setViewCartItems={setViewCartItems}/>
 			<Routes>
 				<Route path={routeConfig.HOME.url} element={<Home/>}/>
@@ -64,6 +78,13 @@ function App() {
 				<Route path={routeConfig.EDIT_PRODUCT.url} element={<AddEditProduct/>}/>
 				<Route path={routeConfig.DELETE_PRODUCT.url} element={<DeleteMyProduct/>}/>
 				<Route path={routeConfig.ORDER.url} element={<Order/>}/>
+
+				{/* Admin routes */}
+				<Route
+					path={routeConfig.DASHBOARD.url}
+					element={<AdminProtect><Dashboard /></AdminProtect>}>
+
+				</Route>
 			</Routes>
 
 		</div>

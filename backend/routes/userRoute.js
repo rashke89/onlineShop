@@ -15,7 +15,12 @@ routes.post("/login", validate, (req, res) => {
 			res.send(errorMsg);
 			return;
 		}
-		res.send(data || "User not found.");
+
+		if(data) {
+			res.send(data)
+		} else {
+			res.status(409).send('User not found.');
+		}
 	});
 });
 
