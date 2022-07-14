@@ -1,28 +1,26 @@
-import { useEffect } from 'react';
 import { FaRegStar, FaStar } from 'react-icons/fa';
 import './rating-stars.scss';
 
 
-function RatingStars({rating}){
-    const numStars =[1,1,1,1,1]
-    useEffect(()=>{
-        // console.log(parseInt(rating))
-    },[rating])
+function RatingStars({ rating }) {
 
-
-    return(
-        <div className='stars-wrapper'>
-        {
-            numStars.map((arr, index) => {
-                if(rating > index){
-                    return <span className='ratingstarFill' key={index}>  <FaStar />   </span>
-                }
-                else{
-                    return <span className='ratingstarFill' key={index}> <FaRegStar  /> </span>
-                }
-            })
+    let arr = []
+    const inputStars = () => {
+        for (let i = 0; i < 5; i++) {
+            if (rating > i) {
+                arr.push(<span className="ratingstarFill" key={i}>  <FaStar />   </span>)
+            } else {
+                arr.push(<span className="ratingstarFill" key={i}> <FaRegStar /> </span>)
+            }
         }
-        </div>     
+        return arr
+    }
+    inputStars();
+
+    return (
+        <div className='stars-wrapper'>
+            {arr.map(el => el)}
+        </div>
     )
 }
 

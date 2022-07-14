@@ -70,6 +70,13 @@ function NavTop() {
               My ads
             </Link>
           </li>
+          {user.isAdmin === 'true' &&
+            <li>
+              <Link to="/dashboard" className="dropdown-item">
+                <i className="bi bi-card-list me-2"></i>
+                Dashboard
+              </Link>
+            </li>}
           <li onClick={logOut}>
             <Link to="#" className="dropdown-item">
               <i className="bi bi-box-arrow-right me-2"></i>
