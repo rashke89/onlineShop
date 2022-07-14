@@ -11,12 +11,11 @@ const serverConfig = require("./config/serverConfig");
 const products = require("./fakeDb/products.json");
 const clients = require("./fakeDb/clients.json");
 const Product = require("./models/productModel");
-
 const userRoute = require('./routes/userRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const subscribeRoute = require('./routes/subscribeRoute');
 const SubscribeModel = require('./models/subscribeModel')
-const {json} = require("express");
+const { json } = require("express");
 
 
 const app = express();
@@ -32,7 +31,7 @@ app.use(cors());
 // nodmailer config
 // const mailer = mainService.configureMail();
 
-app.use("/api/subscribe", subscribeRoute)
+app.use("/api/subscribe", subscribeRoute);
 
 
 //get products
@@ -65,37 +64,37 @@ app.get("/api/admin/stats", (req, res) => {
             console.log(error);
             res.send(error);
         }
-        else{
+        else {
             productNumbers = data.length;
         }
     })
     Emails.find((error, data) => {
-        if (error){
+        if (error) {
             console.log("daddd", error);
             res.send(error)
         }
-        else{
+        else {
             allEmails = data.length;
         }
     })
     SubscribeModel.find((error, data) => {
-        if (error){
+        if (error) {
             console.log("daddd", error);
             res.send(error)
         }
-        else{
+        else {
             allSubs = data.length;
         }
     })
     Users.find((error, data) => {
-        if (error){
+        if (error) {
             console.log("daddd", error);
             res.send(error)
         }
-        else{
+        else {
             userNumbers = data.length;
         }
-        res.send({ users: userNumbers, products: productNumbers, emails :allEmails, subs: allSubs});
+        res.send({ users: userNumbers, products: productNumbers, emails: allEmails, subs: allSubs });
     })
 })
 
@@ -148,7 +147,7 @@ app.get('/api/home/:numberOfAds', (req, res) => {
 })
 
 // getting clients from fakeDb/clients.json
-app.get("/api/home",(req,res)=>{
+app.get("/api/home", (req, res) => {
     res.send(clients);
 });
 
@@ -157,14 +156,14 @@ app.get('/api/home/slider/:numberAds', (req, res) => {
     const numberAds = parseInt(req.params.numberAds);
 
     Product.aggregate([{ $sample: { size: numberAds } }])
-                        .then(response => {
-                            console.log(res);
-                            res.send(response);
-                        })
-                        .catch(error => {
-                            console.log(error);
-                            res.send(error);
-                        })
+        .then(response => {
+            console.log(res);
+            res.send(response);
+        })
+        .catch(error => {
+            console.log(error);
+            res.send(error);
+        })
 })
 
 //get product
@@ -384,25 +383,25 @@ app.listen(serverConfig.port, (err) => {
 });
 
 // get all email admin
-app.get('/api/admin/all-messages', (req, res)=>{
-    Emails.find((err, data)=>{
-        if(err){
-            console.log(err ,"iz email");
+app.get('/api/admin/all-messages', (req, res) => {
+    Emails.find((err, data) => {
+        if (err) {
+            console.log(err, "iz email");
             res.send(data)
         }
-        if(data){
+        if (data) {
             res.send(data)
         }
     })
 })
 
-app.delete('/api/admin/delete-msg/:id', (req,res) => {
+app.delete('/api/admin/delete-msg/:id', (req, res) => {
     let idMsg = req.params.id;
-    Emails.deleteOne({_id: idMsg}, (err, data) => {
-        if(data){
+    Emails.deleteOne({ _id: idMsg }, (err, data) => {
+        if (data) {
             res.send("Uspjesno izbrisano")
         }
-        if(err){
+        if (err) {
             res.send("errror ")
         }
     })

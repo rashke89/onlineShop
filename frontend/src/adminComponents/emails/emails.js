@@ -3,7 +3,7 @@ import MessageService from "../../services/messageService";
 import { ToastContainer, toast } from "react-toastify";
 import Modal from 'react-modal';
 
-const popup = {
+const styles = {
   content: {
     top: '50%',
     left: '50%',
@@ -14,7 +14,7 @@ const popup = {
     boxShadow: '0 1px 8px rgba(0, 0, 0, 0.3)',
   },
   overlay: {
-    position: 'absolute',
+    position: 'fixed',
     backgroundColor: '#0e0e0ead'
   },
   heading: {
@@ -35,6 +35,10 @@ const popup = {
     backgroundColor: 'tomato',
     border: '1px solid tomato',
     color: 'white'
+  },
+  td: {
+    width: '100%',
+    cursor: 'pointer'
   }
 }
 
@@ -58,7 +62,7 @@ function Emails() {
   const checkLength = (message) => {
     if (message.length > 100) {
       return (
-        <td style={{ cursor: 'pointer' }} onClick={e => { toggleMessage(e, message) }}>{`${message.substring(0, 100)} ...READ MORE...`}</td>
+        <td style={styles.td} onClick={e => { toggleMessage(e, message) }}>{`${message.substring(0, 100)} ...READ MORE...`}</td>
       )
     } else {
       return <td>{message}</td>;
@@ -66,10 +70,8 @@ function Emails() {
   }
   const toggleMessage = (e, message) => {
     if (e.target.innerHTML === `${message.substring(0, 100)} ...READ MORE...`) {
-      console.log('KRATAK SAM');
       e.target.innerHTML = `${message} ...READ LESS...`;
     } else if (e.target.innerHTML === `${message} ...READ LESS...`) {
-      console.log('dugacak sam');
       e.target.innerHTML = `${message.substring(0, 100)} ...READ MORE...`;
     }
   }
@@ -136,12 +138,12 @@ function Emails() {
       </table>
 
       {isModal &&
-        <Modal isOpen={true} ariaHideApp={false} style={popup} aria-labelledby='contained-modal-title-vcenter'
+        <Modal isOpen={true} ariaHideApp={false} style={styles} aria-labelledby='contained-modal-title-vcenter'
           centered>
-          <h3 style={popup.heading}>Delete message</h3>
-          <div style={popup.div}>
-            <button style={popup.cancel} onClick={e => setIsModal(false)}>Cancel</button>
-            <button style={popup.delete} onClick={e => deleteMessage(messageID)}>Delete</button>
+          <h3 style={styles.heading}>Delete message</h3>
+          <div style={styles.div}>
+            <button style={styles.cancel} onClick={e => setIsModal(false)}>Cancel</button>
+            <button style={styles.delete} onClick={e => deleteMessage(messageID)}>Delete</button>
           </div>
         </Modal>
       }
