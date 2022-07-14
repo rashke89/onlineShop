@@ -1,3 +1,5 @@
+const validationService = require("./services/validationService");
+console.log(validationService);
 const express = require("express");
 const mongoose = require("mongoose");
 const colors = require('colors');
@@ -11,6 +13,7 @@ const serverConfig = require("./config/serverConfig");
 const products = require("./fakeDb/products.json");
 const clients = require("./fakeDb/clients.json");
 const Product = require("./models/productModel");
+var jwt = require('jsonwebtoken');
 const userRoute = require('./routes/userRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const subscribeRoute = require('./routes/subscribeRoute');
@@ -305,21 +308,21 @@ app.post('/api/ordered', async (req, res) => {
 
 
 // get my ads
-app.get("/product/my-adds/:userId", (req, res) => {
-    const userId = req.params.userId;
+app.get("/product/my-adds", validationService.authValidation, (req, res) => {
+    var decoded = jwt.verify(JSON.parse(req.headers.authorization), 'shhhhh')
+    const userId = decoded._doc._id;
     Product.find({ userId: userId }, (error, data) => {
         if (error) {
             res.send(error);
         }
 
         if (data) {
-            console.log(data);
             res.send(data);
         } else {
             res.send("No products jet.");
         }
     })
-})
+});
 
 //get one user by username
 app.get("/api/user/:username", (req, res) => {

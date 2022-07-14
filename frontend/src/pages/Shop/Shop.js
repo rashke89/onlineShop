@@ -6,36 +6,33 @@ import FilterSort from "../../components/FilterSort/FilterSort";
 import '../../assets/scss/base.scss';
 import {useDispatch} from "react-redux";
 import {showLoader} from "../../redux/loaderSlice";
+import {useSearchParams} from "react-router-dom";
 
 function Shop({filterStatus, setFilterStatus}) {
     const [ads, setAds] = useState([]);
     const [filterPrice, setFilterPrice] = useState(0);
     const [searchTerm, setSearchTerm] = useState("");
     const [sort, setSort] = useState("");
+    const [query, setQuery] = useSearchParams();
     const dispatch = useDispatch();
     let sortedAds;
     let filteredAds;
     let searchedAds;
 
-
-// Search
     useEffect(() => {
-        if (searchTerm !== "") {
+        let queryParam = query.get('search');
+        queryParam && setSearchTerm(queryParam);
+    }, [query]);
+
+    // Search
+    useEffect(() => {
+        if (searchTerm.length > 3) {
             dispatch(showLoader(true));
-            shopService.getSearchedAds(searchTerm)
-                .then(res => {
-                    if (res.status === 200) {
-                        searchedAds = res.data;
-                    }
-
-
-                    setAds(searchedAds);
-
-                })
-                .catch(err => console.log(err))
-                .finally(() => dispatch(showLoader(false)))
-        } else {
+            setQuery({"search": searchTerm});
+            searchAds()
+        } else if (!searchTerm) {
             dispatch(showLoader(true));
+            setQuery({});
             shopService.getAds()
                 .then((res) => {
                     if (res.status === 200) {
@@ -45,7 +42,6 @@ function Shop({filterStatus, setFilterStatus}) {
                 .catch(err => console.log(err))
                 .finally(() => dispatch(showLoader(false)))
         }
-
     }, [searchTerm]);
 
     // Sort
@@ -59,7 +55,6 @@ function Shop({filterStatus, setFilterStatus}) {
             sortedAds = [...ads];
             sortedAds = sortedAds.sort((a, b) => b.price - a.price);
             setAds(sortedAds)
-
         }
 
 
@@ -81,15 +76,23 @@ function Shop({filterStatus, setFilterStatus}) {
         }
     }, [filterPrice]);
 
-    useEffect(() => {
-
-    }, [ads])
+    const searchAds = () => {
+        shopService.getSearchedAds(searchTerm)
+            .then(res => {
+                if (res.status === 200) {
+                    searchedAds = res.data;
+                }
+                setAds(searchedAds);
+            })
+            .catch(err => console.log(err))
+            .finally(() => dispatch(showLoader(false)))
+    }
 
     return (
         <div className="shop-wrapper container">
             <div className="row">
                 <FilterSort setSort={setSort} filterStatus={filterStatus} setFilterStatus={setFilterStatus}
-                            filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm}/>
+                            filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
             </div>
             <div className="row">
                 {ads.length > 0 ? ads.map((element) => {

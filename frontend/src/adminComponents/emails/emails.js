@@ -37,7 +37,7 @@ const styles = {
     color: 'white'
   },
   td: {
-    width: '100%',
+    width: '45%',
     cursor: 'pointer'
   }
 }
@@ -80,12 +80,11 @@ function Emails() {
     return emailsInfo.map((item, index) => {
       return (
         <tr key={index}>
-          <td>{index + 1}</td>
-          <td>{item.firstName}</td>
-          <td>{item.lastName}</td>
-          <td>{item.email}</td>
+          <td style={{ width: '5%' }}>{index + 1}</td>
+          <td style={{ width: '20%' }}>{item.firstName + ' ' + item.lastName}</td>
+          <td style={{ width: '20%' }}>{item.email}</td>
           {checkLength(item.message, index)}
-          <td>
+          <td style={{ width: '10%' }}>
             <button
               className="btn-danger"
               onClick={(e) => {
@@ -127,8 +126,7 @@ function Emails() {
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
+            <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Message</th>
             <th scope="col"></th>

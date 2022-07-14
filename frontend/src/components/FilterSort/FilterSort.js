@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 
 
-	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm}) {
+	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm, searchTerm}) {
 
 		const {symbol} = useSelector(state=>state.currencyStore);
 		const handleSearch = e => {
@@ -47,7 +47,11 @@ import {useSelector} from "react-redux";
 					<div className="search mx-3">
 						<form className="d-flex search h-100" role="search">
 							<div className="input-group">
-								<input className="form-control" type="search" placeholder="Search" aria-label="Search"
+								<input className="form-control"
+									   type="search"
+									   defaultValue={searchTerm}
+									   placeholder="Search"
+									   aria-label="Search"
 									   onChange={handleSearch}/>
 							</div>
 						</form>

@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { routeConfig } from "../../config/routeConfig";
+import {useDispatch, useSelector} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import {routeConfig} from "../../config/routeConfig";
 import ShopCart from "../ShopCart/ShopCart";
 import { setUser } from "../../redux/userSlice";
 import ShopService from "../../services/shopService";
 
 import {
-  FaPhoneAlt,
-  FaMailBulk,
-  FaAngleDown,
-  FaLaptopHouse,
-  FaSearch,
+    FaPhoneAlt,
+    FaMailBulk,
+    FaAngleDown,
+    FaLaptopHouse,
+    FaSearch,
 } from "react-icons/fa";
 
 import "./nav-top.scss";
@@ -19,6 +19,7 @@ import { setCurrency } from "../../redux/currencySlice";
 
 function NavTop() {
   const { user } = useSelector((state) => state.userStore);
+  const [search, setSearch] = useState("");
   const { currency } = useSelector((state) => state.currencyStore);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function NavTop() {
 
   const logOut = () => {
     localStorage.removeItem("user");
+      localStorage.removeItem("token");
     dispatch(setUser({}));
     navigate("/auth");
   };
@@ -93,6 +95,21 @@ function NavTop() {
       </li>
     );
   };
+
+    const onSearch = e => {
+        e.preventDefault();
+        setSearch(e.target.value);
+    };
+
+    const goToShop = e => {
+        e.preventDefault();
+        search.length > 3 && navigate(`${routeConfig.SHOP.url}?search=${search}`)
+    }
+
+    const test = e => {
+        if (e.keyCode === 13)
+            goToShop(e);
+    }
 
   const currencyBtn = (e) => {
     dispatch(setCurrency(e.target.value));
@@ -169,13 +186,10 @@ function NavTop() {
             </a>
           </div>
 
-          <div className="middle-search">
-            <input type="search" placeholder="Search..." />
-            <a href="/">
-              {" "}
-              <FaSearch />{" "}
-            </a>
-          </div>
+            <div className='middle-search'>
+                <input type='search' placeholder='Search...' onKeyDown={e => test(e)} onChange={e => onSearch(e)} />
+                <span onClick={e => goToShop(e)}> <FaSearch/> </span>
+            </div>
 
           <div className="middle-cart">
             <div className="cart-icon">

@@ -35,10 +35,22 @@ import Subs from "./adminComponents/subs/subs";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
+axios.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    console.log('INT->', config);
+    if (localStorage.hasOwnProperty("token")) {
+        config.headers.Authorization = localStorage.getItem("token");
+    }
+    return config;
+}, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+});
 
 function App() {
     const [filterStatus, setFilterStatus] = useState(false);
     const [isCheckingUserFinished, setIsCheckingUserFinished] = useState(false);
+    const {user} = useSelector(state => state.userStore);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -75,14 +87,21 @@ function App() {
                 <Route path={routeConfig.ABOUT.url} element={<About/>}/>
                 <Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
                 <Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
-                <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
                 <Route path={routeConfig.ORDER.url} element={<Order/>}/>
-                <Route path="/my-ads" element={<MyAds/>}/>
-                <Route path="/add-product" element={<AddEddProduct/>}/>
-                <Route path="/product/edit/:myAdId" element={<AddEddProduct/>}/>
-                <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
-                <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
                 <Route path={routeConfig.UNSUBSCRIBE.url} element={<UnsubscribePage/>}/>
+                <Route path="*" element={<About/>}/>
+
+                {
+                    user?.username &&
+                        <>
+                            <Route path="/my-ads" element={<MyAds/>}/>
+                            <Route path="/add-product" element={<AddEddProduct/>}/>
+                            <Route path="/product/edit/:myAdId" element={<AddEddProduct/>}/>
+                            <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
+                            <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
+                            <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
+                        </>
+                }
 
                 {/*admin part*/}
                 <Route path={routeConfig.DASHBOARD.url}

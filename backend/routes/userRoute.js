@@ -1,14 +1,39 @@
+const validationService =  require("../services/validationService");
 const express = require('express');
 const Users = require("../models/userModel");
 const nodemailer = require("nodemailer");
 const routes = express.Router();
+var jwt = require('jsonwebtoken');
+
+routes.post("/change-password", async (req, res) => {
+    const reqBody = req.body
+    Users.findOne({_id: reqBody.userId}, async (error, result) => {
+        if (error) {
+            const errorMsg = `Error on getting user from DB: ${error}`;
+            res.status(201).send(errorMsg)
+            return
+        }
+
+        let userData = await result
+        let storedPassword = userData.password
+        if (reqBody.oldPassword === storedPassword) {
+            Users.updateOne({_id: reqBody.userId}, {password: reqBody.newPassword}, (error, result) => {
+                if (error) {
+                    res.send(error)
+                    return
+                }
+                res.send(userData)
+            })
+        } else {
+            res.status(210).send("Old password is not match with your current password!")
+        }
+    })
+})
 
 routes.post("/login", validate, (req, res) => {
     console.log('request body ->', req.body);
     const reqBody = req.body;
-
     const foundUser = Users.findOne(reqBody, (err, data) => {
-        console.log(data);
         if (err) {
             const errorMsg = `Error on getting user from DB: ${err}`;
             console.log(errorMsg);
@@ -16,11 +41,18 @@ routes.post("/login", validate, (req, res) => {
             return;
         }
 
-        // way 1
-        if (data)
-            res.send(data);
-        else
+        if (!data)
             res.status(409).send('User not found.');
+        else {
+            let userIsActive = data.isActive === 'true';
+            var token = jwt.sign({...data}, 'shhhhh');
+            res.status(userIsActive ? 200 : 210).send(userIsActive ? {token, user: data} : "Please activate you account.")
+        }
+        // way 1
+        // if (data)
+        //     res.send(data);
+        // else
+        //     res.status(409).send('User not found.');
 
         // way 2
         // res.send(data ? data : 'User not found.');
@@ -35,10 +67,8 @@ routes.post("/register", async (req, res) => {
     const reqBody = req.body;
 
     Users.findOne(reqBody, async (err, data) => {
-        // console.log(data);
         if (err) {
             const errorMsg = `Error on register user: ${err}`;
-            console.log(errorMsg);
             res.send(errorMsg);
             return;
         }
@@ -47,7 +77,6 @@ routes.post("/register", async (req, res) => {
         else {
             const newUser = new Users(reqBody);
             const saveNewUser = await newUser.save();
-            console.log(saveNewUser._id.toString());
 
             let testAccount = await nodemailer.createTestAccount();
 
@@ -92,7 +121,7 @@ routes.delete("/:email", (req, res) => {
 });
 
 //get all users
-routes.get("/get-all-users", (req, res) => {
+routes.get("/get-all-users", validationService.authValidation, (req, res) => {
     Users.find((error, result) => {
         if (error) throw error;
         res.send(result);
