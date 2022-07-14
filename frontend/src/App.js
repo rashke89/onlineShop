@@ -32,6 +32,7 @@ import Stats from "./adminComponents/stats";
 import NavTop from "./components/navigation/NavTop";
 import Emails from "./adminComponents/emails/emails";
 import Subs from "./adminComponents/subs/subs";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -89,7 +90,7 @@ function App() {
                 <Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
                 <Route path={routeConfig.ORDER.url} element={<Order/>}/>
                 <Route path={routeConfig.UNSUBSCRIBE.url} element={<UnsubscribePage/>}/>
-                <Route path="*" element={<About/>}/>
+                <Route path="*" element={<ErrorPage/>}/>
 
                 {
                     user?.username &&
