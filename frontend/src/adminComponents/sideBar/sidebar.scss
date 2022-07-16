@@ -6,6 +6,11 @@
   .sidebar {
     box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.2);
     height: 100vh;
+    @media(max-width: 768px) {
+      height: auto;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+    }
     &.collapsed {
       .nav-link {
         padding: 1rem;
@@ -20,6 +25,13 @@
           }
         }
       }
+    }
+  }
+  .nav-pills {
+    flex-direction: column;
+    @media(max-width: 768px) {
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
   .nav-link {
@@ -56,6 +68,10 @@
     right: 10%;
     cursor: pointer;
     transition: all .4s ease-in-out;
+    @media(max-width: 768px) {
+      left: 5%;
+      width: 4%
+    }
     svg {
       font-size: 1.5rem;
       font-weight: normal;
