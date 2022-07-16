@@ -34,6 +34,38 @@
       flex-wrap: wrap;
     }
   }
+  .nav-item {
+    &:nth-child(1) {
+      &::before {
+        content: 'DASHBOARD';
+        color: #C4C4C4;
+      }
+    }
+    &:nth-child(2) {
+      margin-top: 1rem;
+      &::before {
+        content: 'SHOP';
+        color: #C4C4C4;
+      }
+    }
+    &:nth-child(4) {
+      margin-top: 1rem;
+      &::before {
+        content: 'USERS';
+        color: #C4C4C4;
+      }
+    }
+    @media(max-width: 768px) {
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(4){
+        margin-top: 0;
+        &::before {
+          content: '';
+        }
+      }
+    }
+  }
   .nav-link {
     color: #333;
     font-weight: 600;
@@ -64,7 +96,7 @@
   }
   .toggler {
     position: absolute;
-    top: 0;
+    top: 1%;
     right: 10%;
     cursor: pointer;
     transition: all .4s ease-in-out;
