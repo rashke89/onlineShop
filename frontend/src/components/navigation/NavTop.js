@@ -131,7 +131,7 @@ function NavTop() {
     <section className="nav-bar-wrapper">
       <article className="nav-bar-info container">
         <div className="info-phone">
-          <a href="/">
+          <a href="tel:1234567890">
             {" "}
             <FaPhoneAlt /> &nbsp; <span>Phone: </span> (+1) 123 - 456 - 7890{" "}
           </a>
@@ -139,7 +139,7 @@ function NavTop() {
 
         <div className="info-email-currency">
           <div className="email">
-            <a href="/">
+            <a href="mailto:info@ourdomain.com">
               {" "}
               <FaMailBulk /> &nbsp; <span>
                 {" "}

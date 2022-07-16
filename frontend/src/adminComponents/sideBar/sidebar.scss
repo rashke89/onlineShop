@@ -6,6 +6,11 @@
   .sidebar {
     box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.2);
     height: 100vh;
+    @media(max-width: 768px) {
+      height: auto;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+    }
     &.collapsed {
       .nav-link {
         padding: 1rem;
@@ -22,6 +27,52 @@
       }
     }
   }
+  .nav-pills {
+    flex-direction: column;
+    @media(max-width: 768px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+  .sidebar-label {
+    color: #C4C4C4;
+    text-transform: uppercase;
+  }
+  .sidebar-submenu-wrapper {
+    padding-left: 75px;
+  }
+  //.nav-item {
+  //  &:nth-child(1) {
+  //    &::before {
+  //      content: 'DASHBOARD';
+  //      color: #C4C4C4;
+  //    }
+  //  }
+  //  &:nth-child(2) {
+  //    margin-top: 1rem;
+  //    &::before {
+  //      content: 'SHOP';
+  //      color: #C4C4C4;
+  //    }
+  //  }
+  //  &:nth-child(4) {
+  //    margin-top: 1rem;
+  //    &::before {
+  //      content: 'USERS';
+  //      color: #C4C4C4;
+  //    }
+  //  }
+  //  @media(max-width: 768px) {
+  //    &:nth-child(1),
+  //    &:nth-child(2),
+  //    &:nth-child(4){
+  //      margin-top: 0;
+  //      &::before {
+  //        content: '';
+  //      }
+  //    }
+  //  }
+  //}
   .nav-link {
     color: #333;
     font-weight: 600;
@@ -52,10 +103,14 @@
   }
   .toggler {
     position: absolute;
-    top: 0;
+    top: 1%;
     right: 10%;
     cursor: pointer;
     transition: all .4s ease-in-out;
+    @media(max-width: 768px) {
+      left: 5%;
+      width: 4%
+    }
     svg {
       font-size: 1.5rem;
       font-weight: normal;
@@ -71,8 +126,6 @@
       transition: all 0.3s ease-in-out;
       &:nth-child(1) {
         width: 50%;
-      }
-      &:nth-child(2) {
         background-color: #1daaa3;
       }
     }
