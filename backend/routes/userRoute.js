@@ -111,16 +111,22 @@ routes.post("/register", async (req, res) => {
     });
 });
 
-//delete user by email
-routes.delete("/:email", (req, res) => {
-    const params = req.params.email;
-    Users.deleteOne({email: params}, null, (error) => {
+//delete user by id
+routes.delete("/delete:id", (req, res) => {
+    const params = req.params.id;
+    Users.deleteOne({_id: params}, async (error) => {
         if (error) throw error;
-        res.send("User deleted");
+       await res.send("User deleted");
     });
 });
 
 //get all users
+// routes.get("/get-all-users", (req, res) => {
+//     Users.find((error, result) => {
+//         if (error) throw error;
+//         res.send(result);
+//     });
+// });
 routes.get("/get-all-users", validationService.authValidation, (req, res) => {
     Users.find((error, result) => {
         if (error) throw error;
@@ -152,7 +158,8 @@ routes.put("/user-profile", (req, res) => {
             email: req.body.email,
             password: req.body.password,
             address: req.body.address,
-            city: req.body.city
+            city: req.body.city,
+            isAdmin: req.body.isAdmin
         }
     }, (err, data) => {
         if (err) {

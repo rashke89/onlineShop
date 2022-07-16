@@ -13,6 +13,10 @@ class AuthService {
         return axios.get("/api/user/get-all-users")
     }
 
+    static deleteUserById(id) {
+        return axios.delete(`/api/user/delete${id}`)
+    }
+
     static completeRegistration(body) {
         return axios.post("/api/user/complete-registration", body)
     }

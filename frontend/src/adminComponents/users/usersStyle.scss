@@ -1,0 +1,18 @@
+.delete-user{
+    border: none;
+    &:hover{
+      background-color: white;
+      color: red;
+    }
+  }
+  .edit-user{
+    border: none;
+    &:hover{
+      color: white;
+    }
+  }
+  .info{
+    span{
+      color: red;
+    }
+  }

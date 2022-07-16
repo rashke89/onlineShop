@@ -8,6 +8,8 @@ import HeaderProduct from "../HeaderProduct/HeaderProduct";
 import ShareButton from "../ShareButton/ShareButton";
 import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 import RatingStars from "../RatingStars/RatingStars";
+import ProductDetails from "./ProductDetails";
+import LatestProducts from "./LatestProducts";
 
 
 // const productMockData = {
@@ -91,6 +93,11 @@ export default function ViewAd() {
             <HeaderProduct productInfo={ad}/>
             {noParamsMsgLayout()}
             {ad && ad.hasOwnProperty('_id') && adLayout()}
+            <div className="container">
+            <ProductDetails/>
+            <LatestProducts/>
+            </div>
+          
         </div>
     )
 }
