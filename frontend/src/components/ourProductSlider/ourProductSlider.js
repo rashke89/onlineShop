@@ -7,6 +7,7 @@ import './ourProductSlider.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
+import { Link } from "react-router-dom";
 
 
 function OurProductSlider() {
@@ -57,7 +58,7 @@ function OurProductSlider() {
                                 e.preventDefault();
                                 dispatch(addToCart(ad));
                             }}><i className="fa fa-shopping-cart"></i>Add to cart</a> <br />
-                            <a href={`/shop/ad/${ad._id}`} className="view-product">View product</a>
+                            <Link to={`/shop/ad/${ad._id}`} className="view-product">View product</Link>
                         </p>
                     </div>
                 })}
