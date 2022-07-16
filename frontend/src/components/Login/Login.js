@@ -35,7 +35,7 @@ const Login = () => {
 					// TODO: send user to some page
 					localStorage.setItem('user', JSON.stringify(res.data));
 					dispatch(setUser(res.data));
-					navigate(routeConfig.HOME.url);
+					navigate(`${res.data.isAdmin ? routeConfig.DASHBOARD.url : routeConfig.HOME.url}`);
 				}
 			})
 			.catch((error) => {

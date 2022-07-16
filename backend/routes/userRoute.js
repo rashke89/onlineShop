@@ -112,7 +112,7 @@ routes.delete("/:email", (req, res) => {
 	})
 })
 
-// Get all users
+// Get all Users
 routes.get('/get-all-users', (req, res) => {
 	Users.find((error, result) => {
 		if(error) throw error;

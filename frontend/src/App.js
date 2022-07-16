@@ -2,7 +2,7 @@ import './App.css';
 import './assets/scss/base.scss';
 import AuthPage from "./pages/AuthPage/AuthPage";
 import axios from 'axios';
-import {Routes, Route, useNavigate} from "react-router-dom";
+import {Routes, Route, useNavigate, Navigate} from "react-router-dom";
 import Shop from "./pages/Shop/Shop";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
@@ -22,11 +22,14 @@ import Order from "./pages/Order/Order";
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "./components/Loader/Loader";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Users from "./adminComponents/Users/Users";
+import Products from "./adminComponents/Products/Products";
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
 function App() {
 	const [viewCartItems, setViewCartItems] = useState(false);
+	const [isUserCheckFinished, setIsUserCheckFinished] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -41,10 +44,11 @@ function App() {
 		} else {
 			dispatch(setUser(JSON.parse(localStorage.getItem('user'))));
 		}
+		setIsUserCheckFinished(true);
 	}
 
 	const shopCartHandler = () => {
-		if(localStorage.hasOwnProperty('shopCart')) {
+		if (localStorage.hasOwnProperty('shopCart')) {
 			dispatch(setCart(JSON.parse(localStorage.getItem('shopCart'))));
 		}
 	}
@@ -52,41 +56,41 @@ function App() {
 	const AdminProtect = ({children}) => {
 		const {user} = useSelector(state => state.userStore);
 
-		if(!user.username) {
+		if (user?.isAdmin !== 'true') return <Navigate to={routeConfig.SHOP.url}/>
 
-		}
-
-		return(
-			{children}
+		return (
+			{...children}
 		)
 	}
 
 	return (
 		<div className={`main-wrapper ${viewCartItems ? 'cart-view-opened' : ''}`}>
-			<Loader />
+			<Loader/>
 			<Navigation viewCartItems={viewCartItems} setViewCartItems={setViewCartItems}/>
-			<Routes>
-				<Route path={routeConfig.HOME.url} element={<Home/>}/>
-				<Route path={routeConfig.SHOP.url} element={<Shop/>}/>
-				<Route path={routeConfig.SHOP_PRODUCT.url} element={<ProductPage/>}/>
-				<Route path={routeConfig.ABOUT.url} element={<About/>}/>
-				<Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
-				<Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
-				<Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
-				<Route path={routeConfig.MY_PRODUCTS.url} element={<MyProducts/>}/>
-				<Route path={routeConfig.ADD_PRODUCT.url} element={<AddEditProduct/>}/>
-				<Route path={routeConfig.EDIT_PRODUCT.url} element={<AddEditProduct/>}/>
-				<Route path={routeConfig.DELETE_PRODUCT.url} element={<DeleteMyProduct/>}/>
-				<Route path={routeConfig.ORDER.url} element={<Order/>}/>
+			{isUserCheckFinished &&
+				<Routes>
+					<Route path={routeConfig.HOME.url} element={<Home/>}/>
+					<Route path={routeConfig.SHOP.url} element={<Shop/>}/>
+					<Route path={routeConfig.SHOP_PRODUCT.url} element={<ProductPage/>}/>
+					<Route path={routeConfig.ABOUT.url} element={<About/>}/>
+					<Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
+					<Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
+					<Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
+					<Route path={routeConfig.MY_PRODUCTS.url} element={<MyProducts/>}/>
+					<Route path={routeConfig.ADD_PRODUCT.url} element={<AddEditProduct/>}/>
+					<Route path={routeConfig.EDIT_PRODUCT.url} element={<AddEditProduct/>}/>
+					<Route path={routeConfig.DELETE_PRODUCT.url} element={<DeleteMyProduct/>}/>
+					<Route path={routeConfig.ORDER.url} element={<Order/>}/>
 
-				{/* Admin routes */}
-				<Route
-					path={routeConfig.DASHBOARD.url}
-					element={<AdminProtect><Dashboard /></AdminProtect>}>
-
-				</Route>
-			</Routes>
-
+					{/* Admin routes */}
+					<Route
+						path={routeConfig.DASHBOARD.url}
+						element={<AdminProtect><Dashboard/></AdminProtect>}>
+						<Route path={routeConfig.ADMIN_USERS.url} element={<Users/>}/>
+						<Route path={routeConfig.ADMIN_PRODUCTS.url} element={<Products/>}/>
+					</Route>
+				</Routes>
+			}
 		</div>
 	);
 }
