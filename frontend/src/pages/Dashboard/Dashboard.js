@@ -8,7 +8,7 @@ function Dashboard() {
 		<>
 			<div className="container-fluid">
 				<div className="row">
-					<div className={`sidebar-wrapper ${sidebarCollapse ? 'col-md-1' : 'col-md-3 col-xl-2'}`}>
+					<div className={`sidebar-wrapper ${sidebarCollapse ? 'col-md-2 col-lg-2 col-xl-1' : 'col-md-3 col-xl-2'}`}>
 						<Sidebar sidebarCollapse={sidebarCollapse} setSidebarCollapse={setSidebarCollapse} />
 					</div>
 

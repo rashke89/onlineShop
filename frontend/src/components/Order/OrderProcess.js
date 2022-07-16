@@ -48,7 +48,7 @@ function PaymentMessage({message}) {
 
 	useEffect(() => {
 		dispatch(setCart([]));
-
+		localStorage.removeItem("shopCart");
 		setTimeout(() => {
 			navigate(routeConfig.SHOP.url);
 		}, 3000)

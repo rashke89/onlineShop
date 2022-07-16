@@ -4,7 +4,7 @@ import {useState} from "react";
 import './sidebar.scss';
 import Toggler from "./Toggler";
 
-function Sidebar({sidebarCollapse, setSidebarCollapse}) {
+const Sidebar = ({sidebarCollapse, setSidebarCollapse}) => {
 	const [activeName, setActiveName] = useState(ADMIN_SIDEBAR_CONFIG[0].name);
 	const navigate = useNavigate();
 
