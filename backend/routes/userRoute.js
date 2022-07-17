@@ -16,18 +16,25 @@ routes.post("/login", validate, (req, res) => {
 			return;
 		}
 
-		if(data) {
-			res.send(data)
-		} else {
+		if (!data) {
 			res.status(409).send('User not found.');
+		} else {
+			let userActive = data.isActive === 'true';
+			res.status(userActive ? 200 : 210).send(userActive ? data : "Please activate your account.")
 		}
+
+		// if(data) {
+		// 	res.send(data)
+		// } else {
+		// 	res.status(409).send('User not found.');
+		// }
 	});
 });
 
 // Validate login
-function validate(req, res, next){
+function validate(req, res, next) {
 	let body = req.body;
-	if(!body.username || !body.password) {
+	if (!body.username || !body.password) {
 		res.send("Login failed.");
 		return;
 	}
@@ -59,27 +66,27 @@ routes.post("/register", async (req, res) => {
 			let testAccount = await nodemailer.createTestAccount();
 
 			let transporter = nodemailer.createTransport({
-				 host: "smtp.ethereal.email",
-				 port: 587,
-				 secure: false, // true for 465, false for other ports
-				 auth: {
-					 user: testAccount.user, // generated ethereal user
-					 pass: testAccount.pass, // generated ethereal password
-				 }
-			 });
+																										 host: "smtp.ethereal.email",
+																										 port: 587,
+																										 secure: false, // true for 465, false for other ports
+																										 auth: {
+																											 user: testAccount.user, // generated ethereal user
+																											 pass: testAccount.pass, // generated ethereal password
+																										 }
+																									 });
 
 			let info = await transporter.sendMail({
-				from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
-				to: reqBody.email, // list of receivers
-				subject: "Activate account", // Subject line
-				text: "Hello world?", // plain text body
-				html: `
+																							from: '"Fred Foo 👻" <office@onlineShop.com>', // sender address
+																							to: reqBody.email, // list of receivers
+																							subject: "Activate account", // Subject line
+																							text: "Hello world?", // plain text body
+																							html: `
           <h1>Activate account</h1>
           <p>Dear, ${reqBody.username}</p>
           <p>Please click on link below to activate your account</p>
           <a href="http://localhost:3000/user-activate/${saveNewUser._id.toString()}" target="_blank">Activate link</a>
         ` // html body
-			});
+																						});
 
 			console.log("Preview URL: ", nodemailer.getTestMessageUrl(info));
 
@@ -93,7 +100,7 @@ routes.post('/complete-registration', (req, res) => {
 	const userId = req.body.userId;
 
 	Users.updateOne({_id: userId}, {isActive: true}, (error, result) => {
-		if(error) {
+		if (error) {
 			console.log(error);
 			res.send(error);
 		} else {
@@ -107,7 +114,7 @@ routes.delete("/:email", (req, res) => {
 	const userEmail = req.params.email;
 
 	Users.deleteOne({email: userEmail}, null, (error) => {
-		if(error) throw error;
+		if (error) throw error;
 		res.send("User deleted.");
 	})
 })
@@ -115,7 +122,7 @@ routes.delete("/:email", (req, res) => {
 // Get all Users
 routes.get('/get-all-users', (req, res) => {
 	Users.find((error, result) => {
-		if(error) throw error;
+		if (error) throw error;
 		res.send(result);
 	})
 })
@@ -124,7 +131,7 @@ routes.get('/get-all-users', (req, res) => {
 routes.get('/:userId', (req, res) => {
 	const userId = req.params._id;
 	Users.find({'userId': userId}, (error, result) => {
-		if(error) throw error;
+		if (error) throw error;
 		res.send(result);
 	})
 })

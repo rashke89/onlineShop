@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {setUser} from "../../redux/userSlice";
 import {routeConfig} from "../../config/routeConfig";
 import {showLoader} from "../../redux/loaderSlice";
+import {toast, ToastContainer} from "react-toastify";
 
 const Login = () => {
 	const [username, setUsername] = useState('');
@@ -32,10 +33,11 @@ const Login = () => {
 		AuthService.login({username, password})
 			.then((res) => {
 				if (res && res.status === 200) {
-					// TODO: send user to some page
 					localStorage.setItem('user', JSON.stringify(res.data));
 					dispatch(setUser(res.data));
 					navigate(`${res.data.isAdmin ? routeConfig.DASHBOARD.url : routeConfig.HOME.url}`);
+				} else {
+					toast.info(res.data);
 				}
 			})
 			.catch((error) => {
@@ -58,6 +60,7 @@ const Login = () => {
 
 			<button type="submit">Login</button>
 			{!isFormValid && <p>Username and password are required!</p>}
+			<ToastContainer />
 		</form>
 	);
 };

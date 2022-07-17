@@ -27,7 +27,7 @@ const Navigation = ({viewCartItems, setViewCartItems}) => {
 				<ul className="dropdown-menu" aria-labelledby="navbarDropdown">
 					<li>
 						<a className="dropdown-item user-dropdown" href="#">
-							{user.isAdmin ?
+							{user.isAdmin === 'true' ?
 								<i className="bi bi-person-workspace me-2"></i> :
 								<i className="bi bi-person-circle me-2"></i>
 							}
@@ -40,6 +40,14 @@ const Navigation = ({viewCartItems, setViewCartItems}) => {
 							My products
 						</Link>
 					</li>
+					{user.isAdmin === 'true' &&
+						<li>
+							<Link to={routeConfig.DASHBOARD.url} className="dropdown-item">
+								<i className="bi bi-menu-button-wide-fill me-2"></i>
+								Dashboard
+							</Link>
+						</li>
+					}
 					<li>
 						<hr className="dropdown-divider"/>
 					</li>

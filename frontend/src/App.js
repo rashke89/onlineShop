@@ -24,12 +24,15 @@ import Loader from "./components/Loader/Loader";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Users from "./adminComponents/Users/Users";
 import Products from "./adminComponents/Products/Products";
+import Stats from "./adminComponents/Stats/Stats";
+import NotFound from "./pages/NotFound/NotFound";
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
 function App() {
 	const [viewCartItems, setViewCartItems] = useState(false);
 	const [isUserCheckFinished, setIsUserCheckFinished] = useState(false);
+	const {user} = useSelector(state => state.userStore);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -40,7 +43,7 @@ function App() {
 
 	const userLoginHandler = () => {
 		if (!localStorage.hasOwnProperty('user')) {
-			navigate(routeConfig.AUTH.url);
+			// navigate(routeConfig.AUTH.url);
 		} else {
 			dispatch(setUser(JSON.parse(localStorage.getItem('user'))));
 		}
@@ -69,6 +72,7 @@ function App() {
 			<Navigation viewCartItems={viewCartItems} setViewCartItems={setViewCartItems}/>
 			{isUserCheckFinished &&
 				<Routes>
+					<Route path="*" element={<NotFound/>}/>
 					<Route path={routeConfig.HOME.url} element={<Home/>}/>
 					<Route path={routeConfig.SHOP.url} element={<Shop/>}/>
 					<Route path={routeConfig.SHOP_PRODUCT.url} element={<ProductPage/>}/>
@@ -76,16 +80,22 @@ function App() {
 					<Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
 					<Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
 					<Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
-					<Route path={routeConfig.MY_PRODUCTS.url} element={<MyProducts/>}/>
-					<Route path={routeConfig.ADD_PRODUCT.url} element={<AddEditProduct/>}/>
-					<Route path={routeConfig.EDIT_PRODUCT.url} element={<AddEditProduct/>}/>
-					<Route path={routeConfig.DELETE_PRODUCT.url} element={<DeleteMyProduct/>}/>
 					<Route path={routeConfig.ORDER.url} element={<Order/>}/>
+
+					{user?.username &&
+						<>
+							<Route path={routeConfig.MY_PRODUCTS.url} element={<MyProducts/>}/>
+							<Route path={routeConfig.ADD_PRODUCT.url} element={<AddEditProduct/>}/>
+							<Route path={routeConfig.EDIT_PRODUCT.url} element={<AddEditProduct/>}/>
+							<Route path={routeConfig.DELETE_PRODUCT.url} element={<DeleteMyProduct/>}/>
+						</>
+					}
 
 					{/* Admin routes */}
 					<Route
 						path={routeConfig.DASHBOARD.url}
 						element={<AdminProtect><Dashboard/></AdminProtect>}>
+						<Route index element={<Stats/>}/>
 						<Route path={routeConfig.ADMIN_USERS.url} element={<Users/>}/>
 						<Route path={routeConfig.ADMIN_PRODUCTS.url} element={<Products/>}/>
 					</Route>
