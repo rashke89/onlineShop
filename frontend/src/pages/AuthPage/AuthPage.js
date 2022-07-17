@@ -18,8 +18,8 @@ const AuthPage = () => {
 		<div className='auth-wrapper'>
 			<h1>{isLoginForm ? "Login form" : "Register form"}</h1>
 			<div>
-				<button onClick={showLoginForm}>Login</button>
-				<button onClick={showRegisterForm}>Register</button>
+				<button className="auth-btn" onClick={showLoginForm}>Login</button>
+				<button className="auth-btn" onClick={showRegisterForm}>Register</button>
 			</div>
 			{isLoginForm ? <Login/> : <Register showLoginForm={showLoginForm}/>}
 		</div>

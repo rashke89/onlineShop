@@ -90,7 +90,7 @@ const Register = ({showLoginForm}) => {
 				<input type="text" className="form-control" id="city" name='city' onChange={handleInputFieldChange}/>
 			</div>
 			<div className="col-12">
-				<button type='submit'>Register</button>
+				<button type='submit' class='register-btn'>Register</button>
 			</div>
 
 

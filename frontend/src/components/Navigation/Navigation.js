@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import ShopCart from "../ShopCart/ShopCart";
@@ -6,8 +6,8 @@ import {routeConfig} from "../../config/routeConfig";
 import {setUser} from "../../redux/userSlice";
 
 const Navigation = ({viewCartItems, setViewCartItems}) => {
-	// state - redux store
 	const {user} = useSelector((state) => state.userStore);
+	const [search, setSearch] = useState('');
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -64,6 +64,16 @@ const Navigation = ({viewCartItems, setViewCartItems}) => {
 			</li>
 	}
 
+	const searchInputHandler = (e) => {
+		e.preventDefault();
+		setSearch(e.target.value);
+	}
+
+	const searchBtn = (e) => {
+		e.preventDefault();
+		navigate(`${routeConfig.SHOP.url}?search=${search}`);
+	}
+
 	return (
 		<nav className="navbar navbar-expand-md bg-light">
 			<div className="container-fluid">
@@ -92,6 +102,10 @@ const Navigation = ({viewCartItems, setViewCartItems}) => {
 						</li>
 						{userBtnLayout()}
 					</ul>
+					<form className="d-flex" role="search">
+						<input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={e => searchInputHandler(e)} />
+							<button className="btn btn-outline-success" type="submit" onClick={e => searchBtn(e)}>Search</button>
+					</form>
 				</div>
 			</div>
 		</nav>

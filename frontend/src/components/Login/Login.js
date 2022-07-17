@@ -42,6 +42,9 @@ const Login = () => {
 			})
 			.catch((error) => {
 				console.log(error);
+				if(error.response.status === 409) {
+					toast.info(error.response.data);
+				}
 			})
 			.finally(() => dispatch(showLoader(false)));
 	}
@@ -58,7 +61,7 @@ const Login = () => {
 							 onChange={onPasswordChange}/>
 			</div>
 
-			<button type="submit">Login</button>
+			<button type="submit" className='login-btn'>Login</button>
 			{!isFormValid && <p>Username and password are required!</p>}
 			<ToastContainer />
 		</form>

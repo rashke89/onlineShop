@@ -3,10 +3,12 @@ import ShopService from "../../services/shopService";
 import Product from "../../components/Product/Product";
 import {useDispatch} from "react-redux";
 import {showLoader} from "../../redux/loaderSlice";
+import {useSearchParams} from "react-router-dom";
 
 const Shop = (props) => {
 	const dispatch = useDispatch();
 	const [products, setProducts] = useState([]);
+	const [query, setQuery] = useSearchParams();
 
 	useEffect(() => {
 		dispatch(showLoader(true));
@@ -19,6 +21,10 @@ const Shop = (props) => {
 			.catch(err => console.log(err))
 			.finally(() => dispatch(showLoader(false)))
 	}, [])
+
+	useEffect(() => {
+		query.get('search');
+	}, [query]);
 
 	return (
 		<div className="shop-wrapper container">
