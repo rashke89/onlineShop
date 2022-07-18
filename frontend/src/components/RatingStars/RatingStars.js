@@ -3,6 +3,7 @@ import { FaRegStar, FaStar } from 'react-icons/fa';
 import './rating-stars.scss';
 import {useDispatch} from "react-redux";
 import {setRatingStars} from "../../redux/ratingStarsSlice";
+// import ShopService from "../../services/shopService";
 
 
 function RatingStars () {
@@ -17,6 +18,19 @@ function RatingStars () {
         dispatch(setRatingStars(rating))
         console.log(rating)
     }
+
+
+    // const changeRating = () => {
+    //     ShopService.setProductRate({})
+    //     .then(res =>{
+    //         console.log(res.data );
+    //     })
+    //     .catch(err =>{
+    //         console.log(err );
+    //     })
+    // }
+    
+
     return (
         <div className="stars-wrapper">
             {[...Array(5)].map((star,i) =>{
@@ -45,6 +59,10 @@ function RatingStars () {
 
                 )
             })}
+
+            {/* <button onClick={changeRating}>
+                rest rating
+            </button> */}
         </div>
     )
 

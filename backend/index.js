@@ -409,3 +409,16 @@ app.delete('/api/admin/delete-msg/:id', (req, res) => {
         }
     })
 })
+
+
+
+//set rating stars to zero
+
+// app.put('/api/product/set-rating', (req, res) => {
+//     Product.updateMany({}, {$set:{"rate" : 0}, rating: 0},
+//         (error, result ) => {
+//             if (error) throw error;
+//             console.log(result, "for productss.");
+//             res.send(result);
+//         });
+// })
