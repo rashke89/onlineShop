@@ -18,7 +18,8 @@ const userRoute = require('./routes/userRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const subscribeRoute = require('./routes/subscribeRoute');
 const SubscribeModel = require('./models/subscribeModel')
-const { json } = require("express");
+const adminRoute = require('./routes/adminRoute')
+const {json} = require("express");
 
 
 const app = express();
@@ -27,7 +28,7 @@ mongoose
     .then((data) => console.log("MONGO DB is connected."))
     .catch((err) => console.log(`${err}`));
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 // enable CORS - API calls and resource sharing
 app.use(cors());
@@ -66,8 +67,7 @@ app.get("/api/admin/stats", (req, res) => {
         if (error) {
             console.log(error);
             res.send(error);
-        }
-        else {
+        } else {
             productNumbers = data.length;
         }
     })
@@ -75,8 +75,7 @@ app.get("/api/admin/stats", (req, res) => {
         if (error) {
             console.log("daddd", error);
             res.send(error)
-        }
-        else {
+        } else {
             allEmails = data.length;
         }
     })
@@ -84,8 +83,7 @@ app.get("/api/admin/stats", (req, res) => {
         if (error) {
             console.log("daddd", error);
             res.send(error)
-        }
-        else {
+        } else {
             allSubs = data.length;
         }
     })
@@ -93,18 +91,17 @@ app.get("/api/admin/stats", (req, res) => {
         if (error) {
             console.log("daddd", error);
             res.send(error)
-        }
-        else {
+        } else {
             userNumbers = data.length;
         }
-        res.send({ users: userNumbers, products: productNumbers, emails: allEmails, subs: allSubs });
+        res.send({users: userNumbers, products: productNumbers, emails: allEmails, subs: allSubs});
     })
 })
 
 // get filtered products
 app.get("/api/filteredAds/:price", (req, res) => {
     const price = req.params.price;
-    Product.find({ price: { $lt: price } }, (error, data) => {
+    Product.find({price: {$lt: price}}, (error, data) => {
         if (error) {
             console.log(error);
             res.send(error);
@@ -116,7 +113,7 @@ app.get("/api/filteredAds/:price", (req, res) => {
 // get searched products
 app.get("/api/product/search/:searchTerm", (req, res) => {
     const searchTerm = req.params.searchTerm;
-    Product.find({ title: { $regex: searchTerm, "$options": "i" } }, (error, data) => {
+    Product.find({title: {$regex: searchTerm, "$options": "i"}}, (error, data) => {
         if (error) {
             console.log(error);
             res.send(error);
@@ -158,7 +155,7 @@ app.get("/api/home", (req, res) => {
 app.get('/api/home/slider/:numberAds', (req, res) => {
     const numberAds = parseInt(req.params.numberAds);
 
-    Product.aggregate([{ $sample: { size: numberAds } }])
+    Product.aggregate([{$sample: {size: numberAds}}])
         .then(response => {
             console.log(res);
             res.send(response);
@@ -172,7 +169,7 @@ app.get('/api/home/slider/:numberAds', (req, res) => {
 //get product
 app.get("/shop/product/:productId", (req, res) => {
     const productId = req.params.productId;
-    Product.findOne({ _id: productId }, (error, data) => {
+    Product.findOne({_id: productId}, (error, data) => {
         if (error) {
             console.log(error);
             res.send("ERROR. Try Again.")
@@ -213,7 +210,7 @@ app.post("/product/add", (req, res) => {
 //delete myAd
 app.delete("/product/delete/:myAdId", (req, res) => {
     const myAdId = req.params.myAdId;
-    Product.deleteOne({ _id: myAdId }, async (error) => {
+    Product.deleteOne({_id: myAdId}, async (error) => {
         if (error) throw error
         await res.send("Product deleted")
     })
@@ -224,8 +221,7 @@ app.delete("/product/delete/:myAdId", (req, res) => {
 app.get("/product/getMyAd/:myAdId", (req, res) => {
     const myAdId = req.params.myAdId;
 
-    Product.findOne({ _id: myAdId }, (error, data) => {
-
+    Product.findOne({_id: myAdId}, (error, data) => {
         if (error) {
             console.log(error);
             res.send(error)
@@ -240,7 +236,7 @@ app.get("/product/getMyAd/:myAdId", (req, res) => {
 app.put("/product/save/:myAdId", (req, res) => {
     const params = req.params.myAdId;
 
-    Product.updateOne({ "_id": params }, req.body, null, (error, result) => {
+    Product.updateOne({"_id": params}, req.body, null, (error, result) => {
         if (error) throw error;
         res.send(result)
     })
@@ -311,7 +307,7 @@ app.post('/api/ordered', async (req, res) => {
 app.get("/product/my-adds", validationService.authValidation, (req, res) => {
     var decoded = jwt.verify(JSON.parse(req.headers.authorization), 'shhhhh')
     const userId = decoded._doc._id;
-    Product.find({ userId: userId }, (error, data) => {
+    Product.find({userId: userId}, (error, data) => {
         if (error) {
             res.send(error);
         }
@@ -327,7 +323,7 @@ app.get("/product/my-adds", validationService.authValidation, (req, res) => {
 //get one user by username
 app.get("/api/user/:username", (req, res) => {
     const param = req.params.username;
-    Users.find({ username: param }, (error, result) => {
+    Users.find({username: param}, (error, result) => {
         if (error) throw error;
         res.send(result);
     });
@@ -339,8 +335,8 @@ app.put("/api/user/:username", (req, res) => {
     const query = req.query;
 
     Users.updateOne(
-        { username: param },
-        { email: query.email, isAdmin: query.admin },
+        {username: param},
+        {email: query.email, isAdmin: query.admin},
         null,
         (error, result) => {
             if (error) throw error;
@@ -366,8 +362,8 @@ app.get("/api/top-products/:top", (req, res) => {
     let topNumber = req.params.top
     let copyProduct = [...products]
     let sorted = copyProduct.sort((a, b) => {
-        return b.rating.rate - a.rating.rate
-    }
+            return b.rating.rate - a.rating.rate
+        }
     )
 
     res.send(sorted.splice(0, topNumber))
@@ -376,16 +372,10 @@ app.get("/api/top-products/:top", (req, res) => {
 
 app.use('/api/payment', paymentRoute)
 
-app.listen(serverConfig.port, (err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(serverConfig.serverRunningMsg);
-        console.log(serverConfig.serverLink);
-    }
-});
 
 // get all email admin
+app.use('/api/admin', adminRoute)
+
 app.get('/api/admin/all-messages', (req, res) => {
     Emails.find((err, data) => {
         if (err) {
@@ -400,7 +390,7 @@ app.get('/api/admin/all-messages', (req, res) => {
 
 app.delete('/api/admin/delete-msg/:id', (req, res) => {
     let idMsg = req.params.id;
-    Emails.deleteOne({ _id: idMsg }, (err, data) => {
+    Emails.deleteOne({_id: idMsg}, (err, data) => {
         if (data) {
             res.send("Uspjesno izbrisano")
         }
@@ -409,3 +399,12 @@ app.delete('/api/admin/delete-msg/:id', (req, res) => {
         }
     })
 })
+
+app.listen(serverConfig.port, (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(serverConfig.serverRunningMsg);
+        console.log(serverConfig.serverLink);
+    }
+});
