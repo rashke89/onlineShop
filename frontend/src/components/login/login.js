@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AuthService from "../../services/authService";
 import "./style.scss"
+import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "../../redux/userSlice";
-import {useNavigate} from "react-router";
 
 function Login({showLoginForm}) {
     const [userData, setUserData] = useState({
@@ -15,10 +15,10 @@ function Login({showLoginForm}) {
     const dispatch = useDispatch();
 
     const onHandleInput = (e) => {
-        let newInput = userData
-        newInput[e.target.name] = e.target.value
-        setUserData(newInput)
-    }
+        let newInput = userData;
+        newInput[e.target.name] = e.target.value;
+        setUserData(newInput);
+    };
     const loginForm = () => showLoginForm(false)
 
     const onSubmitForm = (e) => {

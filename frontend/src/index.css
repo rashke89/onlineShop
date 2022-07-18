@@ -20,6 +20,7 @@ code {
 
 #root {
     min-height: 100vh;
+    display: grid;
 }
 
 img {

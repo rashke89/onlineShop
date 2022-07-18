@@ -1,25 +1,32 @@
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import "./shopAd.scss";
+import {routeConfig} from "../../config/routeConfig";
 
 function ShopAd(props) {
     // state can change
-    const [ad, setAd] = useState({});  // useState var moze da se menja unutar komponente
+    const [ad, setAd] = useState({});
 
+    // mount
     useEffect(() => {
-
-        // props cannot change // unchangeable
-        console.log(props.ad);
+        // props cannot change
         setAd(props.ad)
     }, []);
+
     return (
-        <div className="shop-ad-wrapper col-md-3">
-            {ad.hasOwnProperty('image') ? <div>
-                <img src={ad.image} className="img img-fluid" alt=""/>
-                <p className="shop-ad-title">{ad.title}</p>
-                <p>Rate: {ad.rating.rate}</p>
-                <p className="shop-ad-price">{ad.price}$</p>
+        <>
+            {ad?.image ? <div className="shop-ad-wrapper col-md-3">
+                <div className="shop-ad-content-wrapper">
+                    <img src={ad.image} className="img img-fluid" alt=""/>
+                    <p className="shop-ad-title">{ad.title}</p>
+                    <p>Rate: {ad.rating.rate}</p>
+                    <p className="shop-ad-price">{ad.price}$</p>
+                    <Link to={routeConfig.AD_SHOP.realUrl(ad.id)} className="view-more-btn">
+                        <p className="view-more-btn-text">View Product</p>
+                    </Link>
+                </div>
             </div> : null}
-        </div>
+        </>
     )
 }
 

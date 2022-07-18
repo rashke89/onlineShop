@@ -1,0 +1,26 @@
+.hidden {
+    display: none;
+}
+
+.contact-form {
+
+    h1 {
+        margin: 2rem 0;
+    }
+}
+
+.successMessage {
+    color: #fff;
+    margin-bottom: 1rem;
+    background: #3db13d;
+    padding: 10px;
+    border-radius: 5px
+}
+
+.errorMessage {
+    color: #fff;
+    margin-bottom: 1rem;
+    background: tomato;
+    padding: 10px;
+    border-radius: 5px;
+}

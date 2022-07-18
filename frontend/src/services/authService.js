@@ -12,8 +12,11 @@ class AuthService {
     static getAllUsers() {
         return axios.get("/api/users")
     }
-    static completeRegistration(body){
+    static completeRegistration(body) {
         return axios.post("/api/complete-registration", body)
+    }
+    static userUpdate(body){
+        return axios.put("api/userProfile",body);
     }
 }
 

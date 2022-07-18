@@ -9,7 +9,7 @@ function processConnectionOptions(uri, options) {
     ? opts.readPreference
     : getUriReadPreference(uri);
 
-  const resolvedOpts = (readPreference && readPreference !== 'primary' && readPreference !== 'primaryPreferred')
+  const resolvedOpts = (readPreference && readPreference !== 'primary')
     ? resolveOptsConflicts(readPreference, opts)
     : opts;
 

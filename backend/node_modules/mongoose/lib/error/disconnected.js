@@ -16,9 +16,10 @@ class DisconnectedError extends MongooseError {
   /**
    * @param {String} connectionString
    */
-  constructor(id, fnName) {
-    super('Connection ' + id +
-    ' was disconnected when calling `' + fnName + '()`');
+  constructor(connectionString) {
+    super('Ran out of retries trying to reconnect to "' +
+      connectionString + '". Try setting `server.reconnectTries` and ' +
+      '`server.reconnectInterval` to something higher.');
   }
 }
 
