@@ -7,6 +7,7 @@ import './home.scss'
 import HomeSlider from "../../components/HomeSlider/HomeSlider";
 import ClientsWord from "../../components/ClientsWord/ClientsWord";
 
+
 function Home(props) {
 	return (
 		<>
