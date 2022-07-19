@@ -43,7 +43,7 @@ function SideBar({sidebarCollapse, setSidebarCollapse}) {
     return (
         <>
             <Toggler sidebarCollapse={sidebarCollapse} setSidebarCollapse={setSidebarCollapse}/>
-            <div className={`d-flex p-3 sidebar ${sidebarCollapse ? 'collapsed' : ''}`}>
+            <div className={`d-flex p-3 sidebar ${sidebarCollapse ? 'collapsed' : ''} px-2`}>
                 <ul className="nav nav-pills mb-auto mt-5 ms-2">
                     {sideBarItemsLayout()}
                 </ul>

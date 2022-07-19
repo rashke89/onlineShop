@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 
 
-	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm, searchTerm}) {
+	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm, searchTerm,setItemsPerPage}) {
 
 		const {symbol} = useSelector(state=>state.currencyStore);
 		const handleSearch = e => {
@@ -60,6 +60,14 @@ import {useSelector} from "react-redux";
 							onChange={(event) => {setSort(event.target.value)}}>
 						<option value="lowPrice">Low price</option>
 						<option value="highPrice">High price</option>
+					</select>
+
+					{/*itemsPerPage*/}
+					<select className="form-select sort mx-3" defaultValue="0" aria-label="Sort"
+							onChange={(event) => {setItemsPerPage(event.target.value)}}>
+						<option value="24">24</option>
+						<option value="48">48</option>
+						<option value="72">72</option>
 					</select>
 				</div>
 				{filterLayout()}

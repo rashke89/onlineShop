@@ -7,6 +7,7 @@ import '../../assets/scss/base.scss';
 import {useDispatch} from "react-redux";
 import {showLoader} from "../../redux/loaderSlice";
 import {useSearchParams} from "react-router-dom";
+import Pagination from "../../components/Pagination/Pagination";
 
 function Shop({filterStatus, setFilterStatus}) {
     const [ads, setAds] = useState([]);
@@ -19,9 +20,16 @@ function Shop({filterStatus, setFilterStatus}) {
     let filteredAds;
     let searchedAds;
 
+    //pagination
+    // const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+
+
     useEffect(() => {
         let queryParam = query.get('search');
         queryParam && setSearchTerm(queryParam);
+        console.log('SHOPP CURREENT PAGE', currentPage);
     }, [query]);
 
     // Search
@@ -37,6 +45,7 @@ function Shop({filterStatus, setFilterStatus}) {
                 .then((res) => {
                     if (res.status === 200) {
                         setAds(res.data)
+                        console.log("DUZINA ADSA", res.data.length);
                     }
                 })
                 .catch(err => console.log(err))
@@ -87,18 +96,40 @@ function Shop({filterStatus, setFilterStatus}) {
             .catch(err => console.log(err))
             .finally(() => dispatch(showLoader(false)))
     }
+// Get current posts
+    const indexOfLastAds = currentPage * itemsPerPage;
+    const indexOfFirstAds = indexOfLastAds - itemsPerPage;
+    const currentAds = ads.slice(indexOfFirstAds, indexOfLastAds);
 
+    const paginationLayout = (currentAds) => {
+        return(
+    <>
+        <div className="row ">
+            {currentAds.length ? <Pagination
+                itemsPerPage={itemsPerPage}
+                totalItems={ads.length}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+            /> : null}
+
+        </div>
+    </>
+)
+}
     return (
         <div className="shop-wrapper container">
             <div className="row">
                 <FilterSort setSort={setSort} filterStatus={filterStatus} setFilterStatus={setFilterStatus}
-                            filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                            filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm}
+                            searchTerm={searchTerm} setItemsPerPage={setItemsPerPage}/>
             </div>
+            {paginationLayout(currentAds)}
             <div className="row">
-                {ads.length > 0 ? ads.map((element) => {
+                {currentAds.length > 0 ? currentAds.map((element) => {
                     return <ShopAd ad={element} key={element._id}/>
                 }) : <p>No products.</p>}
             </div>
+            {paginationLayout(currentAds)}
         </div>
     );
 }
