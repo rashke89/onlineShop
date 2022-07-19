@@ -10,6 +10,7 @@ import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 import RatingStars from "../RatingStars/RatingStars";
 import ProductDetails from "./ProductDetails";
 import LatestProducts from "./LatestProducts";
+import RatingStarsModal from "../RatingStarsModal/RatingStarsModal";
 
 
 // const productMockData = {

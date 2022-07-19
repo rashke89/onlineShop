@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema({
     category: {type: String},
     rating: {type: Number},
     userId:{type:String},
-    rate: {type: Number},
+    allRatings: {type: Array}
 
 });
 

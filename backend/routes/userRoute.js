@@ -1,4 +1,4 @@
-const validationService =  require("../services/validationService");
+const validationService = require("../services/validationService");
 const express = require('express');
 const Users = require("../models/userModel");
 const nodemailer = require("nodemailer");
@@ -7,7 +7,7 @@ var jwt = require('jsonwebtoken');
 
 routes.post("/change-password", async (req, res) => {
     const reqBody = req.body
-    Users.findOne({_id: reqBody.userId}, async (error, result) => {
+    Users.findOne({ _id: reqBody.userId }, async (error, result) => {
         if (error) {
             const errorMsg = `Error on getting user from DB: ${error}`;
             res.status(201).send(errorMsg)
@@ -17,7 +17,7 @@ routes.post("/change-password", async (req, res) => {
         let userData = await result
         let storedPassword = userData.password
         if (reqBody.oldPassword === storedPassword) {
-            Users.updateOne({_id: reqBody.userId}, {password: reqBody.newPassword}, (error, result) => {
+            Users.updateOne({ _id: reqBody.userId }, { password: reqBody.newPassword }, (error, result) => {
                 if (error) {
                     res.send(error)
                     return
@@ -45,8 +45,9 @@ routes.post("/login", validate, (req, res) => {
             res.status(409).send('User not found.');
         else {
             let userIsActive = data.isActive === 'true';
-            var token = jwt.sign({...data}, 'shhhhh');
-            res.status(userIsActive ? 200 : 210).send(userIsActive ? {token, user: data} : "Please activate you account.")
+            var token = jwt.sign({ ...data }, 'shhhhh');
+            res.send({ token, user: data })
+            // res.status(userIsActive ? 200 : 210).send(userIsActive ? { token, user: data } : "Please activate you account.")
         }
         // way 1
         // if (data)
@@ -114,9 +115,9 @@ routes.post("/register", async (req, res) => {
 //delete user by id
 routes.delete("/delete:id", (req, res) => {
     const params = req.params.id;
-    Users.deleteOne({_id: params}, async (error) => {
+    Users.deleteOne({ _id: params }, async (error) => {
         if (error) throw error;
-       await res.send("User deleted");
+        await res.send("User deleted");
     });
 });
 
@@ -136,7 +137,7 @@ routes.get("/get-all-users", validationService.authValidation, (req, res) => {
 
 routes.post("/complete-registration", (req, res) => {
     const userId = req.body.userId;
-    Users.updateOne({_id: userId}, {isActive: true}, (error, result) => {
+    Users.updateOne({ _id: userId }, { isActive: true }, (error, result) => {
         if (error) {
             console.log(error);
             res.send(error);
@@ -150,7 +151,7 @@ routes.post("/complete-registration", (req, res) => {
 // update user
 routes.put("/user-profile", (req, res) => {
     let id = req.body._id;
-    Users.updateOne({"_id": id}, {
+    Users.updateOne({ "_id": id }, {
         $set: {
             username: req.body.username,
             firstName: req.body.firstName,
@@ -171,6 +172,31 @@ routes.put("/user-profile", (req, res) => {
         }
     })
 });
+
+routes.put('/vote', (req, res) => {
+    const userID = req.body.userID;
+    const productID = req.body.productID;
+    Users.updateOne({ _id: userID }, { $push: { votedFor: productID } }, null, (err, data) => {
+        if (err) {
+            console.log(err, 'greskaaa');
+            res.send(err)
+        }
+        res.send('Uspesno')
+    })
+
+})
+
+routes.get('/get-vote/:id', (req, res) => {
+    const userID = req.params.id;
+    Users.find({ _id: userID }, (err, data) => {
+        if (err) {
+            console.log(err, 'greskaaa');
+            res.send(err)
+        }
+        res.send(data[0].votedFor);
+    })
+
+})
 
 function validate(req, res, next) {
     console.log('validate...', req.body);

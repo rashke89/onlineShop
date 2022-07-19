@@ -35,6 +35,8 @@ app.use(cors());
 // const mailer = mainService.configureMail();
 
 app.use("/api/subscribe", subscribeRoute);
+app.use("/api/user", userRoute);
+app.use("/api/user", userRoute);
 
 
 //get products
@@ -411,35 +413,53 @@ app.delete('/api/admin/delete-msg/:id', (req, res) => {
 })
 
 app.put('/shop/products/set-rating', (req, res) => {
-    const rating = req.body.rating;
+    const allRatings = req.body.allRatings;
+    const averageRating = req.body.averageRating;
     const id = req.body.id;
-    console.log(rating, id);
-//   to doo, rating / rate
 
     Product.updateOne(
-        {_id:id}, {rating:rating},
+        { _id: id }, { allRatings: [...allRatings], rating: averageRating },
         null, (error, data) => {
-            console.log(error, "eee");
             if (error) throw error;
-            console.log(data, "ddd");
             res.send(data);
-        }
-        
-     )
+        })
 })
 // 
-app.get('/shop/products/get-rating/:id', (req, res) =>{
+app.get('/shop/products/get-rating/:id', (req, res) => {
     const id = req.params.id;
-
-
     Product.find({ _id: id }, (error, data) => {
-
         if (error) {
             console.log(error);
             res.send(error)
         }
-        console.log(data, "------hhh");
-        
-        res.send({rate:data[0].rate, rating:data[0].rating})
+        res.send({ allRatings: data[0].allRatings, rating: data[0].rating })
     })
-}) 
+})
+
+
+// * RESET
+// app.put('/shop/product/reset', (req, res) => {
+//     console.log(req.body);
+//     // const id = req.body.id
+//     Users.updateMany({}, { $set: {votedFor: []} }, null, (err, data) => {
+//         if (err) {
+//             console.log(err)
+//             res.send('error je')
+//         }
+//         res.send('uspesno')
+//     })
+// })
+
+
+// * DELETE
+// app.put('/shop/product/delete', (req, res) => {
+//     console.log(req.body);
+//     // const id = req.body.id
+//     Product.updateMany({}, {$unset: {'rate': ''}}, null, (err, data) => {
+//         if (err) {
+//             console.log(err)
+//             res.send('error je')
+//         }
+//         res.send('uspesno')
+//     })
+// })

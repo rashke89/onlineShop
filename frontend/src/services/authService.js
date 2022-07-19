@@ -33,6 +33,14 @@ class AuthService {
         //TODO add this API Call on backend
         return axios.post("api/user/change-password", body);
     }
+
+    static setVoting(body){
+        return axios.put('/api/user/vote', body);
+    }
+
+    static getVoting(id){
+        return axios.get(`/api/user/get-vote/${id}`)
+    }
 }
 
 export default AuthService

@@ -1,4 +1,4 @@
-import { FaRegStar, FaStar } from 'react-icons/fa';
+import { FaRegStar, FaStar, FaStarHalf, FaStarHalfAlt } from 'react-icons/fa';
 import './rating-stars.scss';
 
 
@@ -8,9 +8,13 @@ function RatingStars({ rating }) {
     const inputStars = () => {
         for (let i = 0; i < 5; i++) {
             if (rating > i) {
-                arr.push(<span className="ratingstarFill" key={i}>  <FaStar />   </span>)
+                if (rating > i + 0.5) {
+                    arr.push(<span className="ratingstarFill" key={i}><FaStar /></span>)
+                } else {
+                    arr.push(<span className="ratingstarFill" key={i}><FaStarHalfAlt /></span>)
+                }
             } else {
-                arr.push(<span className="ratingstarFill" key={i}> <FaRegStar /> </span>)
+                arr.push(<span className="ratingstarFill" key={i}><FaRegStar /></span>)
             }
         }
         return arr

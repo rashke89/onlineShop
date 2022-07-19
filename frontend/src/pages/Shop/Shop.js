@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import shopService from '../../services/shopService';
 import ShopAd from "../../components/ShopAd/ShopAd";
 import './shop.scss';
 import FilterSort from "../../components/FilterSort/FilterSort";
 import '../../assets/scss/base.scss';
-import {useDispatch} from "react-redux";
-import {showLoader} from "../../redux/loaderSlice";
-import {useSearchParams} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showLoader } from "../../redux/loaderSlice";
+import { useSearchParams } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 
-function Shop({filterStatus, setFilterStatus}) {
+function Shop({ filterStatus, setFilterStatus }) {
     const [ads, setAds] = useState([]);
     const [filterPrice, setFilterPrice] = useState(0);
     const [searchTerm, setSearchTerm] = useState("");
@@ -28,7 +29,7 @@ function Shop({filterStatus, setFilterStatus}) {
     useEffect(() => {
         if (searchTerm.length > 3) {
             dispatch(showLoader(true));
-            setQuery({"search": searchTerm});
+            setQuery({ "search": searchTerm });
             searchAds()
         } else if (!searchTerm) {
             dispatch(showLoader(true));
@@ -92,13 +93,15 @@ function Shop({filterStatus, setFilterStatus}) {
         <div className="shop-wrapper container">
             <div className="row">
                 <FilterSort setSort={setSort} filterStatus={filterStatus} setFilterStatus={setFilterStatus}
-                            filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+                    filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
             </div>
             <div className="row">
                 {ads.length > 0 ? ads.map((element) => {
-                    return <ShopAd ad={element} key={element._id}/>
+                    return <ShopAd ad={element} key={element._id} />
                 }) : <p>No products.</p>}
             </div>
+            <ToastContainer />
+
         </div>
     );
 }
