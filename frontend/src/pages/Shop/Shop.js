@@ -96,16 +96,16 @@ function Shop({filterStatus, setFilterStatus}) {
             .catch(err => console.log(err))
             .finally(() => dispatch(showLoader(false)))
     }
-// Get current posts
+// Get current ads for pagination
     const indexOfLastAds = currentPage * itemsPerPage;
     const indexOfFirstAds = indexOfLastAds - itemsPerPage;
     const currentAds = ads.slice(indexOfFirstAds, indexOfLastAds);
 
-    const paginationLayout = (currentAds) => {
+    const paginationLayout = (items) => {
         return(
     <>
         <div className="row ">
-            {currentAds.length ? <Pagination
+            {items.length ? <Pagination
                 itemsPerPage={itemsPerPage}
                 totalItems={ads.length}
                 currentPage={currentPage}
