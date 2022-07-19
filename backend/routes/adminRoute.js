@@ -23,7 +23,6 @@ routes.post("/addCategory", validationService.authValidation, async (req, res, n
             } else {
                 res.send("Category is not add, something went wrong!")
             }
-
         }
     })
 }, getAllCategories)

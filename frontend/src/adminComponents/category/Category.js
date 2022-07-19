@@ -50,13 +50,17 @@ function Category() {
         showCategoryModal()
     }
 
-    const deleteCategory = (id) => {
-        AdminService.deleteCategory(id).then((res) => {
-            getCategories()
-            toast.warning("Category deleted!")
-        }).catch((err) => {
-            console.log(err);
-        })
+    const deleteCategory = (index) => {
+        if (categories[index].products?.length > 0) {
+            toast.warning("This category have products, and can't delete!")
+        } else {
+            AdminService.deleteCategory(categories[index]._id).then((res) => {
+                getCategories()
+                toast.warning("Category deleted!")
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
     }
 
     const showCategoryProduct = (category) => {
@@ -92,9 +96,9 @@ function Category() {
                                     editCategory(cat)
                                 }}>Edit
                                 </button>
-                                <button disabled={existProducts && cat.products.length ? true : false}
-                                        className="btn-sm btn-danger"
-                                        onClick={() => deleteCategory(cat._id)}>Delete
+                                <button
+                                    className="btn-sm btn-danger"
+                                    onClick={() => deleteCategory(index)}>Delete
                                 </button>
                             </td>
                         </tr>
