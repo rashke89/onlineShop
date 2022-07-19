@@ -409,3 +409,37 @@ app.delete('/api/admin/delete-msg/:id', (req, res) => {
         }
     })
 })
+
+app.put('/shop/products/set-rating', (req, res) => {
+    const rating = req.body.rating;
+    const id = req.body.id;
+    console.log(rating, id);
+//   to doo, rating / rate
+
+    Product.updateOne(
+        {_id:id}, {rating:rating},
+        null, (error, data) => {
+            console.log(error, "eee");
+            if (error) throw error;
+            console.log(data, "ddd");
+            res.send(data);
+        }
+        
+     )
+})
+// 
+app.get('/shop/products/get-rating/:id', (req, res) =>{
+    const id = req.params.id;
+
+
+    Product.find({ _id: id }, (error, data) => {
+
+        if (error) {
+            console.log(error);
+            res.send(error)
+        }
+        console.log(data, "------hhh");
+        
+        res.send({rate:data[0].rate, rating:data[0].rating})
+    })
+}) 

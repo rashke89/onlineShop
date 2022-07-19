@@ -7,7 +7,8 @@ const productSchema = new mongoose.Schema({
     price: {type: Number,required: Boolean},
     category: {type: String},
     rating: {type: Number},
-    userId:{type:String}
+    userId:{type:String},
+    rate: {type: Number},
 
 });
 

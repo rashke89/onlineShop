@@ -1,6 +1,11 @@
+input[type="radio"]{
+  display: none;
+}
+
 .shop-ad-wrapper {
   display: grid;
 
+  
   .shop-ad-content-wrapper {
     min-height: 500px;
     display: flex;

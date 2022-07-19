@@ -4,6 +4,9 @@ class ShopService {
     static getAds() {
         return axios.get('/shop/products');
     }
+    static setRatingStars(body) {
+        return axios.put('/shop/products/set-rating', body);
+    }
       static getRandomAds(masonryAds) {
         return axios.get(`/api/home/${masonryAds}`);
     }
@@ -47,6 +50,9 @@ class ShopService {
 
     static getRandomSliderAds(numberAds) {
         return axios.get(`/api/home/slider/${numberAds}`);
+    }
+    static getRating(id){
+        return axios.get(`/shop/products/get-rating/${id}`);
     }
 }
 
