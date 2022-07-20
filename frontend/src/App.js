@@ -90,8 +90,8 @@ function App() {
                 <Route path={routeConfig.AUTH.url} element={<AuthPage/>}/>
                 <Route path={routeConfig.ORDER.url} element={<Order/>}/>
                 <Route path={routeConfig.UNSUBSCRIBE.url} element={<UnsubscribePage/>}/>
+                <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
                 <Route path="*" element={<ErrorPage/>}/>
-
                 {
                     user?.username &&
                         <>
@@ -100,7 +100,6 @@ function App() {
                             <Route path="/product/edit/:myAdId" element={<AddEddProduct/>}/>
                             <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
                             <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
-                            <Route path={routeConfig.USER_ACTIVATE.url} element={<ActivateUserPage/>}/>
                         </>
                 }
 
