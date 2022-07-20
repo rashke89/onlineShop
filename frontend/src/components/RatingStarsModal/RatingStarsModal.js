@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ShopService from "../../services/shopService";
 import AuthService from '../../services/authService';
 import { ToastContainer, toast } from "react-toastify";
+import './rating-stars-modal.scss';
 
 
 const styles = {
@@ -23,36 +24,36 @@ const styles = {
         position: "fixed",
         backgroundColor: "#0e0e0ead",
     },
-    heading: {
-        marginBottom: "30px",
-    },
-    div: {
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    cancel: {
-        padding: "7px 15px",
-        backgroundColor: "green",
-        border: "1px solid green",
-        color: "white",
-    },
-    rateYes: {
-        padding: "7px 15px",
-        backgroundColor: "tomato",
-        border: "1px solid tomato",
-        color: "white",
-        cursor: 'pointer'
-    },
-    rateNo: {
-        padding: "7px 15px",
-        backgroundColor: "silver",
-        border: "1px solid silver",
-        color: "black",
-        cursor: 'not-allowed'
-    },
-    rate: {
-        cursor: 'pointer'
-    }
+    // heading: {
+    //     marginBottom: "30px",
+    // },
+    // div: {
+    //     display: "flex",
+    //     justifyContent: "space-between",
+    // },
+    // cancel: {
+    //     padding: "7px 15px",
+    //     backgroundColor: "green",
+    //     border: "1px solid green",
+    //     color: "white",
+    // },
+    // rateYes: {
+    //     padding: "7px 15px",
+    //     backgroundColor: "tomato",
+    //     border: "1px solid tomato",
+    //     color: "white",
+    //     cursor: 'pointer'
+    // },
+    // rateNo: {
+    //     padding: "7px 15px",
+    //     backgroundColor: "silver",
+    //     border: "1px solid silver",
+    //     color: "black",
+    //     cursor: 'not-allowed'
+    // },
+    // rate: {
+    //     cursor: 'pointer'
+    // }
 };
 
 function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
@@ -63,6 +64,7 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
     const dispatch = useDispatch();
     const [isDisabled, setIsDisabled] = useState(true);
     let aVotes;
+
 
     const setRatingS = async (rating, id) => {
         dispatch(showLoader(true))
@@ -98,10 +100,9 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                     setIsModal(false);
                     dispatch(showLoader(false))
                     toast.success('You are successfully voted!');
-
-                    setTimeout(()=> {
+                    setTimeout(() => {
                         window.location.reload(false);
-                    }, 4000);
+                    }, 3000);
                 })
                 .catch(err => {
                     console.log(err, "greska");
@@ -138,7 +139,7 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                 >
-                    <h3 style={styles.heading}>{ad.title}</h3>
+                    <h3 className='heading'>{ad.title}</h3>
 
                     <div className="stars-wrapper">
                         {[...Array(5)].map((star, i) => {
@@ -167,11 +168,11 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                         })}
                     </div>
 
-                    <div style={styles.div}>
-                        <button style={styles.cancel} onClick={(e) => cancelRating()}>
+                    <div  className="btns-wrapper">
+                        <button  className="cancel" onClick={(e) => cancelRating()}>
                             Cancel
                         </button>
-                        <button disabled={isDisabled} style={isDisabled ? styles.rateNo : styles.rateYes} onClick={(e) => setRatingS(rating, ad._id)}>Rate</button>
+                        <button disabled={isDisabled} className={isDisabled ? "rateNo" : "rateYes"} onClick={(e) => setRatingS(rating, ad._id)}>Rate</button>
                     </div>
                 </Modal>
             )}

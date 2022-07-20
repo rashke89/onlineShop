@@ -3,9 +3,29 @@
 //     background-color: gray;
 //   }
 // }
+@import '../../assets/scss/variable.scss';
 
 .view-ad-wrapper {
   overflow-x: hidden;
+  .rating-stars-product{
+    align-items: flex-start;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .rate-product{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+    padding: 5px 10px;
+    background-color: $secondFontColor ;
+    color: $firstFontColor;
+    border-radius: 10px;
+    border: 1px solid $firstFontColor;
+  
+    }
+  }
 }
 
 //PRODUCT DETAILS

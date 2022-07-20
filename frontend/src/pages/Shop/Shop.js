@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { showLoader } from "../../redux/loaderSlice";
 import { useSearchParams } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
+import RatingStarsModal from '../../components/RatingStarsModal/RatingStarsModal';
 
 function Shop({ filterStatus, setFilterStatus }) {
     const [ads, setAds] = useState([]);
@@ -24,6 +25,7 @@ function Shop({ filterStatus, setFilterStatus }) {
         let queryParam = query.get('search');
         queryParam && setSearchTerm(queryParam);
     }, [query]);
+
 
     // Search
     useEffect(() => {
@@ -99,6 +101,9 @@ function Shop({ filterStatus, setFilterStatus }) {
                 {ads.length > 0 ? ads.map((element) => {
                     return <ShopAd ad={element} key={element._id} />
                 }) : <p>No products.</p>}
+                {ads.length > 0 ? ads.map((element) => {
+                    return <RatingStarsModal ad={element} key={element._id} />
+                }) : null}
             </div>
             <ToastContainer />
 
