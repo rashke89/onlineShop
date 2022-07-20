@@ -67,7 +67,7 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
     const setRatingS = async (rating, id) => {
         dispatch(showLoader(true))
 
-        // * GET VOTING FORM SPECIFIC USER
+        // * GET ALL VOTING FOR SPECIFIC USER
         await AuthService.getVoting(user._id)
             .then(res => {
                 aVotes = res.data
@@ -76,6 +76,7 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                 console.log(err, 'greska');
             })
 
+        // * IF USER IS NOT VOTED FOR THIS PRODUCT
         let isRated = aVotes.includes(id);
         if (!isRated) {
             await AuthService.setVoting({ userID: user._id, productID: id })
@@ -86,6 +87,7 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                     console.log(err);
                 })
 
+            // * CALCULATE RATING FROM ALL RATINGS AND SET IT TO THE BASE
             const allRatings = getRatings.allRatings;
             allRatings.push(rating);
             let ratingsSum = 0;
@@ -99,7 +101,7 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                     dispatch(showLoader(false))
                     toast.success('You are successfully voted!');
 
-                    setTimeout(()=> {
+                    setTimeout(() => {
                         window.location.reload(false);
                     }, 4000);
                 })
@@ -129,7 +131,6 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
 
     return (
         <>
-
             {isModal && (
                 <Modal
                     isOpen={true}
@@ -175,7 +176,6 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                     </div>
                 </Modal>
             )}
-
         </>
     )
 }
