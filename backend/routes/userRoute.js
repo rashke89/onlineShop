@@ -120,13 +120,7 @@ routes.delete("/delete:id", (req, res) => {
     });
 });
 
-//get all users
-// routes.get("/get-all-users", (req, res) => {
-//     Users.find((error, result) => {
-//         if (error) throw error;
-//         res.send(result);
-//     });
-// });
+
 routes.get("/get-all-users", validationService.authValidation, (req, res) => {
     Users.find((error, result) => {
         if (error) throw error;

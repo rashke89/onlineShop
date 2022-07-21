@@ -1,5 +1,15 @@
 import React from "react";
-import {FaFire, FaUsers, FaBoxOpen, FaTag, FaMailBulk, FaSubscript} from "react-icons/fa";
+import {
+    FaFire,
+    FaUsers,
+    FaBoxOpen,
+    FaTag,
+    FaMailBulk,
+    FaSubscript,
+    FaComment,
+    FaCommentDots,
+    FaRegCommentDots
+} from "react-icons/fa";
 
 export const ADMIN_SIDEBAR_CONFIG = [
     {
@@ -45,6 +55,12 @@ export const ADMIN_SIDEBAR_CONFIG = [
         name: "Subs",
         url: "subs",
         icon: <FaSubscript className="mx-2 icon" />,
+        subheading: 'users'
+    },
+     {
+        name: "Comments",
+        url: "comments",
+        icon: <FaCommentDots className="mx-2 icon" />,
         subheading: 'users'
     },
 

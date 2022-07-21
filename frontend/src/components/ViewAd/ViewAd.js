@@ -10,6 +10,7 @@ import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 import RatingStars from "../RatingStars/RatingStars";
 import ProductDetails from "./ProductDetails";
 import LatestProducts from "./LatestProducts";
+import Comments from "./Comments";
 
 
 // const productMockData = {
@@ -37,6 +38,8 @@ export default function ViewAd() {
             setIsParamsAvailable(false);
         }
     }, []);
+
+
 
     const noParamsMsgLayout = () => {
         return !isParamsAvailable ? <p>No product with this id.</p> : null;
@@ -93,11 +96,11 @@ export default function ViewAd() {
             <HeaderProduct productInfo={ad}/>
             {noParamsMsgLayout()}
             {ad && ad.hasOwnProperty('_id') && adLayout()}
-            <div className="container">
-            <ProductDetails/>
-            <LatestProducts/>
-            </div>
-          
+            {ad &&<div className="container">
+                <ProductDetails/>
+                <LatestProducts/>
+                <Comments productId={params.adId} productTitle={ad.title}/>
+            </div>}
         </div>
     )
 }
