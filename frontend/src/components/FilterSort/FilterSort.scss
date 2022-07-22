@@ -1,0 +1,75 @@
+.filter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30rem;
+  height: 100%;
+  background: white;
+  box-shadow: 2px 2px 50px rgb(204, 204, 204);
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+  opacity: 0;
+  z-index: 99;
+  overflow: auto;
+  padding: 2rem;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      color: #1daaa3;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all .2s ease;
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+}
+
+.filter-btn {
+  background-color: #1daaa3;
+  border-radius: 0;
+  border: 1px solid #1daaa3;
+  color: #fff;
+  padding: 10px 20px;
+  &:hover {
+    background-color: #fff;
+    border: 1px solid #1daaa3;
+    color: #1daaa3;
+  }
+}
+
+.sort {
+  border-radius: 0;
+  border: 1px solid #1daaa3;
+  width: 10%;
+  @media (max-width: 1200px) {
+    width: 15%;
+  }
+  @media(max-width: 768px) {
+    width: 25%;
+  }
+}
+
+.filter-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.conditions {
+  .price {
+    label {
+      font-size: 1.5rem;
+      padding-left: 0;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      background: #1daaa3;
+    }
+    input[type="range"]::-webkit-slider-thumb:active {
+      background: rgb(29 170 163 / 80%);
+    }
+  }
+}

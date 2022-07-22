@@ -1,0 +1,200 @@
+.slider {
+  $transition: 0.4s ease;
+  $height: 600px;
+  font-size: 62.5%;
+
+  &-wrapper {
+    position: relative;
+    height: $height;
+    user-select: none;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(#000, 0.8);
+    padding: 10px;
+  }
+
+  &-error {
+    line-height: $height;
+    text-align: center;
+    font-size: 4rem;
+  }
+
+  .content {
+    &-holder {
+      display: flex;
+      height: 100%;
+      position: relative;
+      animation-name: fadeInSlide;
+      animation-fill-mode: forwards;
+      animation-duration: 1s;
+      animation-timing-function: ease-in;
+
+      & > div {
+        flex: 1;
+      }
+    }
+
+    &-image {
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &-title {
+      color: navy;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & > div {
+        flex: 1;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 3rem;
+        font-weight: 600;
+      }
+
+      p {
+        font-size: 2rem;
+      }
+    }
+
+    &-btn {
+      display: inline-block;
+      padding: 15px 20px;
+      font-size: 2rem;
+      text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(#000, 0.8);
+      text-decoration: none;
+      border-radius: 10px;
+    }
+
+    img {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .arrows-holder {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+
+    & > div {
+      height: 80px;
+      width: 80px;
+      cursor: pointer;
+      transition: $transition;
+      padding: 10px;
+
+      img {
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      &:hover {
+        background: rgba(#000, 0.5);
+      }
+    }
+
+    .left {
+      float: left;
+      border-radius: 0 10px 10px 0;
+
+      &:hover img {
+        animation-name: blinkArrowLeft;
+      }
+    }
+
+    .right {
+      float: right;
+      border-radius: 10px 0 0 10px;
+
+      &:hover img {
+        animation-name: blinkRightLeft;
+      }
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .dots-holder {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+
+    .dot {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background-color: #ddd;
+      transition: $transition;
+      cursor: pointer;
+
+      &.active {
+        background-color: tomato;
+      }
+
+      &:hover {
+        background-color: #6c6c6c;
+      }
+    }
+  }
+
+  @keyframes blinkArrowLeft {
+    0% {
+      transform: translateX(0px);
+    }
+    33% {
+      transform: translateX(-10px);
+    }
+    66% {
+      transform: translateX(10px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+
+  @keyframes blinkRightLeft {
+    0% {
+      transform: translateX(0px);
+    }
+    33% {
+      transform: translateX(10px);
+    }
+    66% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+
+  @keyframes fadeInSlide {
+    from {
+      opacity: 0;
+      // transform: scale(1.9);
+    }
+    to {
+      // transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
