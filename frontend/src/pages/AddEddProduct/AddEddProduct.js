@@ -6,22 +6,19 @@ import "./AddEddProduct.scss"
 
 
 function AddEddProduct() {
-
-
 	const params=useParams();
-	const [isAdUpdated, setIsAdUpdated]=useState(false)
-	const [isUpdateError, setIsUpdateError]=useState(false)
+	const [isAdUpdated, setIsAdUpdated]=useState(false);
+	const [isUpdateError, setIsUpdateError]=useState(false);
 	const [product, setProduct]=useState({
 		imgUrl: "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png",
 		userId: JSON.parse(localStorage.getItem("user"))._id,
 		rating: Math.floor(Math.random()*(6-1)+1)
-	})
-	const [isFormValid,setIsFormValid]=useState(true)
-	const [isApiError, setIsApiError]=useState(false)
-	const [isAddProduct,setIsAddProduct]=useState(true)
+	});
+	const [file, setFile] = useState(null);
+	const [isFormValid,setIsFormValid]=useState(true);
+	const [isApiError, setIsApiError]=useState(false);
+	const [isAddProduct,setIsAddProduct]=useState(true);
 	const navigate=useNavigate();
-
-
 
 	useEffect(()=>{
 		if(params.hasOwnProperty("myAdId")){
@@ -48,9 +45,13 @@ function AddEddProduct() {
 
 	},[])
 
-
 	const addProduct=()=>{
-		return	ShopService.addProduct(product)
+		let newProduct = new FormData();
+		newProduct.append("product", JSON.stringify(product));
+		newProduct.append("file", file);
+
+		console.log(newProduct.get("product"));
+		return	ShopService.addProduct(newProduct)
 			.then((response)=>{
 				if(response.status===200){
 					console.log("API success");
@@ -75,17 +76,16 @@ function AddEddProduct() {
 				setIsUpdateError(true)
 			})}
 
-
-
 	const handleInputChange=(event)=>{
 		let copyProduct={...product};
 		copyProduct[event.target.name]=event.target.value;
 		setProduct(copyProduct)
 	}
 
-
-
-
+	const handleFile = e => {
+		console.log(e.target.files[0]);
+		setFile(e.target.files[0])
+	}
 	const onSubmit=(body, myAdId,event)=>{
 		event.preventDefault();
 
@@ -108,7 +108,7 @@ function AddEddProduct() {
 						<h2 className="text-center mb-5">{isAddProduct? "Add product":"Edit product"}</h2>
 						<form >
 							<div className="form-floating mb-3">
-								<input type="text" name="title" className="form-control" id="title" placeholder="Title" value={product.hasOwnProperty("title")? product.title: ""} onChange={(event)=>handleInputChange(event)}/>
+								<input type="text" name="title" className="form-control" id="title" placeholder="Title" defaultValue={product.hasOwnProperty("title")? product.title: ""} onChange={(event)=>handleInputChange(event)}/>
 									<label htmlFor="title">Title</label>
 							</div>
 							<div className="form-floating mb-3">
@@ -123,15 +123,20 @@ function AddEddProduct() {
 								<label htmlFor="category">Category</label>
 							</div>
 							<div className="form-floating mb-3">
-								<input type="text" className="form-control" id="description" name="description"  maxLength="240" placeholder="Description"  value={product.hasOwnProperty("title")? product.description: ""} onChange={(event)=>handleInputChange(event)}/>
+								<input type="text" className="form-control" id="description" name="description"  maxLength="240" placeholder="Description"  defaultValue={product.hasOwnProperty("title")? product.description: ""} onChange={(event)=>handleInputChange(event)}/>
 									<label htmlFor="description">Description</label>
 							</div>
 							<div className="form-floating mb-3">
-								<input type="number" className="form-control" id="price" name="price" placeholder="Price" value={product.hasOwnProperty("title")? product.price: ""} onChange={(event)=>handleInputChange(event)} />
+								<input type="number" className="form-control" id="price" name="price" placeholder="Price" defaultValue={product.hasOwnProperty("title")? product.price: ""} onChange={(event)=>handleInputChange(event)} />
 								<label htmlFor="price">Price</label>
 							</div>
 							<div className="form-floating mb-3">
-								<input type="text" className="form-control" id="imgUrl" name="imgUrl" placeholder="Image URL" value={product.hasOwnProperty("title")? product.imgUrl: ""} onChange={(event)=>handleInputChange(event)}/>
+								<input type="file"
+									   className="form-control"
+									   id="imgUrl"
+									   name="imgUrl"
+									   placeholder="Image URL"
+									   onChange={(event)=>handleFile(event)}/>
 								<label htmlFor="imgUrl">Image URL</label>
 							</div>
 							<button  className="btn btn-secondary mt-3" onClick={(event)=>{onSubmit(product, product._id, event)}}>{(isAddProduct)? 'Add product':"Save"}</button>

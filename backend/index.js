@@ -1,5 +1,4 @@
 const validationService = require("./services/validationService");
-console.log(validationService);
 const express = require("express");
 const mongoose = require("mongoose");
 const colors = require('colors');
@@ -17,8 +16,10 @@ var jwt = require('jsonwebtoken');
 const userRoute = require('./routes/userRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const subscribeRoute = require('./routes/subscribeRoute');
-const SubscribeModel = require('./models/subscribeModel')
+const SubscribeModel = require('./models/subscribeModel');
 const { json } = require("express");
+const fileUpload = require("express-fileupload");
+const fs = require("fs");
 
 
 const app = express();
@@ -29,6 +30,7 @@ mongoose
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(fileUpload());
 // enable CORS - API calls and resource sharing
 app.use(cors());
 // nodmailer config
@@ -190,25 +192,39 @@ app.get("/shop/product/:productId", (req, res) => {
 //add myProduct
 
 app.post("/product/add", (req, res) => {
+    const product = JSON.parse(req.body.product);
+    const file = req.files.file;
+    const fileName = `${new Date().getTime()}_${file.name}`;
+    const path = `${__dirname}/files/`;
+    const filePath = `${path}${fileName}`;
+    file.mv(filePath, err => {
+        if (err) return res.status(420).send('error on upload file');
+        Product.findOne(product, async (err, data) => {
+            // console.log(data);
+            if (err) {
+                const errorMsg = `Error on register user: ${err}`;
+                console.log(errorMsg);
+                res.status(421).send(errorMsg);
+                return;
+            }
 
-    const reqBody = req.body;
-    Product.findOne(reqBody, async (err, data) => {
-        // console.log(data);
-        if (err) {
-            const errorMsg = `Error on register user: ${err}`;
-            console.log(errorMsg);
-            res.send(errorMsg);
-            return;
-        }
+            if (data) res.send(`Product already exist`);
+            else {
+                const newProduct = new Product({...product, imgUrl: fileName});
+                const saveNewProduct = await newProduct.save();
+                res.send(saveNewProduct || 'Product not saved');
+            }
+        });
+    })
+});
 
-        if (data) res.send(`Product already exist`);
-        else {
-            const newProduct = new Product(reqBody);
-            const saveNewProduct = await newProduct.save();
-            console.log("Saved product", saveNewProduct);
-            res.send(saveNewProduct || 'Product not saved');
-        }
-    });
+app.get('/files/1658512873134_10772206.jpg', (req,res) => {
+    console.log('test', __dirname);
+    fs.readFile(__dirname + "/files/1658512873134_10772206.jpg", (err, data) => {
+        if (err) return res.send('no file');
+        console.log(data);
+        res.send(data);
+    })
 })
 //delete myAd
 app.delete("/product/delete/:myAdId", (req, res) => {

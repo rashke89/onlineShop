@@ -1,5 +1,4 @@
 const authValidation = (req, res, next) => {
-    console.log(req.headers.authorization);
     if (req.headers?.authorization)
         next()
     else
