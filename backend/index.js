@@ -193,6 +193,7 @@ app.get("/shop/product/:productId", (req, res) => {
 
 app.post("/product/add", (req, res) => {
     const product = JSON.parse(req.body.product);
+    console.log(product);
     const file = req.files.file;
     const fileName = `${new Date().getTime()}_${file.name}`;
     const path = `${__dirname}/files/`;
@@ -218,11 +219,12 @@ app.post("/product/add", (req, res) => {
     })
 });
 
-app.get('/files/1658512873134_10772206.jpg', (req,res) => {
-    console.log('test', __dirname);
-    fs.readFile(__dirname + "/files/1658512873134_10772206.jpg", (err, data) => {
+app.get('/files/:imageName', (req,res) => {
+    fs.readFile(__dirname + "/files/" + req.params.imageName, (err, data) => {
         if (err) return res.send('no file');
-        console.log(data);
+        res.setHeader('Content-Type', 'image/jpg');
+        res.setHeader('Content-Length', ''); // Image size here
+        res.setHeader('Access-Control-Allow-Origin', '*'); // If needs to be public
         res.send(data);
     })
 })

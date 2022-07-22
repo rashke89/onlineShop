@@ -33,7 +33,7 @@ function MyAd({ product }) {
 				{/*	</div>*/}
 				{/*</div>*/}
 				<img
-					src={product.imgUrl}
+					src={`http://localhost:4000/files/${product.imgUrl}`}
 					className="card-img-top img-fluid w-75 mx-auto"
 					alt={product.title}
 				/>
