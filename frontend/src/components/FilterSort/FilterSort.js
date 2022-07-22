@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './FilterSort.scss';
+import {useSelector} from "react-redux";
 
 
 
-	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm}) {
 
+	function FilterSort({setSort, filterStatus, setFilterStatus, filterPrice, setFilterPrice, setSearchTerm, searchTerm,setItemsPerPage}) {
+
+		const {symbol} = useSelector(state=>state.currencyStore);
 		const handleSearch = e => {
 			setSearchTerm(e.target.value);
 		}
@@ -24,7 +27,7 @@ import './FilterSort.scss';
 					</div>
 					<div className="conditions px-3">
 						<div className="row mt-5 price">
-							<label htmlFor="priceRange" className="form-label">Price: {filterPrice}</label>
+							<label htmlFor="priceRange" className="form-label">Price: {filterPrice} {symbol}</label>
 							<input type="range" onInput={handleInput} className="form-range" defaultValue="0" min="0"
 								   max="1000" step="1" id="priceRange"/>
 						</div>
@@ -33,6 +36,8 @@ import './FilterSort.scss';
 				</div>
 			);
 		};
+
+
 		return (
 			<>
 				<div className="d-flex justify-content-start container my-5">
@@ -42,7 +47,11 @@ import './FilterSort.scss';
 					<div className="search mx-3">
 						<form className="d-flex search h-100" role="search">
 							<div className="input-group">
-								<input className="form-control" type="search" placeholder="Search" aria-label="Search"
+								<input className="form-control"
+									   type="search"
+									   defaultValue={searchTerm}
+									   placeholder="Search"
+									   aria-label="Search"
 									   onChange={handleSearch}/>
 							</div>
 						</form>
@@ -51,6 +60,14 @@ import './FilterSort.scss';
 							onChange={(event) => {setSort(event.target.value)}}>
 						<option value="lowPrice">Low price</option>
 						<option value="highPrice">High price</option>
+					</select>
+
+					{/*itemsPerPage*/}
+					<select className="form-select sort mx-3" defaultValue="0" aria-label="Sort"
+							onChange={(event) => {setItemsPerPage(event.target.value)}}>
+						<option value="24">24</option>
+						<option value="48">48</option>
+						<option value="72">72</option>
 					</select>
 				</div>
 				{filterLayout()}

@@ -12,7 +12,7 @@ const customStyles = {
         },
         overlay:{
             position: 'absolute',
-            backgroundColor: 'transparent'
+             backgroundColor: '#0e0e0ead'
         }
     };
 
