@@ -1,7 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7fd651f6-35dd-46e8-8784-5bb001dd39fe" name="Changes" comment="" />
+    <list default="true" id="7fd651f6-35dd-46e8-8784-5bb001dd39fe" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/config/mailConfig.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/fakeDb/clients.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/orderModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/subscribeModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/subscribeRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/services/validationService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/emails/emails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/products/Products.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/sideBar/SideBar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/sideBar/components/Toggler.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/sideBar/sidebar.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/stats/StatsNumber.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/stats/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/stats/stats.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/subs/subs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/users/CustomStyle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/users/DeleteUser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/users/UpdateUser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/users/Users.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/adminComponents/users/usersStyle.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/assets/scss/variable.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ChangeCurrency/ChangeCurrency.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ChangePassword/ChangePassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ChangePassword/changePasswordStyle.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ClientsWord/ClientsWord.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ClientsWord/clients.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ContactInfo/ContactInfo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ContactInfo/contact_info.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ErrorPage/ErrorPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ErrorPage/error-page.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomeSlider/HomeSlider.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomeSlider/components/Slide.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomeSlider/components/SlideIndicators.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/HomeSlider/home-slider.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Loader/Loader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Loader/loader.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Map/Map.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Map/map.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Order/components/paymentMessages/Error.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Order/components/paymentMessages/Processing.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Order/components/paymentMessages/Succeeded.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Order/components/paymentMessages/messages.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/RatingStars/RatingStars.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/RatingStars/rating-stars.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Subscribe/Subscribe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Subscribe/subscribe.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ViewAd/LatestProducts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ViewAd/ProductDetails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/navigation/NavTop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/navigation/nav-top.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/navigation/navigation.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/config/adminSideBarConfig.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Contact/contact.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Home/home.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/UnsubscribePage/UnsubscribePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/UnsubscribePage/unsubscribe.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/dashboard/Dashboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/redux/currencySlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/redux/loaderSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/redux/ratingStarsSlice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/adminService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/clientsService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/services/subscribeService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/mailService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/mailService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/SCSS/base.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopAd/shopAd.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShopAd/shopAd.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Slider/SlideTitle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ViewAd/view-ad.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ViewAd/view-ad.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AllUsers/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AllUsers/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-dev-teams.txt" beforeDir="false" afterPath="$PROJECT_DIR$/web-dev-teams.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,19 +96,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/onlineShop/frontend/src/components/Order/components&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MTConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/onlineShop/frontend/src/components/Order/components",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "MTConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\onlineShop\frontend\src\components\Order\components" />
@@ -56,6 +131,7 @@
       <workItem from="1658479976657" duration="335000" />
       <workItem from="1658480345404" duration="2317000" />
       <workItem from="1658492851256" duration="354000" />
+      <workItem from="1658493312067" duration="395000" />
     </task>
     <servers />
   </component>
