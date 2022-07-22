@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import AuthPage from "./pages/AuthPage/AuthPage";
-import './assets/scss/base.scss';
+import './assets/scss/base.scss;
 
 import {Routes, Route, useNavigate} from "react-router-dom"
 import Shop from "./pages/Shop/Shop";
