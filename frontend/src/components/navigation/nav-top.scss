@@ -1,0 +1,168 @@
+@import '../../assets/scss/variable.scss';
+
+.nav-bar-wrapper{
+    background-color:$navTopBackColor;
+    a{
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+    }
+    p{
+        margin: 0;
+    }
+
+    .line{
+        padding: 0;
+        margin: 0;
+    }
+    .nav-bar-info{
+        display: flex;
+        justify-content: space-be;
+        align-items: center;
+        div{
+            padding: 5px 15px;
+        }
+        
+        .info-phone{
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            a{
+                &:hover{
+                    color: $secondFontColor;
+                    transition: $transition;
+                }
+                span{
+                    color: $borderFont;
+                }
+            }
+        }
+        .info-email-currency{
+            flex: 3;
+            display: flex;
+            justify-content: space-between;
+            border-left: 1px solid $borderFont;
+            border-right: 1px solid $borderFont;
+            div{
+                flex: 1;
+                display: flex;
+                align-items: center;
+            }
+            .email{
+                a{
+
+                    &:hover{
+                        color: $secondFontColor;
+                        transition: $transition;
+                    }
+                    span{
+                        color: $borderFont;
+                    }
+                }
+            }
+            .currency{
+                justify-content: flex-end;
+                label{
+                    color: $borderFont;
+                }
+                select{
+                    cursor: pointer;
+                    border: none;
+                    margin: 0 5px;
+                    padding: 2px 4px;
+                    &:focus{
+                        outline: none;
+                       text-shadow: 0 0 3px $secondFontColor; 
+                    }
+                    option{
+                        padding: 2px 4px;
+                    }
+                }
+            }
+
+        }
+        .info-account{
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            li{
+                list-style: none;
+                text-transform: uppercase;
+                a{
+                    color: black;
+                }
+            }
+        }
+        
+    }
+
+    .nav-bar-middle{
+        display: flex;
+        justify-content: space-between;
+        padding: 50px;
+        .middle-logo{
+            text-transform: uppercase;
+            font-size: 2.4rem;
+            font-weight: 700;
+            a{
+                span:nth-child(odd){
+                    color: $secondFontColor;
+                }
+            }
+        }
+        .middle-search-cart{
+            display: flex;
+            justify-content: first baseline;
+            width: 55%;
+            height: 50px;
+            .middle-cat{
+                border: 1px solid $borderFont;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 20px;
+                a{
+                    color: $borderFont;
+                }
+            }
+            .middle-search{
+                border: 1px solid $borderFont;
+                border-left:none ;
+                flex: 2;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                input[type=search]{
+                    height: 100%;
+                    border: none;
+                    font-style: italic;
+                    padding-left: 10px;
+                    flex: 2;
+                    &:focus{
+                        outline: none;
+                        color: black;
+                    }
+                    &::placeholder{
+                        color: $borderFont;
+                    }
+                }
+                a{
+                    color: $borderFont;
+                    padding: 15px;
+                }
+            }
+            .middle-cart{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $secondFontColor;
+                // padding: 0 20px;
+                margin-left: 30px;
+                .cart-icon{
+                    color: white;
+                }
+            }
+        }
+    }
+
+}

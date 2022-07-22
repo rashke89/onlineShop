@@ -1,0 +1,12 @@
+.stars-wrapper{
+    display: flex;
+    justify-content: center;
+    input[type="radio"]{
+        display: none;
+    }
+    .ratingStarFill{
+        cursor: pointer;
+        margin: 3px;
+
+    }
+}

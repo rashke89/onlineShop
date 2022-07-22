@@ -1,0 +1,17 @@
+.stats-numbers-wrapper {
+  height: 300px;
+  background-color: #7782EB;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h3 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #fff;
+  }
+
+  * {
+    color: #fff;
+  }
+}

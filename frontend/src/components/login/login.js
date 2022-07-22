@@ -4,6 +4,8 @@ import "./style.scss"
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "../../redux/userSlice";
+import {showLoader} from "../../redux/loaderSlice";
+import {toast, ToastContainer} from "react-toastify";
 
 function Login({showLoginForm}) {
     const [userData, setUserData] = useState({
@@ -28,17 +30,23 @@ function Login({showLoginForm}) {
             return
         }
         setIsValidForm(true);
-
-        AuthService.login(userData).then(res => {
-            if (res && res.status === 200) {
-                // console.log(JSON.stringify(res.data));
-                localStorage.setItem('user', JSON.stringify(res.data));
-                dispatch(setUser(res.data));
-                navigate('/');
-            }
+        dispatch(showLoader(true))
+        AuthService.login(userData)
+            .then(res => {
+                console.log(res.data);
+                if (res && res.status === 200) {
+                    // var decoded = jwt.verify(JSON.stringify(res.data), 'shhhhh');
+                    // console.log(decoded);
+                    localStorage.setItem('user', JSON.stringify(res.data.user));
+                    localStorage.setItem('token', JSON.stringify(res.data.token));
+                    dispatch(setUser(res.data.user));
+                    navigate(`/${res.data.isAdmin ? 'dashboard': ''}`);
+            } else
+                toast.info(res.data)
         }).catch(err => {
             console.log(err);
         })
+            .finally(() => dispatch(showLoader(false)))
     }
     return (
         <form onSubmit={onSubmitForm} method="post">
@@ -48,9 +56,10 @@ function Login({showLoginForm}) {
             <label htmlFor="password">Password</label>
             <input className="form-control mb-3" name="password" type="password" id="password" onInput={onHandleInput}/>
 
-            <button type="button" className="btn btn-primary px-5" onClick={loginForm}>Go to register</button>
-            <button className="btn btn-success px-5 ms-auto">OK</button>
+            <button type="button" className="btn btn-primary px-5 form-control mb-3" onClick={loginForm}>Go to register</button>
+            <button className="btn btn-success px-5 ms-auto form-control">OK</button>
             {!isValidForm && <p>Username and password is required!</p>}
+            <ToastContainer />
         </form>
     );
 }

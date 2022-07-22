@@ -1,0 +1,140 @@
+.sidebar-wrapper {
+  transition: all .4s ease-in-out;
+  position: relative;
+  padding-left: 0;
+  overflow: hidden;
+  .sidebar {
+    box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.2);
+    height: 100vh;
+    @media(max-width: 768px) {
+      height: auto;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+    }
+    &.collapsed {
+      .nav-link {
+        padding: 1rem;
+        justify-content: center;
+        &.link-active {
+          background-color: #1daaa3;
+          &::before {
+            display: none;
+          }
+          .icon {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+  .nav-pills {
+    flex-direction: column;
+    @media(max-width: 768px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+  .sidebar-label {
+    color: #C4C4C4;
+    text-transform: uppercase;
+  }
+  .sidebar-submenu-wrapper {
+    padding-left: 75px;
+  }
+  //.nav-item {
+  //  &:nth-child(1) {
+  //    &::before {
+  //      content: 'DASHBOARD';
+  //      color: #C4C4C4;
+  //    }
+  //  }
+  //  &:nth-child(2) {
+  //    margin-top: 1rem;
+  //    &::before {
+  //      content: 'SHOP';
+  //      color: #C4C4C4;
+  //    }
+  //  }
+  //  &:nth-child(4) {
+  //    margin-top: 1rem;
+  //    &::before {
+  //      content: 'USERS';
+  //      color: #C4C4C4;
+  //    }
+  //  }
+  //  @media(max-width: 768px) {
+  //    &:nth-child(1),
+  //    &:nth-child(2),
+  //    &:nth-child(4){
+  //      margin-top: 0;
+  //      &::before {
+  //        content: '';
+  //      }
+  //    }
+  //  }
+  //}
+  .nav-link {
+    color: #333;
+    font-weight: 600;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: all .3s ease-in-out;
+    &:hover {
+      background-color: rgba(29, 170, 163, 0.1);
+    }
+    .icon {
+      color: #1daaa3;
+    }
+    &.link-active {
+      position: relative;
+      &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background-color: #1daaa3;
+      }
+    }
+  }
+  .toggler {
+    position: absolute;
+    top: 1%;
+    right: 10%;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    @media(max-width: 768px) {
+      left: 5%;
+      width: 4%
+    }
+    svg {
+      font-size: 1.5rem;
+      font-weight: normal;
+      color: #1daaa3;
+    }
+    span {
+      background: #000;
+      display: block;
+      height: 3px;
+      width: 1.8rem;
+      border-radius: 3px;
+      margin: 6px 0;
+      transition: all 0.3s ease-in-out;
+      &:nth-child(1) {
+        width: 50%;
+        background-color: #1daaa3;
+      }
+    }
+    &:hover {
+      span {
+        &:nth-child(1) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
