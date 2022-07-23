@@ -23,6 +23,7 @@ import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
 import CookiesModal from './components/cookies/CookiesModal'
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./components/Footer/Footer";
+import Loader from "./components/Loader/Loader";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -52,6 +53,7 @@ function App() {
 
     return (
         <div className={`main-wrapper ${filterStatus ? 'filter-opened' : ''}`}>
+            <Loader/>
             {!JSON.parse(localStorage.getItem('cookie')) &&  <CookiesModal />}
             <Navigation/>
             <Routes>

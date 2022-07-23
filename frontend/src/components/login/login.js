@@ -4,6 +4,7 @@ import "./style.scss"
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setUser} from "../../redux/userSlice";
+import {showLoader} from "../../redux/loaderSlice";
 
 function Login({showLoginForm}) {
     const [userData, setUserData] = useState({
@@ -28,8 +29,10 @@ function Login({showLoginForm}) {
             return
         }
         setIsValidForm(true);
+        dispatch(showLoader(true))
 
-        AuthService.login(userData).then(res => {
+        AuthService.login(userData)
+            .then(res => {
             if (res && res.status === 200) {
                 // console.log(JSON.stringify(res.data));
                 localStorage.setItem('user', JSON.stringify(res.data));
@@ -39,6 +42,7 @@ function Login({showLoginForm}) {
         }).catch(err => {
             console.log(err);
         })
+            .finally(() => dispatch(showLoader(false)))
     }
     return (
         <form onSubmit={onSubmitForm} method="post">

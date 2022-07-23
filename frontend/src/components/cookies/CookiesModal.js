@@ -56,7 +56,7 @@ function CookiesModal() {
           <Modal.Footer>
             <Button
               name='decline'
-              className='btn btn-lg btn-warning'
+              className='btn btn-lg btn-warning secondary-btn'
               onClick={setCookie}
             >
               I Decline
