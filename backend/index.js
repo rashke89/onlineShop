@@ -39,6 +39,7 @@ app.use(cors());
 // const mailer = mainService.configureMail();
 
 app.use("/api/subscribe", subscribeRoute);
+app.use("/api/user", userRoute);
 
 //get products
 
@@ -480,6 +481,57 @@ app.delete('/api/admin/delete-msg/:id', (req, res) => {
         }
     })
 })
+
+app.put('/shop/products/set-rating', (req, res) => {
+    const allRatings = req.body.allRatings;
+    const averageRating = req.body.averageRating;
+    const id = req.body.id;
+
+    Product.updateOne(
+        { _id: id }, { allRatings: [...allRatings], rating: averageRating },
+        null, (error, data) => {
+            if (error) throw error;
+            res.send(data);
+        })
+})
+//
+app.get('/shop/products/get-rating/:id', (req, res) => {
+    const id = req.params.id;
+    Product.find({ _id: id }, (error, data) => {
+        if (error) {
+            console.log(error);
+            res.send(error)
+        }
+        res.send({ allRatings: data[0].allRatings, rating: data[0].rating })
+    })
+})
+
+
+// * RESET
+app.put('/shop/product/reset', (req, res) => {
+    console.log(req.body);
+    // const id = req.body.id
+    Users.updateMany({}, { $set: {votedFor: []} }, null, (err, data) => {
+        if (err) {
+            console.log(err)
+            res.send('error je')
+        }
+        res.send('uspesno')
+    })
+})
+
+// * DELETE
+// app.put('/shop/product/delete', (req, res) => {
+//     console.log(req.body);
+//     // const id = req.body.id
+//     Product.updateMany({}, {$unset: {'rate': ''}}, null, (err, data) => {
+//         if (err) {
+//             console.log(err)
+//             res.send('error je')
+//         }
+//         res.send('uspesno')
+//     })
+// })
 
 app.listen(serverConfig.port, (err) => {
     if (err) {

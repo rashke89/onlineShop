@@ -4,10 +4,12 @@ import ShopAd from "../../components/ShopAd/ShopAd";
 import './shop.scss';
 import FilterSort from "../../components/FilterSort/FilterSort";
 import '../../assets/scss/base.scss';
-import {useDispatch} from "react-redux";
-import {showLoader} from "../../redux/loaderSlice";
-import {useSearchParams} from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
+import { useDispatch } from "react-redux";
+import { showLoader } from "../../redux/loaderSlice";
+import { useSearchParams } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import RatingStarsModal from '../../components/RatingStarsModal/RatingStarsModal';
 
 function Shop({filterStatus, setFilterStatus}) {
     const [ads, setAds] = useState([]);
@@ -29,7 +31,6 @@ function Shop({filterStatus, setFilterStatus}) {
     useEffect(() => {
         let queryParam = query.get('search');
         queryParam && setSearchTerm(queryParam);
-        console.log('SHOPP CURREENT PAGE', currentPage);
     }, [query]);
 
     // Search
@@ -45,7 +46,6 @@ function Shop({filterStatus, setFilterStatus}) {
                 .then((res) => {
                     if (res.status === 200) {
                         setAds(res.data)
-                        console.log("DUZINA ADSA", res.data.length);
                     }
                 })
                 .catch(err => console.log(err))
@@ -128,8 +128,13 @@ function Shop({filterStatus, setFilterStatus}) {
                 {currentAds.length > 0 ? currentAds.map((element) => {
                     return <ShopAd ad={element} key={element._id}/>
                 }) : <p>No products.</p>}
+                {ads.length > 0 ? ads.map((element) => {
+                    return <RatingStarsModal ad={element} key={element._id} />
+                }) : null}
             </div>
             {paginationLayout(currentAds)}
+            <ToastContainer />
+
         </div>
     );
 }

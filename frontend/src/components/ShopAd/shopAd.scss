@@ -1,6 +1,12 @@
+@import '../../assets/scss/variable.scss';
+input[type="radio"]{
+  display: none;
+}
+
 .shop-ad-wrapper {
   display: grid;
 
+  
   .shop-ad-content-wrapper {
     min-height: 500px;
     display: flex;
@@ -23,6 +29,17 @@
     .shop-ad-title {
       font-weight: bold;
       margin-top: 20px;
+    }
+    .rate-product{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    padding: 5px 10px;
+    background-color: $secondFontColor ;
+    color: $firstFontColor;
+    border-radius: 10px;
+    border: 1px solid $firstFontColor;
+
     }
     .shop-ad-price {
       text-align: center;

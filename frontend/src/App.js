@@ -40,7 +40,7 @@ export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
-    console.log('INT->', config);
+    // console.log('INT->', config);
     if (localStorage.hasOwnProperty("token")) {
         config.headers.Authorization = localStorage.getItem("token");
     }
