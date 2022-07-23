@@ -2,7 +2,6 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {FaTrashAlt, FaMinusCircle, FaPlusCircle} from "react-icons/fa";
 import {handleCount, removeItem} from "../../../redux/cartSlice";
-import ChangeCurrency from "../../ChangeCurrency/ChangeCurrency";
 
 function OrderProcessStepOne() {
     const {cart} = useSelector(state => state.cartStore);
@@ -30,7 +29,7 @@ function OrderProcessStepOne() {
                         {item.count}
                         <FaPlusCircle className="mx-2" onClick={() => handleShopCartCount(index, true)}/>
                     </td>
-                    <td> <ChangeCurrency adConvertPrice={item.totalPrice} /> </td>
+                    <td>{item.totalPrice}</td>
                     <td><FaTrashAlt onClick={() => {removeItemFromCart(index)}} /></td>
                 </tr>
             )

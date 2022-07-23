@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import ShopService from "../../services/shopService";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cartSlice";
 import './ourProductSlider.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
-import { Link } from "react-router-dom";
 
 
 function OurProductSlider() {
 
     const [ads, setAds] = useState([]);
-    const dispatch = useDispatch();
 
     useEffect(() => {
-        ShopService.getRandomAds(10)
+        ShopService.getAds()
             .then(response => {
                 if (response.status === 200) {
+                    console.log(response.data);
                     setAds(response.data);
                 }
             })
@@ -48,21 +44,17 @@ function OurProductSlider() {
                             </span>
                             <h3>{ad.title}</h3>
                             <span className="price">
-                                <span className="amount">
-                                    <ChangeCurrency adConvertPrice={ad.price} />
-                                </span>
+                                <span className="amount">${ad.price}</span>
                             </span>
                         </a>
                         <p className="hover-content">
-                            <a href="" className="add-to-cart" onClick={e => {
-                                e.preventDefault();
-                                dispatch(addToCart(ad));
-                            }}><i className="fa fa-shopping-cart"></i>Add to cart</a> <br />
-                            <Link to={`/shop/ad/${ad._id}`} className="view-product">View product</Link>
+                            <a href=""><i className="fa fa-shopping-cart"></i>Add to cart</a>
                         </p>
                     </div>
                 })}
             </Slider>
+
+
         </div>
     )
 }

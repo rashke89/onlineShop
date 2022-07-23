@@ -4,15 +4,13 @@ import "./shop-cart.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {removeItem, handleCount} from "../../redux/cartSlice";
 import {routeConfig} from "../../config/routeConfig";
-import {useNavigate} from "react-router-dom";
-import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
+import {Link} from "react-router-dom";
 
 function ShopCart() {
     const {cart} = useSelector(state => state.cartStore);
     const shopCartWrapperRef = useRef();
     const [showCartByClick, setShowCartByClick] = useState(true);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (!shopCartWrapperRef.current) {
@@ -46,9 +44,7 @@ function ShopCart() {
                     {item.count > 1 && <p>Count: <FaMinusCircle className="mx-2" onClick={() => handleShopCartCount(index, false)} /> {item.count}
                     <FaPlusCircle className="mx-2" onClick={() => handleShopCartCount(index, true)}/></p>}
 
-                    <p className="fw-bold">
-                        <ChangeCurrency adConvertPrice={item.totalPrice} />
-                    </p>
+                    <p className="fw-bold">{item.totalPrice} $</p>
                 </div>
                 <div className="col-md-1 remove-icon-wrapper">
                     <FaTrashAlt onClick={() => {removeItemFromCart(index)}} />
@@ -59,11 +55,6 @@ function ShopCart() {
 
     const handleShowCart = () => {
         setShowCartByClick(!showCartByClick);
-    };
-
-    const goToOrder = () => {
-        setShowCartByClick(false);
-        navigate(routeConfig.ORDER.url)
     }
 
     return (
@@ -78,7 +69,9 @@ function ShopCart() {
                             {shopCartSumLayout()}
                         </div>
                         <div className="order-btn-wrapper">
-                                <button className="btn btn-primary" onClick={e => goToOrder()}>Order Now</button>
+                            <Link to={routeConfig.ORDER.url}>
+                                <button className="btn btn-primary">Order Now</button>
+                            </Link>
                         </div>
                     </div>
                 )

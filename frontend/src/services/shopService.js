@@ -4,8 +4,8 @@ class ShopService {
     static getAds() {
         return axios.get('/shop/products');
     }
-      static getRandomAds(masonryAds) {
-        return axios.get(`/api/home/${masonryAds}`);
+      static getRandomAds() {
+        return axios.get('/api/home');
     }
     static getAdById(adId) {
         return axios.get(`/shop/product/${adId}`);
@@ -23,7 +23,7 @@ class ShopService {
         return axios.post("/product/add/", body )
     }
     static getMyAds(userId) {
-        return axios.get(`/product/my-adds`)
+        return axios.get(`/product/my-adds/${userId}`)
     }
     static deleteMyAd(myAdId){
         return axios.delete(`/product/delete/${myAdId}`)
@@ -39,14 +39,6 @@ class ShopService {
 
     static initPayment(body) {
         return axios.post('/api/payment/init-payment', body)
-    }
-
-    static ordered(order) {
-        return axios.post('/api/ordered', order);
-    }
-
-    static getRandomSliderAds(numberAds) {
-        return axios.get(`/api/home/slider/${numberAds}`);
     }
 }
 

@@ -1,14 +1,18 @@
 import React from 'react';
 import './MyAd.scss';
-import { Link } from "react-router-dom";
-import RatingStars from "../RatingStars/RatingStars";
+import {Link} from "react-router-dom";
+import RatingStar from "../ratingStar/RatingStar";
 
-function MyAd({ product }) {
 
-	const generateRatingStar = (product) => {
-		const content = [];
+
+
+function MyAd({product}) {
+
+
+	const generateRatingStar=(product)=>{
+		const content=[];
 		for (let i = 0; i < product.rating; i++) {
-			content.push(<RatingStars key={i} />)
+			content.push(<RatingStar key={i}/>)
 		}
 
 		return content
@@ -49,10 +53,10 @@ function MyAd({ product }) {
 					</p>
 				</div>
 				<div className="action-buttons gap-2">
-					<Link to={`/product/edit/${product._id}`} className="edit" type="button">
+					<Link  to={`/product/edit/${product._id}`} className="edit" type="button">
 						Edit
 						<span>
-							<i className="bi bi-pen"></i>
+						<i className="bi bi-pen"></i>
 						</span>
 					</Link>
 

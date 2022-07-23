@@ -6,6 +6,7 @@ function Order() {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
+                        <h1>Order process</h1>
                         <OrderProcess/>
                     </div>
                 </div>

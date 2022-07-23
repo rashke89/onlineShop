@@ -5,7 +5,7 @@ team 1:
 - Nikola Damnjanovic
 - Nikola Miletic
 
------team 2:
+team 2:
 - Bratislav 
 - Andrijana
 - Kazimir

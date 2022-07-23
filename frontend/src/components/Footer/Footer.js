@@ -10,43 +10,42 @@ import {
   FaMapMarkerAlt,
   FaMailBulk,
 } from "react-icons/fa";
-import {useSelector} from "react-redux";
 
 function Footer() {
   const [ads, setAds] = useState({});
   const [finishedApi, setFinishedApi] = useState(false);
-  const {user} = useSelector(state => state.userStore);
-
   useEffect(() => {
     shopService
       .getAds()
       .then((res) => {
-        if (res.status === 200) setAds(res.data.splice(0, 6));
+        if (res.status === 200) setAds(res.data.splice(6, 6));
         setFinishedApi(true);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const footerLayout = () => {
-    return <div className="footer-wrapper">
+
+
+  return (
+    <div className="footer-wrapper">
       <section className="footer-title">
-        <a href="/">
+        <a href="#">
           <span>furn</span>
           <span>home</span>
         </a>
       </section>
 
       <section className="footer-links">
-        <a href="/">
+        <a href="#">
           <FaFacebookF />
         </a>
-        <a href="/">
+        <a href="#">
           <FaTwitter />
         </a>
-        <a href="/">
+        <a href="#">
           <FaGooglePlusG />
         </a>
-        <a href="/">
+        <a href="#">
           <FaLinkedinIn />
         </a>
       </section>
@@ -66,7 +65,7 @@ function Footer() {
               <FaPhoneAlt /> &nbsp; Call Us 08 523 456 78
             </li>
             <li>
-              <a href="/">
+              <a href="#">
                 <FaMailBulk /> &nbsp; Info@ourdomain.Com
               </a>
             </li>
@@ -80,19 +79,19 @@ function Footer() {
           <h2>Useful links</h2>
           <ul>
             <li>
-              <a href="/"> About Us </a>
+              <a href="#"> About Us </a>
             </li>
             <li>
-              <a href="/"> Our Products </a>
+              <a href="#"> Our Products </a>
             </li>
             <li>
-              <a href="/"> Customer Support </a>
+              <a href="#"> Customer Support </a>
             </li>
             <li>
-              <a href="/"> Our Sitemap </a>
+              <a href="#"> Our Sitemap </a>
             </li>
             <li>
-              <a href="/"> Contact Us </a>
+              <a href="#"> Contact Us </a>
             </li>
           </ul>
         </article>
@@ -101,19 +100,19 @@ function Footer() {
           <h2>Contact Us</h2>
           <ul>
             <li>
-              <a href="/"> Product Recall </a>
+              <a href="#"> Product Recall </a>
             </li>
             <li>
-              <a href="/"> Gift Vouchers </a>
+              <a href="#"> Gift Vouchers </a>
             </li>
             <li>
-              <a href="/"> Returns & Exchange </a>
+              <a href="#"> Returns & Exchange </a>
             </li>
             <li>
-              <a href="/"> Shipping Options </a>
+              <a href="#"> Shipping Options </a>
             </li>
             <li>
-              <a href="/"> Help & FAQs </a>
+              <a href="#"> Help & FAQs </a>
             </li>
           </ul>
         </article>
@@ -122,11 +121,11 @@ function Footer() {
           <h2>Contact Us</h2>
 
           {finishedApi ? (
-              <div className="footer-image-holder">
-                {ads.map((el) => {
-                  return <img src={el.imgUrl} key={el._id} alt={el.title} />
-                })}
-              </div>
+            <div className="footer-image-holder">
+              {ads.map((el) => {
+                return <img src={el.imgUrl} key={el._id} alt={el.title} />
+              })}
+            </div>
           ) : null}
 
         </article>
@@ -134,13 +133,6 @@ function Footer() {
 
       <section className="footer-nav-section"></section>
     </div>
-  }
-
-  return (
-      <>
-        {user.isAdmin === 'true' ? null : footerLayout()}
-      </>
-
   );
 }
 
