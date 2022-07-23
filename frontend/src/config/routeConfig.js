@@ -47,5 +47,8 @@ export const routeConfig = {
     },
     ADMIN_SUBS: {
         url: 'subs',
+    },
+    ADMIN_CATEGORIES: {
+        url: 'categories',
     }
 }

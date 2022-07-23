@@ -2,7 +2,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import ShopService from "../../services/shopService";
 import {useNavigate, useParams} from "react-router-dom";
 import "./AddEddProduct.scss"
-
+import AdminService from "../../services/adminService";
+import {setCategories} from "../../redux/dashboardSlice";
+import {showLoader} from "../../redux/loaderSlice";
 
 
 function AddEddProduct() {
@@ -19,31 +21,37 @@ function AddEddProduct() {
 	const [isApiError, setIsApiError]=useState(false);
 	const [isAddProduct,setIsAddProduct]=useState(true);
 	const navigate=useNavigate();
+	const [categories, setCategories] = useState([]);
 
-	useEffect(()=>{
-		if(params.hasOwnProperty("myAdId")){
-			setIsAddProduct(false)
-		}else{
-			setIsAddProduct(true)
-		}
+    useEffect(() => {
+        AdminService.getAllCategory()
+            .then((res) => {
+                setCategories(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        if (params.hasOwnProperty("myAdId")) {
+            setIsAddProduct(false)
+        } else {
+            setIsAddProduct(true)
+        }
+        if (params.hasOwnProperty("myAdId")) {
+            let myAdId = params.myAdId;
+            ShopService.getMyAd(myAdId)
+                .then((response) => {
+                    if (response.status === 200) {
+                        setProduct(response.data)
+                        setIsApiError(false)
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setIsApiError(true)
+                })
 
-		if(params.hasOwnProperty("myAdId")){
-			let myAdId=params.myAdId;
-			ShopService.getMyAd(myAdId)
-				.then((response)=>{
-					if(response.status===200){
-						setProduct(response.data)
-						setIsApiError(false)
-					}
-				})
-				.catch((error)=>{
-					console.log(error);
-					setIsApiError(true)
-				})
-
-		}
-
-	},[])
+        }
+    }, [])
 
 	const addProduct=()=>{
 		let newProduct = new FormData();
@@ -112,13 +120,14 @@ function AddEddProduct() {
 									<label htmlFor="title">Title</label>
 							</div>
 							<div className="form-floating mb-3">
-								<select  className="form-select" id="category" name="category" aria-label="Category" onChange={(event)=>{
-									const selectedCategory=event.target.value;
-									setProduct((prevState) =>({...prevState,category:selectedCategory}))
-								}}>
-									<option value="1" >One</option>
-									<option value="2">Two</option>
-									<option value="3">Three</option>
+								<select className="form-select" id="category" name="category" aria-label="Category"
+										onChange={(event) => {
+											const selectedCategory = event.target.value;
+											setProduct((prevState) => ({...prevState, category: selectedCategory}))
+										}} value={product.category}>
+									{categories.map((cat, index) => {
+										return <option key={index} value={cat.categoryName}>{cat.categoryName}</option>
+									})}
 								</select>
 								<label htmlFor="category">Category</label>
 							</div>

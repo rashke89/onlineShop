@@ -20,6 +20,7 @@ const SubscribeModel = require('./models/subscribeModel');
 const { json } = require("express");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
+const adminRoute = require('./routes/adminRoute')
 
 
 const app = express();
@@ -394,16 +395,10 @@ app.get("/api/top-products/:top", (req, res) => {
 
 app.use('/api/payment', paymentRoute)
 
-app.listen(serverConfig.port, (err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(serverConfig.serverRunningMsg);
-        console.log(serverConfig.serverLink);
-    }
-});
 
 // get all email admin
+app.use('/api/admin', adminRoute)
+
 app.get('/api/admin/all-messages', (req, res) => {
     Emails.find((err, data) => {
         if (err) {
@@ -427,3 +422,12 @@ app.delete('/api/admin/delete-msg/:id', (req, res) => {
         }
     })
 })
+
+app.listen(serverConfig.port, (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(serverConfig.serverRunningMsg);
+        console.log(serverConfig.serverLink);
+    }
+});
