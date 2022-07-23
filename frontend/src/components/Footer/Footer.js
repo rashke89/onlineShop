@@ -10,10 +10,13 @@ import {
   FaMapMarkerAlt,
   FaMailBulk,
 } from "react-icons/fa";
+import {useSelector} from "react-redux";
 
 function Footer() {
   const [ads, setAds] = useState({});
   const [finishedApi, setFinishedApi] = useState(false);
+  const {user} = useSelector(state => state.userStore);
+
   useEffect(() => {
     shopService
       .getAds()
@@ -24,10 +27,8 @@ function Footer() {
       .catch((err) => console.log(err));
   }, []);
 
-
-
-  return (
-    <div className="footer-wrapper">
+  const footerLayout = () => {
+    return <div className="footer-wrapper">
       <section className="footer-title">
         <a href="#">
           <span>furn</span>
@@ -121,11 +122,11 @@ function Footer() {
           <h2>Contact Us</h2>
 
           {finishedApi ? (
-            <div className="footer-image-holder">
-              {ads.map((el) => {
-                return <img src={el.imgUrl} key={el._id} alt={el.title} />
-              })}
-            </div>
+              <div className="footer-image-holder">
+                {ads.map((el) => {
+                  return <img src={el.imgUrl} key={el._id} alt={el.title} />
+                })}
+              </div>
           ) : null}
 
         </article>
@@ -133,6 +134,13 @@ function Footer() {
 
       <section className="footer-nav-section"></section>
     </div>
+  }
+
+  return (
+      <>
+        {user.isAdmin === 'true' ? null : footerLayout()}
+      </>
+
   );
 }
 

@@ -1,17 +1,18 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ShopCart from "../ShopCart/ShopCart";
-import Dropdown from "../Dropdown/Dropdown";
 import {routeConfig} from "../../config/routeConfig";
+import {setUser} from "../../redux/userSlice";
 
 function Navigation() {
 	// state - redux store from store.js,
-	// const user = useSelector((state) => state.userStore.user);
 	const {user} = useSelector((state) => state.userStore);
 	const navigate=useNavigate();
+	const dispatch = useDispatch();
 	const logOut=()=>{
 		localStorage.removeItem("user");
+		dispatch(setUser({}))
 		navigate("/auth");
 	}
 

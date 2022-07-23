@@ -80,7 +80,6 @@ export default function ViewAd() {
                 setIsApiFinished(true);
             });
     };
-
     return (
         <div className="view-ad-wrapper container-fluid p-0">
             <HeaderProduct productInfo={ad} />

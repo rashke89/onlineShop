@@ -25,6 +25,9 @@ function UnsubscribePage() {
                 setResponseInfo({msg: err})
             })
             .finally(() => {
+                //TODO setIsFinished(true) prebaciti van setTimeout
+                //ovaj setTimeoutje samo radi demonstracije loader-a da bi se malo duze zadrzao nakon sto stigne response
+
                 setTimeout(() => {
                     setIsFinished(true)
                 }, 2000)

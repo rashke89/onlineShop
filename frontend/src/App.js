@@ -9,7 +9,7 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Navigation from "./components/navigation/Navigation";
 import Home from "./pages/Home/Home";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "./redux/userSlice";
 import {setCart} from "./redux/cartSlice";
 import ActivateUserPage from "./pages/ActivateUserPage/ActivateUserPage";
@@ -23,7 +23,10 @@ import DeleteMyAd from "./pages/DeleteMyAd/DeleteMyAd";
 import CookiesModal from './components/cookies/CookiesModal'
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./components/Footer/Footer";
+import UnsubscribePage from "./pages/UnsubscribePage/UnsubscribePage";
 import Loader from "./components/Loader/Loader";
+import Dashboard from "./pages/dashboard/Dashboard";
+import {Navigate} from "react-router";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -54,11 +57,12 @@ function App() {
     return (
         <div className={`main-wrapper ${filterStatus ? 'filter-opened' : ''}`}>
             <Loader/>
-            {!JSON.parse(localStorage.getItem('cookie')) &&  <CookiesModal />}
+            {!JSON.parse(localStorage.getItem('cookie')) && <CookiesModal/>}
             <Navigation/>
             <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>
-                <Route path={routeConfig.SHOP.url} element={<Shop filterStatus={filterStatus} setFilterStatus={setFilterStatus}/>}/>
+                <Route path={routeConfig.SHOP.url}
+                       element={<Shop filterStatus={filterStatus} setFilterStatus={setFilterStatus}/>}/>
                 <Route path={routeConfig.AD_SHOP.url} element={<AdPage/>}/>
                 <Route path={routeConfig.ABOUT.url} element={<About/>}/>
                 <Route path={routeConfig.CONTACT.url} element={<Contact/>}/>
@@ -70,10 +74,28 @@ function App() {
                 <Route path="/product/edit/:myAdId" element={<AddEddProduct/>}/>
                 <Route path="/product/delete/:myAdId" element={<DeleteMyAd/>}/>
                 <Route path={routeConfig.USER_PROFILE.url} element={<UserProfile/>}/>
+                <Route path={routeConfig.UNSUBSCRIBE.url} element={<UnsubscribePage/>}/>
+
+                {/*admin part*/}
+                <Route path={routeConfig.DASHBOARD.url}
+                       element={<AdminProtect>
+                                    <Dashboard/>
+                                </AdminProtect>}>
+
+                </Route>
             </Routes>
             <Footer/>
         </div>
     );
+}
+
+function AdminProtect({children}) {
+    const {user} = useSelector(state => state.userStore);
+
+    if (user?.isAdmin !== 'true') return <Navigate to={routeConfig.SHOP.url} />
+    return (
+        {...children}
+    )
 }
 
 export default App;

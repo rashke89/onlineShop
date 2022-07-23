@@ -2,15 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8788f406-283f-4238-974f-4bf58b0c55e8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/onlineShop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/onlineShop.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/subscribeRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/subscribeRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routes/userRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/userRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/mailService.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/mailService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/assets/scss/base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/assets/scss/base.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/cookies/CookiesModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/cookies/CookiesModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Footer/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Footer/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/HeaderProduct/HeaderProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HeaderProduct/HeaderProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Masonry/AdComponentBigger.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Masonry/AdComponentBigger.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Masonry/AdComponentSmaller.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Masonry/AdComponentSmaller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Masonry/Masonry.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Masonry/Masonry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Masonry/img/rishabh-malhotra-83ypHTv6J2M-unsplash.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Masonry/img/rishabh-malhotra-83ypHTv6J2M-unsplash.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Masonry/masonryStyle.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Masonry/masonryStyle.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopCart/ShopCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShopCart/ShopCart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ViewAd/ViewAd.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ViewAd/ViewAd.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/login/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/navigation/Navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navigation/Navigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/config/routeConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/config/routeConfig.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Shop/Shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Shop/Shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/UnsubscribePage/UnsubscribePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/UnsubscribePage/UnsubscribePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/dashboard/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/redux/loaderSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/loaderSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/userSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/userSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/shopService.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/shopService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/subscribeService.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/subscribeService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +78,8 @@
       <workItem from="1658497924145" duration="1173000" />
       <workItem from="1658499552189" duration="1627000" />
       <workItem from="1658507105823" duration="2965000" />
-      <workItem from="1658510499283" duration="10239000" />
+      <workItem from="1658510499283" duration="11131000" />
+      <workItem from="1658567165031" duration="6944000" />
     </task>
     <servers />
   </component>

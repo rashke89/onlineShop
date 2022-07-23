@@ -50,7 +50,6 @@ function Shop({filterStatus, setFilterStatus}) {
 
     // Sort
     useEffect(() => {
-
         if (sort === "lowPrice") {
             sortedAds = [...ads];
             sortedAds = sortedAds.sort((a, b) => a.price - b.price);
@@ -60,7 +59,9 @@ function Shop({filterStatus, setFilterStatus}) {
             sortedAds = [...ads];
             sortedAds = sortedAds.sort((a, b) => b.price - a.price);
             setAds(sortedAds)
+
         }
+
 
     }, [sort]);
 
@@ -73,13 +74,16 @@ function Shop({filterStatus, setFilterStatus}) {
                     if (res.status === 200) {
                         filteredAds = res.data;
                     }
-
                     setAds(filteredAds);
                 })
                 .catch(err => console.log(err))
                 .finally(() => dispatch(showLoader(false)))
         }
     }, [filterPrice]);
+
+    useEffect(() => {
+
+    }, [ads])
 
     return (
         <div className="shop-wrapper container">

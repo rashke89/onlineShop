@@ -7,7 +7,8 @@ const loaderSlice = createSlice({
     },
     reducers: {
         //action
-        showLoader: (state, action ) => {
+        showLoader: (state,
+                 action ) => {
 
             // action.payload = arg from setUser act
             state.show = action.payload;

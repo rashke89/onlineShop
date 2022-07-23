@@ -30,14 +30,12 @@ function Login({showLoginForm}) {
         }
         setIsValidForm(true);
         dispatch(showLoader(true))
-
         AuthService.login(userData)
             .then(res => {
             if (res && res.status === 200) {
-                // console.log(JSON.stringify(res.data));
                 localStorage.setItem('user', JSON.stringify(res.data));
                 dispatch(setUser(res.data));
-                navigate('/');
+                navigate(`/${res.data.isAdmin ? 'dashboard': ''}`);
             }
         }).catch(err => {
             console.log(err);
