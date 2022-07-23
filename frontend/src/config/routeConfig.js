@@ -50,5 +50,8 @@ export const routeConfig = {
     },
     ADMIN_CATEGORIES: {
         url: 'categories',
+    },
+    ADMIN_COMMENTS: {
+        url: 'comments',
     }
 }

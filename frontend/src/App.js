@@ -34,6 +34,7 @@ import Emails from "./adminComponents/emails/emails";
 import Subs from "./adminComponents/subs/subs";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Category from "./adminComponents/category/Category";
+import Comments from "./adminComponents/comments/CommentsView";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -115,7 +116,7 @@ function App() {
                     <Route path={routeConfig.ADMIN_EMAILS.url} element={<Emails/>}/>
                     <Route path={routeConfig.ADMIN_SUBS.url} element={<Subs/>}/>
                     <Route path={routeConfig.ADMIN_CATEGORIES.url} element={<Category/>}/>
-
+                    <Route path={routeConfig.ADMIN_COMMENTS.url} element={<Comments />}/>
                 </Route>
             </Routes>}
 

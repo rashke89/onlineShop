@@ -42,7 +42,6 @@
 }
 
 
-
 //LATEST PRODUCTS
 .latest-products {
   .section-header {
@@ -90,5 +89,34 @@
     color: #1daaa3;
     height: 40px;
     width: 40px;
+  }
+}
+
+//COMMENTS
+.comment {
+  box-shadow: 0 0 5px darkgray;
+
+  .comment-header {
+    p {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .author {
+      font-weight: 300;
+      font-size: 20px;
+    }
+
+    .date {
+      font-size: 12px;
+      color: #9c9c9c;
+    }
+  }
+
+  .content {
+    font-size: 20px;
+    font-weight: 400;
+    padding-bottom: 15px;
+    word-wrap: break-word;
   }
 }

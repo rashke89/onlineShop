@@ -30,7 +30,6 @@ function UpdateUser({showModal, user, updatedDb}) {
 
     const onSubmitForm = (e) => {
         e.preventDefault();
-        console.log(selectedUser)
         if (!selectedUser.username || !selectedUser.password || !selectedUser.email || !selectedUser.email.includes("@")) {
             setIsValidForm(false);
             return

@@ -21,6 +21,7 @@ const { json } = require("express");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
 const adminRoute = require('./routes/adminRoute')
+const Comment = require("./models/commentModel");
 
 
 const app = express();
@@ -38,7 +39,6 @@ app.use(cors());
 // const mailer = mainService.configureMail();
 
 app.use("/api/subscribe", subscribeRoute);
-
 
 //get products
 
@@ -171,6 +171,64 @@ app.get('/api/home/slider/:numberAds', (req, res) => {
             res.send(error);
         })
 })
+
+// GET COMMENTS
+app.get("/shop/product/comments/:commentId", (req, res) => {
+    const commentId = req.params.commentId;
+    Comment.find({comment_product_id: commentId, comment_status: true}, (error, data) => {
+        if (error) {
+            console.log(error);
+            res.send("ERROR. Try Again.")
+        }
+        if (data) {
+            console.log(data)
+            res.send(data);
+        } else {
+            res.send("Comments dont found");
+        }
+    })
+})
+
+//ADD COMMENT
+app.post("/shop/product/comments", async (req, res) => {
+    const reqBody = req.body;
+    const newComment = new Comment(reqBody);
+    const saveNewComment = await newComment.save();
+    res.send(saveNewComment || 'Comment not saved');
+})
+
+//GET ALL COMMENTS
+app.get("/api/admin/all-comments", (req, res) => {
+    Comment.find((error, result) => {
+        if (error) throw error;
+        res.send(result);
+    });
+});
+//DELETE COMMENT BY ID
+app.delete("/api/admin/all-comments:id", (req, res) => {
+    const params = req.params.id;
+    Comment.deleteOne({_id: params}, async (error) => {
+        if (error) throw error;
+       await res.send("Comment deleted");
+    });
+});
+//UPDATE COMMENT STATUS
+app.put("/api/admin/all-comments", (req, res) => {
+    let id = req.body._id;
+    Comment.updateOne({"_id": id}, {
+        $set: {
+            comment_status: req.body.comment_status
+        }
+    }, (err, data) => {
+        if (err) {
+            console.log(err);
+            const errorMsg = `Error on updating status: ${err}`;
+            res.send(errorMsg);
+        } else {
+            res.send(data);
+        }
+    })
+});
 
 //get product
 app.get("/shop/product/:productId", (req, res) => {
