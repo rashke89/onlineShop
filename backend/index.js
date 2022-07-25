@@ -41,23 +41,35 @@ app.use(cors());
 app.use("/api/subscribe", subscribeRoute);
 app.use("/api/user", userRoute);
 
+const handleParams = (params) => params?.currentPage ? (params.currentPage < 2 ? 0 : ((params.currentPage - 1) * params.itemsPerPage)) : 0;
+
 //get products
+app.get('/shop/products/:itemsPerPage/:currentPage', async (req, res) => {
+    const reqParams = req.params;
+    console.log('params...', reqParams);
 
-app.get('/shop/products', (req, res) => {
+    let allProducts;
+    Product.countDocuments({}, function(err, docCount) {
+        if (err) { return console.log(err) } //handle possible errors
+        allProducts =  docCount;
 
-    Product.find((error, data) => {
-        if (error) {
-            console.log(error);
-            res.send("ERROR. TRY AGAIN.");
-            return;
-        }
+        Product.find()
+            .skip(handleParams(reqParams))
+            .limit(isNaN(reqParams?.itemsPerPage) ? 2 : reqParams?.itemsPerPage)
+            .exec((error, data) => {
+                if (error) {
+                    console.log(error);
+                    res.send("ERROR. TRY AGAIN.");
+                    return;
+                }
 
-        if (data) {
-            res.send(data)
-        } else {
-            res.send("Product dont found")
-        }
-    })
+                if (data) {
+                    res.send({ads: data, totalItems: allProducts})
+                } else {
+                    res.send("Product dont found")
+                }
+            })
+    });
 })
 
 // get numbers for Admin

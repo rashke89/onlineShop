@@ -61,14 +61,6 @@ import {useSelector} from "react-redux";
 						<option value="lowPrice">Low price</option>
 						<option value="highPrice">High price</option>
 					</select>
-
-					{/*itemsPerPage*/}
-					<select className="form-select sort mx-3" defaultValue="0" aria-label="Sort"
-							onChange={(event) => {setItemsPerPage(event.target.value)}}>
-						<option value="24">24</option>
-						<option value="48">48</option>
-						<option value="72">72</option>
-					</select>
 				</div>
 				{filterLayout()}
 			</>

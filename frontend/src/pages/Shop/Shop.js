@@ -4,7 +4,7 @@ import ShopAd from "../../components/ShopAd/ShopAd";
 import './shop.scss';
 import FilterSort from "../../components/FilterSort/FilterSort";
 import '../../assets/scss/base.scss';
-import Pagination from "../../components/Pagination/Pagination";
+import Pagination, {itemsPerPageList} from "../../components/Pagination/Pagination";
 import { useDispatch } from "react-redux";
 import { showLoader } from "../../redux/loaderSlice";
 import { useSearchParams } from "react-router-dom";
@@ -13,6 +13,7 @@ import RatingStarsModal from '../../components/RatingStarsModal/RatingStarsModal
 
 function Shop({filterStatus, setFilterStatus}) {
     const [ads, setAds] = useState([]);
+    const [totalItems, setTotalItems] = useState(0);
     const [filterPrice, setFilterPrice] = useState(0);
     const [searchTerm, setSearchTerm] = useState("");
     const [sort, setSort] = useState("");
@@ -42,16 +43,12 @@ function Shop({filterStatus, setFilterStatus}) {
         } else if (!searchTerm) {
             dispatch(showLoader(true));
             setQuery({});
-            shopService.getAds()
-                .then((res) => {
-                    if (res.status === 200) {
-                        setAds(res.data)
-                    }
-                })
-                .catch(err => console.log(err))
-                .finally(() => dispatch(showLoader(false)))
+            itemsPerPageList && itemsPerPageList.length && getAdsFromDb({
+                itemsPerPage: itemsPerPageList[0],
+                currentPage: 1
+            })
         }
-    }, [searchTerm]);
+    }, [searchTerm, itemsPerPageList]);
 
     // Sort
     useEffect(() => {
@@ -85,6 +82,22 @@ function Shop({filterStatus, setFilterStatus}) {
         }
     }, [filterPrice]);
 
+    // useEffect(() => {
+    //     console.log(currentPage);
+    // }, [currentPage])
+
+    const getAdsFromDb = (paginationObj) => {
+        shopService.getAds(paginationObj)
+            .then((res) => {
+                if (res.status === 200) {
+                    setAds(res.data.ads)
+                    setTotalItems(res.data.totalItems)
+                }
+            })
+            .catch(err => console.log(err))
+            .finally(() => dispatch(showLoader(false)))
+    }
+
     const searchAds = () => {
         shopService.getSearchedAds(searchTerm)
             .then(res => {
@@ -101,20 +114,24 @@ function Shop({filterStatus, setFilterStatus}) {
     const indexOfFirstAds = indexOfLastAds - itemsPerPage;
     const currentAds = ads.slice(indexOfFirstAds, indexOfLastAds);
 
-    const paginationLayout = (items) => {
+    const paginationLayout = () => {
+        console.log('ads..', ads.length);
         return(
     <>
         <div className="row ">
-            {items.length ? <Pagination
-                itemsPerPage={itemsPerPage}
-                totalItems={ads.length}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+            {ads.length ? <Pagination
+                onPagination={handlePagination}
+                totalItems={totalItems}
             /> : null}
 
         </div>
     </>
 )
+}
+
+const handlePagination = (paginationObj) => {
+    dispatch(showLoader(true));
+    getAdsFromDb(paginationObj)
 }
     return (
         <div className="shop-wrapper container">
@@ -123,7 +140,6 @@ function Shop({filterStatus, setFilterStatus}) {
                             filterPrice={filterPrice} setFilterPrice={setFilterPrice} setSearchTerm={setSearchTerm}
                             searchTerm={searchTerm} setItemsPerPage={setItemsPerPage}/>
             </div>
-            {paginationLayout(currentAds)}
             <div className="row">
                 {currentAds.length > 0 ? currentAds.map((element) => {
                     return <ShopAd ad={element} key={element._id}/>
@@ -132,7 +148,7 @@ function Shop({filterStatus, setFilterStatus}) {
                     return <RatingStarsModal ad={element} key={element._id} />
                 }) : null}
             </div>
-            {paginationLayout(currentAds)}
+            {paginationLayout()}
             <ToastContainer />
 
         </div>

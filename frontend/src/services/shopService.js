@@ -1,8 +1,8 @@
 import axios from "axios";
 
 class ShopService {
-    static getAds() {
-        return axios.get('/shop/products');
+    static getAds(paginationObject) {
+        return axios.get(`/shop/products/${paginationObject?.itemsPerPage}/${paginationObject?.currentPage}`);
     }
     static setRatingStars(body) {
         return axios.put('/shop/products/set-rating', body);
