@@ -13,16 +13,32 @@ import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 import ShopService from "../../services/shopService";
 import RatingStarsModal from "../RatingStarsModal/RatingStarsModal";
 import { toast } from "react-toastify";
+import {useSelector} from "react-redux";
+import shopService from "../../services/shopService";
 
 
 function ShopAd(props) {
   const [ad, setAd] = useState({});
   const [isModal, setIsModal] = useState(false);
   const [getRatings, setGetRatings] = useState(0);
+  const flag = useSelector(state => state.ratingStore.flag);
 
   useEffect(() => {
     setAd(props.ad);
   }, [props.ad]);
+
+  useEffect(() => {
+    console.log(flag);
+    if (flag){
+      shopService.getAdById(ad._id)
+          .then(res =>{
+            if(res.data) setAd((res.data))
+          })
+          .catch(err =>console.log(err));
+    }
+
+  }, [flag]);
+
 
   const openModal = (id, title) => {
     if (localStorage.user) {
@@ -42,16 +58,16 @@ function ShopAd(props) {
   };
 
   // * reset
-  // const resetMongo = (id) => {
+  const resetMongo = (id) => {
 
-  //   ShopService.reset(id)
-  //     .then(res => {
-  //       console.log(res.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     })
-  // }
+    ShopService.reset(id)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
   // * delete
   // const deleteMongo = (id) => {
@@ -86,7 +102,7 @@ function ShopAd(props) {
               <p className="view-more-btn-text">View Product</p>
             </Link>
 
-            {/* <div onClick={() => resetMongo(ad._id)}>Reset</div> */}
+             <div onClick={() => resetMongo(ad._id)}>Reset</div>
             {/* <div onClick={() => deleteMongo(ad._id)}>Delete</div> */}
 
           </div>

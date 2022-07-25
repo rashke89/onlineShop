@@ -55,9 +55,9 @@ class ShopService {
         return axios.get(`/shop/products/get-rating/${id}`);
     }
 
-    // static reset(id){
-    //     return axios.put('/shop/product/reset', id)
-    // }
+    static reset(id){
+        return axios.put('/shop/product/reset', id)
+    }
 
     // static delete(id){
     //     return axios.put('/shop/product/delete', id)

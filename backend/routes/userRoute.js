@@ -4,6 +4,7 @@ const Users = require("../models/userModel");
 const nodemailer = require("nodemailer");
 const routes = express.Router();
 var jwt = require('jsonwebtoken');
+const Product = require("../models/productModel");
 
 routes.post("/change-password", async (req, res) => {
     const reqBody = req.body
@@ -172,17 +173,35 @@ routes.put("/user-profile", (req, res) => {
         }
     })
 });
-
-routes.put('/vote', (req, res) => {
+//////////////////////////////////////////////////////////////////
+routes.put('/vote', async (req, res) => {
     const userID = req.body.userID;
-    const productID = req.body.productID;
-    Users.updateOne({ _id: userID }, { $push: { votedFor: productID } }, null, (err, data) => {
+    const productID = req.body.product.id;
+    const allRatings = req.body.product.allRatings;
+  await  Users.updateOne({ _id: userID }, { $push: { votedFor: productID } }, null, (err, data) => {
         if (err) {
             console.log(err, 'greskaaa');
             res.send(err)
         }
         res.send('Uspesno')
     })
+
+    allRatings.push(rating);
+    let ratingsSum = 0;
+    allRatings.forEach(el => ratingsSum = ratingsSum + el);
+
+    let averageRating = (ratingsSum / (allRatings.length)).toFixed(2);
+    await Product.updateOne(
+        { _id: userID }, { allRatings: [...allRatings], rating: averageRating },
+        null, (error, data) => {
+            if (error) throw error;
+            res.send(data.rating);
+        })
+
+
+
+
+
 
 })
 

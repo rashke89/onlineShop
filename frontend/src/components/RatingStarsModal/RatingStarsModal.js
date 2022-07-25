@@ -8,6 +8,7 @@ import ShopService from "../../services/shopService";
 import AuthService from '../../services/authService';
 import { ToastContainer, toast } from "react-toastify";
 import './rating-stars-modal.scss';
+import {flag} from "../../redux/ratingStarsSlice";
 
 
 const styles = {
@@ -24,39 +25,9 @@ const styles = {
         position: "fixed",
         backgroundColor: "#0e0e0ead",
     },
-    // heading: {
-    //     marginBottom: "30px",
-    // },
-    // div: {
-    //     display: "flex",
-    //     justifyContent: "space-between",
-    // },
-    // cancel: {
-    //     padding: "7px 15px",
-    //     backgroundColor: "green",
-    //     border: "1px solid green",
-    //     color: "white",
-    // },
-    // rateYes: {
-    //     padding: "7px 15px",
-    //     backgroundColor: "tomato",
-    //     border: "1px solid tomato",
-    //     color: "white",
-    //     cursor: 'pointer'
-    // },
-    // rateNo: {
-    //     padding: "7px 15px",
-    //     backgroundColor: "silver",
-    //     border: "1px solid silver",
-    //     color: "black",
-    //     cursor: 'not-allowed'
-    // },
-    // rate: {
-    //     cursor: 'pointer'
-    // }
 };
 
-function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
+function RatingStarsModal({ ad, getRatings, isModal, setIsModal}) {
 
     const { user } = useSelector(state => state.userStore);
     const [hover, setHover] = useState(null);
@@ -66,7 +37,7 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
     let aVotes;
 
 
-    const setRatingS = async (rating, id) => {
+    const setRatingS = async (rating, ad) => {
         dispatch(showLoader(true))
 
         // * GET VOTING FORM SPECIFIC USER
@@ -78,36 +49,18 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                 console.log(err, 'greska');
             })
 
-        let isRated = aVotes.includes(id);
+        let isRated = aVotes.includes(ad.id);
         if (!isRated) {
-            await AuthService.setVoting({ userID: user._id, productID: id })
+            await AuthService.setVoting({ userID: user._id, product: ad , rating, getRatings })
                 .then(res => {
                     console.log(res.data);
+                    return res.data;
                 })
                 .catch(err => {
                     console.log(err);
-                })
-
-            const allRatings = getRatings.allRatings;
-            allRatings.push(rating);
-            let ratingsSum = 0;
-            allRatings.forEach(el => ratingsSum = ratingsSum + el);
-
-            let averageRating = (ratingsSum / (allRatings.length)).toFixed(2);
-
-            ShopService.setRatingStars({ allRatings, averageRating, id })
-                .then(res => {
-                    setIsModal(false);
-                    dispatch(showLoader(false))
-                    toast.success('You are successfully voted!');
-                    setTimeout(() => {
-                        window.location.reload(false);
-                    }, 3000);
-                })
-                .catch(err => {
-                    console.log(err, "greska");
-                    dispatch(showLoader(false))
                 });
+
+            dispatch(flag('test'));
         } else {
             setIsModal(false);
             dispatch(showLoader(false));
@@ -172,7 +125,7 @@ function RatingStarsModal({ ad, getRatings, isModal, setIsModal }) {
                         <button  className="cancel" onClick={(e) => cancelRating()}>
                             Cancel
                         </button>
-                        <button disabled={isDisabled} className={isDisabled ? "rateNo" : "rateYes"} onClick={(e) => setRatingS(rating, ad._id)}>Rate</button>
+                        <button disabled={isDisabled} className={isDisabled ? "rateNo" : "rateYes"} onClick={(e) => setRatingS(rating,ad)}>Rate</button>
                     </div>
                 </Modal>
             )}

@@ -411,19 +411,6 @@ app.delete('/api/admin/delete-msg/:id', (req, res) => {
         }
     })
 })
-
-app.put('/shop/products/set-rating', (req, res) => {
-    const allRatings = req.body.allRatings;
-    const averageRating = req.body.averageRating;
-    const id = req.body.id;
-
-    Product.updateOne(
-        { _id: id }, { allRatings: [...allRatings], rating: averageRating },
-        null, (error, data) => {
-            if (error) throw error;
-            res.send(data);
-        })
-})
 // 
 app.get('/shop/products/get-rating/:id', (req, res) => {
     const id = req.params.id;
@@ -438,17 +425,17 @@ app.get('/shop/products/get-rating/:id', (req, res) => {
 
 
 // * RESET
-// app.put('/shop/product/reset', (req, res) => {
-//     console.log(req.body);
-//     // const id = req.body.id
-//     Users.updateMany({}, { $set: {votedFor: []} }, null, (err, data) => {
-//         if (err) {
-//             console.log(err)
-//             res.send('error je')
-//         }
-//         res.send('uspesno')
-//     })
-// })
+app.put('/shop/product/reset', (req, res) => {
+    console.log(req.body);
+    // const id = req.body.id
+    Users.updateMany({}, { $set: {votedFor: []} }, null, (err, data) => {
+        if (err) {
+            console.log(err)
+            res.send('error je')
+        }
+        res.send('uspesno')
+    })
+})
 
 
 // * DELETE

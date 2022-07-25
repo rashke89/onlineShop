@@ -98,22 +98,11 @@ export default function ViewAd() {
                     console.log(err);
                 })
 
-            const allRatings = getRatings.allRatings;
-            allRatings.push(rating);
-            let ratingsSum = 0;
-            allRatings.forEach(el => ratingsSum = ratingsSum + el);
-
-            let averageRating = (ratingsSum / (allRatings.length)).toFixed(2);
-
-            ShopService.setRatingStars({ allRatings, averageRating, id })
+            ShopService.setRatingStars(id)
                 .then(res => {
                     setIsModal(false);
                     dispatch(showLoader(false))
                     toast.success('You are successfully voted!');
-
-                    setTimeout(()=> {
-                        window.location.reload(false);
-                    }, 4000);
                 })
                 .catch(err => {
                     console.log(err, "greska");
