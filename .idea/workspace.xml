@@ -4,6 +4,18 @@
     <list default="true" id="9072162e-2268-4e1b-b8f4-7cefd963ac54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Footer/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Footer/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Footer/Footer.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Footer/Footer.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopCart/shop-cart.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShopCart/shop-cart.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ViewAd/ViewAd.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ViewAd/ViewAd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ViewAd/view-ad.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ViewAd/view-ad.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/navigation/Navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navigation/Navigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ourProductSlider/ourProductSlider.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ourProductSlider/ourProductSlider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/services/shopService.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/shopService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +53,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1658765433202</updated>
-      <workItem from="1658765438384" duration="7216000" />
+      <workItem from="1658765438384" duration="7527000" />
     </task>
     <servers />
   </component>
