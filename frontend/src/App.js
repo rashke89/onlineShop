@@ -27,7 +27,6 @@ import UnsubscribePage from "./pages/UnsubscribePage/UnsubscribePage";
 import Loader from "./components/Loader/Loader";
 import Dashboard from "./pages/dashboard/Dashboard";
 import {Navigate} from "react-router";
-import NavTop from "./components/navigation/NavTop";
 
 export const IsLoggedContext = React.createContext();
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -59,7 +58,6 @@ function App() {
         <div className={`main-wrapper ${filterStatus ? 'filter-opened' : ''}`}>
             <Loader/>
             {!JSON.parse(localStorage.getItem('cookie')) && <CookiesModal/>}
-            <NavTop/>
             <Navigation/>
             <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>

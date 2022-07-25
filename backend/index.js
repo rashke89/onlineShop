@@ -98,6 +98,21 @@ app.get('/api/home/:numberOfAds', (req,res)=>{
 	})
 })
 
+// get random slider products
+app.get('/api/home/slider/:numberAds', (req, res) => {
+    const numberAds = parseInt(req.params.numberAds);
+
+    Product.aggregate([{ $sample: { size: numberAds } }])
+                        .then(response => {
+                            console.log(res);
+                            res.send(response);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            res.send(error);
+                        })
+})
+
 //get product
 app.get("/shop/product/:productId", (req, res) => {
     const productId = req.params.productId;

@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9072162e-2268-4e1b-b8f4-7cefd963ac54" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Order/OrderProcess.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Order/OrderProcess.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Order/components/OrderProcessStepTree.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Order/components/OrderProcessStepTree.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Order/components/StepperFooter.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Order/components/StepperFooter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ourProductSlider/ourProductSlider.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ourProductSlider/ourProductSlider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ourProductSlider/ourProductSlider.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ourProductSlider/ourProductSlider.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/config/routeConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/config/routeConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/dashboard/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/order/Order.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/order/Order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/services/shopService.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/services/shopService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +41,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1658765433202</updated>
-      <workItem from="1658765438384" duration="5912000" />
+      <workItem from="1658765438384" duration="7216000" />
     </task>
     <servers />
   </component>
