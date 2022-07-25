@@ -15,7 +15,6 @@ const VALID_OPTIONS = Object.freeze([
   'bufferTimeoutMS',
   'cloneSchemas',
   'debug',
-  'timestamps.createdAt.immutable',
   'maxTimeMS',
   'objectIdGetter',
   'overwriteModels',

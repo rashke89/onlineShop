@@ -1,11 +1,11 @@
 /**
- * Decimal128 type constructor
+ * ObjectId type constructor
  *
- * #### Example:
+ * #### Example
  *
- *     const id = new mongoose.Types.Decimal128('3.1415');
+ *     const id = new mongoose.Types.ObjectId;
  *
- * @constructor Decimal128
+ * @constructor ObjectId
  */
 
 'use strict';

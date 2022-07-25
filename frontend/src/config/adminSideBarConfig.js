@@ -1,51 +1,31 @@
 import React from "react";
-import {FaFire, FaUsers, FaBoxOpen, FaTag, FaMailBulk, FaSubscript} from "react-icons/fa";
+import {FaUsers, FaBoxOpen, FaTag, FaMailBulk, FaSubscript} from "react-icons/fa";
 
 export const ADMIN_SIDEBAR_CONFIG = [
     {
-        label: "dashboard"
-    },
-    {
-        name: "Das",
-        url: "",
-        icon: <FaFire className="mx-2 icon" />,
-        subheading: 'dashboard'
-    },
-    {
-        label: "shop"
-    },
-    {
         name: "Users",
         url: "users",
-        icon: <FaUsers className="mx-2 icon" />,
-        subheading: 'users',
+        icon: <FaUsers className="mx-2" />
     },
     {
         name: "Products",
         url: "products",
-        icon: <FaBoxOpen className="mx-2 icon" />,
-        subheading: 'shop'
-    },
-    {
-        label: "users"
+        icon: <FaBoxOpen className="mx-2" />
     },
     {
         name: "Categories",
         url: "categories",
-        icon: <FaTag className="mx-2 icon" />,
-        subheading: 'shop'
+        icon: <FaTag className="mx-2" />
     },
     {
         name: "Mails",
-        url: "emails",
-        icon: <FaMailBulk className="mx-2 icon" />,
-        subheading: 'users'
+        url: "mails",
+        icon: <FaMailBulk className="mx-2" />
     },
     {
         name: "Subs",
         url: "subs",
-        icon: <FaSubscript className="mx-2 icon" />,
-        subheading: 'users'
+        icon: <FaSubscript className="mx-2" />
     },
 
 ]

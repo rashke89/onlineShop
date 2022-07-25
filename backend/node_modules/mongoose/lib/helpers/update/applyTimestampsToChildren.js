@@ -61,8 +61,6 @@ function applyTimestampsToChildren(now, update, schema) {
             if (createdAt != null) {
               subdoc[createdAt] = now;
             }
-
-            applyTimestampsToChildren(now, subdoc, $path.schema);
           });
         } else {
           if (updatedAt != null) {
@@ -71,8 +69,6 @@ function applyTimestampsToChildren(now, update, schema) {
           if (createdAt != null) {
             op[key][createdAt] = now;
           }
-
-          applyTimestampsToChildren(now, op[key], $path.schema);
         }
       }
     }

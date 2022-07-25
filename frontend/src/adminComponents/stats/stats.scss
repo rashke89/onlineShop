@@ -1,17 +1,15 @@
-.stats-numbers-wrapper {
-  height: 300px;
-  background-color: #7782EB;
+.stats-numbers-wrapper{
+  background-color: #7782ee;
   display: flex;
   flex-direction: column;
+  height: 300px;
   justify-content: center;
   align-items: center;
-
-  h3 {
-    padding-bottom: 15px;
+  h3{
     border-bottom: 1px solid #fff;
+    padding-bottom: 15px;
   }
-
-  * {
+  *{
     color: #fff;
   }
 }

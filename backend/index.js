@@ -32,7 +32,6 @@ app.use("/api/subscribe", subscribeRoute)
 
 
 //get products
-
 app.get('/shop/products', (req, res) => {
 
     Product.find((error, data) => {

@@ -1,43 +1,33 @@
 import {useEffect, useState} from "react";
+import ShopService from "../../services/shopService";
 import './stats.scss'
 import StatsNumber from "./StatsNumber";
-import AdminService from "../../services/adminService";
 
+function Stats(){
 
-function Stats() {
+    const[ads, setAds] = useState([]);
 
-    const [numbers, setNumbers] = useState([]);
-    const [finishedApi, setFinishedApi] = useState(false);
-
-
-
-    useEffect(() => {
-
-        AdminService.getStats()
-            .then(res => {
-                setNumbers(res.data);
-                setFinishedApi(true);
+    useEffect(() =>{
+        ShopService.getAds()
+            .then(res =>{
+                console.log(res);
+                setAds(res.data.length)
             })
-            .catch(err => {
+            .catch(err=>{
                 console.log(err);
             })
     }, [])
 
-
     return (
         <>
-            {finishedApi &&
-                <div className="row">
-                    <StatsNumber number={numbers.users} label="users"/>
-                    <StatsNumber number={numbers.products} label="products"/>
-                    <StatsNumber number={numbers.emails} label="emails"/>
-                    <StatsNumber number={numbers.subs} label="Subs"/>
+            <div className="row">
+                <StatsNumber number={ads} label="products"/>
+                <StatsNumber number={ads} label="users"/>
+            </div>
 
-                </div>
-            }
         </>
     )
-}
 
+}
 
 export default Stats;

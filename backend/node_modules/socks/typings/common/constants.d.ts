@@ -1,6 +1,4 @@
 /// <reference types="node" />
-/// <reference types="node" />
-/// <reference types="node" />
 import { Duplex } from 'stream';
 import { Socket, SocketConnectOpts } from 'net';
 import { RequireOnlyOne } from './util';

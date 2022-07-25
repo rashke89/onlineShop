@@ -5,11 +5,11 @@
  * Mongoose-specific errors.
  *
  * #### Example:
- *     const Model = mongoose.model('Test', new mongoose.Schema({ answer: Number }));
+ *     const Model = mongoose.model('Test', new Schema({ answer: Number }));
  *     const doc = new Model({ answer: 'not a number' });
  *     const err = doc.validateSync();
  *
- *     err instanceof mongoose.Error.ValidationError; // true
+ *     err instanceof mongoose.Error; // true
  *
  * @constructor Error
  * @param {String} msg Error message
@@ -56,7 +56,7 @@ module.exports = exports = MongooseError;
  * @see Error.messages #error_messages_MongooseError-messages
  * @api public
  * @memberOf Error
- * @static
+ * @static messages
  */
 
 MongooseError.messages = require('./messages');
@@ -73,7 +73,7 @@ MongooseError.Messages = MongooseError.messages;
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static DocumentNotFoundError
  */
 
 MongooseError.DocumentNotFoundError = require('./notFound');
@@ -84,7 +84,7 @@ MongooseError.DocumentNotFoundError = require('./notFound');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static CastError
  */
 
 MongooseError.CastError = require('./cast');
@@ -96,7 +96,7 @@ MongooseError.CastError = require('./cast');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static ValidationError
  */
 
 MongooseError.ValidationError = require('./validation');
@@ -131,7 +131,7 @@ MongooseError.ValidationError = require('./validation');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static ValidatorError
  */
 
 MongooseError.ValidatorError = require('./validator');
@@ -143,7 +143,7 @@ MongooseError.ValidatorError = require('./validator');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static VersionError
  */
 
 MongooseError.VersionError = require('./version');
@@ -155,7 +155,7 @@ MongooseError.VersionError = require('./version');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static ParallelSaveError
  */
 
 MongooseError.ParallelSaveError = require('./parallelSave');
@@ -166,7 +166,7 @@ MongooseError.ParallelSaveError = require('./parallelSave');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static OverwriteModelError
  */
 
 MongooseError.OverwriteModelError = require('./overwriteModel');
@@ -176,7 +176,7 @@ MongooseError.OverwriteModelError = require('./overwriteModel');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static MissingSchemaError
  */
 
 MongooseError.MissingSchemaError = require('./missingSchema');
@@ -187,7 +187,7 @@ MongooseError.MissingSchemaError = require('./missingSchema');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static MongooseServerSelectionError
  */
 
 MongooseError.MongooseServerSelectionError = require('./serverSelection');
@@ -198,7 +198,7 @@ MongooseError.MongooseServerSelectionError = require('./serverSelection');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static DivergentArrayError
  */
 
 MongooseError.DivergentArrayError = require('./divergentArray');
@@ -210,7 +210,7 @@ MongooseError.DivergentArrayError = require('./divergentArray');
  *
  * @api public
  * @memberOf Error
- * @static
+ * @static StrictModeError
  */
 
 MongooseError.StrictModeError = require('./strict');

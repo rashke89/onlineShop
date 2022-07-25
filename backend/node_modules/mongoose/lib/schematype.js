@@ -206,7 +206,7 @@ SchemaType.prototype.splitPath = function() {
  * @param {Function|false} caster Function that casts arbitrary values to this type, or throws an error if casting failed
  * @return {Function}
  * @static
- * @memberOf SchemaType
+ * @receiver SchemaType
  * @function cast
  * @api public
  */
@@ -239,7 +239,9 @@ SchemaType.cast = function cast(caster) {
  *
  * @param {Function|false} caster Function that casts arbitrary values to this type, or throws an error if casting failed
  * @return {Function}
- * @memberOf SchemaType
+ * @static
+ * @receiver SchemaType
+ * @function cast
  * @api public
  */
 
@@ -277,10 +279,10 @@ SchemaType.prototype.cast = function cast() {
  *     mongoose.SchemaTypes.String.set('trim', true);
  *
  * @param {String} option The name of the option you'd like to set (e.g. trim, lowercase, etc...)
- * @param {Any} value The value of the option you'd like to set.
+ * @param {*} value The value of the option you'd like to set.
  * @return {void}
  * @static
- * @memberOf SchemaType
+ * @receiver SchemaType
  * @function set
  * @api public
  */
@@ -303,7 +305,7 @@ SchemaType.set = function set(option, value) {
  * @param {Function} getter
  * @return {this}
  * @static
- * @memberOf SchemaType
+ * @receiver SchemaType
  * @function get
  * @api public
  */
@@ -382,7 +384,6 @@ SchemaType.prototype.default = function(val) {
  * #### Example:
  *
  *     const s = new Schema({ name: { type: String, index: true })
- *     const s = new Schema({ name: { type: String, index: -1 })
  *     const s = new Schema({ loc: { type: [Number], index: 'hashed' })
  *     const s = new Schema({ loc: { type: [Number], index: '2d', sparse: true })
  *     const s = new Schema({ loc: { type: [Number], index: { type: '2dsphere', sparse: true }})
@@ -398,7 +399,7 @@ SchemaType.prototype.default = function(val) {
  * read/write operations you send until the index build.
  * Specify `background: false` to override Mongoose's default._
  *
- * @param {Object|Boolean|String|Number} options
+ * @param {Object|Boolean|String} options
  * @return {SchemaType} this
  * @api public
  */
@@ -1242,7 +1243,7 @@ SchemaType.prototype.select = function select(val) {
  * @param {any} value
  * @param {Function} callback
  * @param {Object} scope
- * @api public
+ * @api private
  */
 
 SchemaType.prototype.doValidate = function(value, fn, scope, options) {
@@ -1634,7 +1635,7 @@ SchemaType.prototype._castForQuery = function(val) {
  * @param {Function} fn
  * @return {Function}
  * @static
- * @memberOf SchemaType
+ * @receiver SchemaType
  * @function checkRequired
  * @api public
  */
