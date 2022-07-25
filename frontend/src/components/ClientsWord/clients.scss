@@ -1,0 +1,116 @@
+.testimonial-box {
+  .col-md-12 {
+    padding-right: 45px;
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+
+    .testimonial-content {
+      border: 1px solid #e5e5e5;
+      padding: 30px 60px 20px 28px;
+      margin-bottom: 10px;
+      border-radius: 0;
+      position: relative;
+
+      p {
+        color: #a5a5a5;
+        font-size: 19px;
+        font-weight: 300;
+        line-height: 24px;
+        margin: 0 0 10px;
+      }
+
+      h3 {
+        color: #1daaa3;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.56px;
+        text-transform: uppercase;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      h5 {
+        color: #979797;
+        font-size: 11px;
+        font-weight: 500;
+        font-style: italic;
+        letter-spacing: 0.44px;
+        text-transform: uppercase;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .testimonial-author {
+      i {
+        position: absolute;
+        top: 35px;
+        right: 0;
+
+        img {
+          display: inline-block;
+          border-radius: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    //padding: 1rem 0;
+    list-style-type: none;
+
+    li {
+      margin: 0 0.25rem;
+    }
+
+    button {
+      display: block;
+      width: 0.6rem;
+      height: 0.6rem;
+      padding: 0;
+      border-radius: 100%;
+      background-color: #1daaa3;
+      border: 1px solid #1daaa3;
+      text-indent: -9999px;
+    }
+
+    li.slick-active button {
+      background-color: white;
+    }
+  }
+}
+
+.clients-header {
+  text-align: center;
+  margin-bottom: 70px;
+
+  h3 {
+    color: #333;
+    font-weight: 600;
+    font-size: 36px;
+    margin-top: 0;
+    text-transform: uppercase;
+    padding-bottom: 25px;
+    position: relative;
+
+    &:after {
+      background-color: #1daaa3;
+      content: "";
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 0 auto;
+      width: 64px;
+      height: 3px;
+
+    }
+  }
+}
