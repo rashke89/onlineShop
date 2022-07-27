@@ -20,7 +20,6 @@ function SideBar({sidebarCollapse, setSidebarCollapse}) {
 	}, [])
 
     const ctaCounter = () => {
-		console.log(c);
 		c = c + 1
     	c < 5 && ctaCounter()
 	}
@@ -28,7 +27,7 @@ function SideBar({sidebarCollapse, setSidebarCollapse}) {
     const sideBarItemsLayout = () => {
         return ADMIN_SIDEBAR_CONFIG.map((item, index) => {
             return item?.label ?
-                <><span className="sidebar-label">{item.label}</span></> :
+                <span className="sidebar-label" key={index}>{item.label}</span> :
                 <li className="nav-item" key={index} onClick={e => onSideBarItemClick(item)}>
                     <p className={`nav-link mb-0 ${activeName === item.name ? "link-active" : ""}`} aria-current="page">
                         <span>

@@ -16,7 +16,6 @@ var jwt = require('jsonwebtoken');
 const userRoute = require('./routes/userRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const subscribeRoute = require('./routes/subscribeRoute');
-const SubscribeModel = require('./models/subscribeModel');
 const { json } = require("express");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
@@ -70,51 +69,6 @@ app.get('/shop/products/:itemsPerPage/:currentPage', async (req, res) => {
                 }
             })
     });
-})
-
-// get numbers for Admin
-app.get("/api/admin/stats", (req, res) => {
-    let userNumbers;
-    let productNumbers;
-    let allEmails;
-    let allSubs;
-    Product.find((error, data) => {
-        if (error) {
-            console.log(error);
-            res.send(error);
-        }
-        else {
-            productNumbers = data.length;
-        }
-    })
-    Emails.find((error, data) => {
-        if (error) {
-            console.log("daddd", error);
-            res.send(error)
-        }
-        else {
-            allEmails = data.length;
-        }
-    })
-    SubscribeModel.find((error, data) => {
-        if (error) {
-            console.log("daddd", error);
-            res.send(error)
-        }
-        else {
-            allSubs = data.length;
-        }
-    })
-    Users.find((error, data) => {
-        if (error) {
-            console.log("daddd", error);
-            res.send(error)
-        }
-        else {
-            userNumbers = data.length;
-        }
-        res.send({ users: userNumbers, products: productNumbers, emails: allEmails, subs: allSubs });
-    })
 })
 
 // get filtered products
@@ -209,39 +163,6 @@ app.post("/shop/product/comments", async (req, res) => {
     const saveNewComment = await newComment.save();
     res.send(saveNewComment || 'Comment not saved');
 })
-
-//GET ALL COMMENTS
-app.get("/api/admin/all-comments", (req, res) => {
-    Comment.find((error, result) => {
-        if (error) throw error;
-        res.send(result);
-    });
-});
-//DELETE COMMENT BY ID
-app.delete("/api/admin/all-comments:id", (req, res) => {
-    const params = req.params.id;
-    Comment.deleteOne({_id: params}, async (error) => {
-        if (error) throw error;
-       await res.send("Comment deleted");
-    });
-});
-//UPDATE COMMENT STATUS
-app.put("/api/admin/all-comments", (req, res) => {
-    let id = req.body._id;
-    Comment.updateOne({"_id": id}, {
-        $set: {
-            comment_status: req.body.comment_status
-        }
-    }, (err, data) => {
-        if (err) {
-            console.log(err);
-            const errorMsg = `Error on updating status: ${err}`;
-            res.send(errorMsg);
-        } else {
-            res.send(data);
-        }
-    })
-});
 
 //get product
 app.get("/shop/product/:productId", (req, res) => {
@@ -469,18 +390,6 @@ app.use('/api/payment', paymentRoute)
 
 // get all email admin
 app.use('/api/admin', adminRoute)
-
-app.get('/api/admin/all-messages', (req, res) => {
-    Emails.find((err, data) => {
-        if (err) {
-            console.log(err, "iz email");
-            res.send(data)
-        }
-        if (data) {
-            res.send(data)
-        }
-    })
-})
 
 app.delete('/api/admin/delete-msg/:id', (req, res) => {
     let idMsg = req.params.id;
