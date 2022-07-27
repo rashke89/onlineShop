@@ -50,8 +50,6 @@ function ShopAd(props) {
 
 
   const openModal = (id, title) => {
-    console.log('AAAAAAAAAAADDDDDDDDDDD', ad)
-    console.log('idddddddddd', id)
     if (localStorage.user) {
       setIsModal(true);
       ShopService.getRating(id)
