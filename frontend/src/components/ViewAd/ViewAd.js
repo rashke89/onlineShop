@@ -92,7 +92,8 @@ export default function ViewAd() {
         if (!isRated) {
             await AuthService.setVoting({ userID: user._id, productID: id })
                 .then(res => {
-                    console.log(res.data);
+                    console.log('IDDDDDDDDD',id)
+                    console.log('SET VOTING DATA',res.data);
                 })
                 .catch(err => {
                     console.log(err);

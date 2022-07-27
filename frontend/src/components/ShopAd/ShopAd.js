@@ -15,6 +15,7 @@ import RatingStarsModal from "../RatingStarsModal/RatingStarsModal";
 import { toast } from "react-toastify";
 import {useSelector} from "react-redux";
 import shopService from "../../services/shopService";
+import loader from "../Loader/Loader";
 
 
 function ShopAd(props) {
@@ -22,6 +23,7 @@ function ShopAd(props) {
   const [isModal, setIsModal] = useState(false);
   const [getRatings, setGetRatings] = useState(0);
   const flag = useSelector(state => state.ratingStore.flag);
+
 
   useEffect(() => {
     setAd(props.ad);
@@ -32,15 +34,24 @@ function ShopAd(props) {
     if (flag){
       shopService.getAdById(ad._id)
           .then(res =>{
-            if(res.data) setAd((res.data))
+              console.log(res)
+           if (res.data) {
+              console.log('DATA IZ USE EFF',res.data)
+              setAd(res.data)
+              console.log(ad)
+            }
           })
-          .catch(err =>console.log(err));
+          .catch(err =>{
+            console.log(err);
+          })
     }
 
   }, [flag]);
 
 
   const openModal = (id, title) => {
+    console.log('AAAAAAAAAAADDDDDDDDDDD', ad)
+    console.log('idddddddddd', id)
     if (localStorage.user) {
       setIsModal(true);
       ShopService.getRating(id)

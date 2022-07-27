@@ -179,7 +179,6 @@ app.get("/shop/product/:productId", (req, res) => {
             console.log(error);
             res.send("ERROR. Try Again.")
         }
-
         if (data) {
             res.send(data);
         } else {
@@ -433,7 +432,7 @@ app.put('/shop/product/reset', (req, res) => {
             console.log(err)
             res.send('error je')
         }
-        res.send('uspesno')
+        res.send('uspesno ste restartovali glasanje')
     })
 })
 
