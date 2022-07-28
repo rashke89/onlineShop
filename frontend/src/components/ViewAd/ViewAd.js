@@ -16,6 +16,7 @@ import Modal from "react-modal";
 import '../RatingStarsModal/rating-stars-modal.scss';
 import { FaStar } from "react-icons/fa";
 import AuthService from "../../services/authService";
+import SharedService from "../../services/sharedService";
 import { showLoader } from "../../redux/loaderSlice";
 import {  FaThumbsUp } from "react-icons/fa";
 import Comments from "./Comments";
@@ -164,9 +165,10 @@ export default function ViewAd() {
     }
 
     const adLayout = () => {
+
         return <div className="row mt-5">
             <div className="col-md-6">
-                <img src={ad.imgUrl} alt="Product image"/>
+                <img src={SharedService.getCorrectImgUrl(ad.imgUrl)} alt="Product image"/>
             </div>
             <div className="col-md-6">
                 <h3>{ad.title}</h3>

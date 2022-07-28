@@ -11,6 +11,7 @@ import React from "react";
 
 import ChangeCurrency from "../ChangeCurrency/ChangeCurrency";
 import ShopService from "../../services/shopService";
+import SharedService from "../../services/sharedService";
 import RatingStarsModal from "../RatingStarsModal/RatingStarsModal";
 import { toast } from "react-toastify";
 import {useSelector} from "react-redux";
@@ -84,7 +85,7 @@ function ShopAd(props) {
       {ad?.imgUrl ? (
         <div className="shop-ad-wrapper col-md-3">
           <div className="shop-ad-content-wrapper">
-            <img src={ad.imgUrl} className="img img-fluid" alt="" />
+            <img src={SharedService.getCorrectImgUrl(ad.imgUrl)} className="img img-fluid" alt="" />
             <p className="shop-ad-title">{ad.title}</p>
             <span className="rate-product" style={{cursor:"pointer"}} onClick={(e) => openModal(ad._id, ad.title)}>
             Rate &nbsp; <FaThumbsUp/>  

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {routeConfig} from "../../config/routeConfig";
 import ShopCart from "../ShopCart/ShopCart";
 import { setUser } from "../../redux/userSlice";
 import ShopService from "../../services/shopService";
+import { exampleContext } from "../../App.js"
 
 import {
     FaPhoneAlt,
@@ -18,11 +19,11 @@ import "./nav-top.scss";
 import { setCurrency } from "../../redux/currencySlice";
 
 function NavTop() {
-  const { user } = useSelector((state) => state.userStore);
   const [search, setSearch] = useState("");
   const { currency } = useSelector((state) => state.currencyStore);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useContext(exampleContext)
 
   useEffect(() => {
     localStorage.setItem("Currency", currency);

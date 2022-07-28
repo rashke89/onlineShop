@@ -36,7 +36,8 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Category from "./adminComponents/category/Category";
 import Comments from "./adminComponents/comments/CommentsView";
 
-export const IsLoggedContext = React.createContext();
+export const exampleContext = React.createContext({value: 0});
+
 axios.defaults.baseURL = 'http://localhost:4000';
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
@@ -80,8 +81,10 @@ function App() {
         <div className={`main-wrapper ${filterStatus ? 'filter-opened' : ''}`}>
             <Loader/>
             {!JSON.parse(localStorage.getItem('cookie')) && <CookiesModal/>}
-            <NavTop/>
-            <Navigation/>
+            {user?.username && <exampleContext.Provider value={user}>
+                <NavTop/>
+                <Navigation/>
+            </exampleContext.Provider>}
             {isCheckingUserFinished && <Routes>
                 <Route path={routeConfig.HOME.url} element={<Home/>}/>
                 <Route path={routeConfig.SHOP.url}

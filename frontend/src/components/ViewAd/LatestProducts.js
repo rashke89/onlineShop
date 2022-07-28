@@ -1,5 +1,6 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo, useLayoutEffect} from "react";
 import shopService from "../../services/shopService";
+import SharedService from "../../services/sharedService";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,8 +14,11 @@ function LatestProducts() {
     const [ads, setAds] = useState([]);
     const dispatch = useDispatch();
 
+    useLayoutEffect(() => {
+        console.log('ads....', ads)
+    })
     useEffect(() => {
-        shopService.getRandomAds(4)
+        shopService.getRandomAds(15)
             .then((res) => {
                 if (res.status === 200) {
                     setAds(res.data);
@@ -22,6 +26,9 @@ function LatestProducts() {
             })
             .catch(err => console.log(err));
     }, []);
+
+//    const memoizedValue = useMemo(() => doSomething(a, b), [a, b]);
+//    const memoizedCallback = useCallback(() => { doSomething(a, b)}, [a, b]);
 
     const setts = {
         className: "center",
@@ -44,7 +51,7 @@ function LatestProducts() {
                         <a href="">
                             <span className="new-product">New</span>
                             <span className="product-img">
-                                <img src={ad.imgUrl} alt=""/>
+                                <img src={SharedService.getCorrectImgUrl(ad.imgUrl)} alt=""/>
                             </span>
                             <h3>{ad.title}</h3>
                             <span className="price">
